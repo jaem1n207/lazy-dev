@@ -1,9 +1,14 @@
 {
   "name": "lazy-dev",
-  "version": "1.0.0",
+  "version": "0.1.0",
   "private": true,
   "description": "lazy-dev",
-  "author": "jaem1n207",
+  "homepage": "https://lazydev.gatsbyjs.io/",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/jaem1n207/lazy-dev.git"
+  },
+  "author": "jaem1n207<roy.jm.lee@gmail.com>",
   "keywords": [
     "gatsby"
   ],
@@ -16,7 +21,12 @@
     "build": "gatsby build",
     "serve": "gatsby serve",
     "clean": "gatsby clean",
-    "typecheck": "tsc --noEmit"
+    "typecheck": "tsc --noEmit",
+    "typecheck:watch": "npm run typecheck -- --watch",
+    "format": "prettier --write \"**/*.{js,jsx,ts,tsx,json,md,mdx}\"",
+    "format:check": "prettier --check \"**/*.{js,jsx,ts,tsx,json,md,mdx}\"",
+    "lint": "eslint --ext .js,.jsx,.ts,.tsx .",
+    "lint:fix": "eslint --ext .js,.jsx,.ts,.tsx . --fix"
   },
   "dependencies": {
     "@mdx-js/react": "^2.1.5",
