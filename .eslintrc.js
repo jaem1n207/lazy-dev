@@ -21,7 +21,7 @@ module.exports = {
     'plugin:jsx-a11y/recommended',
     'plugin:prettier/recommended',
   ],
-  ignorePatterns: ['node_modules', 'dist', 'build', 'public', '.eslintrc.js'],
+  ignorePatterns: ['node_modules', '**/build/*', 'public', '.eslintrc.js', '*.js'],
   rules: {
     'no-console': OFF,
     'react-hooks/rules-of-hooks': ERROR,
