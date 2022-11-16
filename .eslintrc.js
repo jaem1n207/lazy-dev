@@ -4,14 +4,11 @@ const OFF = 0;
 const ERROR = 2;
 
 module.exports = {
-  processor: '@graphql-eslint/graphql',
-  parser: '@typescript-eslint/parser',
-  plugins: ['@typescript-eslint', 'react', 'react-hooks', 'jsx-a11y', 'import', 'prettier'],
   env: {
     browser: true,
     es6: true,
-    node: true,
   },
+  plugins: ['@typescript-eslint', 'react', 'react-hooks', 'jsx-a11y', 'import', 'prettier'],
   extends: [
     'eslint:recommended',
     'plugin:import/recommended',
@@ -22,6 +19,8 @@ module.exports = {
     'plugin:prettier/recommended',
   ],
   ignorePatterns: ['node_modules', '**/build/*', 'public', '.eslintrc.js', '*.js'],
+  processor: '@graphql-eslint/graphql',
+  parser: '@typescript-eslint/parser',
   rules: {
     'no-console': OFF,
     'react-hooks/rules-of-hooks': ERROR,
