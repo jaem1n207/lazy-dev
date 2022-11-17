@@ -1,6 +1,6 @@
-![GitHub repo size](https://img.shields.io/github/repo-size/jaem1n207/lazy-dev?color=green&style=flat-square)
-![Github Issues](https://img.shields.io/github/issues/jaem1n207/lazy-dev)
-![Github Pull requests](https://img.shields.io/bitbucket/pr/jaem1n207/lazy-dev)
+![GitHub repo size](https://img.shields.io/github/repo-size/jaem1n207/lazy-dev?color=%23efaec1&style=for-the-badge)
+![GitHub issues](https://img.shields.io/github/issues/jaem1n207/lazy-dev?color=%23efaec1&style=for-the-badge)
+![GitHub pull requests](https://img.shields.io/github/issues-pr/jaem1n207/lazy-dev?color=%23efaec1&style=for-the-badge)
 
 # lazy-dev
 
