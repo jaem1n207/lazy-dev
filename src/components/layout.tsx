@@ -6,13 +6,14 @@ import { GlobalStyles as BaseStyles } from 'twin.macro';
 import SEO from 'Components/seo';
 import customStyles from 'Styles/globalStyles';
 
-const Layout = () => {
+const Layout: React.FC<React.PropsWithChildren> = ({ children }) => {
   return (
-    <div>
+    <>
       <BaseStyles />
       <Global styles={customStyles} />
-      Layout <SEO />
-    </div>
+      <SEO />
+      <div>{children}</div>
+    </>
   );
 };
 

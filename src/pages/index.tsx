@@ -3,15 +3,13 @@ import * as React from 'react';
 import type { HeadFC, PageProps } from 'gatsby';
 import tw from 'twin.macro';
 
-const pageStyles = {
-  fontFamily: '-apple-system, Roboto, sans-serif, serif',
-};
+import Layout from 'Components/layout';
 
 const IndexPage: React.FC<PageProps> = () => {
   return (
-    <main style={pageStyles}>
+    <Layout>
       <h1 css={tw`bg-amber-200`}>Hello</h1>
-    </main>
+    </Layout>
   );
 };
 
