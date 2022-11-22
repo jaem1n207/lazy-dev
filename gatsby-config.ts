@@ -49,6 +49,7 @@ const devPlugins: GatsbyConfig['plugins'] = [
   {
     resolve: 'gatsby-plugin-typescript',
   },
+  'gatsby-plugin-postcss',
 ];
 
 const markdownPlugins: GatsbyConfig['plugins'] = ['gatsby-plugin-mdx'];
