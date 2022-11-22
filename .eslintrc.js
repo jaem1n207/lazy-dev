@@ -45,7 +45,7 @@ module.exports = {
         'newlines-between': 'always',
       },
     ],
-    'react/no-unknown-property': [ERROR, { ignore: ['cs', 'tw'] }],
+    'react/no-unknown-property': [ERROR, { ignore: ['css', 'tw'] }],
   },
   overrides: [
     {
