@@ -41,7 +41,11 @@ const devPlugins: GatsbyConfig['plugins'] = [
     resolve: 'gatsby-plugin-alias-imports',
     options: {
       alias: {
-        '@': path.resolve(__dirname, 'src'),
+        Components: 'src/components',
+        Hooks: 'src/hooks',
+        Images: 'src/images',
+        Pages: 'src/pages',
+        Styles: 'src/styles',
       },
       extensions: ['ts', 'tsx', 'js'],
     },
