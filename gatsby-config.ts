@@ -77,6 +77,7 @@ const pwaPlugins: GatsbyConfig['plugins'] = [
       name: 'Lazy Dev',
       short_name: 'Lazy Dev',
       description: 'jaemin`s front end dev blog',
+      lang: 'ko',
       start_url: '/',
       background_color: '#282c35',
       theme_color: '#efaec1',
