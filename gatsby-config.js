@@ -126,6 +126,7 @@ const pwaPlugins = [
 const config = {
   graphqlTypegen: true,
   siteMetadata,
+  pathPrefix: '/',
   plugins: [
     ...corePlugins,
     ...devPlugins,
