@@ -71,6 +71,11 @@ module.exports = {
             group: 'external',
             position: 'after',
           },
+          {
+            pattern: 'Layout',
+            group: 'external',
+            position: 'after',
+          },
         ],
         pathGroupsExcludedImportTypes: ['react'],
         alphabetize: {
@@ -100,6 +105,7 @@ module.exports = {
           ['Images', './src/images'],
           ['Pages', './src/pages'],
           ['Styles', './src/styles'],
+          ['Layout', './src/layout'],
         ],
         extensions: ['.ts', '.tsx', '.js', '.jsx', '.json'],
       },
