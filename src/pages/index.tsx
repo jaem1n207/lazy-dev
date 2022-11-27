@@ -3,7 +3,7 @@ import * as React from 'react';
 import type { HeadFC, PageProps } from 'gatsby';
 import tw from 'twin.macro';
 
-import Layout from 'Components/layout';
+import Layout from 'Layout/layout';
 
 const IndexPage: React.FC<PageProps> = () => {
   return (

@@ -40,6 +40,7 @@ const devPlugins = [
         Images: 'src/images',
         Pages: 'src/pages',
         Styles: 'src/styles',
+        Layout: 'src/layout',
       },
       extensions: ['ts', 'tsx', 'js'],
     },
