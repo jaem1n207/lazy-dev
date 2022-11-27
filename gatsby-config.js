@@ -1,10 +1,4 @@
-import path from 'path';
-
-import type { GatsbyConfig } from 'gatsby';
-
-const __dirname = path.resolve();
-
-const siteMetadata: GatsbyConfig['siteMetadata'] = {
+const siteMetadata = {
   title: `Lazy Dev`,
   description: `jaemin's front end dev blog`,
   siteUrl: `https://lazyDev.gatsbyjs.io`,
@@ -17,12 +11,12 @@ const siteMetadata: GatsbyConfig['siteMetadata'] = {
   postTitle: `All`,
 };
 
-const corePlugins: GatsbyConfig['plugins'] = [
+const corePlugins = [
   {
     resolve: 'gatsby-source-filesystem',
     options: {
       name: 'blog',
-      path: path.join(__dirname, 'content/blog'),
+      path: `${__dirname}/content/blog`,
     },
     __key: 'blog',
   },
@@ -30,13 +24,13 @@ const corePlugins: GatsbyConfig['plugins'] = [
     resolve: 'gatsby-source-filesystem',
     options: {
       name: 'assets',
-      path: path.join(__dirname, 'content/assets'),
+      path: `${__dirname}/content/assets`,
     },
     __key: 'assets',
   },
 ];
 
-const devPlugins: GatsbyConfig['plugins'] = [
+const devPlugins = [
   {
     resolve: 'gatsby-plugin-alias-imports',
     options: {
@@ -57,20 +51,17 @@ const devPlugins: GatsbyConfig['plugins'] = [
   'gatsby-plugin-postcss',
 ];
 
-const markdownPlugins: GatsbyConfig['plugins'] = ['gatsby-plugin-mdx'];
+const markdownPlugins = ['gatsby-plugin-mdx'];
 
-const imagePlugins: GatsbyConfig['plugins'] = [
-  'gatsby-plugin-image',
-  'gatsby-plugin-sharp',
-  'gatsby-transformer-sharp',
-];
+const imagePlugins = ['gatsby-plugin-image', 'gatsby-plugin-sharp', 'gatsby-transformer-sharp'];
 
-const searchPlugins: GatsbyConfig['plugins'] = [
+const searchPlugins = [
   'gatsby-plugin-sitemap',
   'gatsby-plugin-robots-txt',
+  // feed plugin 추가
 ];
 
-const pwaPlugins: GatsbyConfig['plugins'] = [
+const pwaPlugins = [
   {
     resolve: 'gatsby-plugin-manifest',
     options: {
@@ -131,9 +122,9 @@ const pwaPlugins: GatsbyConfig['plugins'] = [
   'gatsby-plugin-offline',
 ];
 
-const config: GatsbyConfig = {
-  siteMetadata,
+const config = {
   graphqlTypegen: true,
+  siteMetadata,
   plugins: [
     ...corePlugins,
     ...devPlugins,
@@ -144,4 +135,4 @@ const config: GatsbyConfig = {
   ],
 };
 
-export default config;
+module.exports = config;
