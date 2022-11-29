@@ -26,10 +26,10 @@ const Seo = ({ description, image, title }: SeoProps) => {
       <meta name="description" content={metaDescription as string} />
 
       {/* Facebook Meta Tags */}
+      <meta property="og:url" content={site.siteUrl + location.pathname} />
+      <meta property="og:type" content="website" />
       <meta property="og:title" content={title as string} />
       <meta property="og:description" content={metaDescription as string} />
-      <meta property="og:type" content="website" />
-      <meta property="image" content={ogImageUrl} />
       <meta property="og:image" content={ogImageUrl} />
 
       {/* Twitter Meta Tags */}
@@ -37,12 +37,7 @@ const Seo = ({ description, image, title }: SeoProps) => {
       <meta name="twitter:title" content={title as string} />
       <meta name="twitter:description" content={metaDescription as string} />
       <meta name="twitter:image" content={ogImageUrl} />
-      <meta name="twitter:domain" content={site.domain as string} />
-      <meta name="twitter:url" content={site.siteUrl as string} />
-      {/* <meta name="twitter:card" content="summary" />
-      <meta name="twitter:creator" content={site.siteMetadata?.social?.twitter || ``} />
-      <meta name="twitter:title" content={title} />
-      <meta name="twitter:description" content={metaDescription} /> */}
+      <meta name="twitter:creator" content={site.author as string} />
     </>
   );
 };
