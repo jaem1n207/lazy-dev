@@ -1,4 +1,6 @@
-const siteMetadata = {
+import type { GatsbyConfig } from 'gatsby';
+
+const siteMetadata: GatsbyConfig['siteMetadata'] = {
   title: `Lazy Dev`,
   description: `jaemin's front end dev blog`,
   siteUrl: `https://lazyDev.gatsbyjs.io`,
@@ -11,26 +13,34 @@ const siteMetadata = {
   postTitle: `All`,
 };
 
-const corePlugins = [
+const corePlugins: GatsbyConfig['plugins'] = [
   {
     resolve: 'gatsby-source-filesystem',
     options: {
       name: 'blog',
+      // eslint-disable-next-line no-undef
       path: `${__dirname}/content/blog`,
     },
-    __key: 'blog',
   },
   {
     resolve: 'gatsby-source-filesystem',
     options: {
       name: 'assets',
+      // eslint-disable-next-line no-undef
       path: `${__dirname}/content/assets`,
     },
-    __key: 'assets',
+  },
+  {
+    resolve: 'gatsby-source-filesystem',
+    options: {
+      name: 'images',
+      // eslint-disable-next-line no-undef
+      path: `${__dirname}/src/images`,
+    },
   },
 ];
 
-const devPlugins = [
+const devPlugins: GatsbyConfig['plugins'] = [
   {
     resolve: 'gatsby-plugin-alias-imports',
     options: {
@@ -52,17 +62,44 @@ const devPlugins = [
   'gatsby-plugin-postcss',
 ];
 
-const markdownPlugins = ['gatsby-plugin-mdx'];
+const markdownPlugins: GatsbyConfig['plugins'] = [
+  {
+    resolve: `gatsby-transformer-remark`,
+    options: {
+      plugins: [
+        {
+          resolve: `gatsby-remark-images`,
+          options: {
+            maxWidth: 630,
+          },
+        },
+        {
+          resolve: `gatsby-remark-responsive-iframe`,
+          options: {
+            wrapperStyle: `margin-bottom: 1.0725rem`,
+          },
+        },
+        `gatsby-remark-autolink-headers`,
+        `gatsby-remark-prismjs`,
+        `gatsby-remark-emoji`,
+      ],
+    },
+  },
+];
 
-const imagePlugins = ['gatsby-plugin-image', 'gatsby-plugin-sharp', 'gatsby-transformer-sharp'];
+const imagePlugins: GatsbyConfig['plugins'] = [
+  'gatsby-plugin-image',
+  'gatsby-transformer-sharp',
+  'gatsby-plugin-sharp',
+];
 
-const searchPlugins = [
+const searchPlugins: GatsbyConfig['plugins'] = [
   'gatsby-plugin-sitemap',
   'gatsby-plugin-robots-txt',
   // feed plugin 추가
 ];
 
-const pwaPlugins = [
+const pwaPlugins: GatsbyConfig['plugins'] = [
   {
     resolve: 'gatsby-plugin-manifest',
     options: {
@@ -72,8 +109,10 @@ const pwaPlugins = [
       lang: 'ko',
       start_url: '/',
       background_color: '#282c35',
-      theme_color: '#efaec1',
-      display: 'standalone',
+      // This will impact how browsers show your PWA/website
+      // https://css-tricks.com/meta-theme-color-and-trickery/
+      // theme_color: '#efaec1',
+      display: `minimal-ui`,
       icon: 'src/images/icon.png',
       icons: [
         {
@@ -123,7 +162,7 @@ const pwaPlugins = [
   'gatsby-plugin-offline',
 ];
 
-const config = {
+const config: GatsbyConfig = {
   graphqlTypegen: true,
   siteMetadata,
   pathPrefix: '/',
@@ -137,4 +176,4 @@ const config = {
   ],
 };
 
-module.exports = config;
+export default config;

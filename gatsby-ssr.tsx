@@ -1,7 +1,11 @@
-/**
- * @type {import('gatsby').GatsbySSR['onRenderBody']}
- */
-export const onRenderBody = ({ setHtmlAttributes, setHeadComponents }) => {
+import React from 'react';
+
+import type { GatsbySSR } from 'gatsby';
+
+export const onRenderBody: GatsbySSR['onRenderBody'] = ({
+  setHtmlAttributes,
+  setHeadComponents,
+}) => {
   setHtmlAttributes({ lang: 'ko' });
   setHeadComponents([
     <link
