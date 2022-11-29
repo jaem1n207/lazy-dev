@@ -2,8 +2,9 @@ import type { GatsbyConfig } from 'gatsby';
 
 const siteMetadata: GatsbyConfig['siteMetadata'] = {
   title: `Lazy Dev`,
-  description: `jaemin's front end dev blog`,
+  description: `웹 프론트 관련 경험을 기반으로 끄적이는 기술 블로그입니다.`,
   siteUrl: `https://lazyDev.gatsbyjs.io`,
+  domain: `lazyDev.gatsbyjs.io`,
   author: `Jaemin Lee`,
   lang: `ko`,
   links: {
@@ -105,7 +106,7 @@ const pwaPlugins: GatsbyConfig['plugins'] = [
     options: {
       name: 'Lazy Dev',
       short_name: 'Lazy Dev',
-      description: 'jaemin`s front end dev blog',
+      description: '웹 프론트 관련 경험을 기반으로 끄적이는 기술 블로그입니다.',
       lang: 'ko',
       start_url: '/',
       background_color: '#282c35',

@@ -23,6 +23,7 @@ const useSiteMetadata = () => {
             }
             favicon
             postTitle
+            domain
           }
         }
       }
