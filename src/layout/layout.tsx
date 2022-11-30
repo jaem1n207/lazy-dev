@@ -1,7 +1,7 @@
 import * as React from 'react';
 
 import { Global } from '@emotion/react';
-import { Link, withPrefix } from 'gatsby';
+import { Link } from 'gatsby';
 import tw, { GlobalStyles as BaseStyles } from 'twin.macro';
 
 import customStyles from 'Styles/globalStyles';
@@ -13,7 +13,8 @@ interface LayoutProps {
 }
 
 const Layout = ({ children, location, title }: LayoutProps) => {
-  const isRootPath = location?.pathname === withPrefix('/');
+  const rootPath = `/`;
+  const isRootPath = location.pathname === rootPath;
 
   const renderHeader = () => {
     let header;
