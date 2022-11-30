@@ -15,6 +15,9 @@ export const onRenderBody: GatsbySSR['onRenderBody'] = ({
       as="font"
       type="font/woff2"
       crossOrigin="anonymous"
+      // caching font
+      // https://web.dev/preload-critical-assets/
+      // https://web.dev/codelab-preload-web-fonts/
     />,
     <link
       key="SpoqaHanSansNeo-Regular"
@@ -22,25 +25,6 @@ export const onRenderBody: GatsbySSR['onRenderBody'] = ({
       href="/fonts/SpoqaHanSansNeo-Regular.woff2"
       as="font"
       type="font/woff2"
-      crossOrigin="anonymous"
-    />,
-    /**
-     * @see https://caniuse.com/?search=woff
-     */
-    <link
-      key="SpoqaHanSansNeo-Bold"
-      rel="preload"
-      href="/fonts/SpoqaHanSansNeo-Bold.woff"
-      as="font"
-      type="font/woff"
-      crossOrigin="anonymous"
-    />,
-    <link
-      key="SpoqaHanSansNeo-Regular"
-      rel="preload"
-      href="/fonts/SpoqaHanSansNeo-Regular.woff"
-      as="font"
-      type="font/woff"
       crossOrigin="anonymous"
     />,
   ]);
