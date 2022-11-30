@@ -1,16 +1,19 @@
 import type { GatsbyConfig } from 'gatsby';
 
 const siteMetadata: GatsbyConfig['siteMetadata'] = {
-  title: `Lazy Dev`,
-  description: `웹 프론트 개발에 대한 이야기를 다룹니다.`,
-  siteUrl: `https://lazyDev.gatsbyjs.io`,
-  author: `Jaemin Lee`,
-  lang: `ko`,
-  links: {
-    github: `https://github.com/jaem1n207/lazy-dev`,
+  title: 'Lazy Dev',
+  description: '웹 프론트 개발에 대한 이야기를 다룹니다.',
+  siteUrl: 'https://lazyDev.gatsbyjs.io',
+  author: {
+    name: 'Jaemin Lee',
+    summary: '웹 프론트 개발자',
   },
-  favicon: `./src/images/favicon.png`,
-  postTitle: `All`,
+  lang: 'ko',
+  social: {
+    github: 'https://github.com/jaem1n207/lazy-dev',
+  },
+  favicon: '/images/favicon.png',
+  postTitle: 'All',
 };
 
 const corePlugins: GatsbyConfig['plugins'] = [
@@ -163,6 +166,9 @@ const pwaPlugins: GatsbyConfig['plugins'] = [
 ];
 
 const config: GatsbyConfig = {
+  // flags: {
+  //   DEV_SSR: true,
+  // },
   graphqlTypegen: true,
   siteMetadata,
   plugins: [
