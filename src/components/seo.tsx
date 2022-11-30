@@ -1,6 +1,6 @@
 import * as React from 'react';
 
-import useSiteMetadata from 'Hooks/useSiteMetadata';
+import { graphql, useStaticQuery } from 'gatsby';
 
 type Meta = React.DetailedHTMLProps<React.MetaHTMLAttributes<HTMLMetaElement>, HTMLMetaElement>[];
 
@@ -11,33 +11,69 @@ interface SeoProps extends Pick<Queries.SiteSiteMetadata, 'title'> {
   // eslint-disable-next-line no-undef
   image?: Queries.Maybe<string>;
   meta?: Meta;
+  pathname?: string;
 }
 
-const Seo = ({ description, image, title }: SeoProps) => {
-  const site = useSiteMetadata();
+interface SiteMetaData {
+  site: {
+    // eslint-disable-next-line no-undef
+    siteMetadata: Queries.SiteSiteMetadata;
+  };
+}
 
-  const metaDescription = description || site.description;
-  const ogImageUrl = site.siteUrl ?? '' + (image || (site.favicon as string));
+const Seo = ({ description, image, title, pathname: propsPathname }: SeoProps) => {
+  const data = useStaticQuery<SiteMetaData>(
+    graphql`
+      query SiteMetaData {
+        site {
+          siteMetadata {
+            author
+            description
+            favicon
+            lang
+            links {
+              github
+            }
+            postTitle
+            siteUrl
+            title
+          }
+        }
+      }
+    `
+  );
+
+  const site = data.site.siteMetadata;
+
+  // const site = useSiteMetadata();
+
+  const seo = {
+    title: title || site.title!,
+    description: description || site.description!,
+    image: `${site.siteUrl}${image || site.favicon}`,
+    url: `${site.siteUrl}${propsPathname || ''}`,
+    author: site.author!,
+  };
 
   return (
     <>
       {/* HTML Meta Tags */}
       <title>{site.title ? `${title} | ${site.title}` : title}</title>
-      <meta name="description" content={metaDescription as string} />
+      <meta name="description" content={seo.description} />
 
       {/* Facebook Meta Tags */}
-      <meta property="og:url" content={site.siteUrl + location.pathname} />
+      <meta property="og:url" content={seo.url} />
       <meta property="og:type" content="website" />
-      <meta property="og:title" content={title as string} />
-      <meta property="og:description" content={metaDescription as string} />
-      <meta property="og:image" content={ogImageUrl} />
+      <meta property="og:title" content={seo.title} />
+      <meta property="og:description" content={seo.description} />
+      <meta property="og:image" content={seo.image} />
 
       {/* Twitter Meta Tags */}
       <meta name="twitter:card" content="summary_large_image" />
-      <meta name="twitter:title" content={title as string} />
-      <meta name="twitter:description" content={metaDescription as string} />
-      <meta name="twitter:image" content={ogImageUrl} />
-      <meta name="twitter:creator" content={site.author as string} />
+      <meta name="twitter:title" content={seo.title} />
+      <meta name="twitter:description" content={seo.description} />
+      <meta name="twitter:image" content={seo.image} />
+      <meta name="twitter:creator" content={seo.author} />
     </>
   );
 };

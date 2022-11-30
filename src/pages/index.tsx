@@ -1,6 +1,6 @@
 import * as React from 'react';
 
-import { graphql, HeadFC, PageProps } from 'gatsby';
+import { graphql, HeadFC, HeadProps, PageProps } from 'gatsby';
 import tw from 'twin.macro';
 
 import Seo from 'Components/seo';
@@ -28,7 +28,9 @@ const IndexPage: React.FC<PageProps<DataProps>> = ({ location, data }) => {
 
 export default IndexPage;
 
-export const Head: HeadFC = () => <Seo title="All posts" />;
+export const Head: HeadFC = ({ location }: HeadProps) => (
+  <Seo title="All posts" pathname={location.pathname} />
+);
 
 export const pageQuery = graphql`
   query SiteMetaData {
