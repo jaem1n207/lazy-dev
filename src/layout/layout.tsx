@@ -9,11 +9,12 @@ import customStyles from 'Styles/globalStyles';
 interface LayoutProps {
   children: React.ReactNode;
   location: Location;
-  title: string;
+  title: Queries.Maybe<string>;
 }
 
 const Layout = ({ children, location, title }: LayoutProps) => {
-  const rootPath = `/`;
+  // @ts-ignore
+  const rootPath = `${__PATH_PREFIX__}/`;
   const isRootPath = location.pathname === rootPath;
 
   const renderHeader = () => {

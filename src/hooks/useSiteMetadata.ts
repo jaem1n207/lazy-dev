@@ -2,7 +2,6 @@ import { useStaticQuery, graphql } from 'gatsby';
 
 interface SiteMetaData {
   site: {
-    // eslint-disable-next-line no-undef
     siteMetadata: Queries.SiteSiteMetadata;
   };
 }

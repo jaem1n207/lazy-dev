@@ -21,7 +21,6 @@ const corePlugins: GatsbyConfig['plugins'] = [
     resolve: 'gatsby-source-filesystem',
     options: {
       name: 'blog',
-      // eslint-disable-next-line no-undef
       path: `${__dirname}/content/blog`,
     },
   },
@@ -29,7 +28,6 @@ const corePlugins: GatsbyConfig['plugins'] = [
     resolve: 'gatsby-source-filesystem',
     options: {
       name: 'assets',
-      // eslint-disable-next-line no-undef
       path: `${__dirname}/content/assets`,
     },
   },
@@ -37,7 +35,6 @@ const corePlugins: GatsbyConfig['plugins'] = [
     resolve: 'gatsby-source-filesystem',
     options: {
       name: 'images',
-      // eslint-disable-next-line no-undef
       path: `${__dirname}/src/images`,
     },
   },

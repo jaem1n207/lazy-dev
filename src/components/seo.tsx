@@ -2,22 +2,20 @@ import * as React from 'react';
 
 import { useStaticQuery, graphql } from 'gatsby';
 
-// eslint-disable-next-line no-undef
 interface SeoProps extends Pick<Queries.SiteSiteMetadata, 'title'> {
-  // eslint-disable-next-line no-undef
   description?: Queries.Maybe<string>;
+  thumbnail?: Queries.Maybe<string>;
   pathname?: string;
   children?: React.ReactNode;
 }
 
 interface SiteMetaData {
   site: {
-    // eslint-disable-next-line no-undef
     siteMetadata: Queries.SiteSiteMetadata;
   };
 }
 
-const Seo = ({ description, title, pathname: propsPathname, children }: SeoProps) => {
+const Seo = ({ description, title, thumbnail, pathname: propsPathname, children }: SeoProps) => {
   const data = useStaticQuery<SiteMetaData>(
     graphql`
       query SiteMetaData {
@@ -47,10 +45,11 @@ const Seo = ({ description, title, pathname: propsPathname, children }: SeoProps
   const seo = {
     title: title || site.title!,
     description: description || site.description!,
-    image: `${site.siteUrl}${site.favicon}`,
+    image: thumbnail || undefined,
     url: `${site.siteUrl}${propsPathname || ''}`,
     author: site.author!.name || '',
   };
+  console.log(seo);
 
   return (
     <>
