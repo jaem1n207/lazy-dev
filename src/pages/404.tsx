@@ -5,17 +5,8 @@ import { graphql, HeadFC, PageProps } from 'gatsby';
 import Seo from 'Components/seo';
 import Layout from 'Layout/layout';
 
-interface DataProps {
-  site: {
-    siteMetadata: {
-      title: string;
-    };
-  };
-}
-
-const NotFoundPage: React.FC<PageProps<DataProps>> = ({ data, location }) => {
-  const { title } = data.site.siteMetadata;
-  const siteTitle = title;
+const NotFoundPage: React.FC<PageProps<Queries.NotFoundQuery>> = ({ data, location }) => {
+  const siteTitle = data.site?.siteMetadata?.title || null;
 
   return (
     <Layout location={location} title={siteTitle}>
@@ -30,7 +21,7 @@ export default NotFoundPage;
 export const Head: HeadFC = () => <Seo title="404: Not Found" />;
 
 export const pageQuery = graphql`
-  query NotFoundPageQuery {
+  query NotFound {
     site(siteMetadata: {}) {
       siteMetadata {
         title

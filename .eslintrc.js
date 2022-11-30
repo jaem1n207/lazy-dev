@@ -19,6 +19,12 @@ module.exports = {
     'eslint-plugin-import',
     'prettier',
   ],
+  globals: {
+    graphql: true,
+    Queries: true,
+    __PATH_PREFIX__: true,
+    __dirname: true,
+  },
   extends: [
     'eslint:recommended',
     'plugin:import/recommended',
@@ -29,7 +35,6 @@ module.exports = {
     'plugin:prettier/recommended',
   ],
   ignorePatterns: ['node_modules', '**/build/*', 'public', '.eslintrc.js', '*.js'],
-  processor: '@graphql-eslint/graphql',
   parser: '@typescript-eslint/parser',
   rules: {
     'no-console': OFF,
@@ -111,24 +116,4 @@ module.exports = {
       },
     },
   },
-  overrides: [
-    {
-      files: ['*.graphql'],
-      parser: '@graphql-eslint/eslint-plugin',
-      plugins: ['@graphql-eslint'],
-      rules: {
-        '@graphql-eslint/no-anonymous-operations': ERROR,
-        '@graphql-eslint/naming-convention': [
-          ERROR,
-          {
-            OperationDefinition: {
-              style: 'PascalCase',
-              forbiddenPrefixes: ['Query', 'Mutation', 'Subscription', 'Get'],
-              forbiddenSuffixes: ['Query', 'Mutation', 'Subscription'],
-            },
-          },
-        ],
-      },
-    },
-  ],
 };
