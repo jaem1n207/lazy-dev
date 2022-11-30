@@ -14,7 +14,7 @@ interface DataProps {
 }
 
 const NotFoundPage: React.FC<PageProps<DataProps>> = ({ data, location }) => {
-  const siteTitle = data?.site.siteMetadata.title;
+  const siteTitle = data.site.siteMetadata?.title || 'Title';
 
   return (
     <Layout location={location} title={siteTitle}>
