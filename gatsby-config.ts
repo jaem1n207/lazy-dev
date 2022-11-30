@@ -165,7 +165,6 @@ const pwaPlugins: GatsbyConfig['plugins'] = [
 const config: GatsbyConfig = {
   graphqlTypegen: true,
   siteMetadata,
-  pathPrefix: '/',
   plugins: [
     ...corePlugins,
     ...devPlugins,

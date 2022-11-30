@@ -22,8 +22,8 @@
   "scripts": {
     "dev": "gatsby develop",
     "start": "gatsby develop",
-    "build": "rm -rf public && rm -rf .cache && gatsby build --prefix-paths",
-    "serve": "gatsby serve --prefix-paths",
+    "build": "rm -rf public && rm -rf .cache && gatsby build",
+    "serve": "gatsby serve",
     "clean": "gatsby clean",
     "typecheck": "tsc --noEmit",
     "format": "prettier --write \"**/*.{js,jsx,ts,tsx,json,md,mdx}\"",
