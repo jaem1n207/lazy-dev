@@ -2,16 +2,12 @@ import * as React from 'react';
 
 import { useStaticQuery, graphql } from 'gatsby';
 
-type Meta = React.DetailedHTMLProps<React.MetaHTMLAttributes<HTMLMetaElement>, HTMLMetaElement>[];
-
 // eslint-disable-next-line no-undef
 interface SeoProps extends Pick<Queries.SiteSiteMetadata, 'title'> {
   // eslint-disable-next-line no-undef
   description?: Queries.Maybe<string>;
-  // eslint-disable-next-line no-undef
-  image?: Queries.Maybe<string>;
-  meta?: Meta;
   pathname?: string;
+  children?: React.ReactNode;
 }
 
 interface SiteMetaData {
@@ -21,7 +17,7 @@ interface SiteMetaData {
   };
 }
 
-const Seo = ({ description, image, title, pathname: propsPathname }: SeoProps) => {
+const Seo = ({ description, title, pathname: propsPathname, children }: SeoProps) => {
   const data = useStaticQuery<SiteMetaData>(
     graphql`
       query SiteMetaData {
@@ -51,7 +47,7 @@ const Seo = ({ description, image, title, pathname: propsPathname }: SeoProps) =
   const seo = {
     title: title || site.title!,
     description: description || site.description!,
-    image: `${site.siteUrl}${image || site.favicon}`,
+    image: `${site.siteUrl}${site.favicon}`,
     url: `${site.siteUrl}${propsPathname || ''}`,
     author: site.author!.name || '',
   };
@@ -75,6 +71,8 @@ const Seo = ({ description, image, title, pathname: propsPathname }: SeoProps) =
       <meta name="twitter:description" content={seo.description} />
       <meta name="twitter:image" content={seo.image} />
       <meta name="twitter:creator" content={seo.author} />
+
+      {children}
     </>
   );
 };
