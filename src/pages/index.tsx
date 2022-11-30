@@ -15,10 +15,10 @@ interface DataProps {
 }
 
 const IndexPage: React.FC<PageProps<DataProps>> = ({ data, location }) => {
-  const siteTitle = data.site.siteMetadata?.title || 'Title';
+  const { siteMetadata } = data.site;
 
   return (
-    <Layout location={location} title={siteTitle}>
+    <Layout location={location} title={siteMetadata.title}>
       <h1 css={tw`bg-amber-200 `}>Hello</h1>
       <h1 css={tw`font-bold`}>안녕하세요</h1>
       <p>안녕하세요, Hello Inter var!</p>
