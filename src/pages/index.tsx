@@ -33,7 +33,7 @@ export const Head: HeadFC = ({ location }: HeadProps) => (
 );
 
 export const pageQuery = graphql`
-  query SiteMetaData {
+  query HomepageQuery {
     site(siteMetadata: {}) {
       siteMetadata {
         title

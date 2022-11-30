@@ -30,7 +30,7 @@ export default NotFoundPage;
 export const Head: HeadFC = () => <Seo title="404: Not Found" />;
 
 export const pageQuery = graphql`
-  query SiteMetaData {
+  query NotFoundPageQuery {
     site(siteMetadata: {}) {
       siteMetadata {
         title
