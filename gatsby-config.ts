@@ -127,9 +127,12 @@ const pwaPlugins: GatsbyConfig['plugins'] = [
       background_color: '#282c35',
       // This will impact how browsers show your PWA/website
       // https://css-tricks.com/meta-theme-color-and-trickery/
-      // theme_color: '#efaec1',
+      theme_color: '#efaec1',
       display: `minimal-ui`,
       icon: 'src/images/icon.png',
+      icon_options: {
+        purpose: `any maskable`,
+      },
       icons: [
         {
           src: './public/icons/icon-48x48.png',
