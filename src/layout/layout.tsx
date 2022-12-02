@@ -22,13 +22,13 @@ const Layout = ({ children, location, title }: LayoutProps) => {
 
     if (isRootPath) {
       header = (
-        <h1 css={tw`text-3xl font-bold`}>
+        <h1 css={tw`font-bold text-36pxr`}>
           <Link to="/">{title}</Link>
         </h1>
       );
     } else {
       header = (
-        <h3 css={tw`text-2xl`}>
+        <h3 css={tw`text-24pxr`}>
           <Link to="/">{title}</Link>
         </h3>
       );
