@@ -11,10 +11,16 @@ const range = (start, end) => {
 module.exports = {
   content: [
     './src/pages/**/*.{js,jsx,ts,tsx}',
-    './src/components/**/*.{js,jsx,ts,tsx}',
     './src/layout/**/*.{js,jsx,ts,tsx}',
+    './src/components/**/*.{js,jsx,ts,tsx}',
   ],
   theme: {
+    fontSize: {
+      ...range(12, 36).reduce((acc, px) => {
+        acc[`${px}pxr`] = pxToRem(px);
+        return acc;
+      }, {}),
+    },
     spacing: {
       ...range(1, 100).reduce((acc, px) => {
         acc[`${px}pxr`] = pxToRem(px);
