@@ -50,7 +50,7 @@ const corePlugins: GatsbyConfig['plugins'] = [
       mergeSecurityHeaders: true, // boolean to turn off the default security headers
       mergeLinkHeaders: true, // boolean to turn off the default gatsby js headers
       mergeCachingHeaders: true, // boolean to turn off the default caching headers
-      transformHeaders: (headers: any, path: any) => headers, // optional transform for manipulating headers under each path (e.g.sorting), etc.
+      transformHeaders: (headers: any) => headers, // optional transform for manipulating headers under each path (e.g.sorting), etc.
       generateMatchPathRewrites: true, // boolean to turn off automatic creation of redirect rules for client only paths
     },
   },
@@ -67,6 +67,7 @@ const devPlugins: GatsbyConfig['plugins'] = [
         Pages: 'src/pages',
         Styles: 'src/styles',
         Layout: 'src/layout',
+        Templates: 'src/templates',
       },
       extensions: ['ts', 'tsx', 'js'],
     },
