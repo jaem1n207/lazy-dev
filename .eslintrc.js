@@ -111,6 +111,7 @@ module.exports = {
           ['Pages', './src/pages'],
           ['Styles', './src/styles'],
           ['Layout', './src/layout'],
+          ['Templates', './src/templates'],
         ],
         extensions: ['.ts', '.tsx', '.js', '.jsx', '.json'],
       },
