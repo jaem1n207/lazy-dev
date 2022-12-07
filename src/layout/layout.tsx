@@ -18,7 +18,7 @@ const Layout = ({ children, location, title }: LayoutProps) => {
   const isRootPath = location.pathname === rootPath;
 
   return (
-    <div css={tw`max-w-2xl mx-auto py-40pxr px-20pxr`} data-is-root-path={isRootPath}>
+    <div css={[tw`max-w-2xl mx-auto my-0pxr py-40pxr px-20pxr`, isRootPath && tw`mb-80pxr`]}>
       <BaseStyles />
       <Global styles={customStyles} />
       <Slice alias="header" size={isRootPath ? 'large' : 'medium'}>
