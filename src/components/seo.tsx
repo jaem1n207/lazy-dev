@@ -49,7 +49,6 @@ const Seo = ({ description, title, thumbnail, pathname: propsPathname, children 
     url: `${site.siteUrl}${propsPathname || ''}`,
     author: site.author!.name || '',
   };
-  console.log(seo);
 
   return (
     <>
