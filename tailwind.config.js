@@ -33,6 +33,11 @@ module.exports = {
       tablet: '768px',
     },
     extend: {
+      colors: {
+        primary: '#ffa7c4',
+        dark: '#282c35',
+        white: '#fff',
+      },
       fontFamily: {
         sans: ['Spoqa Han Sans Neo', ...defaultTheme.fontFamily.sans],
       },
