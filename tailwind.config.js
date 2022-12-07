@@ -16,16 +16,21 @@ module.exports = {
   ],
   theme: {
     fontSize: {
-      ...range(12, 36).reduce((acc, px) => {
+      ...range(12, 48).reduce((acc, px) => {
         acc[`${px}pxr`] = pxToRem(px);
         return acc;
       }, {}),
     },
     spacing: {
-      ...range(1, 100).reduce((acc, px) => {
+      ...range(0, 100).reduce((acc, px) => {
         acc[`${px}pxr`] = pxToRem(px);
         return acc;
       }, {}),
+    },
+    screens: {
+      mobile: '360px',
+      foldable: '523px',
+      tablet: '768px',
     },
     extend: {
       fontFamily: {

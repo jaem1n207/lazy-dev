@@ -10,20 +10,20 @@ interface Props {
 
 const Header = ({ children, size = 'medium' }: Props) => {
   let header = (
-    <Link css={tw`text-24pxr`} to="/">
+    <Link css={tw`no-underline text-24pxr`} to="/">
       {children}
     </Link>
   );
 
   if (size === 'large') {
     header = (
-      <h1 css={tw`text-36pxr`}>
+      <h1 css={tw`m-0pxr text-40pxr`}>
         <Link to="/">{children}</Link>
       </h1>
     );
   }
 
-  return <header css={tw`font-bold`}>{header}</header>;
+  return <header css={tw`font-bold mb-48pxr`}>{header}</header>;
 };
 
 export default Header;
