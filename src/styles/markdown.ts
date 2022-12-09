@@ -20,13 +20,10 @@ const Markdown = styled.article<{ rhythm: typeof typography['rhythm'] }>`
     letter-spacing: -0.1px;
   }
 
-  p {
-    font-family: Spoqa Han Sans Neo, Fira Mono, Consolas;
-  }
-
   td,
   th {
     border-bottom: 1px solid #3a3a3a;
+    font-size: 90%;
   }
 
   strong {
@@ -36,6 +33,7 @@ const Markdown = styled.article<{ rhythm: typeof typography['rhythm'] }>`
   a,
   p {
     font-weight: 400;
+    font-family: Spoqa Han Sans Neo, Fira Mono, Consolas;
   }
 
   a {
@@ -93,6 +91,7 @@ const Markdown = styled.article<{ rhythm: typeof typography['rhythm'] }>`
 
   ul,
   ol {
+    list-style: initial !important;
     margin-top: ${({ rhythm }) => rhythm(1)};
     margin-bottom: ${({ rhythm }) => rhythm(1)};
     margin-left: ${({ rhythm }) => rhythm(1.25)};
@@ -120,7 +119,7 @@ const Markdown = styled.article<{ rhythm: typeof typography['rhythm'] }>`
   p,
   li,
   blockquote {
-    font-size: 1.0625rem;
+    font-size: 1rem;
   }
 
   p {
