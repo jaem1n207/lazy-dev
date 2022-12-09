@@ -74,6 +74,12 @@ const devPlugins: GatsbyConfig['plugins'] = [
     },
   },
   {
+    resolve: 'gatsby-plugin-typography',
+    options: {
+      pathToConfigModule: 'src/styles/typography',
+    },
+  },
+  {
     resolve: 'gatsby-plugin-typescript',
   },
   'gatsby-plugin-emotion',
