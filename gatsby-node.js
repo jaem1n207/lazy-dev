@@ -1,6 +1,20 @@
-import { resolve } from 'path';
+const { resolve } = require('path');
 
-import type { GatsbyNode } from 'gatsby';
+const { createFilePath } = require('gatsby-source-filesystem');
+
+exports.onCreateNode = ({ node, getNode, actions }) => {
+  const { createNodeField } = actions;
+
+  if (node.internal.type === 'MarkdownRemark') {
+    const value = createFilePath({ node, getNode });
+
+    createNodeField({
+      node,
+      name: 'slug',
+      value,
+    });
+  }
+};
 
 // export const sourceNodes: GatsbyNode['sourceNodes'] = ({
 //   actions: { createNode },
@@ -27,8 +41,8 @@ import type { GatsbyNode } from 'gatsby';
 //   });
 // };
 
-export const createPages: GatsbyNode['createPages'] = async ({ graphql, actions, reporter }) => {
-  const { createSlice } = actions;
+exports.createPages = async ({ graphql, actions, reporter }) => {
+  const { createSlice, createPage } = actions;
 
   createSlice({
     id: 'header',
@@ -39,6 +53,69 @@ export const createPages: GatsbyNode['createPages'] = async ({ graphql, actions,
     id: 'footer',
     component: resolve('./src/components/footer.tsx'),
   });
+
+  const blogPostTemplate = resolve('./src/templates/blog-post.tsx');
+
+  const blogResult = await graphql(`
+    {
+      allMarkdownRemark(
+        sort: { frontmatter: { date: DESC } }
+        limit: 1000
+        filter: { frontmatter: { category: { ne: "null" }, draft: { eq: false } } }
+      ) {
+        edges {
+          node {
+            id
+            excerpt
+            frontmatter {
+              date(formatString: "YYYY. MM. DD. ")
+              title
+              category
+            }
+            fields {
+              slug
+            }
+          }
+          next {
+            fields {
+              slug
+            }
+            frontmatter {
+              title
+            }
+          }
+          previous {
+            fields {
+              slug
+            }
+            frontmatter {
+              title
+            }
+          }
+        }
+      }
+    }
+  `);
+
+  if (blogResult.errors) {
+    reporter.panicOnBuild('There was an error loading your blog posts', blogResult.errors);
+  }
+
+  const posts = blogResult.data.allMarkdownRemark.edges;
+
+  if (posts.length > 0) {
+    posts.forEach((post) => {
+      createPage({
+        path: post.node.fields.slug,
+        component: blogPostTemplate,
+        context: {
+          slug: post.node.fields.slug,
+          next: post.previous,
+          previous: post.previous,
+        },
+      });
+    });
+  }
 
   // const authorBio = resolve('./src/components/bio.tsx');
 
@@ -100,7 +177,7 @@ export const createPages: GatsbyNode['createPages'] = async ({ graphql, actions,
 
 //     type Frontmatter {
 //       title: String
-//       description: String
+//       category: String
 //       date: Date @dateformat
 //     }
 
