@@ -4,6 +4,8 @@ import { graphql, HeadProps, PageProps } from 'gatsby';
 
 import Seo from 'Components/seo';
 import Layout from 'Layout/layout';
+import Markdown from 'Styles/markdown';
+import { rhythm } from 'Styles/typography';
 
 type DataProps = {
   site: {
@@ -34,7 +36,7 @@ type DataProps = {
   };
 };
 
-const BlogPost = ({ data, location }: PageProps<Queries.Query>) => {
+const BlogPost = ({ data, location }: PageProps<Queries.BlogPostBySlugQuery>) => {
   const siteTitme = data.site?.siteMetadata?.title || 'Title';
 
   const { frontmatter, html } = data.markdownRemark!;
@@ -53,7 +55,12 @@ const BlogPost = ({ data, location }: PageProps<Queries.Query>) => {
             <p>{description}</p>
           </header>
           <div /> {/* Divider 역할 */}
-          <article key="body" dangerouslySetInnerHTML={{ __html: html! }} itemProp="articleBody" />
+          <Markdown
+            key="body"
+            dangerouslySetInnerHTML={{ __html: html! }}
+            itemProp="articleBody"
+            rhythm={rhythm}
+          />
         </div>
       </article>
     </Layout>
@@ -69,8 +76,8 @@ export const Head = ({ data: { markdownRemark: post } }: HeadProps<DataProps>) =
   );
 };
 
-export const pageQuery = graphql`
-  query BlogPostBySlug {
+export const query = graphql`
+  query BlogPostBySlug($slug: String!) {
     site {
       siteMetadata {
         author {
@@ -88,14 +95,15 @@ export const pageQuery = graphql`
         title
       }
     }
-    markdownRemark(fields: { slug: { eq: "$slug" } }) {
+    markdownRemark(fields: { slug: { eq: $slug } }) {
       id
       excerpt
       html
       frontmatter {
+        category
         title
         description
-        date(formatString: "YYYY. MM. DD. ")
+        date(formatString: "YYYY년 MM월 DD일 (dd)", locale: "ko")
       }
     }
   }

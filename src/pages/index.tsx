@@ -33,14 +33,14 @@ const IndexPage: React.FC<PageProps<Queries.HomeQuery>> = ({ data, location }) =
                       <span itemProp="headline">{title}</span>
                     </Link>
                   </h2>
-                  <small>{post!.frontmatter!.date}</small>
+                  <time dateTime={post!.frontmatter!.date!}>{post!.frontmatter!.date}</time>
                   {/* min read 추가 */}
                 </header>
                 <section>
                   <p
                     css={tw`mb-0pxr`}
                     dangerouslySetInnerHTML={{
-                      __html: post.frontmatter.description || post.excerpt,
+                      __html: post?.frontmatter?.description || post.excerpt!,
                     }}
                     itemProp="description"
                   />
@@ -76,10 +76,11 @@ export const pageQuery = graphql`
             slug
           }
           frontmatter {
-            date(formatString: "YYYY. MM. DD. ")
+            date(formatString: "YYYY년 MM월 DD일 (dd)", locale: "ko")
             title
             category
             draft
+            description
           }
         }
       }
