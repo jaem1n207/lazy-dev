@@ -2,20 +2,6 @@ const { resolve } = require('path');
 
 const { createFilePath } = require('gatsby-source-filesystem');
 
-exports.onCreateNode = ({ node, getNode, actions }) => {
-  const { createNodeField } = actions;
-
-  if (node.internal.type === 'MarkdownRemark') {
-    const value = createFilePath({ node, getNode });
-
-    createNodeField({
-      node,
-      name: 'slug',
-      value,
-    });
-  }
-};
-
 // export const sourceNodes: GatsbyNode['sourceNodes'] = ({
 //   actions: { createNode },
 //   createContentDigest,
@@ -58,17 +44,13 @@ exports.createPages = async ({ graphql, actions, reporter }) => {
 
   const blogResult = await graphql(`
     {
-      allMarkdownRemark(
-        sort: { frontmatter: { date: DESC } }
-        limit: 1000
-        filter: { frontmatter: { category: { ne: "null" }, draft: { eq: false } } }
-      ) {
+      allMarkdownRemark(sort: { frontmatter: { date: DESC } }, limit: 1000) {
         edges {
           node {
             id
             excerpt
             frontmatter {
-              date(formatString: "YYYY. MM. DD. ")
+              date(formatString: "YYYY년 MM월 DD일 (dd)", locale: "ko")
               title
               category
             }
@@ -105,11 +87,12 @@ exports.createPages = async ({ graphql, actions, reporter }) => {
 
   if (posts.length > 0) {
     posts.forEach((post) => {
+      const slug = post.node.fields.slug;
       createPage({
-        path: post.node.fields.slug,
+        path: slug,
         component: blogPostTemplate,
         context: {
-          slug: post.node.fields.slug,
+          slug: slug,
           next: post.previous,
           previous: post.previous,
         },
@@ -150,6 +133,20 @@ exports.createPages = async ({ graphql, actions, reporter }) => {
    * Create blog posts
    * https://github.com/gatsbyjs/gatsby-starter-slices/blob/0bc5fe2ba7c228bcdd1821786f2f46ba48efa5f9/gatsby-node.js#L91
    */
+};
+
+exports.onCreateNode = ({ node, getNode, actions }) => {
+  const { createNodeField } = actions;
+
+  if (node.internal.type === 'MarkdownRemark') {
+    const value = createFilePath({ node, getNode });
+
+    createNodeField({
+      node,
+      name: `slug`,
+      value,
+    });
+  }
 };
 
 // export const createSchemaCustomization: GatsbyNode['createSchemaCustomization'] = ({ actions }) => {
