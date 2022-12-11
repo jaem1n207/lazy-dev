@@ -1,34 +1,39 @@
-// import * as React from 'react';
+import * as React from 'react';
 
-// import { graphql } from 'gatsby';
-// import { GatsbyImage, getImage } from 'gatsby-plugin-image';
+import { graphql, SliceComponentProps } from 'gatsby';
+import { GatsbyImage, getImage } from 'gatsby-plugin-image';
 
-// const Bio = ({ data }: Queries.BioByAuthorIdQuery) => {
-//   const { author, imageSharp } = data;
-//   const avatar = getImage(imageSharp);
+import { UnderlineLink } from 'Components/underlineLink';
 
-//   return (
-//     <div>
-//       {avatar && <GatsbyImage image={avatar} alt={author.name} />}
-//       <p>
-//         Written by <strong>{author.name}</strong> {author.summary} {` `}
-//         <a href={author.github}>You should follow me on GitHub</a>
-//       </p>
-//     </div>
-//   );
-// };
+const Bio = ({ data }: SliceComponentProps<Queries.BioByAuthorIdQuery>) => {
+  const { author, imageSharp } = data;
 
-// export const query = graphql`
-//   query BioByAuthorId($id: String!) {
-//     author(id: { eq: $id }) {
-//       name
-//       summary
-//       github
-//     }
-//     imageSharp(fields: { id: { eq: $id } }) {
-//       gatsbyImageData(height: 50, width: 50)
-//     }
-//   }
-// `;
+  const avatar = getImage(imageSharp);
 
-// export default Bio;
+  return (
+    <div>
+      {avatar && <GatsbyImage image={avatar} alt={author?.name || ''} />}
+      <p>
+        Written by <strong>{author?.name}</strong> {author?.summary}
+        <UnderlineLink external url={author?.github || ''}>
+          You should follow me on GitHub
+        </UnderlineLink>
+      </p>
+    </div>
+  );
+};
+
+export const query = graphql`
+  query BioByAuthorId($slug: String!) {
+    author(authorId: { eq: $slug }) {
+      name
+      summary
+      github
+    }
+    imageSharp(fields: { authorId: { eq: $slug } }) {
+      gatsbyImageData(height: 50, width: 50)
+    }
+  }
+`;
+
+export default Bio;

@@ -12,10 +12,7 @@ const IndexPage: React.FC<PageProps<Queries.HomeQuery>> = ({ data, location }) =
   const siteTitle = data.site?.siteMetadata?.title || null;
 
   // const [posts, setPosts] = React.useState<Post[]>([]);
-  // const posts = fakePosts.allMarkdownRemark.nodes;
   const posts = data.allMarkdownRemark.edges;
-
-  // const posts = data.allMarkdownRemark;
 
   return (
     <Layout location={location} title={siteTitle}>

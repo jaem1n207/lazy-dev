@@ -3,6 +3,7 @@ title: 'JS 객체 이해하기'
 date: 2022-12-10 00:20:30
 category: 'javascript'
 draft: false
+authorId: 'jaemin'
 ---
 
 ## 객체 복사하기
