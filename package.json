@@ -35,6 +35,7 @@
     "@emotion/styled": "^11.10.5",
     "@fontsource/fira-mono": "^4.5.10",
     "@mdx-js/react": "^2.1.5",
+    "classnames": "^2.3.2",
     "gatsby": "^5.2.0",
     "gatsby-plugin-alias-imports": "^1.0.5",
     "gatsby-plugin-emotion": "^8.2.0",

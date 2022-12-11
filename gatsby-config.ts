@@ -120,7 +120,48 @@ const imagePlugins: GatsbyConfig['plugins'] = [
 const searchPlugins: GatsbyConfig['plugins'] = [
   'gatsby-plugin-sitemap',
   'gatsby-plugin-robots-txt',
-  // feed plugin 추가
+  {
+    resolve: 'gatsby-plugin-feed',
+    options: {
+      feeds: [
+        {
+          serialize: ({
+            query: { site, allMarkdownRemark },
+          }: {
+            query: { site: any; allMarkdownRemark: any };
+          }) => {
+            return allMarkdownRemark.nodes.map((node: any) => {
+              return {
+                ...node.frontmatter,
+                description: node.excerpt,
+                date: node.frontmatter.date,
+                url: encodeURI(site.siteMetadata.siteUrl + node.fields.slug),
+                guid: site.siteMetadata.siteUrl + node.fields.slug,
+                custom_elements: [{ 'content:encoded': node.html }],
+              };
+            });
+          },
+          query: `{
+            allMarkdownRemark(sort: {frontmatter: {date: DESC}}) {
+              nodes {
+                excerpt
+                html
+                fields {
+                  slug
+                }
+                frontmatter {
+                  title
+                  date
+                }
+              }
+            }
+          }`,
+          output: '/rss.xml',
+          title: 'Lazy Dev Blog RSS Feed',
+        },
+      ],
+    },
+  },
 ];
 
 const pwaPlugins: GatsbyConfig['plugins'] = [

@@ -35,11 +35,14 @@ module.exports = {
     extend: {
       colors: {
         primary: '#ffa7c4',
-        dark: '#282c35',
+        dark: '#111111',
         white: '#fff',
       },
       fontFamily: {
         sans: ['Spoqa Han Sans Neo', ...defaultTheme.fontFamily.sans],
+      },
+      boxShadow: {
+        'text-underline': '0 1px 0 0 currentColor',
       },
     },
   },
