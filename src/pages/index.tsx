@@ -20,7 +20,7 @@ const IndexPage: React.FC<PageProps<Queries.HomeQuery>> = ({ data, location }) =
   return (
     <Layout location={location} title={siteTitle}>
       {/* Category */}
-      <ol css={tw`list-none`} className="font-sans">
+      <ol css={tw`list-none`} className="font-spoqa">
         {posts.map(({ node: post }) => {
           const title = post!.frontmatter!.title || post.fields?.slug;
 
@@ -30,7 +30,7 @@ const IndexPage: React.FC<PageProps<Queries.HomeQuery>> = ({ data, location }) =
                 <header css={tw`mb-16pxr`}>
                   <h2
                     css={tw`font-bold text-28pxr text-primary mb-8pxr mt-0pxr`}
-                    className="font-sans"
+                    className="font-spoqa"
                   >
                     <Link to={post.fields?.slug || ''} itemProp="url">
                       <span itemProp="headline">{title}</span>

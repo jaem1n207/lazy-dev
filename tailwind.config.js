@@ -39,7 +39,7 @@ module.exports = {
         white: '#fff',
       },
       fontFamily: {
-        sans: ['Spoqa Han Sans Neo', ...defaultTheme.fontFamily.sans],
+        spoqa: ['Spoqa Han Sans Neo', ...defaultTheme.fontFamily.sans],
       },
       boxShadow: {
         'text-underline': '0 1px 0 0 currentColor',
