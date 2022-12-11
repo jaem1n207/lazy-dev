@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { graphql, HeadProps, PageProps } from 'gatsby';
+import { graphql, HeadProps, PageProps, Slice } from 'gatsby';
 
 import Seo from 'Components/seo';
 import Layout from 'Layout/layout';
@@ -62,6 +62,8 @@ const BlogPost = ({ data, location }: PageProps<Queries.BlogPostBySlugQuery>) =>
             rhythm={rhythm}
           />
         </div>
+        <hr />
+        <Slice alias="bio" />
       </article>
     </Layout>
   );

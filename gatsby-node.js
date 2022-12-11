@@ -2,30 +2,27 @@ const { resolve } = require('path');
 
 const { createFilePath } = require('gatsby-source-filesystem');
 
-// export const sourceNodes: GatsbyNode['sourceNodes'] = ({
-//   actions: { createNode },
-//   createContentDigest,
-//   createNodeId,
-// }) => {
-//   const author = {
-//     id: 'jaemin',
-//     name: 'Jaemin Lee',
-//     summary: '웹 프론트 개발자',
-//   };
-//   const social = {
-//     github: 'https://github.com/jaem1n207/lazy-dev',
-//   };
+exports.sourceNodes = ({ actions: { createNode }, createContentDigest, createNodeId }) => {
+  const authors = [
+    {
+      authorId: 'jaemin',
+      name: 'Jaemin Lee',
+      summary: '웹 프론트 개발자',
+      github: 'https://github.com/jaem1n207/lazy-dev',
+    },
+  ];
 
-//   createNode({
-//     ...author,
-//     ...social,
-//     id: createNodeId(author.id),
-//     internal: {
-//       type: 'Author',
-//       contentDigest: createContentDigest(author),
-//     },
-//   });
-// };
+  authors.map((author) =>
+    createNode({
+      ...author,
+      id: createNodeId(author.authorId),
+      internal: {
+        type: `Author`,
+        contentDigest: createContentDigest(author),
+      },
+    })
+  );
+};
 
 exports.createPages = async ({ graphql, actions, reporter }) => {
   const { createSlice, createPage } = actions;
@@ -40,6 +37,40 @@ exports.createPages = async ({ graphql, actions, reporter }) => {
     component: resolve('./src/components/footer.tsx'),
   });
 
+  const authorBio = resolve('./src/components/bio.tsx');
+
+  const authorResults = await graphql(
+    `
+      {
+        allAuthor {
+          edges {
+            node {
+              authorId
+            }
+          }
+        }
+      }
+    `
+  );
+
+  if (authorResults.errors) {
+    reporter.panicOnBuild('There was an error loading your author bio', authorResults.errors);
+    return;
+  }
+  const authors = authorResults.data.allAuthor.edges;
+
+  if (authors.length > 0) {
+    authors.forEach((author) => {
+      createSlice({
+        id: `bio--${author.node.authorId}`,
+        component: authorBio,
+        context: {
+          slug: author.node.authorId,
+        },
+      });
+    });
+  }
+
   const blogPostTemplate = resolve('./src/templates/blog-post.tsx');
 
   const blogResult = await graphql(`
@@ -53,6 +84,7 @@ exports.createPages = async ({ graphql, actions, reporter }) => {
               date(formatString: "YYYY년 MM월 DD일 (dd)", locale: "ko")
               title
               category
+              authorId
             }
             fields {
               slug
@@ -96,43 +128,12 @@ exports.createPages = async ({ graphql, actions, reporter }) => {
           next: post.previous,
           previous: post.previous,
         },
+        slices: {
+          bio: `bio--${post.node.frontmatter.authorId}`,
+        },
       });
     });
   }
-
-  // const authorBio = resolve('./src/components/bio.tsx');
-
-  // const authorResult = await graphql<{ author: { nodes: { id: string } } }>(`
-  //   query {
-  //     author {
-  //       nodes {
-  //         id
-  //       }
-  //     }
-  //   }
-  // `);
-
-  // if (authorResult.errors) {
-  //   reporter.panicOnBuild('There was an error loading your author bio', authorResult.errors);
-  //   return;
-  // }
-
-  // const author = authorResult.data?.author.nodes;
-
-  // if (author) {
-  //   createSlice({
-  //     id: `bio--${author.id}`,
-  //     component: authorBio,
-  //     context: {
-  //       id: author.id,
-  //     },
-  //   });
-  // }
-
-  /**
-   * Create blog posts
-   * https://github.com/gatsbyjs/gatsby-starter-slices/blob/0bc5fe2ba7c228bcdd1821786f2f46ba48efa5f9/gatsby-node.js#L91
-   */
 };
 
 exports.onCreateNode = ({ node, getNode, actions }) => {
@@ -147,40 +148,16 @@ exports.onCreateNode = ({ node, getNode, actions }) => {
       value,
     });
   }
+
+  if (node.internal.type === `ImageSharp`) {
+    const parent = getNode(node.parent);
+
+    if (parent.relativeDirectory === 'author') {
+      createNodeField({
+        node,
+        name: 'authorId',
+        value: parent.name,
+      });
+    }
+  }
 };
-
-// export const createSchemaCustomization: GatsbyNode['createSchemaCustomization'] = ({ actions }) => {
-//   const { createTypes } = actions;
-//   const typeDefs = `
-//     type SiteSiteMetadata {
-//       author: Author
-//       siteUrl: String
-//       social: Social
-//     }
-
-//     type Author {
-//       name: String
-//       summary: String
-//     }
-
-//     type Social {
-//       github: String
-//     }
-
-//     type MarkdownRemark implements Node {
-//       frontmatter: Frontmatter
-//       fields: Fields
-//     }
-
-//     type Frontmatter {
-//       title: String
-//       category: String
-//       date: Date @dateformat
-//     }
-
-//     type Fields {
-//       slug: String
-//     }
-//   `;
-//   createTypes(typeDefs);
-// };

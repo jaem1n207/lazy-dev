@@ -4,6 +4,7 @@ date: 2022-12-05 17:53:01
 description: 'Test'
 category: 'javascript'
 draft: false
+authorId: 'jaemin'
 ---
 
 This is my first post on my new fake blog! How exciting!
