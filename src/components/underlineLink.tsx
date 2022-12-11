@@ -25,11 +25,11 @@ export const UnderlineLink = React.memo(
 
     return (
       <a
-        ref={ref}
-        href={url}
-        className={classNames(`text-primary shadow-text-underline`, customClassName)}
         {...externalAttributes}
         {...restProps}
+        href={url}
+        ref={ref}
+        className={classNames(`text-primary shadow-text-underline`, customClassName)}
       >
         {children}
       </a>
