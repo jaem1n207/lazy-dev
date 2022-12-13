@@ -38,10 +38,7 @@ const Markdown = styled.article<{ rhythm: typeof typography['rhythm'] }>`
 
   a {
     text-decoration: none;
-    color: #0687f0 !important;
-    * {
-      color: #0687f0 !important;
-    }
+    color: var(--color-hyperlink) !important;
     &:hover,
     &:active {
       text-decoration: underline;
@@ -187,11 +184,15 @@ const Markdown = styled.article<{ rhythm: typeof typography['rhythm'] }>`
   }
 
   *:not(pre) > code {
-    background-color: #3a3a3a;
-    padding: 0.2rem 0.4rem;
-    margin: 0;
-    font-size: 85%;
-    border-radius: 3px;
+    background-color: #3a3a3a !important;
+    padding: 0.2rem 0.4rem !important;
+    margin: 0 !important;
+    font-size: 90% !important;
+    border-radius: 3px !important;
+    background-image: linear-gradient(60deg, rgba(50, 134, 241, 1) 0%, rgba(255, 30, 86, 1) 100%);
+    color: transparent !important;
+    -webkit-background-clip: text;
+    background-clip: text;
   }
 `;
 

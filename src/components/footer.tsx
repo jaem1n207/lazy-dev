@@ -4,7 +4,7 @@ import { UnderlineLink } from 'Components/underlineLink';
 
 const Footer = () => {
   return (
-    <footer className={`flex font-spoqa mt-70pxr pt-28pxr`}>
+    <footer className={`flex mt-70pxr pt-28pxr`}>
       @ {new Date().getFullYear()}, Built with&nbsp;
       <UnderlineLink external url="https://github.com/jaem1n207/lazy-dev">
         Lazy Dev

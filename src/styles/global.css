@@ -3,9 +3,45 @@
 @tailwind utilities;
 
 @layer base {
-  html {
+  :root {
+    --color-primary: #d23669;
+    --color-background: #fff;
+    --color-text: #111111;
+    --color-hyperlink: #646cff;
+  }
+
+  :root[class='dark'] {
+    --color-primary: #ffa7c4;
+    --color-background: #111111;
+    --color-text: #cbd5e0;
+    --color-hyperlink: #9499ff;
+  }
+
+  body {
     font-family: Spoqa Han Sans Neo, system-ui, sans-serif !important;
     letter-spacing: -0.025em;
+    min-height: 100vh;
+    transition-property: background-color, color;
+    transition-duration: 0.2s;
+    transition-timing-function: ease-in-out;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    color: theme(colors.text);
+    background-color: theme(colors.background);
+  }
+
+  header,
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    font-family: Spoqa Han Sans Neo, system-ui, sans-serif;
+  }
+
+  a > svg {
+    fill: theme(colors.primary);
   }
 }
 
