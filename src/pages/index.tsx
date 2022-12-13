@@ -17,7 +17,7 @@ const IndexPage: React.FC<PageProps<Queries.HomeQuery>> = ({ data, location }) =
   return (
     <Layout location={location} title={siteTitle}>
       {/* Category */}
-      <ol css={tw`list-none`} className="font-spoqa">
+      <ol css={tw`list-none`}>
         {posts.map(({ node: post }) => {
           const title = post!.frontmatter!.title || post.fields?.slug;
 
@@ -25,10 +25,7 @@ const IndexPage: React.FC<PageProps<Queries.HomeQuery>> = ({ data, location }) =
             <li key={post.fields?.slug}>
               <article css={tw`my-32pxr`}>
                 <header css={tw`mb-16pxr`}>
-                  <h2
-                    css={tw`font-bold text-28pxr text-primary mb-8pxr mt-0pxr`}
-                    className="font-spoqa"
-                  >
+                  <h2 css={tw`font-bold text-28pxr text-primary mb-8pxr mt-0pxr`}>
                     <Link to={post.fields?.slug || ''} itemProp="url">
                       <span itemProp="headline">{title}</span>
                     </Link>

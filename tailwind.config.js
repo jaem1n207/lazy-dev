@@ -35,9 +35,10 @@ module.exports = {
     },
     extend: {
       colors: {
-        primary: '#ffa7c4',
-        dark: '#111111',
-        white: '#fff',
+        primary: 'var(--color-primary)',
+        background: 'var(--color-background)',
+        text: 'var(--color-text)',
+        hyperlink: 'var(--color-hyperlink)',
       },
       fontFamily: {
         spoqa: ['Spoqa Han Sans Neo', ...defaultTheme.fontFamily.sans],
