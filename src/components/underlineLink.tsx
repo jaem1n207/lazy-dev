@@ -29,7 +29,10 @@ export const UnderlineLink = React.memo(
         {...restProps}
         href={url}
         ref={ref}
-        className={classNames(`text-primary shadow-text-underline`, customClassName)}
+        className={classNames(
+          `text-primary shadow-text-underline hover:shadow-none transition-shadow`,
+          customClassName
+        )}
       >
         {children}
       </a>
