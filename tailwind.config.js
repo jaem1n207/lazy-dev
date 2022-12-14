@@ -29,9 +29,10 @@ module.exports = {
       }, {}),
     },
     screens: {
-      mobile: '360px',
-      foldable: '523px',
-      tablet: '768px',
+      desktop: { max: '1024px' },
+      tablet: { max: '768px' },
+      foldable: { max: '523px' },
+      mobile: { max: '360px' },
     },
     extend: {
       colors: {
