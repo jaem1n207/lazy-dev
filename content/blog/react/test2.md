@@ -5,6 +5,7 @@ description: 'React Test Description'
 category: 'javascript'
 draft: false
 authorId: 'jaemin'
+thumbnail: './images/react.png'
 ---
 
 React Test

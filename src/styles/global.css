@@ -8,6 +8,9 @@
     --color-background: #fff;
     --color-text: #111111;
     --color-hyperlink: #646cff;
+    --article-background: #f0f0f066;
+    --article-border: #0000000d;
+    --button-text: #fff;
   }
 
   :root[class='dark'] {
@@ -15,6 +18,9 @@
     --color-background: #111111;
     --color-text: #cbd5e0;
     --color-hyperlink: #9499ff;
+    --article-background: #27272a66;
+    --article-border: #ffffff0d;
+    --button-text: #000;
   }
 
   body {

@@ -5,6 +5,7 @@ description: 'Test'
 category: 'javascript'
 draft: false
 authorId: 'jaemin'
+thumbnail: './images/javascript-thumbnail.png'
 ---
 
 This is my first post on my new fake blog! How exciting!

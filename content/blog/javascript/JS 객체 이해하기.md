@@ -4,6 +4,7 @@ date: 2022-12-10 00:20:30
 category: 'javascript'
 draft: false
 authorId: 'jaemin'
+thumbnail: './images/javascript-thumbnail.png'
 ---
 
 ## 객체 복사하기
