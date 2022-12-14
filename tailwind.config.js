@@ -28,6 +28,12 @@ module.exports = {
         return acc;
       }, {}),
     },
+    borderWidth: {
+      ...range(0, 10).reduce((acc, px) => {
+        acc[`${px}pxr`] = pxToRem(px);
+        return acc;
+      }, {}),
+    },
     screens: {
       desktop: { max: '1024px' },
       tablet: { max: '768px' },
@@ -40,6 +46,9 @@ module.exports = {
         background: 'var(--color-background)',
         text: 'var(--color-text)',
         hyperlink: 'var(--color-hyperlink)',
+        'article-background': 'var(--article-background)',
+        'article-border': 'var(--article-border)',
+        'button-text': 'var(--button-text)',
       },
       fontFamily: {
         spoqa: ['Spoqa Han Sans Neo', ...defaultTheme.fontFamily.sans],

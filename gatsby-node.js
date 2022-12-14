@@ -81,10 +81,15 @@ exports.createPages = async ({ graphql, actions, reporter }) => {
             id
             excerpt
             frontmatter {
-              date(formatString: "YYYY년 MM월 DD일 (dd)", locale: "ko")
+              date(formatString: "YYYY. MM. DD.", locale: "ko")
               title
               category
               authorId
+              thumbnail {
+                childImageSharp {
+                  gatsbyImageData(formats: WEBP, placeholder: BLURRED)
+                }
+              }
             }
             fields {
               slug
