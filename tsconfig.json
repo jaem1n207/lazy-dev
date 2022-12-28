@@ -114,6 +114,12 @@
     // "skipDefaultLibCheck": true,                      /* Skip type checking .d.ts files that are included with TypeScript. */
     "skipLibCheck": true /* Skip type checking all .d.ts files. */
   },
-  "include": ["./src/**/*", "gatsby-node.js", "gatsby-config.ts", "./plugins/**/*"],
+  "include": [
+    "./git-hooks/*",
+    "./src/**/*",
+    "gatsby-node.js",
+    "gatsby-config.ts",
+    "./plugins/**/*"
+  ],
   "exclude": ["node_modules", "public", ".cache"]
 }
