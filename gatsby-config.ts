@@ -94,13 +94,31 @@ const markdownPlugins: GatsbyConfig['plugins'] = [
         {
           resolve: `gatsby-remark-images`,
           options: {
-            maxWidth: 630,
+            maxWidth: 1000,
+            linkImagesToOriginal: false,
+          },
+        },
+        {
+          resolve: `gatsby-remark-images-medium-zoom`,
+          options: {
+            background: 'rgba(0,0,0,0.8)',
+            margin: 12,
+            scrollOffset: 0,
           },
         },
         {
           resolve: `gatsby-remark-responsive-iframe`,
           options: {
             wrapperStyle: `margin-bottom: 1.0725rem`,
+          },
+        },
+        {
+          resolve: `gatsby-remark-table-of-contents`,
+          options: {
+            exclude: '목차',
+            fromHeading: 1,
+            toHeading: 6,
+            className: 'table-of-contents',
           },
         },
         `gatsby-remark-autolink-headers`,
