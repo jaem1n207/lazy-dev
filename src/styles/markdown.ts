@@ -38,7 +38,7 @@ const Markdown = styled.article<{ rhythm: typeof typography['rhythm'] }>`
 
   a {
     text-decoration: none;
-    color: var(--color-hyperlink) !important;
+    color: var(--color-primary) !important;
     &:hover,
     &:active {
       text-decoration: underline;
@@ -190,7 +190,7 @@ const Markdown = styled.article<{ rhythm: typeof typography['rhythm'] }>`
     font-size: 90% !important;
     border-radius: 3px !important;
     background-image: linear-gradient(60deg, rgba(50, 134, 241, 1) 0%, rgba(255, 30, 86, 1) 100%);
-    color: transparent !important;
+    color: var(--color-hyperlink) !important;
     -webkit-background-clip: text;
     background-clip: text;
   }
