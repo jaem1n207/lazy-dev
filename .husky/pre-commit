@@ -6,12 +6,6 @@
 
 images=$(git diff --exit-code --cached --name-only --diff-filter=ACM -- '*.png' '*.jpg' '*.jpeg')
 
-# if [ -n "$images" ]; then
-#   echo "Optimizing images..."
-#   imageoptim "$images"
-#   git add "$images"
-# fi
-
 $(exit $?) || (echo "$images" | ~/.image-opt/imageoptim-cli/bin/imageOptim && git add $images)
 
 yarn format && yarn lint:fix
