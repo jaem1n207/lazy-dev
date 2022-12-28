@@ -7,6 +7,12 @@ authorId: 'jaemin'
 thumbnail: './images/javascript-thumbnail.png'
 ---
 
+
+## 목차
+
+```toc
+```
+
 ## 객체 복사하기
 
 객체를 복사하는 데 주로 쓰이는 방법은 아래와 같습니다.
@@ -413,9 +419,7 @@ console.log(person.address === copiedPerson.address)
 
 [https://jsben.ch/zEKYJ](https://jsben.ch/zEKYJ)
 
-![객체 복사 각 메소드별 벤치마크 결과](https://s3-us-west-2.amazonaws.com/secure.notion-static.com/8c7c2dac-97c8-467c-bed5-bb312a59f775/%E1%84%89%E1%85%B3%E1%84%8F%E1%85%B3%E1%84%85%E1%85%B5%E1%86%AB%E1%84%89%E1%85%A3%E1%86%BA_2022-11-16_%E1%84%8B%E1%85%A9%E1%84%92%E1%85%AE_5.16.25.png)
-
-객체 복사 각 메소드별 벤치마크 결과
+![객체 복사 각 메소드별 벤치마크 결과](./images/copy-object-benchmark.png)
 
 ## 결론
 
@@ -453,11 +457,10 @@ const isEmptyObject = <T extends Record<string, any>>(obj: T) => {
 ```
 
 `Object.keys` 함수를 활용할 수도 있겠지만 객체의 속성들에 대해 반복하는 `for..in` 함수를 활용하여 아주 조금 더 빠르게 검사를 수행할 수 있습니다.
+
 벤치마크 결과: [https://jsben.ch/LMkuq](https://jsben.ch/LMkuq)
 
-![For..in 과 Object.keys 벤치마크 결과](https://s3-us-west-2.amazonaws.com/secure.notion-static.com/aa2acc18-f8c1-4d66-a1f7-3ab4099e5dd1/%E1%84%89%E1%85%B3%E1%84%8F%E1%85%B3%E1%84%85%E1%85%B5%E1%86%AB%E1%84%89%E1%85%A3%E1%86%BA_2022-11-15_%E1%84%8B%E1%85%A9%E1%84%92%E1%85%AE_6.15.12.png)
-
-For..in 과 Object.keys 벤치마크 결과
+![For..in 과 Object.keys 벤치마크 결과](./images/loop-object-benchmark.png)
 
 ### 참고
 

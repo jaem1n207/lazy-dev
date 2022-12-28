@@ -2,12 +2,9 @@
 . "$(dirname -- "$0")/_/husky.sh"
 . "$(dirname -- "$0")/common.sh"
 . "$(dirname "$0")/../git-hooks/pre-console.sh"
-. "$(dirname "$0")/../git-hooks/pre-image-optimize.sh"
 
-images=$(git diff --exit-code --cached --name-only --diff-filter=ACM -- '*.png' '*.jpg' '*.jpeg')
+npx lint-staged
 
-if [ -n "$images" ]; then
-  echo "$images" | ~/.image-opt/imageoptim-cli/bin/imageOptim && git add $images
-fi
-
-yarn format && yarn lint:fix
+images=$(git diff --cached --name-only --diff-filter=ACM | grep -E "\.(png|jpe?g)$")
+[ -z "$images" ] && exit 0
+echo "$images" | imageoptim 'content/**/*.png' && git add $images
