@@ -54,8 +54,9 @@ const BlogPost = ({ data, location }: PageProps<Queries.BlogPostBySlugQuery>) =>
               <span>{category}</span>
             </div>
             <h1 css={tw`font-bold leading-snug text-36pxr`}>{title}</h1>
-            <p>{summary}</p>
           </header>
+          <div /> {/* Divider 역할 */}
+          <p>{summary}</p>
           <div /> {/* Divider 역할 */}
           <Markdown
             key="body"
@@ -71,9 +72,13 @@ const BlogPost = ({ data, location }: PageProps<Queries.BlogPostBySlugQuery>) =>
   );
 };
 
-export const Head = ({ data: { markdownRemark: post } }: HeadProps<DataProps>) => {
+export const Head = ({ data: { markdownRemark: post }, location }: HeadProps<DataProps>) => {
   return (
-    <Seo title={post.frontmatter.title} description={post.frontmatter.summary || post.excerpt} />
+    <Seo
+      title={post.frontmatter.title}
+      description={post.frontmatter.summary || post.excerpt}
+      pathname={location.pathname}
+    />
   );
 };
 
