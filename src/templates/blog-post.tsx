@@ -4,6 +4,7 @@ import { graphql, HeadProps, PageProps, Slice } from 'gatsby';
 import tw from 'twin.macro';
 
 import Seo from 'Components/seo';
+import Summary from 'Components/summary';
 import Layout from 'Layout/layout';
 import Markdown from 'Styles/markdown';
 import { rhythm } from 'Styles/typography';
@@ -55,9 +56,7 @@ const BlogPost = ({ data, location }: PageProps<Queries.BlogPostBySlugQuery>) =>
             </div>
             <h1 css={tw`font-bold leading-snug text-36pxr`}>{title}</h1>
           </header>
-          <div /> {/* Divider 역할 */}
-          <p>{summary}</p>
-          <div /> {/* Divider 역할 */}
+          <Summary summary={summary} />
           <Markdown
             key="body"
             dangerouslySetInnerHTML={{ __html: html! }}
