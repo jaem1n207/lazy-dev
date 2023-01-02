@@ -1,15 +1,21 @@
 import React from 'react';
 
+import { FlowerCircleIcon } from './svg/svg-icon';
+
 interface SummaryProps {
   summary: Queries.MarkdownRemarkFrontmatter['summary'];
 }
 
 const Summary = ({ summary }: SummaryProps) => {
   return (
-    <div className="my-20pxr">
-      <div />
-      <span>{summary}</span>
-      <div />
+    <div>
+      <div className="relative w-full h-1pxr mt-48pxr mb-24pxr box-decoration-slice bg-gradient-to-r from-hyperlink to-primary">
+        <div className="absolute bg-background -top-24pxr left-[calc(50%-2.25rem)] w-72pxr flex justify-center">
+          <FlowerCircleIcon className="fill-primary" size={48} />
+        </div>
+      </div>
+      <span className="font-bold">{summary}</span>
+      <div className="w-full h-1pxr box-decoration-slice bg-gradient-to-r from-hyperlink to-primary mt-24pxr mb-48pxr" />
     </div>
   );
 };
