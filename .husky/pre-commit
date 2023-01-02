@@ -5,6 +5,4 @@
 
 npx lint-staged
 
-images=$(git diff --cached --name-only --diff-filter=ACM | grep -E "\.(png|jpe?g)$")
-[ -z "$images" ] && exit 0
-echo "$images" | imageoptim 'content/**/*.png' && git add $images
+. "$(dirname "$0")/../git-hooks/pre-image-optimize.sh"
