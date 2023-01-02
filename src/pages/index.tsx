@@ -52,7 +52,7 @@ const IndexPage: React.FC<PageProps<Queries.HomeQuery>> = ({ data, location }) =
                   <p
                     css={tw`max-w-lg pt-12pxr text-16pxr foldable:text-14pxr`}
                     dangerouslySetInnerHTML={{
-                      __html: post?.frontmatter?.description || post.excerpt!,
+                      __html: post?.frontmatter?.summary || post.excerpt!,
                     }}
                     itemProp="description"
                   />
@@ -115,7 +115,7 @@ export const pageQuery = graphql`
             title
             category
             draft
-            description
+            summary
             thumbnail {
               childImageSharp {
                 gatsbyImageData(formats: WEBP, placeholder: BLURRED)

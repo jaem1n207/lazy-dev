@@ -31,8 +31,8 @@ type DataProps = {
     html: string;
     frontmatter: {
       title: string;
-      description: string;
       date: string;
+      summary: string;
     };
   };
 };
@@ -41,7 +41,7 @@ const BlogPost = ({ data, location }: PageProps<Queries.BlogPostBySlugQuery>) =>
   const siteTitme = data.site?.siteMetadata?.title || 'Title';
 
   const { frontmatter, html } = data.markdownRemark!;
-  const { title, date, description, category } = frontmatter!;
+  const { title, date, category, summary } = frontmatter!;
 
   return (
     <Layout location={location} title={siteTitme}>
@@ -54,7 +54,7 @@ const BlogPost = ({ data, location }: PageProps<Queries.BlogPostBySlugQuery>) =>
               <span>{category}</span>
             </div>
             <h1 css={tw`font-bold leading-snug text-36pxr`}>{title}</h1>
-            <p>{description}</p>
+            <p>{summary}</p>
           </header>
           <div /> {/* Divider 역할 */}
           <Markdown
@@ -73,10 +73,7 @@ const BlogPost = ({ data, location }: PageProps<Queries.BlogPostBySlugQuery>) =>
 
 export const Head = ({ data: { markdownRemark: post } }: HeadProps<DataProps>) => {
   return (
-    <Seo
-      title={post.frontmatter.title}
-      description={post.frontmatter.description || post.excerpt}
-    />
+    <Seo title={post.frontmatter.title} description={post.frontmatter.summary || post.excerpt} />
   );
 };
 
@@ -106,7 +103,7 @@ export const query = graphql`
       frontmatter {
         category
         title
-        description
+        summary
         date(formatString: "YYYY. MM. DD", locale: "ko")
       }
     }

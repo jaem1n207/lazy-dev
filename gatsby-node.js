@@ -90,6 +90,7 @@ exports.createPages = async ({ graphql, actions, reporter }) => {
                   gatsbyImageData(formats: WEBP, placeholder: BLURRED)
                 }
               }
+              summary
             }
             fields {
               slug

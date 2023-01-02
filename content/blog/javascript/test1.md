@@ -1,11 +1,11 @@
 ---
 title: 'Category Test1'
 date: 2022-12-05 17:53:01
-description: 'Test'
 category: 'javascript'
 draft: false
 authorId: 'jaemin'
-thumbnail: './images/javascript-thumbnail.png'
+thumbnail: './images/javascript-thumbnail.jpg'
+summary: 'Category Test1입니다. 이것은 줄거리이고요. 이것은 javascript 카테고리입니다.'
 ---
 
 This is my first post on my new fake blog! How exciting!
