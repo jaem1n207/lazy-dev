@@ -1,6 +1,7 @@
 import React from 'react';
 
 import { graphql, HeadProps, PageProps, Slice } from 'gatsby';
+import tw from 'twin.macro';
 
 import Seo from 'Components/seo';
 import Layout from 'Layout/layout';
@@ -47,11 +48,12 @@ const BlogPost = ({ data, location }: PageProps<Queries.BlogPostBySlugQuery>) =>
       <article>
         <div>
           <header>
-            <div>
-              <span>{category}</span>
+            <div css={tw`flex items-center font-bold text-custom-gray text-16pxr gap-8pxr pb-4pxr`}>
               <time dateTime={date!}>{date}</time>
+              <span css={tw`h-16pxr w-1pxr bg-custom-gray`}> </span>
+              <span>{category}</span>
             </div>
-            <h1>{title}</h1>
+            <h1 css={tw`font-bold leading-snug text-36pxr`}>{title}</h1>
             <p>{description}</p>
           </header>
           <div /> {/* Divider 역할 */}
@@ -105,7 +107,7 @@ export const query = graphql`
         category
         title
         description
-        date(formatString: "YYYY. MM. DD.", locale: "ko")
+        date(formatString: "YYYY. MM. DD", locale: "ko")
       }
     }
   }
