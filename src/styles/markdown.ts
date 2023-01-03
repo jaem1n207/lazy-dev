@@ -20,6 +20,15 @@ const Markdown = styled.article<{ rhythm: typeof typography['rhythm'] }>`
     letter-spacing: -0.1px;
   }
 
+  table {
+    width: 100%;
+    table-layout: fixed;
+    border-collapse: collapse;
+    border-spacing: 0;
+    margin: ${({ rhythm }) => rhythm(1)} 0;
+    overflow-wrap: break-word;
+  }
+
   td,
   th {
     border-bottom: 1px solid #3a3a3a;
@@ -154,7 +163,7 @@ const Markdown = styled.article<{ rhythm: typeof typography['rhythm'] }>`
     word-break: normal;
     word-wrap: normal;
     line-height: 1.6;
-    font-size: 1rem;
+    font-size: 0.9rem;
 
     -moz-tab-size: 2;
     -o-tab-size: 2;
@@ -176,6 +185,16 @@ const Markdown = styled.article<{ rhythm: typeof typography['rhythm'] }>`
 
   pre.grvsc-container {
     margin: 24px 0;
+  }
+
+  pre[class*='language-'] {
+    padding: 1em;
+    margin: 0.5em 0;
+
+    @media (min-width: 768px) {
+      padding: 1.2rem;
+      margin: 1.5rem -1.5rem;
+    }
   }
 
   .grvsc-line-highlighted::before {
