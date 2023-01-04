@@ -74,10 +74,16 @@ const IndexPage: React.FC<PageProps<Queries.HomeQuery>> = ({ data, location }) =
                   <Link
                     to={post.fields?.slug || ''}
                     itemProp="url"
-                    css={tw`font-bold transition-colors rounded-md py-12pxr px-16pxr bg-primary text-button-text foldable:(py-8pxr px-12pxr text-12pxr)`}
+                    className="group/link"
+                    css={tw`font-bold transition-colors rounded-md py-12pxr px-16pxr bg-primary text-button-text flex items-center gap-4pxr foldable:(py-8pxr px-12pxr text-12pxr)`}
                   >
                     포스팅 보러가기
-                    <span aria-hidden="true"> →</span>
+                    <div
+                      aria-hidden="true"
+                      className="transition-transform group-hover/link:translate-x-4pxr"
+                    >
+                      →
+                    </div>
                   </Link>
                 </section>
               </article>

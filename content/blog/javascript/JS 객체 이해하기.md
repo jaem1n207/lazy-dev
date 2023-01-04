@@ -4,7 +4,7 @@ date: 2022-12-10 00:20:30
 category: 'javascript'
 draft: false
 authorId: 'jaemin'
-thumbnail: './images/javascript-thumbnail.jpg'
+thumbnail: '../thumbnails/javascript.jpg'
 summary: '객체를 복사하는 다양한 방법의 장단점을 살펴보고 Lodash의 CloneDeep 함수를 직접 구현해보겠습니다. 우리 프로젝트의 번들 크기는 중요하니까요.'
 ---
 
