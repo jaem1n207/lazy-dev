@@ -10,8 +10,8 @@ const Summary = ({ summary }: SummaryProps) => {
   return (
     <div>
       <div className="relative w-full h-1pxr mt-48pxr mb-24pxr box-decoration-slice bg-gradient-to-r from-hyperlink to-primary">
-        <div className="absolute bg-background -top-24pxr left-[calc(50%-2.25rem)] w-72pxr flex justify-center">
-          <FlowerCircleIcon className="fill-primary" size={48} />
+        <div className="absolute -top-24pxr left-[calc(50%-2.25rem)] flex justify-center">
+          <FlowerCircleIcon className="fill-primary bg-background" size={48} />
         </div>
       </div>
       <span className="font-bold">{summary}</span>

@@ -4,7 +4,7 @@ date: 2022-12-05 17:53:02
 category: 'react'
 draft: false
 authorId: 'jaemin'
-thumbnail: './images/react-thumbnail.png'
+thumbnail: '../thumbnails/react.png'
 summary: 'Category Test2입니다. 이것은 줄거리이고요. 리액트 카테고리입니다.'
 ---
 
