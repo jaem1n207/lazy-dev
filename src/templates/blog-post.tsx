@@ -54,7 +54,7 @@ const BlogPost = ({ data, location }: PageProps<Queries.BlogPostBySlugQuery>) =>
               <span css={tw`h-16pxr w-1pxr bg-custom-gray`}> </span>
               <span>{category}</span>
             </div>
-            <h1 css={tw`font-bold leading-snug text-36pxr`}>{title}</h1>
+            <h1 css={tw`font-bold leading-snug text-36pxr tablet:text-32pxr`}>{title}</h1>
           </header>
           <Summary summary={summary} />
           <div css={tw`h-1pxr mb-40pxr`} />
