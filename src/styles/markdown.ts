@@ -212,6 +212,7 @@ const Markdown = styled.article<{ rhythm: typeof typography['rhythm'] }>`
     color: var(--color-hyperlink) !important;
     -webkit-background-clip: text;
     background-clip: text;
+    border: 1px solid var(--color-code-highlight-border);
   }
 `;
 

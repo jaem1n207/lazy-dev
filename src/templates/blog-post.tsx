@@ -57,7 +57,7 @@ const BlogPost = ({ data, location }: PageProps<Queries.BlogPostBySlugQuery>) =>
             <h1 css={tw`font-bold leading-snug text-36pxr tablet:text-32pxr`}>{title}</h1>
           </header>
           <Summary summary={summary} />
-          <div css={tw`h-1pxr mb-40pxr`} />
+          <div css={tw`h-1pxr mb-20pxr tablet:mb-16pxr`} />
           <Markdown
             key="body"
             dangerouslySetInnerHTML={{ __html: html! }}
