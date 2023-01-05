@@ -55,6 +55,11 @@
   a > svg {
     fill: theme(colors.primary);
   }
+
+  ::selection {
+    background-color: theme(colors.primary);
+    color: theme(colors.button-text);
+  }
 }
 
 @font-face {
