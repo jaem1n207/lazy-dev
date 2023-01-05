@@ -11,14 +11,23 @@ const Bio = ({ data }: SliceComponentProps<Queries.BioByAuthorIdQuery>) => {
   const avatar = getImage(imageSharp);
 
   return (
-    <div>
-      {avatar && <GatsbyImage image={avatar} alt={author?.name || ''} />}
-      <p>
-        Written by <strong>{author?.name}</strong> {author?.summary}
-        <UnderlineLink external url={author?.github || ''}>
+    <div className="flex">
+      {avatar && (
+        <GatsbyImage
+          className="rounded-full mr-12pxr min-w-72pxr"
+          image={avatar}
+          alt={author?.name || ''}
+        />
+      )}
+      <div className="flex flex-col justify-center gap-y-4pxr">
+        <span className="text-14pxr">
+          Written by <strong className="text-16pxr text-primary">{author?.name}</strong>
+        </span>
+        <span className="text-15pxr">{author?.summary}</span>
+        <UnderlineLink external url={author?.github || ''} className="text-14pxr">
           You should follow me on GitHub
         </UnderlineLink>
-      </p>
+      </div>
     </div>
   );
 };
@@ -31,7 +40,7 @@ export const query = graphql`
       github
     }
     imageSharp(fields: { authorId: { eq: $slug } }) {
-      gatsbyImageData(height: 50, width: 50)
+      gatsbyImageData(height: 80, width: 80)
     }
   }
 `;
