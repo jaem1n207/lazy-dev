@@ -12,17 +12,21 @@
     --article-background: #f0f0f066;
     --article-border: #0a2647;
     --button-text: #fff;
+    --color-code-block: #f7f6f3;
+    --color-code-highlight-border: rgba(0, 0, 0, 0.2);
   }
 
   :root[class='dark'] {
     --color-primary: #ffa7c4;
-    --color-background: #111111;
+    --color-background: #1c1c1e;
     --color-text: #cbd5e0;
     --text-custom-gray: #8c8c8c;
     --color-hyperlink: #9499ff;
     --article-background: #27272a66;
     --article-border: #ffffff0d;
     --button-text: #000;
+    --color-code-block: #252525;
+    --color-code-highlight-border: rgba(255, 255, 255, 0.2);
   }
 
   body {

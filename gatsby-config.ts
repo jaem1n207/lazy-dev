@@ -191,7 +191,7 @@ const pwaPlugins: GatsbyConfig['plugins'] = [
       description: '웹 프론트 개발에 대한 이야기를 다룹니다.',
       lang: 'ko',
       start_url: '/',
-      background_color: '#282c35',
+      background_color: '#1C1C1E',
       // This will impact how browsers show your PWA/website
       // https://css-tricks.com/meta-theme-color-and-trickery/
       theme_color: '#ffa7c4',

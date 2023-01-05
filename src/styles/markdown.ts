@@ -155,8 +155,8 @@ const Markdown = styled.article<{ rhythm: typeof typography['rhythm'] }>`
   code[class*='language-'],
   pre[class*='language-'] {
     font-family: Fira Mono, Consolas, Liberation Mono, Menlo, monospace;
-    background-color: #242323;
-    color: #e0e0e0;
+    background-color: var(--color-code-block) !important;
+    color: var(--color-text);
     text-align: left;
     white-space: pre;
     word-spacing: normal;
@@ -199,11 +199,11 @@ const Markdown = styled.article<{ rhythm: typeof typography['rhythm'] }>`
 
   .grvsc-line-highlighted::before {
     background-color: rgba(255, 255, 255, 0.05) !important;
-    box-shadow: inset 4px 0 0 0 rgba(255, 255, 255, 0.2) !important;
+    box-shadow: inset 4px 0 0 0 var(--color-code-highlight-border) !important;
   }
 
   *:not(pre) > code {
-    background-color: #3a3a3a !important;
+    background-color: var(--color-code-block);
     padding: 0.2rem 0.4rem !important;
     margin: 0 !important;
     font-size: 90% !important;
