@@ -2,6 +2,7 @@ import React, { memo, useMemo } from 'react';
 
 import { Link, GatsbyLinkProps } from 'gatsby';
 
+import useScrollCenter from 'Hooks/use-scroll-center';
 import { firstLetterUppercase, kebabCase } from 'Libs/string';
 
 interface CategoryFilterProps {
@@ -27,18 +28,7 @@ const CategoryFilter = ({ categories }: CategoryFilterProps) => {
           className: `${LINK_BASE_CLASS} hover:text-white hover:bg-primary`,
         };
 
-  React.useLayoutEffect(() => {
-    const categoryList = categoryListRef.current;
-
-    if (categoryList) {
-      const categoryListWidth = categoryList.scrollWidth;
-      const categoryListParentWidth = categoryList.parentElement!.clientWidth;
-
-      if (categoryListWidth > categoryListParentWidth) {
-        categoryList.style.width = `${categoryListWidth}px`;
-      }
-    }
-  }, [categoryListRef]);
+  useScrollCenter({ ref: categoryListRef, targetId: ACTIVE_ID });
 
   const sortedCategories = useMemo(
     () => [...categories].sort((a, b) => b.totalCount - a.totalCount),
@@ -51,7 +41,7 @@ const CategoryFilter = ({ categories }: CategoryFilterProps) => {
         All
       </Link>
       <div className="w-1pxr h-32pxr mx-8pxr -translate-x-[50%] bg-divider" />
-      <ul ref={categoryListRef} className="flex overflow-x-scroll gap-8pxr">
+      <ul ref={categoryListRef} className="flex overflow-x-scroll gap-8pxr scrollbar-hide">
         {sortedCategories.map((category) => {
           const { fieldValue } = category;
 
