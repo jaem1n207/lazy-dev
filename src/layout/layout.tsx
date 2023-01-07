@@ -7,22 +7,25 @@ interface LayoutProps {
   children: React.ReactNode;
   location: Location;
   title: Queries.Maybe<string>;
+  as?: React.ElementType;
 }
 
-const Layout = ({ children, location, title }: LayoutProps) => {
+const Layout = ({ children, location, title, as = 'div' }: LayoutProps) => {
   // @ts-ignore
   const rootPath = `${__PATH_PREFIX__}/`;
   const isRootPath = location.pathname === rootPath;
 
+  const As = as;
+
   return (
-    <div css={[tw`max-w-2xl mx-auto my-0pxr py-40pxr px-20pxr`, isRootPath && tw`mb-80pxr`]}>
+    <As css={[tw`max-w-2xl mx-auto my-0pxr py-40pxr px-20pxr`, isRootPath && tw`mb-80pxr`]}>
       <BaseStyles />
       <Slice alias="header" size={isRootPath ? 'large' : 'medium'}>
         {title}
       </Slice>
       <main>{children}</main>
       <Slice alias="footer" />
-    </div>
+    </As>
   );
 };
 

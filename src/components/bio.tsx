@@ -20,10 +20,10 @@ const Bio = ({ data }: SliceComponentProps<Queries.BioByAuthorIdQuery>) => {
         />
       )}
       <div className="flex flex-col justify-center gap-y-4pxr">
-        <span className="text-14pxr">
+        <h4 className="text-14pxr">
           Written by <strong className="text-16pxr text-primary">{author?.name}</strong>
-        </span>
-        <span className="text-15pxr">{author?.summary}</span>
+        </h4>
+        <p className="text-15pxr">{author?.summary}</p>
         <UnderlineLink external url={author?.github || ''} className="text-14pxr">
           You should follow me on GitHub
         </UnderlineLink>

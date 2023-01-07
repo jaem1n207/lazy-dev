@@ -8,15 +8,15 @@ interface SummaryProps {
 
 const Summary = ({ summary }: SummaryProps) => {
   return (
-    <div>
+    <section>
       <div className="relative w-full h-1pxr my-48pxr box-decoration-slice bg-gradient-to-r from-hyperlink to-primary">
         <div className="absolute -top-24pxr left-[calc(50%-2.25rem)] flex justify-center bg-background px-12pxr">
           <FlowerCircleIcon className="fill-primary bg-background" size={48} />
         </div>
       </div>
-      <span className="font-bold">{summary}</span>
+      <p className="font-bold">{summary}</p>
       <div className="w-full h-1pxr box-decoration-slice bg-gradient-to-r from-hyperlink to-primary my-48pxr tablet:my-40pxr" />
-    </div>
+    </section>
   );
 };
 
