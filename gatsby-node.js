@@ -8,7 +8,7 @@ exports.sourceNodes = ({ actions: { createNode }, createContentDigest, createNod
       authorId: 'jaemin',
       name: 'Jaemin Lee',
       summary: '웹 프론트 개발자',
-      github: 'https://github.com/jaem1n207/lazy-dev',
+      github: 'https://github.com/jaem1n207',
     },
   ];
 

@@ -10,7 +10,7 @@ const siteMetadata: GatsbyConfig['siteMetadata'] = {
   },
   lang: 'ko',
   social: {
-    github: 'https://github.com/jaem1n207/lazy-dev',
+    github: 'https://github.com/jaem1n207',
   },
   favicon: '/images/favicon.png',
   postTitle: 'All',
