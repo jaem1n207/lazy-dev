@@ -197,7 +197,7 @@ const pwaPlugins: GatsbyConfig['plugins'] = [
       // https://css-tricks.com/meta-theme-color-and-trickery/
       theme_color: '#ffa7c4',
       display: `minimal-ui`,
-      icon: '/images/favicon.png',
+      icon: './static/images/favicon.png',
       icon_options: {
         purpose: `any maskable`,
       },
