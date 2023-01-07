@@ -63,6 +63,7 @@ const devPlugins: GatsbyConfig['plugins'] = [
       alias: {
         Components: 'src/components',
         Hooks: 'src/hooks',
+        Libs: 'src/libs',
         Images: 'src/images',
         Pages: 'src/pages',
         Styles: 'src/styles',

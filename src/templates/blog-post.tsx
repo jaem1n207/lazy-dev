@@ -30,6 +30,7 @@ type DataProps = {
     id: string;
     excerpt: string;
     html: string;
+    timeToRead: number;
     frontmatter: {
       title: string;
       date: string;
@@ -41,7 +42,7 @@ type DataProps = {
 const BlogPost = ({ data, location }: PageProps<Queries.BlogPostBySlugQuery>) => {
   const siteTitme = data.site?.siteMetadata?.title || 'Title';
 
-  const { frontmatter, html } = data.markdownRemark!;
+  const { frontmatter, html, timeToRead } = data.markdownRemark!;
   const { title, date, category, summary } = frontmatter!;
 
   return (
@@ -49,8 +50,10 @@ const BlogPost = ({ data, location }: PageProps<Queries.BlogPostBySlugQuery>) =>
       <header>
         <div css={tw`flex items-center font-bold text-custom-gray text-16pxr gap-8pxr pb-4pxr`}>
           <time dateTime={date!}>{date}</time>
-          <span css={tw`h-16pxr w-1pxr bg-custom-gray`}> </span>
+          <span css={tw`h-16pxr w-1pxr bg-custom-gray`} />
           <span>{category}</span>
+          <span css={tw`h-16pxr w-1pxr bg-custom-gray`} />
+          <span>{timeToRead} min read</span>
         </div>
         <h1 css={tw`font-bold leading-snug text-36pxr tablet:text-32pxr`}>{title}</h1>
       </header>
@@ -103,6 +106,7 @@ export const query = graphql`
       id
       excerpt
       html
+      timeToRead
       frontmatter {
         category
         title

@@ -75,9 +75,14 @@ exports.createPages = async ({ graphql, actions, reporter }) => {
 
   const blogResult = await graphql(`
     {
-      allMarkdownRemark(sort: { frontmatter: { date: DESC } }, limit: 1000) {
+      postsRemark: allMarkdownRemark(
+        sort: { frontmatter: { date: DESC } }
+        limit: 1000
+        filter: { fileAbsolutePath: { regex: "/(content/blog)/" } }
+      ) {
         edges {
           node {
+            timeToRead
             id
             excerpt
             frontmatter {
@@ -87,8 +92,9 @@ exports.createPages = async ({ graphql, actions, reporter }) => {
               authorId
               thumbnail {
                 childImageSharp {
-                  gatsbyImageData(formats: WEBP, placeholder: BLURRED)
+                  id
                 }
+                base
               }
               summary
             }
@@ -114,6 +120,12 @@ exports.createPages = async ({ graphql, actions, reporter }) => {
           }
         }
       }
+      categoriesGroup: allMarkdownRemark(limit: 2000) {
+        group(field: { frontmatter: { category: SELECT } }) {
+          fieldValue
+          totalCount
+        }
+      }
     }
   `);
 
@@ -121,13 +133,13 @@ exports.createPages = async ({ graphql, actions, reporter }) => {
     reporter.panicOnBuild('There was an error loading your blog posts', blogResult.errors);
   }
 
-  const posts = blogResult.data.allMarkdownRemark.edges;
+  const posts = blogResult.data.postsRemark.edges;
 
   if (posts.length > 0) {
     posts.forEach((post) => {
       const slug = post.node.fields.slug;
       createPage({
-        path: slug,
+        path: `blog${slug}`,
         component: blogPostTemplate,
         context: {
           slug: slug,
@@ -136,6 +148,30 @@ exports.createPages = async ({ graphql, actions, reporter }) => {
         },
         slices: {
           bio: `bio--${post.node.frontmatter.authorId}`,
+        },
+      });
+    });
+  }
+
+  const categories = blogResult.data.categoriesGroup.group;
+
+  const mainTemplate = resolve('./src/pages/index.tsx');
+
+  const kebabCase = (string) =>
+    string
+      .replace(/([a-z])([A-Z])/g, '$1-$2')
+      .replace(/\s+/g, '-')
+      .toLowerCase();
+
+  if (categories.length > 0) {
+    categories.forEach((category) => {
+      const slug = `/category/${kebabCase(category.fieldValue)}/`;
+
+      createPage({
+        path: slug,
+        component: mainTemplate,
+        context: {
+          category: category.fieldValue,
         },
       });
     });

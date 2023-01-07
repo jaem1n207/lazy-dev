@@ -11,9 +11,7 @@ interface LayoutProps {
 }
 
 const Layout = ({ children, location, title, as = 'div' }: LayoutProps) => {
-  // @ts-ignore
-  const rootPath = `${__PATH_PREFIX__}/`;
-  const isRootPath = location.pathname === rootPath;
+  const isRootPath = /^\/(category\/.*)?$/.test(location.pathname);
 
   const As = as;
 
