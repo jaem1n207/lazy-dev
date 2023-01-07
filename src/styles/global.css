@@ -14,6 +14,7 @@
     --button-text: #fff;
     --color-code-block: #f7f6f3;
     --color-code-highlight-border: rgba(0, 0, 0, 0.2);
+    --color-divider: rgba(0, 0, 0, 0.15);
   }
 
   :root[class='dark'] {
@@ -27,6 +28,7 @@
     --button-text: #000;
     --color-code-block: #252525;
     --color-code-highlight-border: rgba(255, 255, 255, 0.2);
+    --color-divider: rgba(255, 255, 255, 0.15);
   }
 
   body {
