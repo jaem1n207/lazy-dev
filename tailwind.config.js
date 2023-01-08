@@ -47,6 +47,7 @@ module.exports = {
       colors: {
         primary: 'var(--color-primary)',
         background: 'var(--color-background)',
+        secondary: 'var(--color-secondary)',
         text: 'var(--color-text)',
         'custom-gray': 'var(--text-custom-gray)',
         hyperlink: 'var(--color-hyperlink)',
