@@ -22,10 +22,10 @@ const CategoryFilter = ({ categories }: CategoryFilterProps) => {
       ? {
           'data-ui': ACTIVE_ID,
           tabIndex: -1,
-          className: `${LINK_BASE_CLASS} text-white bg-primary`,
+          className: `${LINK_BASE_CLASS} text-background bg-primary`,
         }
       : {
-          className: `${LINK_BASE_CLASS} hover:text-white hover:bg-primary`,
+          className: `${LINK_BASE_CLASS} hover:text-background hover:bg-primary`,
         };
 
   useScrollCenter({ ref: categoryListRef, targetId: ACTIVE_ID });
