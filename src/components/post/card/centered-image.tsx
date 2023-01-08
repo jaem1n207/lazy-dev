@@ -15,7 +15,7 @@ const CenteredImage = ({ thumbnail }: CenteredImageProps) => {
         edges {
           node {
             id
-            gatsbyImageData(formats: PNG, placeholder: BLURRED, width: 632, aspectRatio: 1.78)
+            gatsbyImageData(formats: WEBP, aspectRatio: 1.78, width: 632, layout: CONSTRAINED)
           }
         }
       }
