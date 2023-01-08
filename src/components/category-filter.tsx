@@ -36,7 +36,7 @@ const CategoryFilter = ({ categories }: CategoryFilterProps) => {
   );
 
   return (
-    <nav className="flex items-center rounded-lg bg-code-block mb-48pxr py-12pxr px-24pxr">
+    <nav className="flex items-center rounded-lg bg-secondary mb-48pxr py-12pxr px-24pxr">
       <Link to="/" getProps={isActive}>
         All
       </Link>
