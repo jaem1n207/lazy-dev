@@ -86,7 +86,7 @@ exports.createPages = async ({ graphql, actions, reporter }) => {
             id
             excerpt
             frontmatter {
-              date(formatString: "YYYY. MM. DD.", locale: "ko")
+              date(formatString: "YYYY. MM. DD", locale: "ko")
               title
               category
               authorId

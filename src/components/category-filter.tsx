@@ -1,6 +1,7 @@
 import React, { memo, useMemo } from 'react';
 
 import { Link, GatsbyLinkProps } from 'gatsby';
+import tw from 'twin.macro';
 
 import useScrollCenter from 'Hooks/use-scroll-center';
 import { firstLetterUppercase, kebabCase } from 'Libs/string';
@@ -12,21 +13,19 @@ interface CategoryFilterProps {
 type LinkPropsGetter = GatsbyLinkProps<unknown>['getProps'];
 
 const ACTIVE_ID = 'active';
-const LINK_BASE_CLASS =
-  'block font-semibold transition-colors rounded-lg py-8pxr px-16pxr text-14pxr';
+
+const Nav = tw.nav`flex items-center rounded-lg bg-secondary mb-48pxr py-12pxr px-24pxr [a]:(block font-bold transition-colors rounded-lg py-8pxr px-16pxr text-14pxr hover:(text-background bg-primary)) [a[data-ui=${ACTIVE_ID}]]:(text-background bg-primary)`;
 
 const CategoryFilter = ({ categories }: CategoryFilterProps) => {
   const categoryListRef = React.useRef<HTMLUListElement>(null);
-  const isActive: LinkPropsGetter = ({ isCurrent }) =>
-    isCurrent
+  const linkProps: LinkPropsGetter = ({ isCurrent }) => {
+    return isCurrent
       ? {
           'data-ui': ACTIVE_ID,
           tabIndex: -1,
-          className: `${LINK_BASE_CLASS} text-background bg-primary`,
         }
-      : {
-          className: `${LINK_BASE_CLASS} hover:text-background hover:bg-primary`,
-        };
+      : {};
+  };
 
   useScrollCenter({ ref: categoryListRef, targetId: ACTIVE_ID });
 
@@ -36,8 +35,9 @@ const CategoryFilter = ({ categories }: CategoryFilterProps) => {
   );
 
   return (
-    <nav className="flex items-center rounded-lg bg-secondary mb-48pxr py-12pxr px-24pxr">
-      <Link to="/" getProps={isActive}>
+    <Nav>
+      <span className="font-bold mr-24pxr text-16pxr tablet:visually-hide">Category</span>
+      <Link to="/" getProps={linkProps}>
         All
       </Link>
       <div className="w-1pxr h-32pxr mx-8pxr -translate-x-[50%] bg-divider" />
@@ -47,14 +47,14 @@ const CategoryFilter = ({ categories }: CategoryFilterProps) => {
 
           return (
             <li key={fieldValue} className="mb-0pxr">
-              <Link getProps={isActive} to={`/category/${kebabCase(fieldValue!)}`}>
+              <Link getProps={linkProps} to={`/category/${kebabCase(fieldValue!)}`}>
                 {firstLetterUppercase(fieldValue!)}
               </Link>
             </li>
           );
         })}
       </ul>
-    </nav>
+    </Nav>
   );
 };
 
