@@ -1,23 +1,28 @@
 import * as React from 'react';
 
+import { isBrowser } from 'Libs/environment';
+
 interface WindowSize {
-  width: number;
-  height: number;
+  width?: number;
+  height?: number;
 }
 
+const getSize = (): WindowSize => {
+  return {
+    width: isBrowser ? window.innerWidth : undefined,
+    height: isBrowser ? window.innerHeight : undefined,
+  };
+};
+
 export const useWindowSize = (): WindowSize => {
-  const [windowSize, setWindowSize] = React.useState<WindowSize>({
-    width: window.innerWidth,
-    height: window.innerHeight,
-  });
+  const [windowSize, setWindowSize] = React.useState(getSize);
 
   React.useEffect(() => {
-    const handleResize = () => {
-      setWindowSize({
-        width: window.innerWidth,
-        height: window.innerHeight,
-      });
-    };
+    if (!isBrowser) return;
+
+    function handleResize() {
+      setWindowSize(getSize());
+    }
 
     window.addEventListener('resize', handleResize);
 
