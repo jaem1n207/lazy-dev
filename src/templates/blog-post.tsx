@@ -3,8 +3,10 @@ import React from 'react';
 import { graphql, HeadProps, PageProps, Slice } from 'gatsby';
 import tw from 'twin.macro';
 
+import TableOfContents from 'Components/post/table-of-contents';
 import Seo from 'Components/seo';
 import Summary from 'Components/summary';
+import { useWindowSize } from 'Hooks/use-window-size';
 import Layout from 'Layout/layout';
 import Markdown from 'Styles/markdown';
 import { rhythm } from 'Styles/typography';
@@ -30,6 +32,7 @@ type DataProps = {
     id: string;
     html: string;
     timeToRead: number;
+    tableOfContents: string;
     frontmatter: {
       title: string;
       date: string;
@@ -41,11 +44,17 @@ type DataProps = {
 const BlogPost = ({ data, location }: PageProps<Queries.BlogPostBySlugQuery>) => {
   const siteTitme = data.site?.siteMetadata?.title || 'Title';
 
-  const { frontmatter, html, timeToRead } = data.markdownRemark!;
+  const { frontmatter, html, timeToRead, tableOfContents } = data.markdownRemark!;
   const { title, date, category, summary } = frontmatter!;
+
+  const size = useWindowSize();
+
+  // 가시성 대신 디스플레이를 사용하여 layout shift를 방지합니다.
+  const isTableOfContentsVisible = size.width > 1440;
 
   return (
     <Layout location={location} title={siteTitme} as="article">
+      {isTableOfContentsVisible && <TableOfContents toc={tableOfContents} />}
       <header>
         <div css={tw`flex items-center font-bold text-custom-gray text-16pxr gap-8pxr pb-4pxr`}>
           <time dateTime={date!}>{date}</time>

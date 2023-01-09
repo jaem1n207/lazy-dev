@@ -42,6 +42,7 @@ module.exports = {
       }, {}),
     },
     screens: {
+      display: { max: '1440px' },
       desktop: { max: '1024px' },
       tablet: { max: '768px' },
       foldable: { max: '523px' },
