@@ -65,5 +65,5 @@ module.exports = {
       },
     },
   },
-  plugins: [require('./src/plugins/scrollbar-hide')],
+  plugins: [require('./src/plugins/scrollbar-hide'), require('./src/plugins/visually-hide')],
 };
