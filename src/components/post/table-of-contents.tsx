@@ -6,7 +6,7 @@ interface TableOfContentsProps {
   toc: Queries.MarkdownRemark['tableOfContents'];
 }
 
-const TOCWrapper = tw.div`fixed top-100pxr right-0pxr w-1/4 tablet:w-1/4 overflow-y-auto bg-transparent border-l-0pxr border-custom-gray shadow-2xl z-10 display:visually-hide`;
+const TOCWrapper = tw.div`fixed right-0pxr w-1/4 px-12pxr py-4pxr overflow-y-auto bg-transparent border-l-2pxr border-custom-gray z-10 display:visually-hide`;
 
 const TOCContent = tw.div`text-14pxr tablet:text-16pxr text-custom-gray font-bold border-spacing-24pxr tablet:border-spacing-28pxr tracking-normal tablet:tracking-tighter [a.active]:(text-[110%] text-primary transition-all)`;
 
