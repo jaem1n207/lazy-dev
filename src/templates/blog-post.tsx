@@ -28,7 +28,6 @@ type DataProps = {
   };
   markdownRemark: {
     id: string;
-    excerpt: string;
     html: string;
     timeToRead: number;
     frontmatter: {
@@ -77,7 +76,7 @@ export const Head = ({ data: { markdownRemark: post }, location }: HeadProps<Dat
   return (
     <Seo
       title={post.frontmatter.title}
-      description={post.frontmatter.summary || post.excerpt}
+      description={post.frontmatter.summary}
       pathname={location.pathname}
     />
   );
@@ -104,14 +103,14 @@ export const query = graphql`
     }
     markdownRemark(fields: { slug: { eq: $slug } }) {
       id
-      excerpt
       html
       timeToRead
+      tableOfContents
       frontmatter {
         category
         title
         summary
-        date(formatString: "YYYY. MM. DD", locale: "ko")
+        date(formatString: "MMMM DD, YY")
       }
     }
   }
