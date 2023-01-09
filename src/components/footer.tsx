@@ -10,7 +10,7 @@ const Footer = () => {
         Lazy Dev
       </UnderlineLink>
       <div className="ml-auto">
-        <UnderlineLink external url="/rss.xml" target="_blank" rel="noopener noreferrer">
+        <UnderlineLink external url="/rss.xml">
           rss
         </UnderlineLink>
       </div>
