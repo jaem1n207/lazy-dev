@@ -16,6 +16,12 @@
     --color-code-block: #f7f6f3;
     --color-code-highlight-border: rgba(0, 0, 0, 0.2);
     --color-divider: rgba(0, 0, 0, 0.15);
+    --color-token-keyword: #d73a49;
+    --color-token-property: #6f42c1;
+    --color-token-operator: #005cc5;
+    --color-token-function: #e36209;
+    --color-token-punctuation: #000;
+    --color-token-string: #22863a;
   }
 
   :root[class='dark'] {
@@ -31,6 +37,12 @@
     --color-code-block: #252525;
     --color-code-highlight-border: rgba(255, 255, 255, 0.2);
     --color-divider: rgba(255, 255, 255, 0.15);
+    --color-token-keyword: #cc99cd;
+    --color-token-property: #f8c555;
+    --color-token-operator: #67cdcc;
+    --color-token-function: #f08d49;
+    --color-token-punctuation: #ccc;
+    --color-token-string: #7ec699;
   }
 
   body {

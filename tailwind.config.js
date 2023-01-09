@@ -57,7 +57,6 @@ module.exports = {
         hyperlink: 'var(--color-hyperlink)',
         'article-background': 'var(--article-background)',
         'article-border': 'var(--article-border)',
-        'code-block': 'var(--color-code-block)',
         'button-text': 'var(--button-text)',
         divider: 'var(--color-divider)',
       },
