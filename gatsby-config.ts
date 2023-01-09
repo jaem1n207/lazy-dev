@@ -137,7 +137,48 @@ const imagePlugins: GatsbyConfig['plugins'] = [
 ];
 
 const searchPlugins: GatsbyConfig['plugins'] = [
-  'gatsby-plugin-sitemap',
+  {
+    resolve: 'gatsby-plugin-sitemap',
+    options: {
+      excludes: ['/404'],
+      query: `{
+        allSitePage {
+          nodes {
+            path
+          }
+        }
+        site {
+          siteMetadata {
+            siteUrl
+          }
+        }
+      }`,
+      resolveSiteUrl: () => siteMetadata.siteUrl,
+      resolvePages: ({ allSitePage }: { allSitePage?: { nodes: Array<{ path: string }> } }) => {
+        if (!allSitePage) return [];
+
+        return allSitePage.nodes;
+      },
+      serialize: ({
+        allSitePage,
+        site,
+      }: {
+        allSitePage?: { nodes: Array<{ path: string }> };
+        site?: { siteMetadata: { siteUrl: string } };
+      }) => {
+        if (!allSitePage || !site) return [];
+
+        return allSitePage.nodes.map((node) => {
+          return {
+            url: encodeURI(site.siteMetadata.siteUrl + node.path),
+            changefreq: 'daily',
+            priority: 0.7,
+          };
+        });
+      },
+      output: '/sitemap.xml',
+    },
+  },
   'gatsby-plugin-robots-txt',
   {
     resolve: 'gatsby-plugin-feed',
