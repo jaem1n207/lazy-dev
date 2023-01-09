@@ -193,7 +193,7 @@ const Markdown = styled.article<{ rhythm: typeof typography['rhythm'] }>`
 
     @media (min-width: 768px) {
       padding: 1.2rem;
-      margin: 1.5rem -1.5rem;
+      margin: 1.5rem 0;
     }
   }
 
@@ -213,6 +213,45 @@ const Markdown = styled.article<{ rhythm: typeof typography['rhythm'] }>`
     -webkit-background-clip: text;
     background-clip: text;
     border: 1px solid var(--color-code-highlight-border);
+  }
+
+  .token.atrule,
+  .token.builtin,
+  .token.important,
+  .token.keyword,
+  .token.selector {
+    color: var(--color-token-keyword);
+  }
+
+  .token.property,
+  .token.class-name,
+  .token.constant,
+  .token.symbol {
+    color: var(--color-token-property);
+  }
+
+  .token.boolean,
+  .token.number,
+  .token.function {
+    color: var(--color-token-function);
+  }
+
+  .token.punctuation {
+    color: var(--color-token-punctuation);
+  }
+
+  .token.string,
+  .token.char,
+  .token.attr-value,
+  .token.regex,
+  .token.variable {
+    color: var(--color-token-string);
+  }
+
+  .token.operator,
+  .token.entity,
+  .token.url {
+    color: var(--color-token-operator);
   }
 `;
 
