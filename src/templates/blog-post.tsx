@@ -47,10 +47,10 @@ const BlogPost = ({ data, location }: PageProps<Queries.BlogPostBySlugQuery>) =>
   const { frontmatter, html, timeToRead, tableOfContents } = data.markdownRemark!;
   const { title, date, category, summary } = frontmatter!;
 
-  const size = useWindowSize();
+  const { width } = useWindowSize();
 
   // 가시성 대신 디스플레이를 사용하여 layout shift를 방지합니다.
-  const isTableOfContentsVisible = size.width > 1440;
+  const isTableOfContentsVisible = width ? width > 768 : false;
 
   return (
     <Layout location={location} title={siteTitme} as="article">

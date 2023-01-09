@@ -4,6 +4,8 @@ import { Link } from 'gatsby';
 import Switch from 'react-switch';
 import tw from 'twin.macro';
 
+import { isBrowser } from 'Libs/environment';
+
 type Theme = 'dark' | 'light';
 
 const Moon = () => (
@@ -47,7 +49,7 @@ const Sun = () => (
 
 const ToggleMode = () => {
   let websiteTheme: Theme;
-  if (typeof window !== `undefined`) {
+  if (isBrowser) {
     websiteTheme = window.__theme;
   }
   React.useEffect(() => {
