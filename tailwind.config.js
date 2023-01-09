@@ -9,6 +9,10 @@ const range = (start, end) => {
 
 /** @type {import('tailwindcss').Config} */
 module.exports = {
+  future: {
+    // https://github.com/tailwindlabs/tailwindcss/pull/8394
+    hoverOnlyWhenSupported: true,
+  },
   darkMode: 'class',
   content: [
     './src/pages/**/*.{js,jsx,ts,tsx}',
