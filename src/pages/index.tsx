@@ -84,12 +84,11 @@ export const pageQuery = graphql`
       edges {
         node {
           timeToRead
-          excerpt
           fields {
             slug
           }
           frontmatter {
-            date(formatString: "YYYY. MM. DD", locale: "ko")
+            date(formatString: "MMMM DD, YY")
             title
             category
             draft

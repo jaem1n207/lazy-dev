@@ -84,9 +84,10 @@ exports.createPages = async ({ graphql, actions, reporter }) => {
           node {
             timeToRead
             id
+            tableOfContents
             excerpt
             frontmatter {
-              date(formatString: "YYYY. MM. DD", locale: "ko")
+              date(formatString: "MMMM DD, YY")
               title
               category
               authorId
