@@ -14,7 +14,7 @@ type LinkPropsGetter = GatsbyLinkProps<unknown>['getProps'];
 
 const ACTIVE_ID = 'active';
 
-const Nav = tw.nav`flex items-center rounded-lg bg-secondary mb-48pxr py-12pxr px-24pxr [a]:(block font-bold transition-colors rounded-lg py-8pxr px-16pxr text-14pxr hover:(text-background bg-primary)) [a[data-ui=${ACTIVE_ID}]]:(text-background bg-primary)`;
+const Nav = tw.nav`z-20 sticky top-0pxr flex items-center rounded-lg bg-secondary mb-48pxr py-12pxr px-24pxr [a]:(block font-bold transition-colors rounded-lg py-8pxr px-16pxr text-14pxr hover:(text-background bg-primary)) [a[data-ui=${ACTIVE_ID}]]:(text-background bg-primary)`;
 
 const CategoryFilter = ({ categories }: CategoryFilterProps) => {
   const categoryListRef = React.useRef<HTMLUListElement>(null);
@@ -36,12 +36,14 @@ const CategoryFilter = ({ categories }: CategoryFilterProps) => {
 
   return (
     <Nav>
-      <span className="font-bold mr-24pxr text-16pxr tablet:visually-hide">Category</span>
       <Link to="/" getProps={linkProps}>
         All
       </Link>
       <div className="w-1pxr h-32pxr mx-8pxr -translate-x-[50%] bg-divider" />
-      <ul ref={categoryListRef} className="flex overflow-x-scroll gap-8pxr scrollbar-hide">
+      <ul
+        ref={categoryListRef}
+        className="flex overflow-x-scroll scroll-smooth gap-8pxr scrollbar-hide"
+      >
         {sortedCategories.map((category) => {
           const { fieldValue } = category;
 
