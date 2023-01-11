@@ -166,7 +166,7 @@ exports.createPages = async ({ graphql, actions, reporter }) => {
 
   if (categories.length > 0) {
     categories.forEach((category) => {
-      const slug = `/category/${kebabCase(category.fieldValue)}/`;
+      const slug = `?category=${kebabCase(category.fieldValue)}`;
 
       createPage({
         path: slug,

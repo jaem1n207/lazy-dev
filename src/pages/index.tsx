@@ -5,6 +5,7 @@ import { graphql, HeadFC, HeadProps, PageProps } from 'gatsby';
 import CategoryFilter from 'Components/category-filter';
 import PostList from 'Components/post/post-list';
 import Seo from 'Components/seo';
+import { useQueryParams } from 'Hooks/use-query-params';
 import Layout from 'Layout/layout';
 import { firstLetterUppercase } from 'Libs/string';
 import Post from 'Types/post';
@@ -13,30 +14,35 @@ type ContextProps = {
   category: string;
 };
 
-const IndexPage: React.FC<PageProps<Queries.HomeQuery, ContextProps>> = ({
-  data,
-  location,
-  pageContext,
-}) => {
+const IndexPage: React.FC<PageProps<Queries.HomeQuery, ContextProps>> = ({ data, location }) => {
   const [posts, setPosts] = React.useState<Post[]>([]);
+  const [currentCategory, setCurrentCategory] = React.useState<string | undefined>();
 
-  const currentCategory = pageContext.category;
+  const category = useQueryParams({ key: 'category', type: 'string' });
+
+  React.useEffect(() => {
+    if (category) {
+      setCurrentCategory(category);
+    } else {
+      setCurrentCategory(undefined);
+    }
+  }, [category]);
+
   const postData = data.allMarkdownRemark.edges;
 
-  React.useLayoutEffect(() => {
+  const refinedPosts = React.useMemo(() => {
     const filteredPosts = postData
       .filter((post) => {
         if (currentCategory) {
           return post.node.frontmatter!.category === currentCategory;
+        } else {
+          return true;
         }
-
-        return true;
       })
       .map((edge) => {
         const { slug } = edge.node.fields!;
         const { title, date, category, summary, thumbnail } = edge.node.frontmatter!;
         const { childImageSharp } = thumbnail!;
-
         const post: Post = {
           slug,
           title,
@@ -50,8 +56,43 @@ const IndexPage: React.FC<PageProps<Queries.HomeQuery, ContextProps>> = ({
         return post;
       });
 
-    setPosts(filteredPosts);
-  }, [currentCategory, data.allMarkdownRemark, postData]);
+    return filteredPosts;
+  }, [currentCategory, postData]);
+
+  React.useEffect(() => {
+    setPosts(refinedPosts);
+  }, [refinedPosts]);
+
+  // React.useLayoutEffect(() => {
+  //   const filteredPosts = postData
+  //     .filter((post) => {
+  //       if (currentCategory) {
+  //         console.log('🚀 ~ file: index.tsx:30 ~ .filter ~ currentCategory', currentCategory);
+  //         return post.node.frontmatter!.category === currentCategory;
+  //       }
+
+  //       return true;
+  //     })
+  //     .map((edge) => {
+  //       const { slug } = edge.node.fields!;
+  //       const { title, date, category, summary, thumbnail } = edge.node.frontmatter!;
+  //       const { childImageSharp } = thumbnail!;
+
+  //       const post: Post = {
+  //         slug,
+  //         title,
+  //         date,
+  //         category,
+  //         summary,
+  //         thumbnail: childImageSharp?.id!,
+  //         timeToRead: edge.node.timeToRead,
+  //       };
+
+  //       return post;
+  //     });
+
+  //   setPosts(filteredPosts);
+  // }, [currentCategory, data.allMarkdownRemark, postData]);
 
   return (
     <Layout location={location} title={data.site?.siteMetadata?.title!}>

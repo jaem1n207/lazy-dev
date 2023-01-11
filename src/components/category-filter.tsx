@@ -18,8 +18,14 @@ const Nav = tw.nav`z-20 sticky top-0pxr flex items-center rounded-lg bg-secondar
 
 const CategoryFilter = ({ categories }: CategoryFilterProps) => {
   const categoryListRef = React.useRef<HTMLUListElement>(null);
-  const linkProps: LinkPropsGetter = ({ isCurrent }) => {
-    return isCurrent
+
+  const linkProps: LinkPropsGetter = ({ location, href }) => {
+    const category = new URLSearchParams(location.search).get('category');
+    const activeCategory = href.split('?category=')[1];
+    const isCategoryActive = category === activeCategory;
+    const isAll = !category && !activeCategory;
+
+    return (isCategoryActive || isAll ? ACTIVE_ID : undefined)
       ? {
           'data-ui': ACTIVE_ID,
           tabIndex: -1,
@@ -27,7 +33,7 @@ const CategoryFilter = ({ categories }: CategoryFilterProps) => {
       : {};
   };
 
-  useScrollCenter({ ref: categoryListRef, targetId: ACTIVE_ID });
+  useScrollCenter({ listRef: categoryListRef, targetId: ACTIVE_ID });
 
   const sortedCategories = useMemo(
     () => [...categories].sort((a, b) => b.totalCount - a.totalCount),
@@ -49,7 +55,7 @@ const CategoryFilter = ({ categories }: CategoryFilterProps) => {
 
           return (
             <li key={fieldValue} className="mb-0pxr">
-              <Link getProps={linkProps} to={`/category/${kebabCase(fieldValue!)}`}>
+              <Link getProps={linkProps} to={`?category=${kebabCase(fieldValue!)}`}>
                 {firstLetterUppercase(fieldValue!)}
               </Link>
             </li>
