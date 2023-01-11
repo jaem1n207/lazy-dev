@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 
 import { graphql, HeadProps, PageProps, Slice } from 'gatsby';
 import tw from 'twin.macro';
@@ -8,6 +8,7 @@ import Seo from 'Components/seo';
 import Summary from 'Components/summary';
 import { useWindowSize } from 'Hooks/use-window-size';
 import Layout from 'Layout/layout';
+import * as ScrollManager from 'Libs/scroll';
 import Markdown from 'Styles/markdown';
 import { rhythm } from 'Styles/typography';
 
@@ -51,6 +52,14 @@ const BlogPost = ({ data, location }: PageProps<Queries.BlogPostBySlugQuery>) =>
 
   // 가시성 대신 디스플레이를 사용하여 layout shift를 방지합니다.
   const isTableOfContentsVisible = width ? width > 768 : false;
+
+  useEffect(() => {
+    ScrollManager.init();
+
+    return () => {
+      ScrollManager.destroy();
+    };
+  }, []);
 
   return (
     <Layout location={location} title={siteTitme} as="article">
