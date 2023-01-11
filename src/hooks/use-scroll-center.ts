@@ -1,36 +1,37 @@
 import * as React from 'react';
 
 interface UseScrollCenterProps {
-  ref: React.RefObject<HTMLUListElement>;
+  listRef: React.RefObject<HTMLUListElement>;
   targetId: string;
 }
 
-const useScrollCenter = ({ ref, targetId }: UseScrollCenterProps) => {
+const useScrollCenter = ({ listRef, targetId }: UseScrollCenterProps) => {
   React.useLayoutEffect(() => {
-    const categoryWrapEl = ref.current;
+    const containerEl = listRef.current;
 
-    if (!categoryWrapEl) {
+    if (!containerEl) {
       return;
     }
 
-    const isScrollActivated = categoryWrapEl.scrollWidth >= categoryWrapEl.offsetWidth;
+    const activeItem = containerEl.querySelector<HTMLUListElement>('[data-ui="active"]');
 
-    if (!isScrollActivated) {
+    if (!activeItem) {
       return;
     }
 
-    const activeCategoryEl = categoryWrapEl.querySelector<HTMLUListElement>('[data-ui="active"]');
+    const { offsetWidth: tabWidth } = activeItem;
+    const { scrollLeft, offsetWidth: containerWidth } = containerEl;
+    const tabLeft = activeItem.getBoundingClientRect().left;
+    const containerLeft = containerEl.getBoundingClientRect().left;
+    const refineLeft = tabLeft - containerLeft;
+    const targetScrollX = scrollLeft + refineLeft - containerWidth / 2 + tabWidth / 2;
 
-    if (!activeCategoryEl) {
-      return;
-    }
-
-    const offsetX = activeCategoryEl.offsetLeft - categoryWrapEl.offsetLeft;
-    categoryWrapEl.scrollTo({
-      left: offsetX - categoryWrapEl.offsetWidth / 2 + activeCategoryEl.offsetWidth / 2,
+    containerEl.scroll({
+      left: targetScrollX,
       top: 0,
+      behavior: 'smooth',
     });
-  }, [ref, targetId]);
+  }, [listRef, targetId]);
 };
 
 export default useScrollCenter;
