@@ -5,6 +5,7 @@ import tw from 'twin.macro';
 
 import useScrollCenter from 'Hooks/use-scroll-center';
 import { firstLetterUppercase, kebabCase } from 'Libs/string';
+import { CATEGORY_TYPE } from 'Types/enum';
 
 interface CategoryFilterProps {
   categories: Queries.HomeQuery['allMarkdownRemark']['group'];
@@ -43,7 +44,7 @@ const CategoryFilter = ({ categories }: CategoryFilterProps) => {
   return (
     <Nav>
       <Link to="/" getProps={linkProps}>
-        All
+        {CATEGORY_TYPE.ALL}
       </Link>
       <div className="w-1pxr h-32pxr mx-8pxr -translate-x-[50%] bg-divider" />
       <ul
