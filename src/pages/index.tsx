@@ -8,6 +8,7 @@ import Seo from 'Components/seo';
 import { useQueryParams } from 'Hooks/use-query-params';
 import Layout from 'Layout/layout';
 import { firstLetterUppercase } from 'Libs/string';
+import { CATEGORY_TYPE } from 'Types/enum';
 import Post from 'Types/post';
 
 type ContextProps = {
@@ -18,6 +19,10 @@ const IndexPage: React.FC<PageProps<Queries.HomeQuery, ContextProps>> = ({ data,
   const [posts, setPosts] = React.useState<Post[]>([]);
   const [currentCategory, setCurrentCategory] = React.useState<string | undefined>();
 
+  const categories = React.useMemo(
+    () => data.allMarkdownRemark.group,
+    [data.allMarkdownRemark.group]
+  );
   const category = useQueryParams({ key: 'category', type: 'string' });
 
   React.useEffect(() => {
@@ -63,42 +68,11 @@ const IndexPage: React.FC<PageProps<Queries.HomeQuery, ContextProps>> = ({ data,
     setPosts(refinedPosts);
   }, [refinedPosts]);
 
-  // React.useLayoutEffect(() => {
-  //   const filteredPosts = postData
-  //     .filter((post) => {
-  //       if (currentCategory) {
-  //         console.log('🚀 ~ file: index.tsx:30 ~ .filter ~ currentCategory', currentCategory);
-  //         return post.node.frontmatter!.category === currentCategory;
-  //       }
-
-  //       return true;
-  //     })
-  //     .map((edge) => {
-  //       const { slug } = edge.node.fields!;
-  //       const { title, date, category, summary, thumbnail } = edge.node.frontmatter!;
-  //       const { childImageSharp } = thumbnail!;
-
-  //       const post: Post = {
-  //         slug,
-  //         title,
-  //         date,
-  //         category,
-  //         summary,
-  //         thumbnail: childImageSharp?.id!,
-  //         timeToRead: edge.node.timeToRead,
-  //       };
-
-  //       return post;
-  //     });
-
-  //   setPosts(filteredPosts);
-  // }, [currentCategory, data.allMarkdownRemark, postData]);
-
   return (
     <Layout location={location} title={data.site?.siteMetadata?.title!}>
-      <CategoryFilter categories={data.allMarkdownRemark.group} />
+      <CategoryFilter categories={categories} />
       <h2 className="font-bold text-32pxr mb-24pxr tablet:text-28pxr">
-        {currentCategory ? firstLetterUppercase(currentCategory) : 'All'} Posts
+        {currentCategory ? firstLetterUppercase(currentCategory) : CATEGORY_TYPE.ALL} Posts
       </h2>
       <PostList posts={posts} />
     </Layout>
