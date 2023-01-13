@@ -5,7 +5,7 @@ import { graphql, HeadFC, HeadProps, PageProps } from 'gatsby';
 import CategoryFilter from 'Components/category-filter';
 import PostList from 'Components/post/post-list';
 import Seo from 'Components/seo';
-import { useQueryParams } from 'Hooks/use-query-params';
+import { useCategory } from 'Hooks/use-category';
 import Layout from 'Layout/layout';
 import { firstLetterUppercase } from 'Libs/string';
 import { CATEGORY_TYPE } from 'Types/enum';
@@ -18,13 +18,12 @@ type ContextProps = {
 const IndexPage: React.FC<PageProps<Queries.HomeQuery, ContextProps>> = ({ data, location }) => {
   const [posts, setPosts] = React.useState<Post[]>([]);
   const [currentCategory, setCurrentCategory] = React.useState<string | undefined>();
+  const { category, selectCategory, resetCategory } = useCategory();
 
   const categories = React.useMemo(
     () => data.allMarkdownRemark.group,
     [data.allMarkdownRemark.group]
   );
-  const category = useQueryParams({ key: 'category', type: 'string' });
-
   React.useEffect(() => {
     if (category) {
       setCurrentCategory(category);
@@ -70,7 +69,11 @@ const IndexPage: React.FC<PageProps<Queries.HomeQuery, ContextProps>> = ({ data,
 
   return (
     <Layout location={location} title={data.site?.siteMetadata?.title!}>
-      <CategoryFilter categories={categories} />
+      <CategoryFilter
+        categories={categories}
+        selectCategory={selectCategory}
+        resetCategory={resetCategory}
+      />
       <h2 className="font-bold text-32pxr mb-24pxr tablet:text-28pxr">
         {currentCategory ? firstLetterUppercase(currentCategory) : CATEGORY_TYPE.ALL} Posts
       </h2>
