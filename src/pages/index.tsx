@@ -18,6 +18,7 @@ type ContextProps = {
 const IndexPage: React.FC<PageProps<Queries.HomeQuery, ContextProps>> = ({ data, location }) => {
   const [posts, setPosts] = React.useState<Post[]>([]);
   const [currentCategory, setCurrentCategory] = React.useState<string | undefined>();
+  const { category, selectCategory, resetCategory } = useCategory();
 
   const { category, selectCategory, resetCategory } = useCategory();
 
@@ -25,7 +26,6 @@ const IndexPage: React.FC<PageProps<Queries.HomeQuery, ContextProps>> = ({ data,
     () => data.allMarkdownRemark.group,
     [data.allMarkdownRemark.group]
   );
-
   React.useEffect(() => {
     if (category) {
       setCurrentCategory(category);
