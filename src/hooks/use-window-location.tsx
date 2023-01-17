@@ -15,6 +15,9 @@ import { useIsMounted } from './use-is-mounted';
 export const useWindowLocation = () => {
   const isMounted = useIsMounted();
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> f17d967 (🐛 fix: smooth-scroll window is not defined issue)
   const [location, setLocation] = React.useState(
     isMounted() && isBrowser ? window.location : undefined
   );
