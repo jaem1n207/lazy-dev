@@ -89,7 +89,7 @@ const fetchCategory = async (targetDir) => {
       type: 'list',
       name: 'selectedCategory',
       message: '카테고리 선택: ',
-      choices: [...categories, new inquirer.Separator(), ...customCategoryOptions],
+      choices: [...customCategoryOptions, new inquirer.Separator(), ...categories],
     },
   ];
 
@@ -123,7 +123,7 @@ const fetchCategory = async (targetDir) => {
       },
     ]);
 
-    category = newCategory;
+    category = newCategory.toLowerCase();
   } else if (selectedCategory === customCategoryOptions[1]) {
     interactiveLog.error(`[%d/%d] - 카테고리 선택이 취소되었습니다`, step, totalStep);
     process.exit(0);
