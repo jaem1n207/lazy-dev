@@ -1,5 +1,6 @@
 import { useCallback, useEffect, useState } from 'react';
 
+import { isBrowser } from 'Libs/environment';
 import * as ScrollManager from 'Libs/scroll';
 import { CATEGORY_TYPE } from 'Types/enum';
 
@@ -10,12 +11,16 @@ export const useCategory = () => {
   const categoryQueryParams = useQueryParams({ key: 'category', type: 'string' });
 
   const selectCategory = useCallback((category: string) => {
+    if (!isBrowser) return null;
+
     setCategory(category);
     ScrollManager.go(316);
     window.history.pushState({ category }, '', `?category=${category}`);
   }, []);
 
   const resetCategory = useCallback(() => {
+    if (!isBrowser) return null;
+
     setCategory(CATEGORY_TYPE.ALL);
     window.history.pushState({ category: CATEGORY_TYPE.ALL }, '', '/');
   }, []);
@@ -47,6 +52,8 @@ export const useCategory = () => {
   }, [changeCategory]);
 
   useEffect(() => {
+    if (!isBrowser) return;
+
     window.addEventListener('popstate', changeCategory.bind(null, false));
 
     return () => {

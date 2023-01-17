@@ -1,6 +1,8 @@
 import SmoothScroll from 'smooth-scroll';
 import smoothscroll from 'smoothscroll-polyfill';
 
+import { isBrowser } from './environment';
+
 let scroll: SmoothScroll | null = null;
 
 export function init() {
@@ -22,6 +24,7 @@ export function destroy() {
 }
 
 export function go(dest: number) {
+  if (!isBrowser) return null;
   if (!scroll) throw Error('Not founded SmoothScroll instance');
 
   if (dest < window.scrollY) {
