@@ -2,7 +2,7 @@ import * as React from 'react';
 
 import { graphql, HeadFC, HeadProps, PageProps } from 'gatsby';
 
-import CategoryFilter from 'Components/category-filter';
+import CategoryFilter from 'Components/category/category-filter';
 import PostList from 'Components/post/post-list';
 import Seo from 'Components/seo';
 import { useCategory } from 'Hooks/use-category';
@@ -70,6 +70,7 @@ const IndexPage: React.FC<PageProps<Queries.HomeQuery, ContextProps>> = ({ data,
   return (
     <Layout location={location} title={data.site?.siteMetadata?.title!}>
       <CategoryFilter
+        category={category}
         categories={categories}
         selectCategory={selectCategory}
         resetCategory={resetCategory}
