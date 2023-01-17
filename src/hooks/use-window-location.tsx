@@ -1,5 +1,7 @@
 import React from 'react';
 
+import { isBrowser } from 'Libs/environment';
+
 import { useIsMounted } from './use-is-mounted';
 
 export const useWindowLocation = () => {
@@ -7,6 +9,8 @@ export const useWindowLocation = () => {
   const [location, setLocation] = React.useState(isMounted() ? window.location : undefined);
 
   React.useEffect(() => {
+    if (!isBrowser) return;
+
     const handleLocationChange = () => {
       setLocation(window.location);
     };

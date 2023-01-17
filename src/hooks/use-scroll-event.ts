@@ -1,5 +1,7 @@
 import { useEffect } from 'react';
 
+import { isBrowser } from 'Libs/environment';
+
 // https://github.com/cubiq/iscroll/blob/master/demos/demoUtils.js#L2-L12
 const isPassive = () => {
   let supportsPassive = false;
@@ -22,6 +24,8 @@ const isPassive = () => {
 
 export const useScrollEvent = (cb: () => void) => {
   useEffect(() => {
+    if (!isBrowser) return;
+
     window.addEventListener('scroll', cb, isPassive() ? { passive: true } : false);
 
     return () => {
