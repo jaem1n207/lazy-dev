@@ -1,10 +1,15 @@
 import React from 'react';
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 import { isBrowser } from 'Libs/environment';
 
 =======
 >>>>>>> 8a7b240 (✨ feat: useWindowLocation hook)
+=======
+import { isBrowser } from 'Libs/environment';
+
+>>>>>>> 7458950 (🐛 fix: node 환경 처리)
 import { useIsMounted } from './use-is-mounted';
 
 export const useWindowLocation = () => {
@@ -21,7 +26,12 @@ export const useWindowLocation = () => {
   const [location, setLocation] = React.useState(isMounted() ? window.location : undefined);
 
   React.useEffect(() => {
+<<<<<<< HEAD
 >>>>>>> 8a7b240 (✨ feat: useWindowLocation hook)
+=======
+    if (!isBrowser) return;
+
+>>>>>>> 7458950 (🐛 fix: node 환경 처리)
     const handleLocationChange = () => {
       setLocation(window.location);
     };
