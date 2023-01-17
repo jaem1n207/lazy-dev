@@ -37,10 +37,10 @@ const IndexPage: React.FC<PageProps<Queries.HomeQuery, ContextProps>> = ({ data,
   const refinedPosts = React.useMemo(() => {
     const filteredPosts = postData
       .filter((post) => {
-        if (currentCategory) {
-          return post.node.frontmatter!.category === currentCategory;
-        } else {
+        if (currentCategory === CATEGORY_TYPE.ALL) {
           return true;
+        } else {
+          return post.node.frontmatter?.category === currentCategory;
         }
       })
       .map((edge) => {
