@@ -49,7 +49,7 @@ const CategoryFilter = ({ categories, selectCategory, resetCategory }: CategoryF
       <div className="w-1pxr h-32pxr mx-8pxr -translate-x-[50%] bg-divider" />
       <ul
         ref={categoryListRef}
-        className="flex overflow-x-scroll scroll-smooth gap-8pxr scrollbar-hide"
+        className="flex overflow-x-auto scroll-smooth gap-8pxr scrollbar-hide"
       >
         {sortedCategories.map((category) => {
           const { fieldValue } = category;

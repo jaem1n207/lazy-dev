@@ -1,4 +1,11 @@
-import SmoothScroll from 'smooth-scroll';
+/**
+ * @fileoverview Scroll to anchor link with smooth scroll polyfill and smooth-scroll library
+ * @see https://github.com/JaeYeopHan/gatsby-starter-bee/blob/master/src/utils/scroll.js
+ */
+
+// https://github.com/cferdinandi/smooth-scroll/issues/481
+// @ts-ignore
+import SmoothScroll from 'smooth-scroll/dist/smooth-scroll.min';
 import smoothscroll from 'smoothscroll-polyfill';
 
 import { isBrowser } from './environment';
