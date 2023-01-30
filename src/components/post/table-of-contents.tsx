@@ -2,6 +2,8 @@ import React from 'react';
 
 import tw from 'twin.macro';
 
+import { addClass, getElement, removeClass } from 'Libs/dom';
+
 interface TableOfContentsProps {
   toc: Queries.MarkdownRemark['tableOfContents'];
 }
@@ -16,17 +18,18 @@ const TableOfContents = ({ toc }: TableOfContentsProps) => {
       (entries) => {
         entries.forEach((entry) => {
           const id = entry.target.getAttribute('id');
-
           if (!id) return;
-          const link = document.querySelector(`a[href="#${encodeURIComponent(id)}"]`);
+
+          const link = getElement(`a[href="#${encodeURIComponent(id)}"]`);
+          if (!link) return;
 
           const targetStaticYPos = entry.boundingClientRect.y;
           const currentYPos = entry.rootBounds?.y || 0;
 
           if (entry.isIntersecting) {
-            link?.classList.add('active');
+            addClass(link, 'active');
           } else if (currentYPos < targetStaticYPos) {
-            link?.classList.remove('active');
+            removeClass(link, 'active');
           }
         });
       },
