@@ -8,6 +8,11 @@ export const onRenderBody: GatsbySSR['onRenderBody'] = ({
 }) => {
   setHtmlAttributes({ lang: 'ko' });
   setHeadComponents([
+    <meta
+      key="google-search-console-verification"
+      name="google-site-verification"
+      content="ohUVyTBdTm7pjIAXpNjQ9EppEzdrbFijShnU7Q0GEJI"
+    />,
     <link
       key="SpoqaHanSansNeo-Bold"
       rel="preload"
