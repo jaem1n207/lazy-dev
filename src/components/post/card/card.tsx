@@ -11,9 +11,8 @@ import CenteredImage from './centered-image';
 interface CardProps extends Post {}
 
 const Card = ({ slug, title, summary, date, category, thumbnail, timeToRead }: CardProps) => {
-  const blogLink = `/blog${slug!}`;
+  const blogLink = slug || '';
 
-  console.log('🚀 ~ file: card.tsx:16 ~ Card ~ blogLink', blogLink);
   return (
     <li>
       <article
