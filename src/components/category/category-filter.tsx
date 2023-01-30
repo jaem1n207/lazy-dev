@@ -30,7 +30,6 @@ const CategoryFilter = ({
     [categories]
   );
 
-  // useScrollCenter({ listRef: categoryListRef, targetId: ACTIVE_ID });
   const scrollToCenter = useCallback(
     (tabRef: React.RefObject<HTMLButtonElement>) => {
       if (!tabRef.current) {

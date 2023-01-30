@@ -138,9 +138,9 @@ const imagePlugins: GatsbyConfig['plugins'] = [
 
 const searchPlugins: GatsbyConfig['plugins'] = [
   {
-    resolve: 'gatsby-plugin-advanced-sitemap',
+    resolve: 'gatsby-plugin-sitemap',
     options: {
-      exclude: ['/404'],
+      excludes: ['/404'],
     },
   },
   {
