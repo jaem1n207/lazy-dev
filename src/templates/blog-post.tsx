@@ -44,7 +44,6 @@ type DataProps = {
 
 const BlogPost = ({ data, location }: PageProps<Queries.BlogPostBySlugQuery>) => {
   const siteTitme = data.site?.siteMetadata?.title || 'Title';
-
   const { frontmatter, html, timeToRead, tableOfContents } = data.markdownRemark!;
   const { title, date, category, summary } = frontmatter!;
 
