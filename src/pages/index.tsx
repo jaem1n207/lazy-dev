@@ -99,7 +99,10 @@ export const pageQuery = graphql`
       }
     }
     allMarkdownRemark(
-      filter: { fileAbsolutePath: { regex: "/(content/blog)/" } }
+      filter: {
+        frontmatter: { category: { ne: "null" } }
+        fileAbsolutePath: { regex: "/(content|blog)/" }
+      }
       sort: { frontmatter: { date: DESC } }
     ) {
       edges {
@@ -112,7 +115,6 @@ export const pageQuery = graphql`
             date(formatString: "MMMM DD, YY")
             title
             category
-            draft
             summary
             thumbnail {
               childImageSharp {

@@ -8,3 +8,5 @@ declare global {
     __setPreferredTheme: (theme: Theme) => void;
   }
 }
+
+declare const __PATH_PREFIX__: string;

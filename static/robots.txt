@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://lazydev.gatsbyjs.io/sitemap-0.xml
