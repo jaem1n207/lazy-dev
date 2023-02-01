@@ -121,12 +121,6 @@ exports.createPages = async ({ graphql, actions, reporter }) => {
           }
         }
       }
-      categoriesGroup: allMarkdownRemark(limit: 2000) {
-        group(field: { frontmatter: { category: SELECT } }) {
-          fieldValue
-          totalCount
-        }
-      }
     }
   `);
 
@@ -150,28 +144,6 @@ exports.createPages = async ({ graphql, actions, reporter }) => {
         },
         slices: {
           bio: `bio--${post.node.frontmatter.authorId}`,
-        },
-      });
-    });
-  }
-
-  const categories = blogResult.data.categoriesGroup.group;
-
-  const mainTemplate = resolve('./src/pages/index.tsx');
-
-  const kebabCase = (string) =>
-    string
-      .replace(/([a-z])([A-Z])/g, '$1-$2')
-      .replace(/\s+/g, '-')
-      .toLowerCase();
-
-  if (categories.length > 0) {
-    categories.forEach((category) => {
-      createPage({
-        path: `?category=${kebabCase(category.fieldValue)}/`,
-        component: mainTemplate,
-        context: {
-          category: category.fieldValue,
         },
       });
     });

@@ -146,8 +146,8 @@ const searchPlugins: GatsbyConfig['plugins'] = [
   {
     resolve: 'gatsby-plugin-robots-txt',
     options: {
-      host: 'https://lazydev.gatsbyjs.io',
-      sitemap: 'https://lazydev.gatsbyjs.io/sitemap-pages.xml',
+      host: 'https://lazydev.gatsbyjs.io/',
+      sitemap: 'https://lazydev.gatsbyjs.io/sitemap-0.xml',
       policy: [{ userAgent: '*', allow: '/' }],
     },
   },

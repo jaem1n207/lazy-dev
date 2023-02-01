@@ -11,7 +11,10 @@ interface LayoutProps {
 }
 
 const Layout = ({ children, location, title, as = 'div' }: LayoutProps) => {
-  const isRootPath = /^\/(category\/.*)?$/.test(location.pathname);
+  // @ts-ignore
+  // eslint-disable-next-line no-undef
+  const rootPath = `${__PATH_PREFIX__}/`;
+  const isRootPath = location.pathname === rootPath;
 
   const As = as;
 
