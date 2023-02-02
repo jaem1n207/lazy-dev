@@ -35,6 +35,7 @@ export function go(dest: number) {
   if (!scroll) throw Error('Not founded SmoothScroll instance');
 
   if (dest < window.scrollY) {
+    console.log('scroll up');
     scroll.animateScroll(dest);
   }
 
