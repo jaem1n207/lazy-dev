@@ -18,7 +18,7 @@ const CategoryItem = ({
   scrollToCenter,
   ACTIVE_ID,
 }: CategoryItemProps) => {
-  const tabRef = React.useRef<HTMLButtonElement>(null);
+  const tabRef = React.useRef<HTMLButtonElement | null>(null);
 
   const handleClick = useCallback(() => {
     onClick(title);
@@ -34,12 +34,21 @@ const CategoryItem = ({
   if (title === CATEGORY_TYPE.ALL) {
     return (
       <button
-        onClick={handleClick}
         data-ui={selectedCategory === title ? ACTIVE_ID : undefined}
         tabIndex={selectedCategory === title ? -1 : undefined}
+        onClick={handleClick}
       >
         {firstLetterUppercase(title)}
       </button>
+      // <Link
+      //   to={`?category=${title}`}
+      //   data-ui={selectedCategory === title ? ACTIVE_ID : undefined}
+      //   tabIndex={selectedCategory === title ? -1 : undefined}
+      //   className="text-gray-500 hover:text-gray-900"
+      //   onClick={handleClick}
+      // >
+      //   {firstLetterUppercase(title)}
+      // </Link>
     );
   }
 
@@ -53,6 +62,16 @@ const CategoryItem = ({
       >
         {firstLetterUppercase(title)}
       </button>
+      {/* <Link
+        ref={tabRef}
+        to={`?category=${title}`}
+        data-ui={selectedCategory === title ? ACTIVE_ID : undefined}
+        tabIndex={selectedCategory === title ? -1 : undefined}
+        className="text-gray-500 hover:text-gray-900"
+        onClick={handleClick}
+      >
+        {firstLetterUppercase(title)}
+      </Link> */}
     </li>
   );
 };
