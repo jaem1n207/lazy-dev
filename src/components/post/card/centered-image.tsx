@@ -15,13 +15,7 @@ const CenteredImage = ({ thumbnail }: CenteredImageProps) => {
         edges {
           node {
             id
-            gatsbyImageData(
-              formats: WEBP
-              aspectRatio: 1.78
-              width: 632
-              layout: FIXED
-              quality: 80
-            )
+            gatsbyImageData(formats: WEBP, layout: FIXED)
           }
         }
       }
