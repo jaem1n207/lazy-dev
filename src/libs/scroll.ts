@@ -31,11 +31,10 @@ export function destroy() {
 }
 
 export function go(dest: number) {
-  if (!isBrowser) return null;
+  if (!isBrowser || !window) return null;
   if (!scroll) throw Error('Not founded SmoothScroll instance');
 
   if (dest < window.scrollY) {
-    console.log('scroll up');
     scroll.animateScroll(dest);
   }
 
