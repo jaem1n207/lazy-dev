@@ -20,8 +20,6 @@ const IndexPage: React.FC<PageProps<Queries.HomeQuery, ContextProps>> = ({ data,
   const [currentCategory, setCurrentCategory] = React.useState<string | undefined>();
   const { category, selectCategory, resetCategory } = useCategory();
 
-  const { category, selectCategory, resetCategory } = useCategory();
-
   const categories = React.useMemo(
     () => data.allMarkdownRemark.group,
     [data.allMarkdownRemark.group]

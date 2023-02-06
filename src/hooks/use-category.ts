@@ -24,6 +24,7 @@ export const useCategory = () => {
     if (!isBrowser) return null;
 
     setCategory(CATEGORY_TYPE.ALL);
+    ScrollManager.go(DEST_TOP);
     navigate('/');
   }, []);
 
