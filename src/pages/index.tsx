@@ -2,6 +2,7 @@ import * as React from 'react';
 
 import { graphql, HeadFC, HeadProps, PageProps } from 'gatsby';
 
+import A2HS from 'Components/A2HS';
 import CategoryFilter from 'Components/category/category-filter';
 import PostList from 'Components/post/post-list';
 import Seo from 'Components/seo';
@@ -69,6 +70,7 @@ const IndexPage: React.FC<PageProps<Queries.HomeQuery, ContextProps>> = ({ data,
 
   return (
     <Layout location={location} title={data.site?.siteMetadata?.title!}>
+      <A2HS />
       <CategoryFilter
         category={category}
         categories={categories}
