@@ -1,38 +1,36 @@
-import { useState, useEffect, useCallback } from 'react';
-
-import { isBrowser } from 'Libs/environment';
+import { useState, useEffect } from 'react';
 
 export const useA2HS = () => {
-  const [isA2HS, setIsA2HS] = useState(false);
-  const [isInstall, setIsInstall] = useState(false);
-
-  const handleBeforeInstall = useCallback(() => {
-    setIsA2HS(true);
-  }, []);
-
-  const handleAfterInstall = useCallback(() => {
-    setIsA2HS(false);
-    setIsInstall(true);
-  }, []);
-
-  const install = useCallback(() => {
-    if (!isBrowser) return;
-
-    const event = new Event('beforeinstallprompt');
-    window.dispatchEvent(event);
-  }, []);
+  const [deferredPrompt, setDeferredPrompt] = useState<Event>();
 
   useEffect(() => {
-    if (!isBrowser) return;
+    const handler = (e: Event) => {
+      e.preventDefault();
+      setDeferredPrompt(e);
+    };
 
-    window.addEventListener('beforeinstallprompt', handleBeforeInstall);
-    window.addEventListener('appinstalled', handleAfterInstall);
+    window.addEventListener('beforeinstallprompt', handler);
 
     return () => {
-      window.removeEventListener('beforeinstallprompt', handleBeforeInstall);
-      window.removeEventListener('appinstalled', handleAfterInstall);
+      window.removeEventListener('beforeinstallprompt', handler);
     };
-  }, [handleBeforeInstall, handleAfterInstall]);
+  }, []);
 
-  return { isA2HS, isInstall, install };
+  const installApp = async () => {
+    // @ts-ignore
+    deferredPrompt?.prompt();
+    // @ts-ignore
+    const { outcome } = (await deferredPrompt?.userChoice) || {};
+    if (outcome === 'accepted') {
+      clearPrompt();
+    }
+
+    return outcome;
+  };
+
+  const clearPrompt = () => {
+    setDeferredPrompt(undefined);
+  };
+
+  return { deferredPrompt, install: installApp, clearPrompt };
 };
