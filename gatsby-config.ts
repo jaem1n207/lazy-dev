@@ -202,13 +202,12 @@ const pwaPlugins: GatsbyConfig['plugins'] = [
       name: 'Lazy Dev',
       short_name: 'Lazy Dev',
       description: '웹 프론트 개발에 대한 이야기를 다룹니다.',
-      lang: 'ko',
       start_url: '/',
       background_color: '#1C1C1E',
       // This will impact how browsers show your PWA/website
       // https://css-tricks.com/meta-theme-color-and-trickery/
       theme_color: '#ffa7c4',
-      display: `minimal-ui`,
+      display: `standalone`,
       icon: './static/images/favicon.png',
       icon_options: {
         purpose: `any maskable`,
@@ -255,7 +254,6 @@ const pwaPlugins: GatsbyConfig['plugins'] = [
           type: 'image/png',
         },
       ],
-      crossOrigin: `use-credentials`,
     },
   },
   'gatsby-plugin-offline',
