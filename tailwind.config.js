@@ -60,6 +60,7 @@ module.exports = {
         'article-border': 'var(--article-border)',
         'button-text': 'var(--button-text)',
         divider: 'var(--color-divider)',
+        'a2hs-banner': 'var(--color-a2hs-banner-background)',
       },
       fontFamily: {
         spoqa: ['Spoqa Han Sans Neo', ...defaultTheme.fontFamily.sans],
