@@ -146,7 +146,7 @@ const searchPlugins: GatsbyConfig['plugins'] = [
   {
     resolve: 'gatsby-plugin-robots-txt',
     options: {
-      host: 'https://lazydev.gatsbyjs.io/',
+      host: 'https://lazydev.gatsbyjs.io',
       sitemap: 'https://lazydev.gatsbyjs.io/sitemap-0.xml',
       policy: [{ userAgent: '*', allow: '/' }],
     },
@@ -175,7 +175,6 @@ const searchPlugins: GatsbyConfig['plugins'] = [
           query: `{
             allMarkdownRemark(sort: {frontmatter: {date: DESC}}) {
               nodes {
-                excerpt
                 html
                 fields {
                   slug
@@ -183,6 +182,7 @@ const searchPlugins: GatsbyConfig['plugins'] = [
                 frontmatter {
                   title
                   date
+                  summary
                 }
               }
             }
