@@ -1,36 +1,52 @@
 import { useState, useEffect } from 'react';
 
+import { Local_STORAGE_KEY } from 'Types/enum';
+
+import { useLocalStorage } from './use-local-storage';
+
+type BeforeInstallPromptEvent = Event & {
+  prompt: () => Promise<void>;
+  userChoice: Promise<{
+    outcome: 'accepted' | 'dismissed';
+    platform: string;
+  }>;
+};
+
 export const useA2HS = () => {
-  const [deferredPrompt, setDeferredPrompt] = useState<Event>();
+  const [prompt, setPrompt] = useState<BeforeInstallPromptEvent | null>(null);
+  const [a2hsBannerStorage, setA2hsBannerStorge] = useLocalStorage(
+    Local_STORAGE_KEY.A2HS_BANNER,
+    true
+  );
 
   useEffect(() => {
-    const handler = (e: Event) => {
+    const handleBeforeInstallPrompt = (e: Event) => {
       e.preventDefault();
-      setDeferredPrompt(e);
+      setPrompt(e as BeforeInstallPromptEvent);
     };
 
-    window.addEventListener('beforeinstallprompt', handler);
+    window.addEventListener('beforeinstallprompt', handleBeforeInstallPrompt);
 
     return () => {
-      window.removeEventListener('beforeinstallprompt', handler);
+      window.removeEventListener('beforeinstallprompt', handleBeforeInstallPrompt);
     };
   }, []);
 
-  const installApp = async () => {
-    // @ts-ignore
-    deferredPrompt?.prompt();
-    // @ts-ignore
-    const { outcome } = (await deferredPrompt?.userChoice) || {};
-    if (outcome === 'accepted') {
-      clearPrompt();
+  const handleInstall = async () => {
+    clearPrompt();
+    if (prompt) {
+      await prompt.prompt();
+      const { outcome } = await prompt.userChoice;
+      if (outcome === 'accepted') {
+        clearPrompt();
+      }
     }
-
-    return outcome;
   };
 
   const clearPrompt = () => {
-    setDeferredPrompt(undefined);
+    setPrompt(null);
+    setA2hsBannerStorge(false);
   };
 
-  return { deferredPrompt, install: installApp, clearPrompt };
+  return { a2hsBannerStorage, prompt, handleInstall, clearPrompt };
 };
