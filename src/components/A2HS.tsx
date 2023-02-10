@@ -11,7 +11,7 @@ const A2HS = () => {
   const { title } = useSiteMetadata();
 
   return !prompt && a2hsBannerStorage ? (
-    <div className="fixed z-30 flex items-center justify-center bottom-0pxr">
+    <div className="fixed z-30 flex items-center justify-center w-full bottom-0pxr">
       <div className="p-32pxr rounded-tl-xl rounded-tr-xl bg-a2hs-banner">
         <div className="flex items-center gap-8pxr">
           <StaticImage
