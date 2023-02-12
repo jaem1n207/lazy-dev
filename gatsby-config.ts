@@ -208,7 +208,8 @@ const pwaPlugins: GatsbyConfig['plugins'] = [
       theme_color: '#ffa7c4',
       // This will impact how browsers show your PWA/website
       // https://css-tricks.com/meta-theme-color-and-trickery/
-      display: `standalone`,
+      display: `fullscreen`,
+      orientation: `portrait`,
       icon: './static/images/favicon.png',
       icon_options: {
         purpose: `maskable`,

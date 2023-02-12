@@ -1,16 +1,57 @@
-import React from 'react';
+import React, { useState } from 'react';
 
 import { StaticImage } from 'gatsby-plugin-image';
 import tw from 'twin.macro';
 
-import { useA2HS } from 'Hooks/use-a2hs';
+import { useLocalStorage } from 'Hooks/use-local-storage';
 import { useSiteMetadata } from 'Hooks/use-site-metadata';
+import { Local_STORAGE_KEY } from 'Types/enum';
+
+type BeforeInstallPromptEvent = Event & {
+  prompt: () => Promise<void>;
+  userChoice: Promise<{
+    outcome: 'accepted' | 'dismissed';
+    platform: string;
+  }>;
+};
+
+const useA2HS = () => {
+  const [prompt, setPrompt] = useState<BeforeInstallPromptEvent | null>(null);
+  const [showA2hsBanner, setShowA2hsBanner] = useLocalStorage(Local_STORAGE_KEY.A2HS_BANNER, true);
+
+  const handleBeforeInstallPrompt = (e: BeforeInstallPromptEvent) => {
+    e.preventDefault();
+    setPrompt(e);
+  };
+
+  const handleInstall = () => {
+    if (prompt) {
+      prompt.prompt();
+      prompt.userChoice.then((choiceResult) => {
+        handleCancel();
+      });
+    }
+  };
+
+  const handleCancel = () => {
+    setShowA2hsBanner(false);
+    setPrompt(null);
+  };
+
+  return {
+    prompt,
+    showA2hsBanner,
+    handleBeforeInstallPrompt,
+    handleInstall,
+    handleCancel,
+  };
+};
 
 const A2HS = () => {
-  const { a2hsBannerStorage, prompt, handleInstall, clearPrompt } = useA2HS();
   const { title } = useSiteMetadata();
+  const { prompt, handleInstall, handleCancel, showA2hsBanner } = useA2HS();
 
-  return !prompt && a2hsBannerStorage ? (
+  return !prompt && showA2hsBanner ? (
     <div className="fixed z-30 flex items-center justify-center w-full bottom-0pxr">
       <div className="p-32pxr rounded-tl-xl rounded-tr-xl bg-a2hs-banner">
         <div className="flex items-center gap-8pxr">
@@ -31,7 +72,7 @@ const A2HS = () => {
         <div className="flex items-center mt-28pxr gap-8pxr">
           <button
             css={tw`font-bold grow py-8pxr text-24pxr px-12pxr bg-primary text-button-text foldable:(px-8pxr text-20pxr)`}
-            onClick={clearPrompt}
+            onClick={handleCancel}
           >
             취소
           </button>
