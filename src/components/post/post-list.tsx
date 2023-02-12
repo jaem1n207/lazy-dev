@@ -12,7 +12,7 @@ interface PostListProps {
 
 const PostList = ({ posts }: PostListProps) => {
   return (
-    <ol css={tw`flex flex-col list-none gap-40pxr`}>
+    <ol id="post-list" css={tw`flex flex-col list-none gap-40pxr`}>
       {posts.map((data) => {
         return <Card key={data.slug} {...data} />;
       })}

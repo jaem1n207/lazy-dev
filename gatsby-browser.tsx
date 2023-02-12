@@ -28,18 +28,18 @@ export const onServiceWorkerUpdateReady = () => {
 };
 
 export const onRouteUpdate = () => {
-  const root = document.getElementById('___gatsby');
+  const blogList = document.getElementById('post-list');
 
-  if (root) {
-    root.style.visibility = 'hidden';
-    root.style.opacity = '0';
+  if (blogList) {
+    blogList.style.visibility = 'hidden';
+    blogList.style.opacity = '0';
   }
 
   window.setTimeout(() => {
-    if (root) {
-      root.style.visibility = 'visible';
-      root.style.opacity = '1';
-      root.style.transition = 'opacity 0.2s ease-in-out';
+    if (blogList) {
+      blogList.style.visibility = 'visible';
+      blogList.style.opacity = '1';
+      blogList.style.transition = 'opacity 0.2s ease-in-out';
     }
   }, 200);
 };
