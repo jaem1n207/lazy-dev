@@ -16,3 +16,30 @@ export const shouldUpdateScroll = ({ routerProps: { location }, getSavedScrollPo
   }
   return false;
 };
+
+export const onServiceWorkerUpdateReady = () => {
+  const answer = window.confirm(
+    `This application has been updated. ` + `Reload to display the latest version?`
+  );
+
+  if (answer === true) {
+    window.location.reload();
+  }
+};
+
+export const onRouteUpdate = () => {
+  const root = document.getElementById('___gatsby');
+
+  if (root) {
+    root.style.visibility = 'hidden';
+    root.style.opacity = '0';
+  }
+
+  window.setTimeout(() => {
+    if (root) {
+      root.style.visibility = 'visible';
+      root.style.opacity = '1';
+      root.style.transition = 'opacity 0.2s ease-in-out';
+    }
+  }, 200);
+};
