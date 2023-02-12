@@ -2,12 +2,10 @@ import * as React from 'react';
 
 import { graphql, HeadFC, HeadProps, PageProps } from 'gatsby';
 
-import A2HS from 'Components/a2hs';
 import CategoryFilter from 'Components/category/category-filter';
 import PostList from 'Components/post/post-list';
 import Seo from 'Components/seo';
 import { useCategory } from 'Hooks/use-category';
-import { usePortal } from 'Hooks/use-portal';
 import Layout from 'Layout/layout';
 import { firstLetterUppercase } from 'Libs/string';
 import { CATEGORY_TYPE } from 'Types/enum';
@@ -69,13 +67,8 @@ const IndexPage: React.FC<PageProps<Queries.HomeQuery, ContextProps>> = ({ data,
     setPosts(refinedPosts);
   }, [refinedPosts]);
 
-  const Portal = usePortal('a2hs');
-
   return (
     <Layout location={location} title={data.site?.siteMetadata?.title!}>
-      <Portal>
-        <A2HS />
-      </Portal>
       <CategoryFilter
         category={category}
         categories={categories}
