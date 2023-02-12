@@ -2,7 +2,7 @@ import * as React from 'react';
 
 import { graphql, HeadFC, HeadProps, PageProps } from 'gatsby';
 
-import A2HS from 'Components/A2HS';
+import A2HS from 'Components/a2hs';
 import CategoryFilter from 'Components/category/category-filter';
 import PostList from 'Components/post/post-list';
 import Seo from 'Components/seo';
