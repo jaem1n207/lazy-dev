@@ -20,8 +20,14 @@ export const usePortal = (id: string = '') => {
       return el;
     }
 
-    const newEl = document.createElement('div');
     const portalId = !isEmptyString(id) ? `${prefixId}-${id}` : `${prefixId}-${uuid()}`;
+    const renderedEl = document.getElementById(portalId);
+
+    if (renderedEl) {
+      return renderedEl;
+    }
+
+    const newEl = document.createElement('div');
     newEl.setAttribute('id', portalId);
     document.body.appendChild(newEl);
 
