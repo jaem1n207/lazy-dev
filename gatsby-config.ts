@@ -42,11 +42,13 @@ const corePlugins: GatsbyConfig['plugins'] = [
     resolve: `gatsby-plugin-gatsby-cloud`,
     options: {
       headers: {
-        '/static/fonts/*': ['Cache-Control: public, max-age=31536000, immutable'],
-        '/(.*\\.(js|json|css|ico|png)$)': ['Cache-Control: public, max-age=31536000, immutable'],
-        '/(.*)': ['Cache-Control: public, max-age=0, must-revalidate'],
+        '/*': ['Cache-Control: public, max-age=31536000, immutable'],
+        'static/*': ['Cache-Control: public, max-age=31536000, immutable'],
       }, // option to add more headers. `Link` headers are transformed by the below criteria
-      allPageHeaders: [], // option to add headers for all pages. `Link` headers are transformed by the below criteria
+      /**
+       * @see: https://cheatsheetseries.owasp.org/cheatsheets/HTTP_Strict_Transport_Security_Cheat_Sheet.html
+       */
+      allPageHeaders: ['Strict-Transport-Security: max-age=31536000; includeSubDomains; preload'], // option to add headers for all pages. `Link` headers are transformed by the below criteria
       mergeSecurityHeaders: true, // boolean to turn off the default security headers
       mergeLinkHeaders: true, // boolean to turn off the default gatsby js headers
       mergeCachingHeaders: true, // boolean to turn off the default caching headers
