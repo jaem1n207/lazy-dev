@@ -211,7 +211,7 @@ const pwaPlugins: GatsbyConfig['plugins'] = [
       orientation: `portrait`,
       icon: './static/images/favicon.png',
       icon_options: {
-        purpose: `maskable`,
+        purpose: `any maskable`,
       },
       icons: [
         {
