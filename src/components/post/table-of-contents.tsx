@@ -2,7 +2,9 @@ import React from 'react';
 
 import tw from 'twin.macro';
 
+import { useScrollEvent } from 'Hooks/use-scroll-event';
 import { addClass, getElement, removeClass } from 'Libs/dom';
+import * as EventManager from 'Libs/event-manager';
 
 interface TableOfContentsProps {
   toc: Queries.MarkdownRemark['tableOfContents'];
@@ -13,38 +15,53 @@ const TOCWrapper = tw.div`fixed right-0pxr w-1/4 px-12pxr py-4pxr overflow-y-aut
 const TOCContent = tw.div`text-14pxr tablet:text-16pxr text-custom-gray font-bold border-spacing-24pxr tablet:border-spacing-28pxr tracking-normal tablet:tracking-tighter [a.active]:(text-[110%] text-primary transition-all)`;
 
 const TableOfContents = ({ toc }: TableOfContentsProps) => {
-  React.useEffect(() => {
-    const observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          const id = entry.target.getAttribute('id');
-          if (!id) return;
+  const getHeaderElements = () => {
+    const headers = document.querySelectorAll('h2[id], h3[id], h4[id], h5[id], h6[id]');
+    const headerElements = Array.from(headers).map((header) => {
+      const id = header.getAttribute('id');
+      if (!id) return null;
 
-          const link = getElement(`a[href="#${id}"]`);
-          if (!link) return;
+      const link = getElement(`a[href="#${encodeURIComponent(id)}"]`);
+      if (!link) return null;
 
-          const targetStaticYPos = entry.boundingClientRect.y;
-          const currentYPos = entry.rootBounds?.y || 0;
+      return {
+        header,
+        link,
+      };
+    });
 
-          if (entry.isIntersecting) {
-            addClass(link, 'active');
-          } else if (currentYPos < targetStaticYPos) {
-            removeClass(link, 'active');
-          }
-        });
-      },
-      {
-        rootMargin: '0px 0px -80% 0px',
+    return headerElements;
+  };
+
+  const onScroll = () => {
+    const headerElements = getHeaderElements();
+    headerElements.forEach((headerElement) => {
+      if (!headerElement) return;
+
+      const { header, link } = headerElement;
+
+      const { top } = header.getBoundingClientRect();
+      const elementTop = top + window.scrollY;
+      const isScrollBottom = window.innerHeight + window.scrollY >= document.body.offsetHeight;
+
+      if (window.scrollY >= elementTop - 80) {
+        addClass(link, 'active');
+      } else if (isScrollBottom) {
+        const lastHeader = headerElements[headerElements.length - 1];
+        if (!lastHeader) return;
+
+        const { link: lastLink } = lastHeader;
+        addClass(lastLink, 'active');
+        return;
+      } else {
+        removeClass(link, 'active');
       }
-    );
+    });
+  };
 
-    const targets = document.querySelectorAll('h2[id], h3[id], h4[id], h5[id], h6[id]');
-    targets.forEach((target) => observer.observe(target));
-
-    return () => {
-      targets.forEach((target) => observer.unobserve(target));
-    };
-  }, []);
+  useScrollEvent(() => {
+    return EventManager.toFit(onScroll, {})();
+  });
 
   if (!toc) return null;
 
