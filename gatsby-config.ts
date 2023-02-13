@@ -137,23 +137,21 @@ const imagePlugins: GatsbyConfig['plugins'] = [
 ];
 
 const searchPlugins: GatsbyConfig['plugins'] = [
-  {
-    resolve: 'gatsby-plugin-sitemap',
-    options: {
-      excludes: ['/404'],
-    },
-  },
-  {
-    resolve: 'gatsby-plugin-robots-txt',
-    options: {
-      host: 'https://lazydev.gatsbyjs.io',
-      sitemap: 'https://lazydev.gatsbyjs.io/sitemap-0.xml',
-      policy: [{ userAgent: '*', allow: '/' }],
-    },
-  },
+  'gatsby-plugin-sitemap',
+  'gatsby-plugin-robots-txt',
   {
     resolve: 'gatsby-plugin-feed',
     options: {
+      query: `{
+        site {
+          siteMetadata {
+            title
+            description
+            siteUrl
+            site_url: siteUrl
+          }
+        }
+      }`,
       feeds: [
         {
           serialize: ({
@@ -162,14 +160,13 @@ const searchPlugins: GatsbyConfig['plugins'] = [
             query: { site: any; allMarkdownRemark: any };
           }) => {
             return allMarkdownRemark.nodes.map((node: any) => {
-              return {
-                ...node.frontmatter,
-                description: node.excerpt,
+              return Object.assign({}, node.frontmatter, {
+                description: node.frontmatter.summary,
                 date: node.frontmatter.date,
-                url: encodeURI(site.siteMetadata.siteUrl + node.fields.slug),
+                url: site.siteMetadata.siteUrl + node.fields.slug,
                 guid: site.siteMetadata.siteUrl + node.fields.slug,
                 custom_elements: [{ 'content:encoded': node.html }],
-              };
+              });
             });
           },
           query: `{
