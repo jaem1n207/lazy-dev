@@ -22,7 +22,6 @@
     --color-token-function: #e36209;
     --color-token-punctuation: #000;
     --color-token-string: #22863a;
-    --color-a2hs-banner-background: #282c35;
   }
 
   :root[class='dark'] {
@@ -44,7 +43,6 @@
     --color-token-function: #f08d49;
     --color-token-punctuation: #ccc;
     --color-token-string: #7ec699;
-    --color-a2hs-banner-background: #f4f7f8;
   }
 
   body {
