@@ -20,7 +20,7 @@ const TableOfContents = ({ toc }: TableOfContentsProps) => {
           const id = entry.target.getAttribute('id');
           if (!id) return;
 
-          const link = getElement(`a[href="#${encodeURIComponent(id)}"]`);
+          const link = getElement(`a[href="#${id}"]`);
           if (!link) return;
 
           const targetStaticYPos = entry.boundingClientRect.y;
