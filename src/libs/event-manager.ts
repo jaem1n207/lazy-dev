@@ -1,3 +1,8 @@
+/**
+ * Original Code
+ * @see https://github.com/JaeYeopHan/gatsby-starter-bee/blob/master/src/utils/event-manager.js
+ */
+
 interface EventManagerProps {
   dismissCondition: () => boolean;
   triggerCondition: () => boolean;
@@ -5,34 +10,25 @@ interface EventManagerProps {
 
 export const toFit = (
   cb: () => void,
-  { dismissCondition, triggerCondition }: EventManagerProps
+  { dismissCondition = () => false, triggerCondition = () => true }: EventManagerProps
 ) => {
   if (!cb) throw Error('Callback is required');
 
   let tick = false;
 
   return () => {
-    if (dismissCondition()) return;
-    if (triggerCondition()) {
-      cb();
-      return;
-    }
-    if (!tick) {
-      tick = true;
-      requestAnimationFrame(() => {
-        tick = false;
-        toFit(cb, { dismissCondition, triggerCondition })();
-      });
-    }
-  };
+    if (tick) return;
 
-  // const loop = () => {
-  //   if (dismissCondition()) return;
-  //   if (triggerCondition()) {
-  //     cb();
-  //     return;
-  //   }
-  //   requestAnimationFrame(loop);
-  // };
-  // loop();
+    tick = true;
+    return requestAnimationFrame(() => {
+      if (dismissCondition()) {
+        tick = false;
+        return;
+      }
+      if (triggerCondition()) {
+        tick = false;
+        return cb();
+      }
+    });
+  };
 };
