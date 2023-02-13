@@ -26,20 +26,3 @@ export const onServiceWorkerUpdateReady = () => {
     window.location.reload();
   }
 };
-
-export const onRouteUpdate = () => {
-  const blogList = document.getElementById('post-list');
-
-  if (blogList) {
-    blogList.style.visibility = 'hidden';
-    blogList.style.opacity = '0';
-  }
-
-  window.setTimeout(() => {
-    if (blogList) {
-      blogList.style.visibility = 'visible';
-      blogList.style.opacity = '1';
-      blogList.style.transition = 'opacity 0.2s ease-in-out';
-    }
-  }, 200);
-};
