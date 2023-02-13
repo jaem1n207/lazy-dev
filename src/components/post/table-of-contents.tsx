@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 
 import tw from 'twin.macro';
 
@@ -62,6 +62,33 @@ const TableOfContents = ({ toc }: TableOfContentsProps) => {
   useScrollEvent(() => {
     return EventManager.toFit(onScroll, {})();
   });
+
+  // Link 클릭 시, url에 #이 붙는 것을 막기 위해 preventDefault를 사용하고, scrollTo를 사용하여 이동
+  useEffect(() => {
+    const headerElements = getHeaderElements();
+
+    headerElements.forEach((headerElement) => {
+      if (!headerElement) return;
+
+      const { header, link } = headerElement;
+
+      link.addEventListener('click', (e: Event) => {
+        e.preventDefault();
+
+        const { top } = header.getBoundingClientRect();
+        const elementTop = top + window.scrollY;
+
+        window.scrollTo({
+          top: elementTop - 80,
+          behavior: 'smooth',
+        });
+      });
+
+      return () => {
+        link.removeEventListener('click', () => {});
+      };
+    });
+  }, []);
 
   if (!toc) return null;
 
