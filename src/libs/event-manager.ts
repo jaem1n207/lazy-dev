@@ -4,8 +4,8 @@
  */
 
 interface EventManagerProps {
-  dismissCondition: () => boolean;
-  triggerCondition: () => boolean;
+  dismissCondition?: () => boolean;
+  triggerCondition?: () => boolean;
 }
 
 export const toFit = (
