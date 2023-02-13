@@ -1,6 +1,8 @@
 /**
- * @fileoverview Scroll to anchor link with smooth scroll polyfill and smooth-scroll library
+ * Original Code
  * @see https://github.com/JaeYeopHan/gatsby-starter-bee/blob/master/src/utils/scroll.js
+ * @fileoverview Scroll to anchor link with smooth scroll polyfill and smooth-scroll library
+ * modified by @jaem1n207
  */
 
 // https://github.com/cferdinandi/smooth-scroll/issues/481

@@ -1,3 +1,9 @@
+/**
+ * Original Code
+ * @see https://github.com/JaeYeopHan/gatsby-starter-bee/blob/master/src/utils/dom.js
+ * modified by @jaem1n207
+ */
+
 const BODY = 'body';
 
 export const getElements = (selector: string) => document.querySelectorAll(selector);
