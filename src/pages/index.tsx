@@ -20,10 +20,9 @@ const IndexPage: React.FC<PageProps<Queries.HomeQuery, ContextProps>> = ({ data,
   const [currentCategory, setCurrentCategory] = React.useState<string | undefined>();
   const { category, selectCategory, resetCategory } = useCategory();
 
-  const categories = React.useMemo(
-    () => data.allMarkdownRemark.group,
-    [data.allMarkdownRemark.group]
-  );
+  const totalCountPosts = data.postsRemark.totalCount;
+
+  const categories = React.useMemo(() => data.categoriesGroup.group, [data.categoriesGroup.group]);
   React.useEffect(() => {
     if (category) {
       setCurrentCategory(category);
@@ -32,7 +31,7 @@ const IndexPage: React.FC<PageProps<Queries.HomeQuery, ContextProps>> = ({ data,
     }
   }, [category]);
 
-  const postData = data.allMarkdownRemark.edges;
+  const postData = data.postsRemark.edges;
 
   const refinedPosts = React.useMemo(() => {
     const filteredPosts = postData
@@ -78,6 +77,9 @@ const IndexPage: React.FC<PageProps<Queries.HomeQuery, ContextProps>> = ({ data,
       <h2 className="font-bold text-32pxr mb-24pxr tablet:text-28pxr">
         {currentCategory ? firstLetterUppercase(currentCategory) : CATEGORY_TYPE.ALL} Posts
       </h2>
+      <p className="text-16pxr mb-24pxr tablet:text-14pxr">
+        {posts.length} of {totalCountPosts} posts
+      </p>
       <PostList posts={posts} />
     </Layout>
   );
@@ -96,10 +98,26 @@ export const pageQuery = graphql`
         title
       }
     }
-    allMarkdownRemark(
+    categoriesGroup: allMarkdownRemark(
+      filter: { frontmatter: { category: { ne: "null" } } }
+      sort: { frontmatter: { category: ASC } }
+    ) {
+      group(field: { frontmatter: { category: SELECT } }) {
+        fieldValue
+      }
+    }
+    tagsGroup: allMarkdownRemark(
+      filter: { frontmatter: { tags: { ne: "null" } } }
+      sort: { frontmatter: { tags: ASC } }
+    ) {
+      group(field: { frontmatter: { tags: SELECT } }) {
+        fieldValue
+      }
+    }
+    postsRemark: allMarkdownRemark(
       filter: {
-        frontmatter: { category: { ne: "null" } }
         fileAbsolutePath: { regex: "/(content|blog)/" }
+        frontmatter: { category: { ne: "null" }, tags: { ne: "null" } }
       }
       sort: { frontmatter: { date: DESC } }
     ) {
@@ -123,10 +141,7 @@ export const pageQuery = graphql`
           }
         }
       }
-      group(field: { frontmatter: { category: SELECT } }) {
-        fieldValue
-        totalCount
-      }
+      totalCount
     }
   }
 `;
