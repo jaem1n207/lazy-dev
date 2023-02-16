@@ -22,6 +22,10 @@
     --color-token-function: #e36209;
     --color-token-punctuation: #000;
     --color-token-string: #22863a;
+    --color-tag-bg: #f7f7f7;
+    --color-tag-text: #000;
+    --color-tag-bg-checked: #000;
+    --color-tag-text-checked: #fff;
   }
 
   :root[class='dark'] {
@@ -43,6 +47,10 @@
     --color-token-function: #f08d49;
     --color-token-punctuation: #ccc;
     --color-token-string: #7ec699;
+    --color-tag-bg: #2e3039;
+    --color-tag-text: #fff;
+    --color-tag-bg-checked: #fff;
+    --color-tag-text-checked: #000;
   }
 
   body {

@@ -60,6 +60,10 @@ module.exports = {
         'article-border': 'var(--article-border)',
         'button-text': 'var(--button-text)',
         divider: 'var(--color-divider)',
+        'tag-background': 'var(--color-tag-bg)',
+        'tag-text': 'var(--color-tag-text)',
+        'tag-background-checked': 'var(--color-tag-bg-checked)',
+        'tag-text-checked': 'var(--color-tag-text-checked)',
       },
       fontFamily: {
         spoqa: ['Spoqa Han Sans Neo', ...defaultTheme.fontFamily.sans],
