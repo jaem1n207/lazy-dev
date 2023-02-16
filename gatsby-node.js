@@ -77,7 +77,6 @@ exports.createPages = async ({ graphql, actions, reporter }) => {
     {
       postsRemark: allMarkdownRemark(
         sort: { frontmatter: { date: DESC } }
-        limit: 1000
         filter: { fileAbsolutePath: { regex: "/(content/blog)/" } }
       ) {
         edges {
@@ -85,11 +84,10 @@ exports.createPages = async ({ graphql, actions, reporter }) => {
             timeToRead
             id
             tableOfContents
-            excerpt
             frontmatter {
               date(formatString: "MMMM DD, YY")
               title
-              category
+              tags
               authorId
               thumbnail {
                 childImageSharp {
