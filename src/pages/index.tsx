@@ -5,6 +5,7 @@ import { graphql, HeadFC, HeadProps, PageProps } from 'gatsby';
 import CategoryFilter from 'Components/category/category-filter';
 import PostList from 'Components/post/post-list';
 import Seo from 'Components/seo';
+import Tag from 'Components/Tag';
 import { useCategory } from 'Hooks/use-category';
 import Layout from 'Layout/layout';
 import { firstLetterUppercase } from 'Libs/string';
@@ -21,6 +22,8 @@ const IndexPage: React.FC<PageProps<Queries.HomeQuery, ContextProps>> = ({ data,
   const { category, selectCategory, resetCategory } = useCategory();
 
   const totalCountPosts = data.postsRemark.totalCount;
+
+  const tags = React.useMemo(() => data.tagsGroup.group, [data.tagsGroup.group]);
 
   const categories = React.useMemo(() => data.categoriesGroup.group, [data.categoriesGroup.group]);
   React.useEffect(() => {
@@ -74,6 +77,21 @@ const IndexPage: React.FC<PageProps<Queries.HomeQuery, ContextProps>> = ({ data,
         selectCategory={selectCategory}
         resetCategory={resetCategory}
       />
+      <div className="flex items-center justify-between mb-24pxr">
+        <div className="flex flex-wrap space-x-2pxr">
+          {tags.map((tag) => (
+            <Tag
+              key={tag.fieldValue}
+              tag={tag.fieldValue || ''}
+              // checked={selectedTags.includes(tag)}
+              // onChange={handleTagChange}
+              checked={false}
+              onChange={() => {}}
+            />
+          ))}
+        </div>
+      </div>
+      <hr className="mb-24pxr" />
       <h2 className="font-bold text-32pxr mb-24pxr tablet:text-28pxr">
         {currentCategory ? firstLetterUppercase(currentCategory) : CATEGORY_TYPE.ALL} Posts
       </h2>
