@@ -44,6 +44,7 @@
     "@emotion/styled": "^11.10.5",
     "@fontsource/fira-mono": "^4.5.10",
     "@mdx-js/react": "^2.1.5",
+    "@reach/checkbox": "^0.18.0",
     "classnames": "^2.3.2",
     "dayjs": "^1.11.7",
     "fs-extra": "^11.1.0",
