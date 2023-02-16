@@ -2,6 +2,7 @@
 title: 'Category Test2'
 date: 2022-12-05 17:53:02
 category: 'react'
+tags: ['test', 'react']
 draft: false
 authorId: 'jaemin'
 thumbnail: '../thumbnails/react.png'
