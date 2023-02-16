@@ -2,6 +2,7 @@
 title: 'JS 객체 이해하기'
 date: 2022-12-10 00:20:30
 category: 'javascript'
+tags: ['javascript', 'lodash']
 draft: false
 authorId: 'jaemin'
 thumbnail: '../thumbnails/javascript.jpg'

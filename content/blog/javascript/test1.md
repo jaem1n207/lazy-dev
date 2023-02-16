@@ -2,6 +2,7 @@
 title: 'Category Test1'
 date: 2022-12-05 17:53:01
 category: 'javascript'
+tags: ['test', 'javascript', 'one']
 draft: false
 authorId: 'jaemin'
 thumbnail: '../thumbnails/javascript.jpg'
