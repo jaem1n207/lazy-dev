@@ -24,6 +24,15 @@ const IndexPage: React.FC<PageProps<Queries.HomeQuery, ContextProps>> = ({ data,
   const totalCountPosts = data.postsRemark.totalCount;
 
   const tags = React.useMemo(() => data.tagsGroup.group, [data.tagsGroup.group]);
+  const [selectedTags, setSelectedTags] = React.useState<string[]>([]);
+  const handleTagChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const { checked, value } = event.target;
+    if (checked) {
+      setSelectedTags([...selectedTags, value]);
+    } else {
+      setSelectedTags(selectedTags.filter((tag) => tag !== value));
+    }
+  };
 
   const categories = React.useMemo(() => data.categoriesGroup.group, [data.categoriesGroup.group]);
   React.useEffect(() => {
@@ -83,10 +92,8 @@ const IndexPage: React.FC<PageProps<Queries.HomeQuery, ContextProps>> = ({ data,
             <Tag
               key={tag.fieldValue}
               tag={tag.fieldValue || ''}
-              // checked={selectedTags.includes(tag)}
-              // onChange={handleTagChange}
-              checked={false}
-              onChange={() => {}}
+              checked={selectedTags.includes(tag.fieldValue || '')}
+              onChange={handleTagChange}
             />
           ))}
         </div>
