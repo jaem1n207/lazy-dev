@@ -249,6 +249,7 @@ export const pageQuery = graphql`
             title
             category
             summary
+            tags
             thumbnail {
               childImageSharp {
                 id
