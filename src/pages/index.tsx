@@ -87,7 +87,7 @@ const IndexPage: React.FC<PageProps<Queries.HomeQuery, ContextProps>> = ({ data,
         resetCategory={resetCategory}
       />
       <div className="flex items-center justify-between mb-24pxr">
-        <div className="flex flex-wrap space-x-2pxr">
+        <div className="flex flex-wrap">
           {tags.map((tag) => (
             <Tag
               key={tag.fieldValue}
