@@ -1,13 +1,13 @@
 import * as React from 'react';
 
 import { graphql, HeadFC, HeadProps, PageProps } from 'gatsby';
-import queryString from 'query-string';
 
 import CategoryFilter from 'Components/category/category-filter';
 import PostList from 'Components/post/post-list';
 import Seo from 'Components/seo';
 import Tag from 'Components/Tag';
 import { useCategory } from 'Hooks/use-category';
+import { useSearchParams } from 'Hooks/use-search-params';
 import Layout from 'Layout/layout';
 import { filterPosts } from 'Libs/blog';
 import { firstLetterUppercase } from 'Libs/string';
@@ -38,7 +38,6 @@ const BlogPage: React.FC<PageProps<Queries.BlogQuery, ContextProps>> = ({ data, 
   const totalCountPosts = data.postsRemark.totalCount;
 
   const tags = React.useMemo(() => data.tagsGroup.group, [data.tagsGroup.group]);
-  // const [selectedTags, setSelectedTags] = React.useState<string[]>([]);
 
   const categories = React.useMemo(() => data.categoriesGroup.group, [data.categoriesGroup.group]);
   React.useEffect(() => {
@@ -81,28 +80,17 @@ const BlogPage: React.FC<PageProps<Queries.BlogQuery, ContextProps>> = ({ data, 
     return filteredPosts;
   }, [currentCategory, postData, tags]);
 
+  const searchParams = useSearchParams();
+
   const [queryValue, setQuery] = React.useState<string>(() => {
-    const query = queryString.parse(window.location.search);
-    return query.q ? query.q.toString() : '';
+    return searchParams.get('q') ?? '';
   });
   const query = queryValue.trim();
   useUpdateQueryStringValueWithoutNavigation('q', query);
 
-  // const handleTagChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-  //   const { checked, value } = e.target;
-  //   if (checked) {
-  //     setSelectedTags([...selectedTags, value]);
-  //     setQuery((prevQuery) => `${prevQuery} ${value}`.trim());
-  //   } else {
-  //     setSelectedTags(selectedTags.filter((tag) => tag !== value));
-  //     setQuery((prevQuery) => prevQuery.replace(value, '').trim());
-  //   }
-  // };
-
   const toggleTag = (tag: string) => {
     setQuery((prevQuery) => {
       const expression = new RegExp(tag, 'ig');
-      console.log(prevQuery, expression.test(prevQuery));
 
       const newQuery = expression.test(prevQuery)
         ? prevQuery.replace(expression, '')
@@ -131,26 +119,12 @@ const BlogPage: React.FC<PageProps<Queries.BlogQuery, ContextProps>> = ({ data, 
   const handleSearchInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const { value } = event.target;
     setQuery(value);
-
-    // const inputTags = isSearching ? value.split(' ') : [];
-    // const newSelectedTags = inputTags.filter((tag) => !selectedTags.includes(tag));
-
-    // setSelectedTags([...selectedTags, ...newSelectedTags]);
   };
 
   const handleClearSearch = (event: React.MouseEvent<HTMLButtonElement>) => {
     event.preventDefault();
     setQuery('');
-    // setSelectedTags([]);
   };
-
-  // React.useEffect(() => {
-  //   const query = queryString.parse(window.location.search);
-  //   if (query.q) {
-  //     const inputTags = query.q.toString().split(' ');
-  //     setSelectedTags(inputTags);
-  //   }
-  // }, []);
 
   return (
     <Layout location={location} title={data.site?.siteMetadata?.title!}>
