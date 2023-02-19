@@ -66,13 +66,14 @@ const IndexPage: React.FC<PageProps<Queries.HomeQuery, ContextProps>> = ({ data,
           summary,
           thumbnail: childImageSharp?.id!,
           timeToRead: edge.node.timeToRead,
+          tags: tags.map((tag) => tag.fieldValue || ''),
         };
 
         return post;
       });
 
     return filteredPosts;
-  }, [currentCategory, postData]);
+  }, [currentCategory, postData, tags]);
 
   React.useEffect(() => {
     setPosts(refinedPosts);
