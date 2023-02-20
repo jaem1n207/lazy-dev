@@ -1,4 +1,4 @@
-import * as React from 'react';
+import React, { ReactNode, useEffect, useState } from 'react';
 
 import { Link } from 'gatsby';
 import Switch from 'react-switch';
@@ -52,12 +52,12 @@ const ToggleMode = () => {
   if (isBrowser) {
     websiteTheme = window.__theme;
   }
-  React.useEffect(() => {
+  useEffect(() => {
     setTheme(window.__theme);
   }, []);
 
   // @ts-ignore
-  const [theme, setTheme] = React.useState(websiteTheme || 'dark');
+  const [theme, setTheme] = useState(websiteTheme || 'dark');
 
   const ThemeToggle = () => {
     window.__setPreferredTheme(websiteTheme === 'dark' ? 'light' : 'dark');
@@ -84,7 +84,7 @@ const ToggleMode = () => {
 };
 
 interface Props {
-  children: React.ReactNode;
+  children: ReactNode;
   size?: 'medium' | 'large';
 }
 

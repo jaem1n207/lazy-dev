@@ -1,4 +1,4 @@
-import * as React from 'react';
+import { useEffect, useState } from 'react';
 
 import { isBrowser } from 'Libs/environment';
 
@@ -15,9 +15,9 @@ const getSize = (): WindowSize => {
 };
 
 export const useWindowSize = (): WindowSize => {
-  const [windowSize, setWindowSize] = React.useState(getSize);
+  const [windowSize, setWindowSize] = useState(getSize);
 
-  React.useEffect(() => {
+  useEffect(() => {
     if (!isBrowser) return;
 
     function handleResize() {

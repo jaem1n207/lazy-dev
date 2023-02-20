@@ -1,4 +1,4 @@
-import * as React from 'react';
+import React from 'react';
 
 import { graphql, SliceComponentProps } from 'gatsby';
 import { GatsbyImage, getImage } from 'gatsby-plugin-image';
