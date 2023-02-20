@@ -44,8 +44,6 @@ const IndexPage: FC<PageProps<Queries.HomeQuery, ContextProps>> = ({ data, locat
   const [currentCategory, setCurrentCategory] = useState<string | undefined>();
   const { category, selectCategory, resetCategory } = useCategory();
 
-  const totalCountPosts = data.postsRemark.totalCount;
-
   const categories = useMemo(() => data.categoriesGroup.group, [data.categoriesGroup.group]);
   useEffect(() => {
     if (category) {

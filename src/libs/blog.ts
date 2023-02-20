@@ -1,4 +1,4 @@
-import { matchSorter } from 'match-sorter';
+import { matchSorter, rankings } from 'match-sorter';
 
 import Post from 'Types/post';
 
@@ -10,19 +10,19 @@ export const filterPosts = (posts: Post[], searchString: string): Post[] => {
   const options = {
     keys: [
       {
-        threshold: matchSorter.rankings.CONTAINS,
+        threshold: rankings.CONTAINS,
         key: 'title',
       },
       {
-        threshold: matchSorter.rankings.CONTAINS,
+        threshold: rankings.CONTAINS,
         key: 'tags',
       },
       {
-        threshold: matchSorter.rankings.CONTAINS,
+        threshold: rankings.CONTAINS,
         key: 'category',
       },
       {
-        threshold: matchSorter.rankings.CONTAINS,
+        threshold: rankings.CONTAINS,
         key: 'summary',
       },
     ],
@@ -43,7 +43,7 @@ export const filterPosts = (posts: Post[], searchString: string): Post[] => {
     keys: options.keys?.map((key) => {
       return {
         ...key,
-        threshold: matchSorter.rankings.WORD_STARTS_WITH,
+        threshold: rankings.CONTAINS,
       };
     }),
   };
