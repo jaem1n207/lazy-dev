@@ -1,13 +1,13 @@
-import * as React from 'react';
+import React, { ElementType, ReactNode } from 'react';
 
 import { Slice } from 'gatsby';
 import tw, { GlobalStyles as BaseStyles } from 'twin.macro';
 
 interface LayoutProps {
-  children: React.ReactNode;
+  children: ReactNode;
   location: Location;
   title: Queries.Maybe<string>;
-  as?: React.ElementType;
+  as?: ElementType;
 }
 
 const Layout = ({ children, location, title, as = 'div' }: LayoutProps) => {

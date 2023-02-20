@@ -1,4 +1,4 @@
-import * as React from 'react';
+import React, { ReactNode } from 'react';
 
 import { useStaticQuery, graphql } from 'gatsby';
 
@@ -6,7 +6,7 @@ interface SeoProps extends Pick<Queries.SiteSiteMetadata, 'title'> {
   description?: Queries.Maybe<string>;
   thumbnail?: Queries.Maybe<string>;
   pathname?: string;
-  children?: React.ReactNode;
+  children?: ReactNode;
 }
 
 interface SiteMetaData {

@@ -1,4 +1,13 @@
-import * as React from 'react';
+import React, {
+  ChangeEvent,
+  FC,
+  KeyboardEvent,
+  MouseEvent,
+  useEffect,
+  useMemo,
+  useRef,
+  useState,
+} from 'react';
 
 import { graphql, HeadFC, HeadProps, PageProps } from 'gatsby';
 import queryString from 'query-string';
@@ -19,9 +28,9 @@ type ContextProps = {
 };
 
 const useUpdateQueryStringValueWithoutNavigation = (queryKey: string, queryValue: string) => {
-  const [previousQueryValue, setPreviousQueryValue] = React.useState(queryValue);
+  const [previousQueryValue, setPreviousQueryValue] = useState(queryValue);
 
-  React.useEffect(() => {
+  useEffect(() => {
     if (queryValue !== previousQueryValue) {
       const searchParams = new URLSearchParams(window.location.search);
       searchParams.set(queryKey, queryValue);
@@ -31,14 +40,14 @@ const useUpdateQueryStringValueWithoutNavigation = (queryKey: string, queryValue
   }, [queryKey, queryValue, previousQueryValue]);
 };
 
-const IndexPage: React.FC<PageProps<Queries.HomeQuery, ContextProps>> = ({ data, location }) => {
-  const [currentCategory, setCurrentCategory] = React.useState<string | undefined>();
+const IndexPage: FC<PageProps<Queries.HomeQuery, ContextProps>> = ({ data, location }) => {
+  const [currentCategory, setCurrentCategory] = useState<string | undefined>();
   const { category, selectCategory, resetCategory } = useCategory();
 
   const totalCountPosts = data.postsRemark.totalCount;
 
-  const categories = React.useMemo(() => data.categoriesGroup.group, [data.categoriesGroup.group]);
-  React.useEffect(() => {
+  const categories = useMemo(() => data.categoriesGroup.group, [data.categoriesGroup.group]);
+  useEffect(() => {
     if (category) {
       setCurrentCategory(category);
     } else {
@@ -48,7 +57,7 @@ const IndexPage: React.FC<PageProps<Queries.HomeQuery, ContextProps>> = ({ data,
 
   const postData = data.postsRemark.edges;
 
-  const refinedPosts = React.useMemo(() => {
+  const refinedPosts = useMemo(() => {
     const filteredPosts = postData
       .filter((post) => {
         if (currentCategory === CATEGORY_TYPE.ALL) {
@@ -81,7 +90,7 @@ const IndexPage: React.FC<PageProps<Queries.HomeQuery, ContextProps>> = ({ data,
   const tagsSet = new Set(refinedPosts.flatMap((post) => post.tags).filter(Boolean));
   const tagsArray = Array.from(tagsSet);
 
-  const [queryValue, setQuery] = React.useState<string>(() => {
+  const [queryValue, setQuery] = useState<string>(() => {
     return (queryString.parse(location.search).q as string) ?? '';
   });
   const query = queryValue.trim();
@@ -101,7 +110,7 @@ const IndexPage: React.FC<PageProps<Queries.HomeQuery, ContextProps>> = ({ data,
 
   const isSearching = query.length > 0;
 
-  const searchResults = React.useMemo(() => {
+  const searchResults = useMemo(() => {
     if (isSearching) {
       return filterPosts(refinedPosts, query);
     } else {
@@ -115,25 +124,25 @@ const IndexPage: React.FC<PageProps<Queries.HomeQuery, ContextProps>> = ({ data,
 
   const posts = isSearching ? searchResults : refinedPosts;
 
-  const handleSearchInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+  const handleSearchInputChange = (event: ChangeEvent<HTMLInputElement>) => {
     const { value } = event.target;
     setQuery(value);
   };
 
-  const handleClearSearch = (event: React.MouseEvent<HTMLButtonElement>) => {
+  const handleClearSearch = (event: MouseEvent<HTMLButtonElement>) => {
     event.preventDefault();
 
     setQuery('');
   };
 
-  React.useEffect(() => {
+  useEffect(() => {
     if (queryString.parse(location.search).category) {
       setQuery('');
     }
   }, [location.search]);
 
-  const resultsRef = React.useRef<HTMLOListElement>(null);
-  const handleScrollToResults = (event: React.KeyboardEvent<HTMLElement>) => {
+  const resultsRef = useRef<HTMLOListElement>(null);
+  const handleScrollToResults = (event: KeyboardEvent<HTMLElement>) => {
     if (event.key === 'Enter') {
       if (resultsRef.current) {
         resultsRef.current.querySelector('a')?.focus({ preventScroll: true });
