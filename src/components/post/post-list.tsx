@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { forwardRef } from 'react';
 
 import tw from 'twin.macro';
 
@@ -10,14 +10,16 @@ interface PostListProps {
   posts: Post[];
 }
 
-const PostList = ({ posts }: PostListProps) => {
+const PostList = forwardRef<HTMLOListElement, PostListProps>(({ posts }, ref) => {
   return (
-    <ol id="post-list" css={tw`flex flex-col list-none gap-40pxr`}>
+    <ol ref={ref} id="post-list" css={tw`flex flex-col list-none gap-40pxr`}>
       {posts.map((data) => {
         return <Card key={data.slug} {...data} />;
       })}
     </ol>
   );
-};
+});
+
+PostList.displayName = 'PostList';
 
 export default PostList;
