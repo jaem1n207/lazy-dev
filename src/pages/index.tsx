@@ -37,8 +37,6 @@ const IndexPage: React.FC<PageProps<Queries.HomeQuery, ContextProps>> = ({ data,
 
   const totalCountPosts = data.postsRemark.totalCount;
 
-  const tags = React.useMemo(() => data.tagsGroup.group, [data.tagsGroup.group]);
-
   const categories = React.useMemo(() => data.categoriesGroup.group, [data.categoriesGroup.group]);
   React.useEffect(() => {
     if (category) {
@@ -231,14 +229,6 @@ export const pageQuery = graphql`
       group(field: { frontmatter: { category: SELECT } }) {
         fieldValue
         totalCount
-      }
-    }
-    tagsGroup: allMarkdownRemark(
-      filter: { frontmatter: { tags: { ne: "null" } } }
-      sort: { frontmatter: { tags: ASC } }
-    ) {
-      group(field: { frontmatter: { tags: SELECT } }) {
-        fieldValue
       }
     }
     postsRemark: allMarkdownRemark(
