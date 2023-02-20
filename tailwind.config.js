@@ -50,6 +50,33 @@ module.exports = {
     },
     extend: {
       colors: {
+        transparent: 'transparent',
+        current: 'currentColor',
+        white: 'var(--color-white)',
+        black: 'var(--color-black)',
+
+        gray: {
+          100: 'var(--color-gray-100)',
+          200: 'var(--color-gray-200)',
+          300: 'var(--color-gray-300)',
+          400: 'var(--color-gray-400)',
+          500: 'var(--color-gray-500)',
+          600: 'var(--color-gray-600)',
+          700: 'var(--color-gray-700)',
+          800: 'var(--color-gray-800)',
+          900: 'var(--color-gray-900)',
+        },
+        slate: {
+          500: 'var(--color-slate-500)',
+        },
+        blue: {
+          100: 'var(--color-blue-100)',
+          500: 'var(--color-blue-500)',
+        },
+        red: {
+          500: 'var(--color-red-500)',
+        },
+
         primary: 'var(--color-primary)',
         background: 'var(--color-background)',
         secondary: 'var(--color-secondary)',
@@ -71,6 +98,66 @@ module.exports = {
       boxShadow: {
         'text-underline': '0 1px 0 0 currentColor',
       },
+      typography: (theme) => ({
+        light: {
+          css: [
+            {
+              color: theme('colors.gray.500'),
+              a: {
+                color: theme('colors.team.current'),
+              },
+              strong: {
+                color: theme('colors.black'),
+              },
+              hr: {
+                borderColor: theme('colors.gray.200'),
+              },
+              code: {
+                color: theme('colors.gray.800'),
+              },
+              'h1, h2, h3, h4, h5, h6': {
+                color: theme('colors.black'),
+              },
+              blockquote: {
+                color: theme('colors.gray.500'),
+                backgroundColor: theme('colors.gray.100'),
+              },
+              'thead, tbody tr': {
+                borderBottomColor: theme('colors.gray.200'),
+              },
+            },
+          ],
+        },
+        dark: {
+          css: [
+            {
+              color: theme('colors.slate.500'),
+              a: {
+                color: theme('colors.team.current'),
+              },
+              strong: {
+                color: theme('colors.white'),
+              },
+              hr: {
+                borderColor: theme('colors.gray.600'),
+              },
+              code: {
+                color: theme('colors.gray.100'),
+              },
+              'h1, h2, h3, h4, h5, h6': {
+                color: theme('colors.white'),
+              },
+              blockquote: {
+                color: theme('colors.slate.500'),
+                backgroundColor: theme('colors.gray.800'),
+              },
+              'thead, tbody tr': {
+                borderBottomColor: theme('colors.gray.600'),
+              },
+            },
+          ],
+        },
+      }),
     },
   },
   plugins: [
