@@ -132,7 +132,7 @@ const IndexPage: React.FC<PageProps<Queries.HomeQuery, ContextProps>> = ({ data,
     }
   }, [location.search]);
 
-  const resultsRef = React.useRef<HTMLDivElement>(null);
+  const resultsRef = React.useRef<HTMLOListElement>(null);
   const handleScrollToResults = (event: React.KeyboardEvent<HTMLElement>) => {
     if (event.key === 'Enter') {
       if (resultsRef.current) {
@@ -217,9 +217,7 @@ const IndexPage: React.FC<PageProps<Queries.HomeQuery, ContextProps>> = ({ data,
       <h2 className="font-bold text-32pxr mb-24pxr tablet:text-28pxr">
         {currentCategory ? firstLetterUppercase(currentCategory) : CATEGORY_TYPE.ALL} Posts
       </h2>
-      <div ref={resultsRef}>
-        <PostList posts={posts} />
-      </div>
+      <PostList posts={posts} ref={resultsRef} />
     </Layout>
   );
 };
