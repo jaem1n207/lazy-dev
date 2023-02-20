@@ -26,7 +26,7 @@ const Card = ({ slug, title, summary, date, category, thumbnail, timeToRead }: C
             <Link
               to={blogLink}
               itemProp="url"
-              css={tw`transition-shadow hover:shadow-text-underline`}
+              css={tw`transition-shadow hover:shadow-text-underline focus:shadow-text-underline`}
             >
               <span itemProp="headline">{title}</span>
             </Link>

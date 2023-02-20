@@ -122,6 +122,7 @@ const IndexPage: React.FC<PageProps<Queries.HomeQuery, ContextProps>> = ({ data,
 
   const handleClearSearch = (event: React.MouseEvent<HTMLButtonElement>) => {
     event.preventDefault();
+
     setQuery('');
   };
 
@@ -130,6 +131,16 @@ const IndexPage: React.FC<PageProps<Queries.HomeQuery, ContextProps>> = ({ data,
       setQuery('');
     }
   }, [location.search]);
+
+  const resultsRef = React.useRef<HTMLDivElement>(null);
+  const handleScrollToResults = (event: React.KeyboardEvent<HTMLElement>) => {
+    if (event.key === 'Enter') {
+      if (resultsRef.current) {
+        resultsRef.current.querySelector('a')?.focus({ preventScroll: true });
+        resultsRef.current.scrollIntoView({ behavior: 'smooth' });
+      }
+    }
+  };
 
   return (
     <Layout location={location} title={data.site?.siteMetadata?.title!}>
@@ -151,6 +162,7 @@ const IndexPage: React.FC<PageProps<Queries.HomeQuery, ContextProps>> = ({ data,
             className="rounded-full w-320pxr h-40pxr px-24pxr py-12pxr text-16pxr focus:outline-none focus:ring-2 focus:ring-primary"
             value={queryValue}
             onChange={handleSearchInputChange}
+            onKeyUp={handleScrollToResults}
           />
           {queryValue.length > 0 && (
             <button
@@ -175,6 +187,9 @@ const IndexPage: React.FC<PageProps<Queries.HomeQuery, ContextProps>> = ({ data,
               </svg>
             </button>
           )}
+          <div className="ml-24pxr">
+            <span className="text-gray-500 text-16pxr">{posts.length}</span>
+          </div>
         </div>
       </div>
 
@@ -190,6 +205,7 @@ const IndexPage: React.FC<PageProps<Queries.HomeQuery, ContextProps>> = ({ data,
                 tag={tag}
                 checked={selected}
                 onChange={() => toggleTag(tag)}
+                onKeyUp={handleScrollToResults}
                 /* disabled 조건에 해당되도 선택된 상태에서는 disabled를 해제한다. */
                 disabled={!visibleTags.has(tag) ? !selected : false}
               />
@@ -201,10 +217,9 @@ const IndexPage: React.FC<PageProps<Queries.HomeQuery, ContextProps>> = ({ data,
       <h2 className="font-bold text-32pxr mb-24pxr tablet:text-28pxr">
         {currentCategory ? firstLetterUppercase(currentCategory) : CATEGORY_TYPE.ALL} Posts
       </h2>
-      <p className="text-16pxr mb-24pxr tablet:text-14pxr">
-        {posts.length} of {totalCountPosts} posts
-      </p>
-      <PostList posts={posts} />
+      <div ref={resultsRef}>
+        <PostList posts={posts} />
+      </div>
     </Layout>
   );
 };
