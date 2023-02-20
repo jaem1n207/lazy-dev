@@ -8,7 +8,7 @@ import CategoryItem from './category-item';
 
 interface CategoryFilterProps {
   category: string;
-  categories: Queries.HomeQuery['allMarkdownRemark']['group'];
+  categories: Queries.HomeQuery['categoriesGroup']['group'];
   selectCategory: (category: string) => void;
   resetCategory: () => void;
 }
@@ -24,7 +24,6 @@ const CategoryFilter = ({
   resetCategory,
 }: CategoryFilterProps) => {
   const categoryListRef = React.useRef<HTMLUListElement>(null);
-
   const sortedCategories = useMemo(
     () => [...categories].sort((a, b) => b.totalCount - a.totalCount),
     [categories]
