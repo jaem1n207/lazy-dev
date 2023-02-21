@@ -42,6 +42,10 @@
     --color-blue-100: #e8f2ff;
     --color-blue-500: #4b96ff;
     --color-red-500: #ff4545;
+    --color-violet-200: #bcc0ff;
+    --color-violet-300: #9499ff; // text
+    --color-violet-400: #747bff;
+    --color-violet-500: ##646cff; // dark & light
   }
 
   :root[class='dark'] {
