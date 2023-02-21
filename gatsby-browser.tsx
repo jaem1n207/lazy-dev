@@ -19,7 +19,7 @@ export const shouldUpdateScroll = ({ routerProps: { location }, getSavedScrollPo
 
 export const onServiceWorkerUpdateReady = () => {
   const answer = window.confirm(
-    `This application has been updated. ` + `Reload to display the latest version?`
+    `새로운 버전이 있어요. ` + `다시 로드하여 새로워진 블로그를 만나보세요`
   );
 
   if (answer === true) {
