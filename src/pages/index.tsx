@@ -15,7 +15,7 @@ import queryString from 'query-string';
 import CategoryFilter from 'Components/category/category-filter';
 import PostList from 'Components/post/post-list';
 import Seo from 'Components/seo';
-import Tag from 'Components/Tag';
+import Tag from 'Components/tag';
 import { useCategory } from 'Hooks/use-category';
 import Layout from 'Layout/layout';
 import { filterPosts } from 'Libs/blog';
