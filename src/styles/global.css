@@ -78,7 +78,9 @@
     -moz-osx-font-smoothing: grayscale;
     color: theme(colors.text);
     background-color: theme(colors.background);
+  }
 
+  body > #___gatsby * {
     cursor: none !important;
   }
 
