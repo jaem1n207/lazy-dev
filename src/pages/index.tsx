@@ -124,7 +124,8 @@ const IndexPage: FC<PageProps<Queries.HomeQuery, ContextProps>> = ({ data, locat
 
   const handleSearchInputChange = (event: ChangeEvent<HTMLInputElement>) => {
     const { value } = event.target;
-    setQuery(value);
+    // 입력한 값이 태그와 일치함을 검사하기 위해 소문자로 변환
+    setQuery(value.toLowerCase());
   };
 
   const handleClearSearch = (event: MouseEvent<HTMLButtonElement>) => {
@@ -173,6 +174,7 @@ const IndexPage: FC<PageProps<Queries.HomeQuery, ContextProps>> = ({ data, locat
           />
           {queryValue.length > 0 && (
             <button
+              data-hoverable="true"
               type="button"
               className="text-gray-500 ml-12pxr text-16pxr hover:text-gray-700 focus:outline-none focus:ring-2 focus:ring-primary"
               onClick={handleClearSearch}
