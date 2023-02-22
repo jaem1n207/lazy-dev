@@ -69,10 +69,6 @@ module.exports = {
         slate: {
           500: 'var(--color-slate-500)',
         },
-        blue: {
-          100: 'var(--color-blue-100)',
-          500: 'var(--color-blue-500)',
-        },
         red: {
           500: 'var(--color-red-500)',
         },
