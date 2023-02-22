@@ -27,10 +27,14 @@ export const enableHoverOnActiveElements = () => {
   if (!isTouchDevice) {
     const buttons = document.querySelectorAll('button');
     const links = document.querySelectorAll('a');
-    const tagLabel = document.getElementById('tag-label');
+    // @ts-ignore
+    // eslint-disable-next-line no-undef
+    const tagLabel: NodeListOf<HTMLLabelElement> = document.querySelectorAll('#tag-label');
 
     if (tagLabel) {
-      tagLabel.setAttribute('data-hoverable', 'true');
+      tagLabel.forEach((label) => {
+        label.setAttribute('data-hoverable', 'true');
+      });
     }
 
     buttons.forEach((button) => {
