@@ -3,7 +3,7 @@ import React, { ElementType, ReactNode } from 'react';
 import { Slice } from 'gatsby';
 import tw, { GlobalStyles as BaseStyles } from 'twin.macro';
 
-import useCursor from 'Hooks/use-cursor';
+import CursorFollower from 'Components/cursor-follower';
 
 interface LayoutProps {
   children: ReactNode;
@@ -18,15 +18,12 @@ const Layout = ({ children, location, title, as = 'div' }: LayoutProps) => {
   const rootPath = `${__PATH_PREFIX__}/`;
   const isRootPath = location.pathname === rootPath;
 
-  const { styles, cursorInnerRef, cursorOuterRef } = useCursor();
-
   const As = as;
 
   return (
     <As css={[tw`max-w-2xl mx-auto my-0pxr py-40pxr px-20pxr`, isRootPath && tw`mb-80pxr`]}>
       <BaseStyles />
-      <div ref={cursorInnerRef} style={styles.cursorInner} />
-      <div ref={cursorOuterRef} style={styles.cursorOuter} />
+      <CursorFollower />
       <Slice alias="header" size={isRootPath ? 'large' : 'medium'}>
         {title}
       </Slice>
