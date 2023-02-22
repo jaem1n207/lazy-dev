@@ -19,19 +19,19 @@ const Layout = ({ children, location, title, as = 'div' }: LayoutProps) => {
   const rootPath = `${__PATH_PREFIX__}/`;
   const isRootPath = location.pathname === rootPath;
 
-  const cursorStyle = useCursor('', true);
+  const { styles, cursorInnerRef, cursorOuterRef } = useCursor({ color: '#fff' });
 
   const As = as;
 
   useEffect(() => {
     enableHoverOnActiveElements();
-    // disableHoverCursorStyle();
-  }, []);
+  }, [children]);
 
   return (
     <As css={[tw`max-w-2xl mx-auto my-0pxr py-40pxr px-20pxr`, isRootPath && tw`mb-80pxr`]}>
       <BaseStyles />
-      <div id="header-cursor" style={cursorStyle} />
+      <div ref={cursorInnerRef} style={styles.cursorInner} />
+      <div ref={cursorOuterRef} style={styles.cursorOuter} />
       <Slice alias="header" size={isRootPath ? 'large' : 'medium'}>
         {title}
       </Slice>
