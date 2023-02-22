@@ -102,29 +102,6 @@
     background-color: theme(colors.primary);
     color: theme(colors.button-text);
   }
-
-  #header-cursor {
-    position: absolute;
-    width: 50px;
-    height: 50px;
-    background: rgba(255, 255, 255, 1);
-    border-radius: 50%;
-    top: 0;
-    left: 0;
-    pointer-events: none;
-    mix-blend-mode: difference;
-    transition: 0.15s all cubic-bezier(0.075, 0.82, 0.165, 1);
-    z-index: 9999;
-
-    position: fixed;
-    height: 65px;
-    width: 65px;
-    transform: scale(0.23);
-
-    translate: none;
-    rotate: none;
-    scale: none;
-  }
 }
 
 @font-face {
