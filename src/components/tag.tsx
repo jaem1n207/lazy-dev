@@ -30,6 +30,7 @@ const Tag = ({ tag, checked, onChange, onKeyUp, disabled }: TagProps) => {
         }
       )}
       disabled={disabled}
+      tabIndex={disabled ? -1 : 0}
     >
       <CustomCheckboxInput checked={checked} value={tag} className="sr-only cursor-none" />
       <span>{tag}</span>
