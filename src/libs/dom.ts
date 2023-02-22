@@ -21,3 +21,49 @@ export const getRect = (className: string) => getElement(className)?.getBounding
 export const getPosY = (className: string) => getRect(className)?.y;
 
 export const getDocumentHeight = () => document.documentElement.offsetHeight;
+
+export const enableHoverOnActiveElements = () => {
+  const isTouchDevice = 'ontouchstart' in document.documentElement;
+  if (!isTouchDevice) {
+    const buttons = document.querySelectorAll('button');
+    const links = document.querySelectorAll('a');
+    const tagLabel = document.getElementById('tag-label');
+
+    if (tagLabel) {
+      tagLabel.setAttribute('data-hoverable', 'true');
+    }
+
+    buttons.forEach((button) => {
+      button.setAttribute('data-hoverable', 'true');
+    });
+
+    links.forEach((link) => {
+      link.setAttribute('data-hoverable', 'true');
+    });
+  }
+};
+
+export const disableHoverCursorStyle = () => {
+  const isTouchDevice = 'ontouchstart' in document.documentElement;
+
+  if (!isTouchDevice) {
+    const buttons = document.querySelectorAll('button');
+    const links = document.querySelectorAll('a');
+    // eslint-disable-next-line no-undef
+    const tagLabel: NodeListOf<HTMLLabelElement> = document.querySelectorAll('#tag-label');
+
+    if (tagLabel) {
+      tagLabel.forEach((label) => {
+        label.style.cursor = 'none';
+      });
+    }
+
+    buttons.forEach((button) => {
+      button.style.cursor = 'none';
+    });
+
+    links.forEach((link) => {
+      link.style.cursor = 'none';
+    });
+  }
+};
