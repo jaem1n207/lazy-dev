@@ -4,7 +4,7 @@ import { Slice } from 'gatsby';
 import tw, { GlobalStyles as BaseStyles } from 'twin.macro';
 
 import useCursor from 'Hooks/use-cursor';
-import { disableHoverCursorStyle, enableHoverOnActiveElements } from 'Libs/dom';
+import { enableHoverOnActiveElements } from 'Libs/dom';
 
 interface LayoutProps {
   children: ReactNode;
@@ -25,7 +25,7 @@ const Layout = ({ children, location, title, as = 'div' }: LayoutProps) => {
 
   useEffect(() => {
     enableHoverOnActiveElements();
-    disableHoverCursorStyle();
+    // disableHoverCursorStyle();
   }, []);
 
   return (
