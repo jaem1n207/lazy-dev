@@ -1,39 +1,36 @@
 import { useState, useRef, CSSProperties, useCallback, useEffect } from 'react';
 
+import { getElements } from 'Libs/dom';
+
 import { useBoolean } from './use-boolean';
 import { useEventListener } from './use-event-listener';
-
-interface CursorProps {
-  color?: CSSProperties['color'];
-}
 
 interface Styles {
   cursorInner: CSSProperties;
   cursorOuter: CSSProperties;
 }
 
+const innerSize = 10;
+const outerSize = 20;
+const innerScale = 0.7;
+const outerScale = 3;
+const outerAlpha = 0.4;
+const color = '59, 130, 246';
 const baseCursorStyles: CSSProperties = {
   position: 'fixed',
   top: 0,
   left: 0,
-  background: 'rgba(255, 255, 255,1)',
+  background: `rgba(${color}, 1)`,
   borderRadius: '50%',
   pointerEvents: 'none',
   mixBlendMode: 'difference',
-  transition: '0.15s all cubic-bezier(0.075, 0.82, 0.165, 1)',
   zIndex: 99,
   translate: 'none',
   rotate: 'none',
   scale: 'none',
 };
 
-const innerSize = 8;
-const outerSize = 8;
-const innerScale = 0.7;
-const outerScale = 5;
-const outerAlpha = 0.4;
-
-const useCursor = ({ color = '#fff' }: CursorProps) => {
+const useCursor = () => {
   const [coords, setCoords] = useState({ x: 0, y: 0 });
   const [isVisible, setIsVisible] = useBoolean(false);
   const [isActive, setIsActive] = useBoolean(false);
@@ -41,7 +38,7 @@ const useCursor = ({ color = '#fff' }: CursorProps) => {
   const cursorOuterRef = useRef<HTMLDivElement>(null);
   const cursorInnerRef = useRef<HTMLDivElement>(null);
   const requestRef = useRef<number>();
-  const previousTimeRef = useRef<number>();
+  const previousTimeRef = useRef<number>(0);
   let endX = useRef(0);
   let endY = useRef(0);
 
@@ -70,7 +67,9 @@ const useCursor = ({ color = '#fff' }: CursorProps) => {
         requestRef.current = requestAnimationFrame(animateOuterCursor);
       }
     },
-    [requestRef, coords]
+    // 60fps 유지하기 위해 deps에 coords 넣지 않음
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    [requestRef]
   );
 
   useEffect(() => {
@@ -148,10 +147,10 @@ const useCursor = ({ color = '#fff' }: CursorProps) => {
   }, [isVisible]);
 
   useEffect(() => {
-    // eslint-disable-next-line no-undef
-    const clickables: NodeListOf<HTMLElement> = document.querySelectorAll(
-      'a, input[type="submit"], input[type="image"], label[for], select, button, .link'
+    const clickables = getElements(
+      'a, input[type="submit"], input[type="image"], label[for], select, button:not([disabled]), .link, input[type="text"], input[type="checkbox"]:not([disabled]), input[type="radio"]:not([disabled]), textarea:not([disabled]), [tabindex]:not([tabindex="-1"])'
     );
+
     clickables.forEach((el) => {
       el.style.cursor = 'none';
 
@@ -203,17 +202,15 @@ const useCursor = ({ color = '#fff' }: CursorProps) => {
       ...baseCursorStyles,
       width: innerSize,
       height: innerSize,
-      backgroundColor: `rgba(${color}, 1)`,
-      opacity: isVisible ? 0 : 1,
-      transition: 'opacity 0.15s ease-in-out, transform 0.25s ease-in-out',
+      background: `rgba(${color}, 1)`,
+      transition: `width .3s,height .3s,opacity .3s,background-color .3s`,
     },
     cursorOuter: {
       ...baseCursorStyles,
       width: outerSize,
       height: outerSize,
-      backgroundColor: `rgba(${color}, ${outerAlpha})`,
-      opacity: isVisible ? 0 : 1,
-      transition: 'opacity 0.15s ease-in-out, transform 0.15s ease-in-out',
+      background: `rgba(${color}, ${outerAlpha})`,
+      transition: `.3s cubic-bezier(.25,.1,.25,1) .1s transform,.2s cubic-bezier(.75,-.27,.3,1.33) opacity,.3s cubic-bezier(.75,-.27,.3,1.33) width,.3s cubic-bezier(.75,-.27,.3,1.33) height,.3s cubic-bezier(.75,-.27,.3,1.33) margin`,
     },
   };
 
