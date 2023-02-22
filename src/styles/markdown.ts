@@ -15,9 +15,20 @@ const Markdown = styled.article<{ rhythm: typeof typography['rhythm'] }>`
   h4,
   h5,
   h6 {
-    font-family: Fira Mono, Consolas, Liberation Mono, Menlo, monospace;
+    font-family: 'BM EULJIRO', 'Fira Mono', Consolas, Liberation Mono, Menlo, monospace;
     font-weight: 700;
     letter-spacing: -0.1px;
+  }
+
+  h1,
+  h2,
+  h3 {
+    border-bottom: 1px solid hsla(0, 0%, 0%, 0.07);
+    padding-bottom: calc(0.40625rem - 1px);
+  }
+
+  .dark h2 {
+    border-bottom-color: #3a3a3a;
   }
 
   table {
@@ -42,7 +53,7 @@ const Markdown = styled.article<{ rhythm: typeof typography['rhythm'] }>`
   a,
   p {
     font-weight: 400;
-    font-family: Spoqa Han Sans Neo, Fira Mono, Consolas;
+    font-family: 'BM EULJIRO', 'Fira Mono', Consolas;
   }
 
   a {
@@ -59,32 +70,44 @@ const Markdown = styled.article<{ rhythm: typeof typography['rhythm'] }>`
   }
 
   h1 {
-    font-size: 2rem;
+    /* font-size: 2rem; */
+    font-size: 2.25rem;
+    line-height: 2.5rem;
 
     @media (min-width: 768px) {
-      font-size: 2.5rem;
+      /* font-size: 2.5rem; */
+      font-size: 3rem;
+      line-height: 1;
     }
   }
 
   h2 {
-    font-size: 1.3125rem;
-    line-height: 1.3;
+    /* font-size: 1.3125rem;
+    line-height: 1.3; */
+    font-size: 1.875rem;
+    line-height: 2.25rem;
     margin-bottom: ${({ rhythm }) => rhythm(1)};
     margin-top: ${({ rhythm }) => rhythm(2.25)};
 
     @media (min-width: 768px) {
-      font-size: 1.75rem;
+      /* font-size: 1.75rem; */
+      font-size: 2.25rem;
+      line-height: 2.5rem;
     }
   }
 
   h3 {
-    font-size: 1.1875rem;
-    line-height: 1.3;
+    /* font-size: 1.1875rem;
+    line-height: 1.3; */
+    font-size: 1.5rem;
+    line-height: 2rem;
     margin-bottom: ${({ rhythm }) => rhythm(1)};
     margin-top: ${({ rhythm }) => rhythm(1.5)};
 
     @media (min-width: 768px) {
-      font-size: 1.31951rem;
+      /* font-size: 1.31951rem; */
+      font-size: 1.875rem;
+      line-height: 2.25rem;
     }
   }
 
@@ -125,7 +148,7 @@ const Markdown = styled.article<{ rhythm: typeof typography['rhythm'] }>`
   p,
   li,
   blockquote {
-    font-size: 1rem;
+    font-size: 1.125rem;
   }
 
   p {
@@ -154,7 +177,6 @@ const Markdown = styled.article<{ rhythm: typeof typography['rhythm'] }>`
 
   code[class*='language-'],
   pre[class*='language-'] {
-    font-family: Fira Mono, Consolas, Liberation Mono, Menlo, monospace;
     background-color: var(--color-code-block) !important;
     color: var(--color-text);
     text-align: left;
@@ -176,6 +198,14 @@ const Markdown = styled.article<{ rhythm: typeof typography['rhythm'] }>`
 
     -ms-overflow-style: none; // IE 10+
     overflow: -moz-scrollbars-none; // Firefox
+  }
+
+  pre[class*='language-'] > code[class*='language-'] {
+    font-family: 'Fira Mono', Consolas, 'Liberation Mono', Menlo, monospace;
+  }
+
+  code[class*='language-'] {
+    font-family: 'BM EULJIRO', 'Fira Mono', Consolas, 'Liberation Mono', Menlo, monospace;
   }
 
   pre {
