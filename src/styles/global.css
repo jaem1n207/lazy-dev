@@ -68,8 +68,8 @@
   }
 
   body {
-    font-family: Spoqa Han Sans Neo, system-ui, sans-serif !important;
-    letter-spacing: -0.025em;
+    font-family: 'BM EULJIRO', system-ui, sans-serif !important;
+    letter-spacing: -0.02em;
     min-height: 100vh;
     transition-property: background-color, color;
     transition-duration: 0.2s;
@@ -78,6 +78,8 @@
     -moz-osx-font-smoothing: grayscale;
     color: theme(colors.text);
     background-color: theme(colors.background);
+
+    cursor: none !important;
   }
 
   header,
@@ -87,7 +89,7 @@
   h4,
   h5,
   h6 {
-    font-family: Spoqa Han Sans Neo, system-ui, sans-serif;
+    font-family: 'BM EULJIRO', system-ui, sans-serif;
   }
 
   a > svg {
@@ -98,24 +100,36 @@
     background-color: theme(colors.primary);
     color: theme(colors.button-text);
   }
+
+  #header-cursor {
+    position: absolute;
+    width: 50px;
+    height: 50px;
+    background: rgba(255, 255, 255, 1);
+    border-radius: 50%;
+    top: 0;
+    left: 0;
+    pointer-events: none;
+    mix-blend-mode: difference;
+    transition: 0.15s all cubic-bezier(0.075, 0.82, 0.165, 1);
+    z-index: 9999;
+
+    position: fixed;
+    height: 65px;
+    width: 65px;
+    transform: scale(0.23);
+
+    translate: none;
+    rotate: none;
+    scale: none;
+  }
 }
 
 @font-face {
-  font-family: 'Spoqa Han Sans Neo';
+  font-family: 'BM EULJIRO';
   font-weight: 400;
   font-display: swap;
   font-style: normal;
   font-named-instance: 'Regular';
-  src: url(/fonts/SpoqaHanSansNeo-Regular.woff2) format('woff2'),
-    url(/fonts/SpoqaHanSansNeo-Regular.woff) format('woff');
-}
-
-@font-face {
-  font-family: 'Spoqa Han Sans Neo';
-  font-weight: 700;
-  font-display: swap;
-  font-style: normal;
-  font-named-instance: 'Bold';
-  src: url(/fonts/SpoqaHanSansNeo-Bold.woff2) format('woff2'),
-    url(/fonts/SpoqaHanSansNeo-Bold.woff) format('woff');
+  src: url(/fonts/BMEULJIRO.woff2) format('woff2'), url(/fonts/BMEULJIRO.woff) format('woff');
 }

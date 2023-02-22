@@ -89,7 +89,7 @@ module.exports = {
         'tag-text-checked': 'var(--color-tag-text-checked)',
       },
       fontFamily: {
-        spoqa: ['Spoqa Han Sans Neo', ...defaultTheme.fontFamily.sans],
+        spoqa: ['BM EULJIRO', ...defaultTheme.fontFamily.sans],
       },
       boxShadow: {
         'text-underline': '0 1px 0 0 currentColor',
