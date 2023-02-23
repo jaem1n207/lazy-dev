@@ -260,6 +260,22 @@ const pwaPlugins: GatsbyConfig['plugins'] = [
   'gatsby-plugin-offline',
 ];
 
+const googlePlugins: GatsbyConfig['plugins'] = [
+  {
+    resolve: `gatsby-plugin-webfonts`,
+    options: {
+      fonts: {
+        google2: [
+          {
+            family: 'Noto Sans KR',
+            axes: 'wght@400;500;700',
+          },
+        ],
+      },
+    },
+  },
+];
+
 const config: GatsbyConfig = {
   // flags: {
   //   DEV_SSR: false,
@@ -278,6 +294,7 @@ const config: GatsbyConfig = {
     ...markdownPlugins,
     ...searchPlugins,
     ...pwaPlugins,
+    ...googlePlugins,
   ],
 };
 

@@ -15,7 +15,7 @@ const Markdown = styled.article<{ rhythm: typeof typography['rhythm'] }>`
   h4,
   h5,
   h6 {
-    font-family: 'BM EULJIRO', 'Fira Mono', Consolas, Liberation Mono, Menlo, monospace;
+    font-family: 'Noto Sans KR', 'Fira Mono', Consolas, Liberation Mono, Menlo, monospace;
     font-weight: 700;
     letter-spacing: -0.1px;
   }
@@ -53,7 +53,7 @@ const Markdown = styled.article<{ rhythm: typeof typography['rhythm'] }>`
   a,
   p {
     font-weight: 400;
-    font-family: 'BM EULJIRO', 'Fira Mono', Consolas;
+    font-family: 'Noto Sans KR', 'Fira Mono', Consolas;
   }
 
   a {
@@ -177,6 +177,7 @@ const Markdown = styled.article<{ rhythm: typeof typography['rhythm'] }>`
 
   code[class*='language-'],
   pre[class*='language-'] {
+    font-family: 'Fira Mono', Consolas, 'Liberation Mono', Menlo, monospace;
     background-color: var(--color-code-block) !important;
     color: var(--color-text);
     text-align: left;
@@ -205,7 +206,7 @@ const Markdown = styled.article<{ rhythm: typeof typography['rhythm'] }>`
   }
 
   code[class*='language-'] {
-    font-family: 'BM EULJIRO', 'Fira Mono', Consolas, 'Liberation Mono', Menlo, monospace;
+    font-family: 'Noto Sans KR', 'Fira Mono', Consolas, 'Liberation Mono', Menlo, monospace;
   }
 
   pre {

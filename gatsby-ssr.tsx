@@ -13,17 +13,6 @@ export const onRenderBody: GatsbySSR['onRenderBody'] = ({
       name="google-site-verification"
       content="ohUVyTBdTm7pjIAXpNjQ9EppEzdrbFijShnU7Q0GEJI"
     />,
-    // caching font
-    // https://web.dev/preload-critical-assets/
-    // https://web.dev/codelab-preload-web-fonts/
-    <link
-      key="BM EULJIRO"
-      rel="preload"
-      href="/fonts/BMEULJIRO.woff2"
-      as="font"
-      type="font/woff2"
-      crossOrigin="anonymous"
-    />,
     <script
       key="darkmode"
       dangerouslySetInnerHTML={{

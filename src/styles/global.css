@@ -68,7 +68,7 @@
   }
 
   body {
-    font-family: 'BM EULJIRO', system-ui, sans-serif !important;
+    font-family: 'Noto Sans KR', system-ui, sans-serif !important;
     letter-spacing: -0.02em;
     min-height: 100vh;
     transition-property: background-color, color;
@@ -91,7 +91,7 @@
   h4,
   h5,
   h6 {
-    font-family: 'BM EULJIRO', system-ui, sans-serif;
+    font-family: 'Noto Sans KR', system-ui, sans-serif;
   }
 
   a > svg {
@@ -102,13 +102,4 @@
     background-color: theme(colors.primary);
     color: theme(colors.button-text);
   }
-}
-
-@font-face {
-  font-family: 'BM EULJIRO';
-  font-weight: 400;
-  font-display: swap;
-  font-style: normal;
-  font-named-instance: 'Regular';
-  src: url(/fonts/BMEULJIRO.woff2) format('woff2'), url(/fonts/BMEULJIRO.woff) format('woff');
 }
