@@ -1,6 +1,7 @@
 import { useState, useRef, CSSProperties, useCallback, useEffect } from 'react';
 
 import { getElements } from 'Libs/dom';
+import { isBrowser } from 'Libs/environment';
 
 import { useBoolean } from './use-boolean';
 import { useEventListener } from './use-event-listener';
@@ -96,16 +97,18 @@ const useCursor = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
+  const element = isBrowser ? document : null;
+
   // @ts-ignore
-  useEventListener('mousemove', onMouseMove, document);
+  useEventListener('mousemove', onMouseMove, element);
   // @ts-ignore
-  useEventListener('mousedown', onMouseDown, document);
+  useEventListener('mousedown', onMouseDown, element);
   // @ts-ignore
-  useEventListener('mouseup', onMouseUp, document);
+  useEventListener('mouseup', onMouseUp, element);
   // @ts-ignore
-  useEventListener('mouseenter', onMouseEnter, document);
+  useEventListener('mouseenter', onMouseEnter, element);
   // @ts-ignore
-  useEventListener('mouseleave', onMouseLeave, document);
+  useEventListener('mouseleave', onMouseLeave, element);
 
   useEffect(() => {
     if (isActive) {
