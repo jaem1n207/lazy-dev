@@ -19,7 +19,6 @@ const Tag = ({ tag, checked, onChange, onKeyUp, disabled }: TagProps) => {
       checked={checked}
       onChange={onChange}
       onKeyUp={onKeyUp}
-      id="tag-label"
       className={classNames(
         'inline-block relative mb-16pxr mr-16pxr h-auto w-auto rounded-full px-24pxr py-12pxr transition tablet:px-16pxr tablet:py-8pxr tablet:text-14pxr)',
         {
