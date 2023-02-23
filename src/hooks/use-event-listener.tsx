@@ -1,6 +1,8 @@
 /* eslint-disable no-undef */
 import { useRef, useEffect } from 'react';
 
+import { isBrowser } from 'Libs/environment';
+
 type Options = Pick<AddEventListenerOptions, 'capture' | 'passive' | 'once'>;
 
 interface UseEventListener<K extends keyof DocumentEventMap> {
@@ -35,4 +37,8 @@ export const useEventListener: UseEventListener<keyof DocumentEventMap> = (
       element.removeEventListener(eventName, eventListener, opts);
     };
   }, [eventName, element, capture, passive, once]);
+
+  if (!isBrowser) {
+    return null;
+  }
 };
