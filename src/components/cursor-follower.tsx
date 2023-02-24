@@ -12,8 +12,8 @@ const CursorFollower = () => {
 
   return (
     <>
-      <div ref={cursorInnerRef} style={styles.cursorInner} />
-      <div ref={cursorOuterRef} style={styles.cursorOuter} />
+      <div ref={cursorInnerRef} className="custom-cursor" style={styles.cursorInner} />
+      <div ref={cursorOuterRef} className="custom-cursor-follower" style={styles.cursorOuter} />
     </>
   );
 };

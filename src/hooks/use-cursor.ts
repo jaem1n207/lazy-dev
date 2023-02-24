@@ -6,30 +6,14 @@ import { isBrowser } from 'Libs/environment';
 import { useBoolean } from './use-boolean';
 import { useEventListener } from './use-event-listener';
 
+type CalculateCursorCSSProperties = Pick<CSSProperties, 'opacity' | 'top' | 'left' | 'transform'>;
+
 interface Styles {
-  cursorInner: CSSProperties;
-  cursorOuter: CSSProperties;
+  cursorInner: CalculateCursorCSSProperties;
+  cursorOuter: CalculateCursorCSSProperties;
 }
 
-const innerSize = 10;
-const outerSize = 20;
-const innerScale = 0.7;
 const outerScale = 3;
-const outerAlpha = 0.4;
-const color = '59, 130, 246';
-const baseCursorStyles: CSSProperties = {
-  position: 'fixed',
-  top: 0,
-  left: 0,
-  background: `rgba(${color}, 1)`,
-  borderRadius: '50%',
-  pointerEvents: 'none',
-  mixBlendMode: 'difference',
-  zIndex: 99,
-  translate: 'none',
-  rotate: 'none',
-  scale: 'none',
-};
 
 const useCursor = () => {
   const [coords, setCoords] = useState({ x: 0, y: 0 });
@@ -113,27 +97,26 @@ const useCursor = () => {
   useEffect(() => {
     if (isActive) {
       if (cursorInnerRef.current && cursorOuterRef.current) {
-        cursorInnerRef.current.style.transform = `scale(${innerScale})`;
+        cursorInnerRef.current.style.opacity = '0';
         cursorOuterRef.current.style.transform = `scale(${outerScale})`;
       }
     } else {
       if (cursorInnerRef.current && cursorOuterRef.current) {
-        cursorInnerRef.current.style.transform = 'scale(1)';
+        cursorInnerRef.current.style.opacity = '1';
         cursorOuterRef.current.style.transform = 'scale(1)';
       }
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [innerScale, outerScale, isActive]);
+  }, [outerScale, isActive]);
 
   useEffect(() => {
     if (isActiveClickable) {
-      if (cursorInnerRef.current && cursorOuterRef.current) {
-        cursorInnerRef.current.style.transform = `scale(${innerScale * 1.3})`;
+      if (cursorOuterRef.current) {
         cursorOuterRef.current.style.transform = `scale(${outerScale * 1.4})`;
       }
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [innerScale, outerScale, isActiveClickable]);
+  }, [outerScale, isActiveClickable]);
 
   useEffect(() => {
     if (isVisible) {
@@ -202,18 +185,12 @@ const useCursor = () => {
 
   const styles: Styles = {
     cursorInner: {
-      ...baseCursorStyles,
-      width: innerSize,
-      height: innerSize,
-      background: `rgba(${color}, 1)`,
-      transition: `width .3s,height .3s,opacity .3s,background-color .3s`,
+      top: 0,
+      left: 0,
     },
     cursorOuter: {
-      ...baseCursorStyles,
-      width: outerSize,
-      height: outerSize,
-      background: `rgba(${color}, ${outerAlpha})`,
-      transition: `.3s cubic-bezier(.25,.1,.25,1) .1s transform,.2s cubic-bezier(.75,-.27,.3,1.33) opacity,.3s cubic-bezier(.75,-.27,.3,1.33) width,.3s cubic-bezier(.75,-.27,.3,1.33) height,.3s cubic-bezier(.75,-.27,.3,1.33) margin`,
+      top: 0,
+      left: 0,
     },
   };
 
