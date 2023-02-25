@@ -97,12 +97,12 @@ const useCursor = () => {
   useEffect(() => {
     if (isActive) {
       if (cursorInnerRef.current && cursorOuterRef.current) {
-        cursorInnerRef.current.style.opacity = '0';
+        cursorInnerRef.current.style.transform = `scale(0)`;
         cursorOuterRef.current.style.transform = `scale(${outerScale})`;
       }
     } else {
       if (cursorInnerRef.current && cursorOuterRef.current) {
-        cursorInnerRef.current.style.opacity = '1';
+        cursorInnerRef.current.style.transform = `scale(1)`;
         cursorOuterRef.current.style.transform = 'scale(1)';
       }
     }

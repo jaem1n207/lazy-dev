@@ -90,12 +90,9 @@
     pointer-events: none;
     mix-blend-mode: difference;
     z-index: 99;
-    translate: none;
-    rotate: none;
-    scale: none;
-    width: 10px;
-    height: 10px;
-    background: rgba(59, 130, 246, 1);
+    width: 6px;
+    height: 6px;
+    background-color: rgba(59, 130, 246, 1);
     transition: width 0.3s, height 0.3s, opacity 0.3s, background-color 0.3s;
   }
 
@@ -105,12 +102,11 @@
     pointer-events: none;
     mix-blend-mode: difference;
     z-index: 99;
-    translate: none;
-    rotate: none;
-    scale: none;
     width: 20px;
     height: 20px;
-    background: rgba(59, 130, 246, 0.4);
+    margin-top: -7px;
+    margin-left: -7px;
+    background-color: rgba(59, 130, 246, 0.4);
     transition: 0.3s cubic-bezier(0.25, 0.1, 0.25, 1) 0.1s transform,
       0.2s cubic-bezier(0.75, -0.27, 0.3, 1.33) opacity,
       0.3s cubic-bezier(0.75, -0.27, 0.3, 1.33) width,
