@@ -52,7 +52,7 @@ const useCursor = () => {
         requestRef.current = requestAnimationFrame(animateOuterCursor);
       }
     },
-    // 60fps 유지하기 위해 deps에 coords 넣지 않음
+    // cursorInnerRef를 천천히 따라가는 느낌을 위해 deps에 coords 넣지 않음
     // eslint-disable-next-line react-hooks/exhaustive-deps
     [requestRef]
   );
@@ -97,7 +97,7 @@ const useCursor = () => {
   useEffect(() => {
     if (isActive) {
       if (cursorInnerRef.current && cursorOuterRef.current) {
-        cursorInnerRef.current.style.transform = `scale(0)`;
+        cursorInnerRef.current.style.transform = `scale(0.7)`;
         cursorOuterRef.current.style.transform = `scale(${outerScale})`;
       }
     } else {
