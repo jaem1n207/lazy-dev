@@ -166,7 +166,7 @@ const IndexPage: FC<PageProps<Queries.HomeQuery, ContextProps>> = ({ data, locat
           <input
             id="search"
             type="text"
-            placeholder="Search"
+            placeholder="What are you looking for?"
             className="rounded-full w-320pxr h-40pxr px-24pxr py-12pxr text-16pxr focus:outline-none focus:ring-2 focus:ring-primary"
             value={queryValue}
             onChange={handleSearchInputChange}
