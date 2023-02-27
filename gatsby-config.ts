@@ -1,4 +1,9 @@
+import * as dotenv from 'dotenv';
 import type { GatsbyConfig } from 'gatsby';
+
+dotenv.config({
+  path: `.env.${process.env.NODE_ENV}`,
+});
 
 const siteMetadata: GatsbyConfig['siteMetadata'] = {
   title: 'Lazy Dev',

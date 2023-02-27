@@ -7,12 +7,8 @@ export const onRenderBody: GatsbySSR['onRenderBody'] = ({
   setHeadComponents,
 }) => {
   setHtmlAttributes({ lang: 'ko' });
-  setHeadComponents([
-    <meta
-      key="google-search-console-verification"
-      name="google-site-verification"
-      content="ohUVyTBdTm7pjIAXpNjQ9EppEzdrbFijShnU7Q0GEJI"
-    />,
+
+  const headComponents = [
     <link
       key="preconnect-google-fonts"
       rel="preconnect"
@@ -38,46 +34,57 @@ export const onRenderBody: GatsbySSR['onRenderBody'] = ({
     />,
     <style key="local-fonts" type="text/css">
       {`
-        @font-face {
-          font-family: 'Noto Sans KR';
-          font-weight: 400;
-          src: url('/fonts/NotoSansKr-Regular.woff2') format('woff2');
-          font-display: swap;
-        }
-        @font-face {
-          font-family: 'Noto Sans KR';
-          font-weight: 700;
-          src: url('/fonts/NotoSansKr-Bold.woff2') format('woff2');
-          font-display: swap;
-        }
-      `}
+      @font-face {
+        font-family: 'Noto Sans KR';
+        font-weight: 400;
+        src: url('/fonts/NotoSansKr-Regular.woff2') format('woff2');
+        font-display: swap;
+      }
+      @font-face {
+        font-family: 'Noto Sans KR';
+        font-weight: 700;
+        src: url('/fonts/NotoSansKr-Bold.woff2') format('woff2');
+        font-display: swap;
+      }
+    `}
     </style>,
     <script
       key="darkmode"
       dangerouslySetInnerHTML={{
         __html: `(function() {
-          function setTheme(theme) {
-            window.__theme = theme;
-            if (theme === 'dark') {
-              document.documentElement.className = 'dark';
-            } else {
-              document.documentElement.className = '';
-            }
-          };
-          window.__setPreferredTheme = function(theme) {
-            setTheme(theme);
-            try {
-              localStorage.setItem('color-theme', theme);
-            } catch (e) {}
-          };
-          let preferredTheme;
+        function setTheme(theme) {
+          window.__theme = theme;
+          if (theme === 'dark') {
+            document.documentElement.className = 'dark';
+          } else {
+            document.documentElement.className = '';
+          }
+        };
+        window.__setPreferredTheme = function(theme) {
+          setTheme(theme);
           try {
-            preferredTheme = localStorage.getItem('color-theme');
+            localStorage.setItem('color-theme', theme);
           } catch (e) {}
-          let darkQuery = window.matchMedia('(prefers-color-scheme: dark)');
-          setTheme(preferredTheme || (darkQuery.matches ? 'dark' : 'light'));
-        })();`,
+        };
+        let preferredTheme;
+        try {
+          preferredTheme = localStorage.getItem('color-theme');
+        } catch (e) {}
+        let darkQuery = window.matchMedia('(prefers-color-scheme: dark)');
+        setTheme(preferredTheme || (darkQuery.matches ? 'dark' : 'light'));
+      })();`,
       }}
     />,
-  ]);
+  ];
+
+  if (process.env.GOOGLE_SEARCH_CONSOLE_VERIFICATION_CONTENT) {
+    headComponents.push(
+      <meta
+        key="google-search-console-verification"
+        name="google-site-verification"
+        content={process.env.GOOGLE_SEARCH_CONSOLE_VERIFICATION_CONTENT}
+      />
+    );
+  }
+  setHeadComponents(headComponents);
 };
