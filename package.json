@@ -31,7 +31,8 @@
     "lint:fix": "eslint --ext .js,.jsx,.ts,.tsx . --fix",
     "prepare": "husky install",
     "commit": "git-cz",
-    "post": "node ./src/libs/post.js"
+    "post": "node ./src/libs/post.js",
+    "env": "cp env.example .env.production && cp env.example .env.development"
   },
   "lint-staged": {
     "**/*.{js,jsx,ts,tsx}": [
@@ -47,6 +48,8 @@
     "@reach/checkbox": "^0.18.0",
     "classnames": "^2.3.2",
     "dayjs": "^1.11.7",
+    "dotenv": "^16.0.3",
+    "framer-motion": "^10.0.0",
     "fs-extra": "^11.1.0",
     "gatsby": "^5.2.0",
     "gatsby-plugin-alias-imports": "^1.0.5",
