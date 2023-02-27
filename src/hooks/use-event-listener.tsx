@@ -1,45 +1,85 @@
+/**
+ * Original Code
+ * @see https://github.com/juliencrn/usehooks-ts/blob/master/src/useEventListener/useEventListener.ts
+ */
+
 /* eslint-disable no-undef */
-import { useEffect, useRef } from 'react';
+/* eslint-disable no-redeclare */
+import { RefObject, useEffect, useRef } from 'react';
 
-import { isBrowser } from 'Libs/environment';
+import { useIsomorphicLayoutEffect } from './use-isomorphic-layout-effect';
 
-type EventListener<E extends keyof HTMLElementEventMap> = (event: HTMLElementEventMap[E]) => void;
+// MediaQueryList Event based useEventListener interface
+function useEventListener<K extends keyof MediaQueryListEventMap>(
+  eventName: K,
+  handler: (event: MediaQueryListEventMap[K]) => void,
+  element: RefObject<MediaQueryList>,
+  options?: boolean | AddEventListenerOptions
+): void;
 
-type EventListenerOptions = {
-  capture?: boolean;
-  passive?: boolean;
-  once?: boolean;
-};
+// Window Event based useEventListener interface
+function useEventListener<K extends keyof WindowEventMap>(
+  eventName: K,
+  handler: (event: WindowEventMap[K]) => void,
+  element?: undefined,
+  options?: boolean | AddEventListenerOptions
+): void;
 
-export const useEventListener = <E extends keyof HTMLElementEventMap>(
-  eventName: E,
-  handler: EventListener<E>,
-  options: EventListenerOptions = {},
-  element: HTMLElement | Window = window
-) => {
-  const savedHandler = useRef<EventListener<E>>();
+// Element Event based useEventListener interface
+function useEventListener<
+  K extends keyof HTMLElementEventMap,
+  T extends HTMLElement = HTMLDivElement
+>(
+  eventName: K,
+  handler: (event: HTMLElementEventMap[K]) => void,
+  element: RefObject<T>,
+  options?: boolean | AddEventListenerOptions
+): void;
 
-  useEffect(() => {
+// Document Event based useEventListener interface
+function useEventListener<K extends keyof DocumentEventMap>(
+  eventName: K,
+  handler: (event: DocumentEventMap[K]) => void,
+  element: RefObject<Document>,
+  options?: boolean | AddEventListenerOptions
+): void;
+
+function useEventListener<
+  KW extends keyof WindowEventMap,
+  KH extends keyof HTMLElementEventMap,
+  KM extends keyof MediaQueryListEventMap,
+  T extends HTMLElement | MediaQueryList | void = void
+>(
+  eventName: KW | KH | KM,
+  handler: (
+    event: WindowEventMap[KW] | HTMLElementEventMap[KH] | MediaQueryListEventMap[KM] | Event
+  ) => void,
+  element?: RefObject<T>,
+  options?: boolean | AddEventListenerOptions
+) {
+  // Create a ref that stores handler
+  const savedHandler = useRef(handler);
+
+  useIsomorphicLayoutEffect(() => {
     savedHandler.current = handler;
   }, [handler]);
 
   useEffect(() => {
-    const isSupported = element && element.addEventListener;
-    if (!isSupported) return;
+    // Define the listening target
+    const targetElement: T | Window = element?.current ?? window;
 
-    const eventListener: EventListener<E> = (event) =>
-      savedHandler.current && savedHandler.current(event);
+    if (!(targetElement && targetElement.addEventListener)) return;
 
-    // @ts-ignore
-    element.addEventListener(eventName, eventListener, options);
+    // Create event listener that calls handler function stored in ref
+    const listener: typeof handler = (event) => savedHandler.current(event);
 
+    targetElement.addEventListener(eventName, listener, options);
+
+    // Remove event listener on cleanup
     return () => {
-      // @ts-ignore
-      element.removeEventListener(eventName, eventListener, options);
+      targetElement.removeEventListener(eventName, listener, options);
     };
   }, [eventName, element, options]);
+}
 
-  if (!isBrowser) {
-    return null;
-  }
-};
+export default useEventListener;

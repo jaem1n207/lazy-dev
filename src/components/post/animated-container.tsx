@@ -3,7 +3,7 @@ import React, { ReactNode, useCallback, useEffect } from 'react';
 import { Variants, useAnimation, motion } from 'framer-motion';
 import { navigate } from 'gatsby';
 
-import { useEventListener } from 'Hooks/use-event-listener';
+import useEventListener from 'Hooks/use-event-listener';
 
 const containerVariants: Variants = {
   hidden: {
@@ -35,7 +35,6 @@ const AnimatedContainer = ({ children }: AnimatedContainerProps) => {
     await controls.start('visible');
   }, [controls]);
 
-  // @ts-ignore
   useEventListener('popstate', animateOnURLChange);
 
   useEffect(() => {
