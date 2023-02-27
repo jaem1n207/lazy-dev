@@ -11,8 +11,9 @@ export const shouldUpdateScroll = ({ routerProps: { location }, getSavedScrollPo
   if (!isRootPath && location.action === 'PUSH') {
     window.setTimeout(() => window.scrollTo(0, 0), 0);
   } else if (isRootPath && location.action == null) {
-    const savedPosition = getSavedScrollPosition(location);
-    window.setTimeout(() => window.scrollTo(...(savedPosition || [0, 0])), UPDATE_SCROLL_TIME_OUT);
+    // 브라우저의 앞/뒤 버튼을 사용한 경우
+    const savedPosition = getSavedScrollPosition(location) || [0, 0];
+    window.setTimeout(() => window.scrollTo(...savedPosition), UPDATE_SCROLL_TIME_OUT);
   }
   return false;
 };
