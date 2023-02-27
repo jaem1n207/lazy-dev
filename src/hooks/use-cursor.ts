@@ -27,6 +27,23 @@ const useCursor = () => {
   let endX = useRef(0);
   let endY = useRef(0);
 
+  // const matrix = new DOMMatrix();
+  // const hoverContainer = getElement('.hover-container') as HTMLElement;
+  // const links = getElements('.hover-this');
+  // links.forEach((link) => {
+  //   link.addEventListener('mousemove', (e) => {
+  //     if (!hoverContainer) return;
+  //     console.log(e.clientX);
+  //     const x = e.clientX - hoverContainer.offsetLeft;
+  //     const y = e.clientY - hoverContainer.offsetTop;
+
+  //     matrix.e = x / hoverContainer.offsetWidth - 0.5;
+  //     matrix.f = y / hoverContainer.offsetHeight - 0.5;
+
+  //     link.style.transform = `matrix3d(${matrix.toString()})`;
+  //   });
+  // });
+
   const onMouseMove = useCallback(({ clientX: x, clientY: y }: MouseEvent) => {
     setCoords({ x, y });
     endX.current = x;

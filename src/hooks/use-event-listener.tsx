@@ -1,22 +1,23 @@
 /* eslint-disable no-undef */
-import { useRef, useEffect } from 'react';
+import { useEffect, useRef } from 'react';
 
 import { isBrowser } from 'Libs/environment';
 
-type Options = Pick<AddEventListenerOptions, 'capture' | 'passive' | 'once'>;
+type EventListener<E extends keyof HTMLElementEventMap> = (event: HTMLElementEventMap[E]) => void;
 
-interface UseEventListener<K extends keyof DocumentEventMap> {
-  (eventName: K, handler: DocumentEventMap[K], element?: Document, options?: Options): void;
-}
+type EventListenerOptions = {
+  capture?: boolean;
+  passive?: boolean;
+  once?: boolean;
+};
 
-export const useEventListener: UseEventListener<keyof DocumentEventMap> = (
-  eventName,
-  handler,
-  element = document,
-  options = {}
+export const useEventListener = <E extends keyof HTMLElementEventMap>(
+  eventName: E,
+  handler: EventListener<E>,
+  options: EventListenerOptions = {},
+  element: HTMLElement | Window = window
 ) => {
-  const savedHandler = useRef<DocumentEventMap[keyof DocumentEventMap]>();
-  const { capture, passive, once } = options;
+  const savedHandler = useRef<EventListener<E>>();
 
   useEffect(() => {
     savedHandler.current = handler;
@@ -24,19 +25,19 @@ export const useEventListener: UseEventListener<keyof DocumentEventMap> = (
 
   useEffect(() => {
     const isSupported = element && element.addEventListener;
-    if (!isSupported) {
-      return;
-    }
+    if (!isSupported) return;
 
-    const eventListener = (event: DocumentEventMap[keyof DocumentEventMap]) =>
-      // @ts-ignore
-      savedHandler.current?.(event);
-    const opts = { capture, passive, once };
-    element.addEventListener(eventName, eventListener, opts);
+    const eventListener: EventListener<E> = (event) =>
+      savedHandler.current && savedHandler.current(event);
+
+    // @ts-ignore
+    element.addEventListener(eventName, eventListener, options);
+
     return () => {
-      element.removeEventListener(eventName, eventListener, opts);
+      // @ts-ignore
+      element.removeEventListener(eventName, eventListener, options);
     };
-  }, [eventName, element, capture, passive, once]);
+  }, [eventName, element, options]);
 
   if (!isBrowser) {
     return null;
