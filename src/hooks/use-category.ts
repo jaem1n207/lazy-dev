@@ -5,7 +5,7 @@ import queryString from 'query-string';
 
 import { isBrowser } from 'Libs/environment';
 import * as ScrollManager from 'Libs/scroll';
-import { CATEGORY_TYPE } from 'Types/enum';
+import { CATEGORY_TYPE, ROUTES } from 'Types/enum';
 
 const DEST_TOP = 114;
 
@@ -17,7 +17,7 @@ export const useCategory = () => {
 
     setCategory(category);
     ScrollManager.go(DEST_TOP);
-    navigate(`?category=${category}`);
+    navigate(ROUTES.BLOG_CATEGORY.toUrl(category));
   }, []);
 
   const resetCategory = useCallback(() => {
@@ -25,7 +25,7 @@ export const useCategory = () => {
 
     setCategory(CATEGORY_TYPE.ALL);
     ScrollManager.go(DEST_TOP);
-    navigate('/');
+    navigate(ROUTES.HOME);
   }, []);
 
   const changeCategory = useCallback((withScroll = true) => {
