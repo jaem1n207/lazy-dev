@@ -5,6 +5,7 @@ import Switch from 'react-switch';
 import tw from 'twin.macro';
 
 import { isBrowser } from 'Libs/environment';
+import { ROUTES } from 'Types/enum';
 
 type Theme = 'dark' | 'light';
 
@@ -90,7 +91,7 @@ interface Props {
 
 const Header = ({ children, size = 'medium' }: Props) => {
   let header = (
-    <Link css={tw`no-underline text-24pxr`} to="/">
+    <Link css={tw`no-underline text-24pxr`} to={ROUTES.HOME}>
       {children}
     </Link>
   );
@@ -98,7 +99,7 @@ const Header = ({ children, size = 'medium' }: Props) => {
   if (size === 'large') {
     header = (
       <h1 css={tw`m-0pxr text-40pxr`}>
-        <Link to="/">{children}</Link>
+        <Link to={ROUTES.HOME}>{children}</Link>
       </h1>
     );
   }

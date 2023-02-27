@@ -4,6 +4,7 @@ import { Link } from 'gatsby';
 import tw from 'twin.macro';
 
 import { firstLetterUppercase } from 'Libs/string';
+import { ROUTES } from 'Types/enum';
 import Post from 'Types/post';
 
 import CenteredImage from './centered-image';
@@ -11,7 +12,9 @@ import CenteredImage from './centered-image';
 interface CardProps extends Post {}
 
 const Card = ({ slug, title, summary, date, category, thumbnail, timeToRead }: CardProps) => {
-  const blogLink = slug || '';
+  if (!slug) return null;
+
+  const blogPostUrl = ROUTES.BLOG_POST.toUrl(slug);
 
   return (
     <li>
@@ -24,7 +27,7 @@ const Card = ({ slug, title, summary, date, category, thumbnail, timeToRead }: C
             css={tw`font-bold leading-snug text-32pxr text-primary tablet:text-28pxr foldable:text-24pxr`}
           >
             <Link
-              to={blogLink}
+              to={blogPostUrl}
               itemProp="url"
               css={tw`transition-shadow hover:shadow-text-underline focus:shadow-text-underline`}
             >
@@ -58,7 +61,7 @@ const Card = ({ slug, title, summary, date, category, thumbnail, timeToRead }: C
             </div>
           </div>
           <Link
-            to={blogLink}
+            to={blogPostUrl}
             itemProp="url"
             className="group/link"
             css={tw`font-bold transition-colors rounded-md py-12pxr px-16pxr bg-primary text-button-text flex items-center gap-4pxr foldable:(py-8pxr px-12pxr text-12pxr)`}
