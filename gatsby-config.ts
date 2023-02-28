@@ -267,14 +267,14 @@ const pwaPlugins: GatsbyConfig['plugins'] = [
 ];
 
 const config: GatsbyConfig = {
-  // flags: {
-  //   DEV_SSR: false,
-  //   FAST_DEV: true,
-  //   FAST_REFRESH: true,
-  //   PRESERVE_FILE_DOWNLOAD_CACHE: true,
-  //   PRESERVE_WEBPACK_CACHE: true,
-  //   PARALLEL_SOURCING: true,
-  // },
+  flags: {
+    DEV_SSR: true,
+    FAST_DEV: true,
+    FAST_REFRESH: true,
+    PRESERVE_FILE_DOWNLOAD_CACHE: true,
+    PRESERVE_WEBPACK_CACHE: true,
+    PARALLEL_SOURCING: true,
+  },
   graphqlTypegen: true,
   siteMetadata,
   plugins: [
