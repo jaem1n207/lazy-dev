@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 
-import { isBrowser } from 'Libs/environment';
+import { window } from 'browser-monads-ts';
 
 interface WindowSize {
   width?: number;
@@ -9,8 +9,8 @@ interface WindowSize {
 
 const getSize = (): WindowSize => {
   return {
-    width: isBrowser ? window.innerWidth : undefined,
-    height: isBrowser ? window.innerHeight : undefined,
+    width: window.innerWidth,
+    height: window.innerHeight,
   };
 };
 
@@ -18,8 +18,6 @@ export const useWindowSize = (): WindowSize => {
   const [windowSize, setWindowSize] = useState(getSize);
 
   useEffect(() => {
-    if (!isBrowser) return;
-
     function handleResize() {
       setWindowSize(getSize());
     }

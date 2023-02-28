@@ -1,6 +1,6 @@
 import { Dispatch, SetStateAction, useCallback, useEffect, useState } from 'react';
 
-import { isBrowser } from 'Libs/environment';
+import { window } from 'browser-monads-ts';
 
 declare global {
   interface WindowEventMap {
@@ -12,8 +12,6 @@ type SetValue<T> = Dispatch<SetStateAction<T>>;
 
 export const useLocalStorage = <T>(key: string, initialValue: T): [T, SetValue<T>] => {
   const readValue = useCallback((): T => {
-    if (!isBrowser) return initialValue;
-
     try {
       const item = window.localStorage.getItem(key);
       return item ? (JSON.parse(item) as T) : initialValue;
@@ -27,12 +25,6 @@ export const useLocalStorage = <T>(key: string, initialValue: T): [T, SetValue<T
 
   const setValue: SetValue<T> = useCallback(
     (value: T | ((val: T) => T)) => {
-      if (!isBrowser) {
-        console.warn(
-          `Tried setting localStorage key "${key}" even though environment is not a client`
-        );
-      }
-
       try {
         const valueToStore = value instanceof Function ? value(storedValue) : value;
 

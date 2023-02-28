@@ -5,12 +5,11 @@
  * modified by @jaem1n207
  */
 
+import { window } from 'browser-monads-ts';
 // https://github.com/cferdinandi/smooth-scroll/issues/481
 // @ts-ignore
 import SmoothScroll from 'smooth-scroll/dist/smooth-scroll.min';
 import smoothscroll from 'smoothscroll-polyfill';
-
-import { isBrowser } from './environment';
 
 let scroll: SmoothScroll | null = null;
 
@@ -33,7 +32,6 @@ export function destroy() {
 }
 
 export function go(dest: number) {
-  if (!isBrowser || !window) return null;
   if (!scroll) throw Error('Not founded SmoothScroll instance');
 
   if (dest < window.scrollY) {
