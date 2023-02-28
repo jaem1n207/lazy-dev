@@ -28,16 +28,21 @@ type ContextProps = {
 };
 
 const useUpdateQueryStringValueWithoutNavigation = (queryKey: string, queryValue: string) => {
-  const [previousQueryValue, setPreviousQueryValue] = useState(queryValue);
-
   useEffect(() => {
-    if (queryValue !== previousQueryValue) {
-      const searchParams = new URLSearchParams(window.location.search);
-      searchParams.set(queryKey, queryValue);
-      window.history.replaceState({}, '', `${window.location.pathname}?${searchParams.toString()}`);
-      setPreviousQueryValue(queryValue);
+    const currentSearchParams = new URLSearchParams(window.location.search);
+    const oldQueryValue = currentSearchParams.get(queryKey) ?? '';
+    if (queryValue === oldQueryValue) return;
+
+    if (queryValue) {
+      currentSearchParams.set(queryKey, queryValue);
+    } else {
+      currentSearchParams.delete(queryKey);
     }
-  }, [queryKey, queryValue, previousQueryValue]);
+    const newUrl = [window.location.pathname, currentSearchParams.toString()]
+      .filter(Boolean)
+      .join('?');
+    window.history.replaceState(null, '', newUrl);
+  }, [queryKey, queryValue]);
 };
 
 const IndexPage: FC<PageProps<Queries.HomeQuery, ContextProps>> = ({ data, location }) => {
