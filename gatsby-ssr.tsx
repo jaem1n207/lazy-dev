@@ -7,8 +7,12 @@ export const onRenderBody: GatsbySSR['onRenderBody'] = ({
   setHeadComponents,
 }) => {
   setHtmlAttributes({ lang: 'ko' });
-
-  const headComponents = [
+  setHeadComponents([
+    <meta
+      key="google-search-console-verification"
+      name="google-site-verification"
+      content={process.env.GOOGLE_SEARCH_CONSOLE_VERIFICATION_CONTENT}
+    />,
     <link
       key="preconnect-google-fonts"
       rel="preconnect"
@@ -75,16 +79,5 @@ export const onRenderBody: GatsbySSR['onRenderBody'] = ({
       })();`,
       }}
     />,
-  ];
-
-  if (process.env.GOOGLE_SEARCH_CONSOLE_VERIFICATION_CONTENT) {
-    headComponents.push(
-      <meta
-        key="google-search-console-verification"
-        name="google-site-verification"
-        content={process.env.GOOGLE_SEARCH_CONSOLE_VERIFICATION_CONTENT}
-      />
-    );
-  }
-  setHeadComponents(headComponents);
+  ]);
 };
