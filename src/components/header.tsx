@@ -1,10 +1,10 @@
 import React, { ReactNode, useEffect, useState } from 'react';
 
+import { window } from 'browser-monads-ts';
 import { Link } from 'gatsby';
 import Switch from 'react-switch';
 import tw from 'twin.macro';
 
-import { isBrowser } from 'Libs/environment';
 import { ROUTES } from 'Types/enum';
 
 type Theme = 'dark' | 'light';
@@ -50,9 +50,7 @@ const Sun = () => (
 
 const ToggleMode = () => {
   let websiteTheme: Theme;
-  if (isBrowser) {
-    websiteTheme = window.__theme;
-  }
+  websiteTheme = window.__theme;
   useEffect(() => {
     setTheme(window.__theme);
   }, []);

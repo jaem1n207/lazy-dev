@@ -1,9 +1,11 @@
 import { useState, useRef, CSSProperties, useCallback, useEffect } from 'react';
 
+import { document } from 'browser-monads-ts';
+
 import { getElements } from 'Libs/dom';
 
 import { useBoolean } from './use-boolean';
-import useEventListener from './use-event-listener';
+import { useEventListener } from './use-event-listener';
 
 type CalculateCursorCSSProperties = Pick<CSSProperties, 'opacity' | 'top' | 'left' | 'transform'>;
 
@@ -15,7 +17,6 @@ interface Styles {
 const outerScale = 3;
 
 const useCursor = () => {
-  const documentRef = useRef<Document>(document);
   const [coords, setCoords] = useState({ x: 0, y: 0 });
   const [isVisible, setIsVisible] = useBoolean(false);
   const [isActive, setIsActive] = useBoolean(false);
@@ -98,11 +99,11 @@ const useCursor = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  useEventListener('mousemove', onMouseMove, documentRef);
-  useEventListener('mousedown', onMouseDown, documentRef);
-  useEventListener('mouseup', onMouseUp, documentRef);
-  useEventListener('mouseenter', onMouseEnter, documentRef);
-  useEventListener('mouseleave', onMouseLeave, documentRef);
+  useEventListener('mousemove', onMouseMove, document);
+  useEventListener('mousedown', onMouseDown, document);
+  useEventListener('mouseup', onMouseUp, document);
+  useEventListener('mouseenter', onMouseEnter, document);
+  useEventListener('mouseleave', onMouseLeave, document);
 
   useEffect(() => {
     if (isActive) {

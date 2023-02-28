@@ -1,5 +1,6 @@
 import React, { useEffect } from 'react';
 
+import { window } from 'browser-monads-ts';
 import tw from 'twin.macro';
 
 import { useScrollEvent } from 'Hooks/use-scroll-event';
