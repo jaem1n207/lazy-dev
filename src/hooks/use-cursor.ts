@@ -20,7 +20,6 @@ const outerScale = 3;
 
 const useCursor = () => {
   const [coords, setCoords] = useState({ x: 0, y: 0 });
-  const [isVisible, setIsVisible] = useBoolean(false);
   const [isActive, setIsActive] = useBoolean(false);
   const [isActiveClickable, setIsActiveClickable] = useBoolean(false);
   const cursorOuterRef = useRef<HTMLDivElement>(null);
@@ -68,29 +67,15 @@ const useCursor = () => {
 
   const onMouseDown = useCallback(() => {
     setIsActive.on();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  }, [setIsActive]);
 
   const onMouseUp = useCallback(() => {
     setIsActive.off();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
-
-  const onMouseEnter = useCallback(() => {
-    setIsVisible.on();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
-
-  const onMouseLeave = useCallback(() => {
-    setIsVisible.off();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  }, [setIsActive]);
 
   useEventListener('mousemove', onMouseMove, document);
   useEventListener('mousedown', onMouseDown, document);
   useEventListener('mouseup', onMouseUp, document);
-  useEventListener('mouseenter', onMouseEnter, document);
-  useEventListener('mouseleave', onMouseLeave, document);
 
   useEffect(() => {
     if (isActive) {
@@ -106,8 +91,7 @@ const useCursor = () => {
         cursorOuterRef.current.style.opacity = '1';
       }
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [outerScale, isActive]);
+  }, [isActive]);
 
   useEffect(() => {
     if (isActiveClickable) {
@@ -115,22 +99,7 @@ const useCursor = () => {
         cursorOuterRef.current.style.transform = `scale(${outerScale * 1.4})`;
       }
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [outerScale, isActiveClickable]);
-
-  useEffect(() => {
-    if (isVisible) {
-      if (cursorInnerRef.current && cursorOuterRef.current) {
-        cursorInnerRef.current.style.opacity = '1';
-        cursorOuterRef.current.style.opacity = '1';
-      }
-    } else {
-      if (cursorInnerRef.current && cursorOuterRef.current) {
-        cursorInnerRef.current.style.opacity = '0';
-        cursorOuterRef.current.style.opacity = '0';
-      }
-    }
-  }, [isVisible]);
+  }, [isActiveClickable]);
 
   useEffect(() => {
     const clickables = getElements(ELEMENT_SELECTOR.CLICKABLE);
@@ -187,7 +156,7 @@ const useCursor = () => {
       });
     };
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [isActive]);
+  }, [isActive, setIsActive]);
 
   const styles: Styles = {
     cursorInner: {
