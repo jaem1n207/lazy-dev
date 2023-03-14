@@ -1,7 +1,7 @@
-export const clickableTransform = () => {
-  const MAX_TRANSFORM_VALUE = 20; // tx 및 ty의 최대값 지정
-  const TRANSFORM_INCREMENT = 0.5; // tx 및 ty의 증가 단위
+const MAX_TRANSFORM_VALUE = 20; // tx 및 ty의 최대값 지정
+const TRANSFORM_INCREMENT = 0.5; // tx 및 ty의 증가 단위
 
+export const clickableTransform = () => {
   const updateTransform = (element: HTMLElement, mouseX: number, mouseY: number) => {
     const { left, top, width, height } = element.getBoundingClientRect();
     const tx = Math.max(

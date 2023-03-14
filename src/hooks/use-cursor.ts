@@ -105,8 +105,6 @@ const useCursor = () => {
     const clickables = getElements(ELEMENT_SELECTOR.CLICKABLE);
 
     clickables.forEach((el) => {
-      el.style.cursor = 'none';
-
       el.addEventListener('mousemove', (e) => {
         handleMouseMove(e, el);
       });
@@ -156,7 +154,7 @@ const useCursor = () => {
       });
     };
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [isActive, setIsActive]);
+  }, [isActive]);
 
   const styles: Styles = {
     cursorInner: {
