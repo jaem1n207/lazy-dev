@@ -3,6 +3,7 @@ import { useState, useRef, CSSProperties, useCallback, useEffect } from 'react';
 import { document } from 'browser-monads-ts';
 
 import { getElements } from 'Libs/dom';
+import { ELEMENT_SELECTOR } from 'Types/enum';
 
 import { useBoolean } from './use-boolean';
 import { useEventListener } from './use-event-listener';
@@ -27,23 +28,6 @@ const useCursor = () => {
   const previousTimeRef = useRef<number>(0);
   let endX = useRef(0);
   let endY = useRef(0);
-
-  // const matrix = new DOMMatrix();
-  // const hoverContainer = getElement('.hover-container') as HTMLElement;
-  // const links = getElements('.hover-this');
-  // links.forEach((link) => {
-  //   link.addEventListener('mousemove', (e) => {
-  //     if (!hoverContainer) return;
-  //     console.log(e.clientX);
-  //     const x = e.clientX - hoverContainer.offsetLeft;
-  //     const y = e.clientY - hoverContainer.offsetTop;
-
-  //     matrix.e = x / hoverContainer.offsetWidth - 0.5;
-  //     matrix.f = y / hoverContainer.offsetHeight - 0.5;
-
-  //     link.style.transform = `matrix3d(${matrix.toString()})`;
-  //   });
-  // });
 
   const onMouseMove = useCallback(({ clientX: x, clientY: y }: MouseEvent) => {
     setCoords({ x, y });
@@ -110,11 +94,13 @@ const useCursor = () => {
       if (cursorInnerRef.current && cursorOuterRef.current) {
         cursorInnerRef.current.style.transform = `scale(0.7)`;
         cursorOuterRef.current.style.transform = `scale(${outerScale})`;
+        cursorOuterRef.current.style.opacity = '0.7';
       }
     } else {
       if (cursorInnerRef.current && cursorOuterRef.current) {
         cursorInnerRef.current.style.transform = `scale(1)`;
         cursorOuterRef.current.style.transform = 'scale(1)';
+        cursorOuterRef.current.style.opacity = '1';
       }
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -144,9 +130,7 @@ const useCursor = () => {
   }, [isVisible]);
 
   useEffect(() => {
-    const clickables = getElements(
-      'a, input[type="submit"], input[type="image"], label[for], select, button:not([disabled]), .link, input[type="text"], input[type="checkbox"]:not([disabled]), input[type="radio"]:not([disabled]), textarea:not([disabled]), [tabindex]:not([tabindex="-1"])'
-    );
+    const clickables = getElements(ELEMENT_SELECTOR.CLICKABLE);
 
     clickables.forEach((el) => {
       el.style.cursor = 'none';
@@ -191,8 +175,7 @@ const useCursor = () => {
         });
       });
     };
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [isActive]);
+  }, [isActive, setIsActive, setIsActiveClickable]);
 
   const styles: Styles = {
     cursorInner: {
