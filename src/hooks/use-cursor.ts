@@ -3,6 +3,7 @@ import { useState, useRef, CSSProperties, useCallback, useEffect } from 'react';
 import { document } from 'browser-monads-ts';
 
 import { getElements } from 'Libs/dom';
+import { clickableTransform } from 'Libs/transform';
 import { ELEMENT_SELECTOR } from 'Types/enum';
 
 import { useBoolean } from './use-boolean';
@@ -28,6 +29,8 @@ const useCursor = () => {
   const previousTimeRef = useRef<number>(0);
   let endX = useRef(0);
   let endY = useRef(0);
+
+  const { handleMouseMove, handleMouseOut } = clickableTransform();
 
   const onMouseMove = useCallback(({ clientX: x, clientY: y }: MouseEvent) => {
     setCoords({ x, y });
@@ -135,6 +138,9 @@ const useCursor = () => {
     clickables.forEach((el) => {
       el.style.cursor = 'none';
 
+      el.addEventListener('mousemove', (e) => {
+        handleMouseMove(e, el);
+      });
       el.addEventListener('mouseover', () => {
         setIsActive.on();
       });
@@ -151,11 +157,15 @@ const useCursor = () => {
       el.addEventListener('mouseout', () => {
         setIsActive.off();
         setIsActiveClickable.off();
+        handleMouseOut(el);
       });
     });
 
     return () => {
       clickables.forEach((el) => {
+        el.removeEventListener('mousemove', (e) => {
+          handleMouseMove(e, el);
+        });
         el.removeEventListener('mouseover', () => {
           setIsActive.on();
         });
@@ -172,10 +182,12 @@ const useCursor = () => {
         el.removeEventListener('mouseout', () => {
           setIsActive.off();
           setIsActiveClickable.off();
+          handleMouseOut(el);
         });
       });
     };
-  }, [isActive, setIsActive, setIsActiveClickable]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [isActive]);
 
   const styles: Styles = {
     cursorInner: {

@@ -50,6 +50,7 @@ const IndexPage: FC<PageProps<Queries.HomeQuery, ContextProps>> = ({ data, locat
   const { category, selectCategory, resetCategory } = useCategory();
 
   const categories = useMemo(() => data.categoriesGroup.group, [data.categoriesGroup.group]);
+
   useEffect(() => {
     if (category) {
       setCurrentCategory(category);
