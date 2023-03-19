@@ -84,6 +84,20 @@
     cursor: none !important;
   }
 
+  #header-cursor {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 65px;
+    height: 65px;
+    background: rgba(255, 255, 255, 1);
+    border-radius: 50%;
+    mix-blend-mode: difference;
+    transition: 0.15s all cubic-bezier(0.075, 0.82, 0.165, 1);
+    z-index: 9999;
+    pointer-events: none;
+  }
+
   .transform-cursor {
     transition: all 260ms ease-out;
   }
