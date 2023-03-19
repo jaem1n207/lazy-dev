@@ -84,48 +84,21 @@
     cursor: none !important;
   }
 
-  #header-cursor {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 65px;
-    height: 65px;
-    background: rgba(255, 255, 255, 1);
-    border-radius: 50%;
-    mix-blend-mode: difference;
-    transition: 0.15s all cubic-bezier(0.075, 0.82, 0.165, 1);
-    z-index: 9999;
-    pointer-events: none;
-  }
-
   .transform-cursor {
     transition: all 260ms ease-out;
   }
 
   .custom-cursor {
     position: fixed;
-    border-radius: 50%;
-    pointer-events: none;
-    mix-blend-mode: difference;
-    z-index: 99;
-    width: 10px;
-    height: 10px;
-    background-color: rgba(59, 130, 246, 1);
-    transition: opacity 0.15s ease-in-out, transform 0.15s ease-in-out;
-    opacity: 1;
-  }
-
-  .custom-cursor-follower {
-    position: fixed;
-    border-radius: 50%;
-    pointer-events: none;
-    mix-blend-mode: difference;
-    z-index: 99;
+    top: 0;
+    left: 0;
     width: 20px;
     height: 20px;
-    margin-top: -5px;
-    margin-left: -5px;
-    background-color: rgba(59, 130, 246, 0.4);
+    border-radius: 50%;
+    pointer-events: none;
+    mix-blend-mode: difference;
+    z-index: 99;
+    background: rgba(255, 255, 255, 1);
     transition: opacity 0.15s ease-in-out, transform 0.15s ease-in-out;
     opacity: 1;
   }

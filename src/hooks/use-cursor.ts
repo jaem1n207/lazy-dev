@@ -1,4 +1,4 @@
-import { useState, useRef, CSSProperties, useCallback, useEffect } from 'react';
+import { useRef, CSSProperties, useCallback, useEffect } from 'react';
 
 import { document } from 'browser-monads-ts';
 
@@ -12,58 +12,24 @@ import { useEventListener } from './use-event-listener';
 type CalculateCursorCSSProperties = Pick<CSSProperties, 'opacity' | 'top' | 'left' | 'transform'>;
 
 interface Styles {
-  cursorInner: CalculateCursorCSSProperties;
-  cursorOuter: CalculateCursorCSSProperties;
+  cursor: CalculateCursorCSSProperties;
 }
 
 const outerScale = 3;
 
 const useCursor = () => {
-  const [coords, setCoords] = useState({ x: 0, y: 0 });
   const [isActive, setIsActive] = useBoolean(false);
   const [isActiveClickable, setIsActiveClickable] = useBoolean(false);
-  const cursorOuterRef = useRef<HTMLDivElement>(null);
-  const cursorInnerRef = useRef<HTMLDivElement>(null);
-  const requestRef = useRef<number>();
-  const previousTimeRef = useRef<number>(0);
-  let endX = useRef(0);
-  let endY = useRef(0);
+  const cursorRef = useRef<HTMLDivElement>(null);
 
   const { handleMouseMove, handleMouseOut } = clickableTransform();
 
   const onMouseMove = useCallback(({ clientX: x, clientY: y }: MouseEvent) => {
-    setCoords({ x, y });
-    endX.current = x;
-    endY.current = y;
-
-    if (cursorInnerRef.current) {
-      cursorInnerRef.current.style.top = y + 'px';
-      cursorInnerRef.current.style.left = x + 'px';
+    if (cursorRef.current) {
+      cursorRef.current.style.top = y + 'px';
+      cursorRef.current.style.left = x + 'px';
     }
   }, []);
-
-  const animateOuterCursor = useCallback(
-    (time: number) => {
-      if (previousTimeRef.current !== undefined) {
-        coords.x += (endX.current - coords.x) / 8;
-        coords.y += (endY.current - coords.y) / 8;
-        if (cursorOuterRef.current) {
-          cursorOuterRef.current.style.top = coords.y + 'px';
-          cursorOuterRef.current.style.left = coords.x + 'px';
-        }
-
-        previousTimeRef.current = time;
-        requestRef.current = requestAnimationFrame(animateOuterCursor);
-      }
-    },
-    // cursorInnerRef를 천천히 따라가는 느낌을 위해 deps에 coords 넣지 않음
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-    [requestRef]
-  );
-
-  useEffect(() => {
-    requestRef.current = requestAnimationFrame(animateOuterCursor);
-  }, [animateOuterCursor]);
 
   const onMouseDown = useCallback(() => {
     setIsActive.on();
@@ -79,24 +45,20 @@ const useCursor = () => {
 
   useEffect(() => {
     if (isActive) {
-      if (cursorInnerRef.current && cursorOuterRef.current) {
-        cursorInnerRef.current.style.transform = `scale(0.7)`;
-        cursorOuterRef.current.style.transform = `scale(${outerScale})`;
-        cursorOuterRef.current.style.opacity = '0.7';
+      if (cursorRef.current) {
+        cursorRef.current.style.transform = `scale(3)`;
       }
     } else {
-      if (cursorInnerRef.current && cursorOuterRef.current) {
-        cursorInnerRef.current.style.transform = `scale(1)`;
-        cursorOuterRef.current.style.transform = 'scale(1)';
-        cursorOuterRef.current.style.opacity = '1';
+      if (cursorRef.current) {
+        cursorRef.current.style.transform = `scale(1)`;
       }
     }
   }, [isActive]);
 
   useEffect(() => {
     if (isActiveClickable) {
-      if (cursorOuterRef.current) {
-        cursorOuterRef.current.style.transform = `scale(${outerScale * 1.4})`;
+      if (cursorRef.current) {
+        cursorRef.current.style.transform = `scale(${outerScale * 1.4})`;
       }
     }
   }, [isActiveClickable]);
@@ -157,17 +119,13 @@ const useCursor = () => {
   }, [isActive]);
 
   const styles: Styles = {
-    cursorInner: {
-      top: 0,
-      left: 0,
-    },
-    cursorOuter: {
+    cursor: {
       top: 0,
       left: 0,
     },
   };
 
-  return { styles, cursorOuterRef, cursorInnerRef };
+  return { styles, cursorRef };
 };
 
 export default useCursor;
