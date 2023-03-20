@@ -15,7 +15,7 @@ interface Styles {
   cursor: CalculateCursorCSSProperties;
 }
 
-const outerScale = 3;
+const cursorScale = 3;
 
 const useCursor = () => {
   const [isActive, setIsActive] = useBoolean(false);
@@ -46,7 +46,7 @@ const useCursor = () => {
   useEffect(() => {
     if (isActive) {
       if (cursorRef.current) {
-        cursorRef.current.style.transform = `scale(3)`;
+        cursorRef.current.style.transform = `scale(${cursorScale})`;
       }
     } else {
       if (cursorRef.current) {
@@ -58,7 +58,7 @@ const useCursor = () => {
   useEffect(() => {
     if (isActiveClickable) {
       if (cursorRef.current) {
-        cursorRef.current.style.transform = `scale(${outerScale * 1.4})`;
+        cursorRef.current.style.transform = `scale(${cursorScale * 1.4})`;
       }
     }
   }, [isActiveClickable]);
