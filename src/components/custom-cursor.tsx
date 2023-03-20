@@ -1,15 +1,11 @@
-import React from 'react';
+import React, { memo } from 'react';
 
 import useCursor from 'Hooks/use-cursor';
 
 const CustomCursor = () => {
   const { styles, cursorRef } = useCursor();
 
-  return (
-    <>
-      <div ref={cursorRef} className="custom-cursor" style={styles.cursor} />
-    </>
-  );
+  return <div ref={cursorRef} className="custom-cursor" style={styles.cursor} />;
 };
 
-export default CustomCursor;
+export default memo(CustomCursor);

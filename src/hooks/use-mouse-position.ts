@@ -7,6 +7,11 @@ interface MousePosition {
 
 const THRESHOLD = 2;
 
+/**
+ * @deprecated Use `use-cursor` instead.
+ *
+ * @see https://github.com/jaem1n207/lazy-dev/pull/26 리팩토링 PR 참고
+ */
 export const useMousePosition = (): MousePosition => {
   const [position, setPosition] = useState<MousePosition>({ x: 0, y: 0 });
   const previousPosition = useRef<MousePosition>({ x: 0, y: 0 });
