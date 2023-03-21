@@ -162,6 +162,7 @@ module.exports = {
   plugins: [
     require('./src/plugins/scrollbar-hide'),
     require('./src/plugins/visually-hide'),
+    require('./src/plugins/drag-none'),
     require('@tailwindcss/typography'),
     require('@tailwindcss/aspect-ratio'),
   ],
