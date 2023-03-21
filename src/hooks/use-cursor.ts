@@ -64,6 +64,8 @@ const useCursor = () => {
   }, [isActiveClickable]);
 
   useEffect(() => {
+    if (isActive) return;
+
     const clickables = getElements(ELEMENT_SELECTOR.CLICKABLE);
 
     clickables.forEach((el) => {
@@ -116,7 +118,7 @@ const useCursor = () => {
       });
     };
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [isActive, onMouseDown]);
+  }, [setIsActive]);
 
   const styles: Styles = {
     cursor: {

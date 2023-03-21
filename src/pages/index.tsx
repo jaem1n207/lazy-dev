@@ -254,8 +254,8 @@ const IndexPage: FC<PageProps<Queries.HomeQuery, ContextProps>> = ({ data, locat
         ) : (
           <Grid className="mb-64" renderContentSpacer={false}>
             {posts.map((post) => (
-              <div key={post.slug} className="col-span-6 mb-40pxr">
-                <PostCard />
+              <div key={post.slug} className="col-span-4 mb-40pxr">
+                <PostCard post={post} />
               </div>
             ))}
           </Grid>
