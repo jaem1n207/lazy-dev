@@ -163,5 +163,6 @@ module.exports = {
     require('./src/plugins/scrollbar-hide'),
     require('./src/plugins/visually-hide'),
     require('@tailwindcss/typography'),
+    require('@tailwindcss/aspect-ratio'),
   ],
 };
