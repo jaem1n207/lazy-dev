@@ -30,7 +30,7 @@ module.exports = {
       }, {}),
     },
     spacing: {
-      ...range(0, 100).reduce((acc, px) => {
+      ...range(0, 400).reduce((acc, px) => {
         acc[`${px}pxr`] = pxToRem(px);
         return acc;
       }, {}),
