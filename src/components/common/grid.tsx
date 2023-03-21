@@ -14,6 +14,8 @@ type GridProps = {
 
 const Grid = forwardRef<ForwardedRef<HTMLElement>, GridProps>(
   ({ as: Component = 'div', className, rowGap, children, animated = true, ...rest }, ref) => {
+    const wrapperStyles = classNames(tw`relative mx-10vw`);
+
     const baseStyles = classNames(
       tw`relative grid grid-cols-12 gap-x-24pxr tablet:grid-cols-8 tablet:gap-x-16pxr desktop:grid-cols-4`,
       {
@@ -31,8 +33,8 @@ const Grid = forwardRef<ForwardedRef<HTMLElement>, GridProps>(
       : {};
 
     return (
-      <Component ref={ref} className={baseStyles} {...motionProps} {...rest}>
-        {children}
+      <Component ref={ref} className={wrapperStyles} {...motionProps} {...rest}>
+        <div className={baseStyles}>{children}</div>
       </Component>
     );
   }

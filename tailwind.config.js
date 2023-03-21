@@ -49,6 +49,9 @@ module.exports = {
       mobile: { max: '360px' },
     },
     extend: {
+      spacing: {
+        '10vw': '10vw',
+      },
       colors: {
         transparent: 'transparent',
         current: 'currentColor',
