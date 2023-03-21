@@ -13,9 +13,7 @@ import { graphql, HeadFC, HeadProps, PageProps } from 'gatsby';
 import queryString from 'query-string';
 
 import CategoryFilter from 'Components/category/category-filter';
-import Grid from 'Components/common/grid';
-import Spacer from 'Components/common/spacer';
-import { H3 } from 'Components/common/typography';
+import { Grid, Spacer, H3, ContentSpacer } from 'Components/common';
 import PostCard from 'Components/post/post-card';
 import Seo from 'Components/seo';
 import Tag from 'Components/tag';
@@ -161,94 +159,108 @@ const IndexPage: FC<PageProps<Queries.HomeQuery, ContextProps>> = ({ data, locat
 
   return (
     <Layout location={location} title={data.site?.siteMetadata?.title!}>
-      <CategoryFilter
-        category={category}
-        categories={categories}
-        selectCategory={selectCategory}
-        resetCategory={resetCategory}
-      />
-      <div className="flex items-center justify-between mb-24pxr">
-        <div className="flex items-center">
-          <label htmlFor="search" className="sr-only">
-            Search
-          </label>
-          <input
-            id="search"
-            type="text"
-            placeholder="What are you looking for?"
-            className="rounded-full w-320pxr h-40pxr px-24pxr py-12pxr text-16pxr focus:outline-none focus:ring-2 focus:ring-primary"
-            value={queryValue}
-            onChange={handleSearchInputChange}
-            onKeyUp={handleScrollToResults}
-          />
-          {queryValue.length > 0 && (
-            <button
-              data-hoverable="true"
-              type="button"
-              className="text-gray-500 ml-12pxr text-16pxr hover:text-gray-700 focus:outline-none focus:ring-2 focus:ring-primary"
-              onClick={handleClearSearch}
-            >
-              <span className="sr-only">Clear search</span>
-              <svg
-                className="w-16pxr h-16pxr"
-                xmlns="http://www.w3.org/2000/svg"
-                fill="none"
-                viewBox="0 0 24 24"
-                stroke="currentColor"
+      <ContentSpacer>
+        <CategoryFilter
+          category={category}
+          categories={categories}
+          selectCategory={selectCategory}
+          resetCategory={resetCategory}
+        />
+      </ContentSpacer>
+
+      <Spacer size="xs" className="col-span-full" />
+      <ContentSpacer>
+        <div className="flex items-center justify-between mb-24pxr">
+          <div className="flex items-center">
+            <label htmlFor="search" className="sr-only">
+              Search
+            </label>
+            <input
+              id="search"
+              type="text"
+              placeholder="What are you looking for?"
+              className="rounded-full w-320pxr h-40pxr px-24pxr py-12pxr text-16pxr focus:outline-none focus:ring-2 focus:ring-primary"
+              value={queryValue}
+              onChange={handleSearchInputChange}
+              onKeyUp={handleScrollToResults}
+            />
+            {queryValue.length > 0 && (
+              <button
+                data-hoverable="true"
+                type="button"
+                className="text-gray-500 ml-12pxr text-16pxr hover:text-gray-700 focus:outline-none focus:ring-2 focus:ring-primary"
+                onClick={handleClearSearch}
               >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth={2}
-                  d="M6 18L18 6M6 6l12 12"
-                />
-              </svg>
-            </button>
-          )}
-          <div className="ml-24pxr">
-            <span className="text-gray-500 text-16pxr">{posts.length}</span>
+                <span className="sr-only">Clear search</span>
+                <svg
+                  className="w-16pxr h-16pxr"
+                  xmlns="http://www.w3.org/2000/svg"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke="currentColor"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth={2}
+                    d="M6 18L18 6M6 6l12 12"
+                  />
+                </svg>
+              </button>
+            )}
+            <div className="ml-24pxr">
+              <span className="text-gray-500 text-16pxr">{posts.length}</span>
+            </div>
           </div>
         </div>
-      </div>
+      </ContentSpacer>
 
-      <div className="flex items-center justify-between mb-24pxr">
-        <div className="flex flex-wrap">
-          {tagsArray.map((tag) => {
-            if (!tag) return null;
-            const selected = query.includes(tag);
-
-            return (
-              <Tag
-                key={tag}
-                tag={tag}
-                checked={selected}
-                onChange={() => toggleTag(tag)}
-                onKeyUp={handleScrollToResults}
-                /* disabled 조건에 해당되도 선택된 상태에서는 disabled를 해제한다. */
-                disabled={!visibleTags.has(tag) ? !selected : false}
-              />
-            );
-          })}
-        </div>
-      </div>
       <Spacer size="xs" className="col-span-full" />
-      <h2 className="font-bold text-32pxr mb-24pxr tablet:text-28pxr">
-        {currentCategory ? firstLetterUppercase(currentCategory) : CATEGORY_TYPE.ALL} Posts
-      </h2>
+      <ContentSpacer>
+        <div className="flex items-center justify-between mb-24pxr">
+          <div className="flex flex-wrap">
+            {tagsArray.map((tag) => {
+              if (!tag) return null;
+              const selected = query.includes(tag);
+
+              return (
+                <Tag
+                  key={tag}
+                  tag={tag}
+                  checked={selected}
+                  onChange={() => toggleTag(tag)}
+                  onKeyUp={handleScrollToResults}
+                  /* disabled 조건에 해당되도 선택된 상태에서는 disabled를 해제한다. */
+                  disabled={!visibleTags.has(tag) ? !selected : false}
+                />
+              );
+            })}
+          </div>
+        </div>
+      </ContentSpacer>
+
+      <Spacer size="xs" className="col-span-full" />
+      <ContentSpacer>
+        <h2 className="font-bold text-32pxr mb-24pxr tablet:text-28pxr">
+          {currentCategory ? firstLetterUppercase(currentCategory) : CATEGORY_TYPE.ALL} Posts
+        </h2>
+      </ContentSpacer>
       {/* <PostList posts={posts} ref={resultsRef} /> */}
-      <Grid className="mb-64" ref={resultsRef}>
+      <ContentSpacer ref={resultsRef}>
         {posts.length === 0 ? (
-          <H3 as="p" variant="secondary" className="max-w-lg mt-96pxr">
+          <H3 as="p" variant="secondary" className="max-w-lg">
             No posts found.
           </H3>
         ) : (
-          posts.map((post) => (
-            <div key={post.slug} className="col-span-6 mb-40pxr">
-              <PostCard />
-            </div>
-          ))
+          <Grid className="mb-64" renderContentSpacer={false}>
+            {posts.map((post) => (
+              <div key={post.slug} className="col-span-6 mb-40pxr">
+                <PostCard />
+              </div>
+            ))}
+          </Grid>
         )}
-      </Grid>
+      </ContentSpacer>
     </Layout>
   );
 };

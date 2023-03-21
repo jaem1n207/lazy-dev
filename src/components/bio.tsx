@@ -3,7 +3,7 @@ import React from 'react';
 import { graphql, SliceComponentProps } from 'gatsby';
 import { GatsbyImage, getImage } from 'gatsby-plugin-image';
 
-import { UnderlineLink } from 'Components/common/underlineLink';
+import { UnderlineLink } from 'Components/common';
 
 const Bio = ({ data }: SliceComponentProps<Queries.BioByAuthorIdQuery>) => {
   const { author, imageSharp } = data;
