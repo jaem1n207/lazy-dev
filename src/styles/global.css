@@ -67,19 +67,6 @@
     --color-tag-text-checked: #000;
   }
 
-  body {
-    font-family: 'Noto Sans KR', system-ui, sans-serif !important;
-    letter-spacing: -0.02em;
-    min-height: 100vh;
-    transition-property: background-color, color;
-    transition-duration: 0.2s;
-    transition-timing-function: ease-in-out;
-    -webkit-font-smoothing: antialiased;
-    -moz-osx-font-smoothing: grayscale;
-    color: theme(colors.text);
-    background-color: theme(colors.background);
-  }
-
   body > #___gatsby * {
     cursor: none !important;
   }

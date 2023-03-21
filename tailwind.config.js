@@ -92,7 +92,7 @@ module.exports = {
         'tag-text-checked': 'var(--color-tag-text-checked)',
       },
       fontFamily: {
-        spoqa: ['Noto Sans KR', ...defaultTheme.fontFamily.sans],
+        'noto-sans-kr': ['Noto Sans KR', ...defaultTheme.fontFamily.sans],
       },
       boxShadow: {
         'text-underline': '0 1px 0 0 currentColor',

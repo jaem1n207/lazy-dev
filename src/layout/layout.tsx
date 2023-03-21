@@ -1,4 +1,4 @@
-import React, { ElementType, ReactNode } from 'react';
+import React, { ElementType, ReactNode, useEffect } from 'react';
 
 import { Slice } from 'gatsby';
 import tw, { GlobalStyles as BaseStyles } from 'twin.macro';
@@ -20,8 +20,20 @@ const Layout = ({ children, location, title, as = 'div' }: LayoutProps) => {
 
   const As = as;
 
+  useEffect(() => {
+    const body = document.body;
+    const className =
+      'min-h-screen tracking-tight transition duration-500 text-text bg-background font-noto-sans-kr cursor-none antialiased';
+
+    body.classList.add(...className.split(' '));
+
+    return () => {
+      body.classList.remove(...className.split(' '));
+    };
+  }, []);
+
   return (
-    <As css={[tw`max-w-2xl mx-auto my-0pxr py-40pxr px-20pxr`, isRootPath && tw`mb-80pxr`]}>
+    <As css={[isRootPath && tw`mb-80pxr`]}>
       <BaseStyles />
       <CustomCursor />
       <Slice alias="header" size={isRootPath ? 'large' : 'medium'}>
