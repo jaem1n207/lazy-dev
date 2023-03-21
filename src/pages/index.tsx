@@ -13,7 +13,10 @@ import { graphql, HeadFC, HeadProps, PageProps } from 'gatsby';
 import queryString from 'query-string';
 
 import CategoryFilter from 'Components/category/category-filter';
-import PostList from 'Components/post/post-list';
+import Grid from 'Components/common/grid';
+import Spacer from 'Components/common/spacer';
+import { H3 } from 'Components/common/typography';
+import PostCard from 'Components/post/post-card';
 import Seo from 'Components/seo';
 import Tag from 'Components/tag';
 import { useCategory } from 'Hooks/use-category';
@@ -228,11 +231,24 @@ const IndexPage: FC<PageProps<Queries.HomeQuery, ContextProps>> = ({ data, locat
           })}
         </div>
       </div>
-      <hr className="mb-24pxr" />
+      <Spacer size="xs" className="col-span-full" />
       <h2 className="font-bold text-32pxr mb-24pxr tablet:text-28pxr">
         {currentCategory ? firstLetterUppercase(currentCategory) : CATEGORY_TYPE.ALL} Posts
       </h2>
-      <PostList posts={posts} ref={resultsRef} />
+      {/* <PostList posts={posts} ref={resultsRef} /> */}
+      <Grid className="mb-64" ref={resultsRef}>
+        {posts.length === 0 ? (
+          <H3 as="p" variant="secondary" className="max-w-lg mt-96pxr">
+            No posts found.
+          </H3>
+        ) : (
+          posts.map((post) => (
+            <div key={post.slug} className="col-span-6 mb-40pxr">
+              <PostCard />
+            </div>
+          ))
+        )}
+      </Grid>
     </Layout>
   );
 };
