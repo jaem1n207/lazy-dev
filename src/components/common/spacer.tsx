@@ -1,12 +1,12 @@
 import React from 'react';
 
 const spacerSizes = {
-  xs: 'h-8 tablet:h-6',
-  sm: 'h-12 tablet:h-10',
-  base: 'h-24 tablet:h-20',
-  lg: 'h-36 tablet:h-22',
-  xl: 'h-48 tablet:h-40',
-  '2xl': 'h-56 tablet:h-64',
+  xs: 'h-32pxr tablet:h-24pxr',
+  sm: 'h-48pxr tablet:h-40pxr',
+  base: 'h-96pxr tablet:h-24pxr',
+  lg: 'h-144pxr tablet:h-88pxr',
+  xl: 'h-192pxr tablet:h-160pxr',
+  '2xl': 'h-256pxr tablet:h-224pxr',
 };
 
 interface SpacerProps {
