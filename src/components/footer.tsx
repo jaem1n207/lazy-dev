@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { UnderlineLink } from 'Components/underlineLink';
+import { UnderlineLink } from 'Components/common/underlineLink';
 
 const Footer = () => {
   return (
