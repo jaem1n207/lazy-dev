@@ -1,8 +1,7 @@
 import React, { ElementType, forwardRef, HTMLAttributes } from 'react';
 
 import classNames from 'classnames';
-import { MotionProps } from 'framer-motion';
-import tw from 'twin.macro';
+import { motion, MotionProps } from 'framer-motion';
 
 type GridProps = {
   as?: ElementType;
@@ -14,10 +13,10 @@ type GridProps = {
 
 const Grid = forwardRef<HTMLElement, GridProps>(
   ({ as: Component = 'div', className, rowGap, children, animated = true, ...rest }, ref) => {
-    const wrapperStyles = classNames(tw`relative mx-10vw`);
+    const wrapperStyles = classNames(`relative mx-10vw`);
 
     const baseStyles = classNames(
-      tw`relative grid grid-cols-12 gap-x-24pxr tablet:grid-cols-8 tablet:gap-x-16pxr desktop:grid-cols-4`,
+      `relative grid grid-cols-12 gap-x-24pxr tablet:grid-cols-8 tablet:gap-x-16pxr desktop:grid-cols-4`,
       {
         [`grid-row-gap-${rowGap}`]: rowGap,
       },
@@ -33,9 +32,11 @@ const Grid = forwardRef<HTMLElement, GridProps>(
       : {};
 
     return (
-      <Component ref={ref} className={wrapperStyles} {...motionProps} {...rest}>
-        <div className={baseStyles}>{children}</div>
-      </Component>
+      <motion.div {...motionProps}>
+        <Component ref={ref} className={wrapperStyles} {...rest}>
+          <div className={baseStyles}>{children}</div>
+        </Component>
+      </motion.div>
     );
   }
 );
