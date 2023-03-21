@@ -7,6 +7,8 @@ import tw from 'twin.macro';
 
 import { ROUTES } from 'Types/enum';
 
+import { ContentSpacer } from './common';
+
 type Theme = 'dark' | 'light';
 
 const Moon = () => (
@@ -103,12 +105,13 @@ const Header = ({ children, size = 'medium' }: Props) => {
   }
 
   return (
-    <header
-      css={tw`flex items-center justify-between font-bold mb-48pxr text-neutral-900 dark:text-white`}
+    <ContentSpacer
+      as="header"
+      className="flex items-center justify-between font-bold mb-48pxr text-neutral-900 dark:text-white"
     >
       {header}
       <ToggleMode />
-    </header>
+    </ContentSpacer>
   );
 };
 
