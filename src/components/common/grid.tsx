@@ -1,4 +1,4 @@
-import React, { ElementType, forwardRef, ForwardedRef, HTMLAttributes } from 'react';
+import React, { ElementType, forwardRef, HTMLAttributes } from 'react';
 
 import classNames from 'classnames';
 import { MotionProps } from 'framer-motion';
@@ -12,7 +12,7 @@ type GridProps = {
   animated?: boolean;
 } & HTMLAttributes<HTMLElement>;
 
-const Grid = forwardRef<ForwardedRef<HTMLElement>, GridProps>(
+const Grid = forwardRef<HTMLElement, GridProps>(
   ({ as: Component = 'div', className, rowGap, children, animated = true, ...rest }, ref) => {
     const wrapperStyles = classNames(tw`relative mx-10vw`);
 
