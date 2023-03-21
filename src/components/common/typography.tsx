@@ -38,10 +38,13 @@ const Title = ({
   variant = 'primary',
   className,
   id,
+  children,
 }: TitleProps & { size: keyof typeof fontSize }) => {
   const Component = as ?? size;
   return (
-    <Component id={id} className={classNames(fontSize[size], titleColors[variant], className)} />
+    <Component id={id} className={classNames(fontSize[size], titleColors[variant], className)}>
+      {children}
+    </Component>
   );
 };
 
