@@ -116,17 +116,7 @@ const useCursor = () => {
       });
     };
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [isActive]);
-
-  // 뒤늦게 렌더되는 clickable 요소에도 이벤트를 추가하기 위함
-  useEffect(() => {
-    setIsActive.on();
-
-    setTimeout(() => {
-      setIsActive.off();
-    }, 1);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  }, [isActive, onMouseDown]);
 
   const styles: Styles = {
     cursor: {
