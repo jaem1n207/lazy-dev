@@ -11,6 +11,7 @@ interface CommonProps {
   as?: React.ElementType;
   className?: string;
   id?: string;
+  children: React.ReactNode;
 }
 
 const fontSize = {
@@ -28,11 +29,16 @@ const titleColors = {
 };
 
 interface TitleProps extends CommonProps {
-  size: keyof typeof fontSize;
   variant?: keyof typeof titleColors;
 }
 
-const Title = ({ as, size, variant = 'primary', className, id }: TitleProps) => {
+const Title = ({
+  as,
+  size,
+  variant = 'primary',
+  className,
+  id,
+}: TitleProps & { size: keyof typeof fontSize }) => {
   const Component = as ?? size;
   return (
     <Component id={id} className={classNames(fontSize[size], titleColors[variant], className)} />
