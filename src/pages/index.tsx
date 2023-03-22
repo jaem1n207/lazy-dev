@@ -13,12 +13,14 @@ import { graphql, HeadFC, HeadProps, PageProps } from 'gatsby';
 import queryString from 'query-string';
 
 import CategoryFilter from 'Components/category/category-filter';
-import { Grid, Spacer, H3, ContentSpacer, H6 } from 'Components/common';
+import { Grid, Spacer, H3, ContentSpacer, H5, H1, H2 } from 'Components/common';
 import PostCard from 'Components/post/post-card';
+import RotatingTag from 'Components/rotating-tag';
 import Seo from 'Components/seo';
 import Tag from 'Components/tag';
 import { useCategory } from 'Hooks/use-category';
 import Layout from 'Layout/layout';
+import { isEmptyArray } from 'Libs/assertions';
 import { filterPosts } from 'Libs/blog';
 import { firstLetterUppercase } from 'Libs/string';
 import { CATEGORY_TYPE } from 'Types/enum';
@@ -159,66 +161,81 @@ const IndexPage: FC<PageProps<Queries.HomeQuery, ContextProps>> = ({ data, locat
 
   return (
     <Layout location={location} title={data.site?.siteMetadata?.title!}>
-      <ContentSpacer>
-        <CategoryFilter
-          category={category}
-          categories={categories}
-          selectCategory={selectCategory}
-          resetCategory={resetCategory}
-        />
-      </ContentSpacer>
+      <CategoryFilter
+        category={category}
+        categories={categories}
+        selectCategory={selectCategory}
+        resetCategory={resetCategory}
+      />
 
       <Spacer size="xs" className="col-span-full" />
-      <ContentSpacer>
-        <div className="flex items-center justify-between mb-24pxr">
-          <div className="flex items-center">
-            <label htmlFor="search" className="sr-only">
-              Search
-            </label>
-            <input
-              id="search"
-              type="text"
-              placeholder="What are you looking for?"
-              className="rounded-full w-320pxr h-40pxr px-24pxr py-12pxr text-16pxr focus:outline-none focus:ring-2 focus:ring-primary"
-              value={queryValue}
-              onChange={handleSearchInputChange}
-              onKeyUp={handleScrollToResults}
-            />
-            {queryValue.length > 0 && (
-              <button
-                data-hoverable="true"
-                type="button"
-                className="text-gray-500 ml-12pxr text-16pxr hover:text-gray-700 focus:outline-none focus:ring-2 focus:ring-primary"
-                onClick={handleClearSearch}
-              >
-                <span className="sr-only">Clear search</span>
-                <svg
-                  className="w-16pxr h-16pxr"
-                  xmlns="http://www.w3.org/2000/svg"
-                  fill="none"
-                  viewBox="0 0 24 24"
-                  stroke="currentColor"
-                >
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    strokeWidth={2}
-                    d="M6 18L18 6M6 6l12 12"
+      {!isEmptyArray(tagsArray) && (
+        <ContentSpacer>
+          <Grid>
+            <div className="select-none col-span-full">
+              <H1 className="gradient-text">원하는 글을 찾아보세요&#46;</H1>
+              <H2 variant="secondary">
+                <div className="flex">
+                  <span>For&nbsp;</span>
+                  <RotatingTag tags={tagsArray} interval={6000} rotationDuration={2} />
+                </div>
+              </H2>
+
+              <div className="flex items-center justify-between my-24pxr">
+                <div className="flex items-center">
+                  <label htmlFor="search" className="sr-only">
+                    Search
+                  </label>
+                  <input
+                    id="search"
+                    type="text"
+                    placeholder="What are you looking for?"
+                    className="rounded-full bg-secondary w-320pxr h-40pxr px-24pxr py-12pxr text-16pxr focus:outline-none focus:ring-2 focus:ring-primary"
+                    value={queryValue}
+                    onChange={handleSearchInputChange}
+                    onKeyUp={handleScrollToResults}
                   />
-                </svg>
-              </button>
-            )}
-            <div className="ml-24pxr">
-              <span className="text-gray-500 text-16pxr">{posts.length}</span>
+                  {queryValue.length > 0 && (
+                    <button
+                      data-hoverable="true"
+                      type="button"
+                      className="text-gray-500 ml-12pxr text-16pxr hover:text-gray-700 focus:outline-none focus:ring-2 focus:ring-primary"
+                      onClick={handleClearSearch}
+                    >
+                      <span className="sr-only">Clear search</span>
+                      <svg
+                        className="w-16pxr h-16pxr"
+                        xmlns="http://www.w3.org/2000/svg"
+                        fill="none"
+                        viewBox="0 0 24 24"
+                        stroke="currentColor"
+                      >
+                        <path
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                          strokeWidth={2}
+                          d="M6 18L18 6M6 6l12 12"
+                        />
+                      </svg>
+                    </button>
+                  )}
+                  <div className="ml-24pxr">
+                    <span className="text-text text-16pxr">{posts.length}</span>
+                  </div>
+                </div>
+              </div>
             </div>
-          </div>
-        </div>
-      </ContentSpacer>
+          </Grid>
+        </ContentSpacer>
+      )}
 
       <Spacer size="xs" className="col-span-full" />
       <ContentSpacer>
-        <div className="flex items-center justify-between mb-24pxr">
-          <div className="flex flex-wrap">
+        <Grid>
+          <H5 as="div" className="col-span-full mb-24pxr">
+            Search blog by keyword
+          </H5>
+          <div className="flex flex-wrap col-span-10 desktop:col-span-full">
             {tagsArray.map((tag) => {
               if (!tag) return null;
               const selected = query.includes(tag);
@@ -236,26 +253,28 @@ const IndexPage: FC<PageProps<Queries.HomeQuery, ContextProps>> = ({ data, locat
               );
             })}
           </div>
-        </div>
+        </Grid>
       </ContentSpacer>
 
       <Spacer size="xs" className="col-span-full" />
       <ContentSpacer>
         <Grid>
-          <H6 as="div" className="col-span-full mb-24pxr">
+          <H5 as="div" className="col-span-full mb-24pxr">
             <strong>
               {currentCategory ? firstLetterUppercase(currentCategory) : CATEGORY_TYPE.ALL}
-            </strong>{' '}
-            Posts
-          </H6>
+            </strong>
+            &nbsp; Posts
+          </H5>
         </Grid>
       </ContentSpacer>
       {/* <PostList posts={posts} ref={resultsRef} /> */}
       <ContentSpacer ref={resultsRef}>
         {posts.length === 0 ? (
-          <H3 as="p" variant="secondary" className="max-w-lg">
-            No posts found.
-          </H3>
+          <Grid className="mb-64">
+            <H3 as="p" variant="secondary" className="col-span-full">
+              No posts found.
+            </H3>
+          </Grid>
         ) : (
           <Grid className="mb-64">
             {posts.map((post) => (
