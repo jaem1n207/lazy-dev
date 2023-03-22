@@ -14,7 +14,7 @@ interface GridProps extends HTMLAttributes<HTMLElement> {
 const Grid = forwardRef<HTMLElement, GridProps>(
   ({ as: Component = 'div', className, rowGap, children, animated = true, ...rest }, ref) => {
     const baseStyles = classNames(
-      `max-w-7xl mx-auto relative grid grid-cols-12 gap-x-24pxr tablet:gap-x-16pxr desktop:grid-cols-4`,
+      `max-w-7xl mx-auto relative grid grid-cols-12 gap-x-24pxr tablet:gap-x-16pxr tablet:grid-cols-8 mobile:grid-cols-4`,
       {
         [`grid-row-gap-${rowGap}`]: rowGap,
       },
