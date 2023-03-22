@@ -15,8 +15,8 @@ interface CommonProps {
 }
 
 const fontSize = {
-  h1: 'leading-tight text-5xl tablet:text-4xl',
-  h2: 'leading-tight text-4xl tablet:text-3xl',
+  h1: 'leading-tight text-48pxr tablet:text-36pxr',
+  h2: 'leading-tight text-36pxr tablet:text-30pxr',
   h3: 'font-medium text-30pxr leading-9 tablet:text-24pxr tablet:leading-8',
   h4: 'font-medium text-24pxr leading-8 tablet:text-20pxr tablet:leading-7',
   h5: 'font-medium text-20pxr leading-7 tablet:text-18pxr tablet:leading-6',
