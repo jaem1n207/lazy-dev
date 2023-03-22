@@ -25,7 +25,7 @@ export const useCategory = () => {
   }, []);
 
   const changeCategory = useCallback((withScroll = true) => {
-    const { category } = queryString.parse(location.search);
+    const { category } = queryString.parse(window.location.search);
     const target = category == null ? CATEGORY_TYPE.ALL : category;
     if (target == null || Array.isArray(target)) return;
 

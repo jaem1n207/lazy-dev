@@ -1,5 +1,6 @@
 import React, { ElementType, HTMLAttributes, forwardRef } from 'react';
 
+import { window } from 'browser-monads-ts';
 import classNames from 'classnames';
 
 interface ContentSpacerProps extends HTMLAttributes<HTMLElement> {
@@ -11,7 +12,7 @@ interface ContentSpacerProps extends HTMLAttributes<HTMLElement> {
 
 const ContentSpacer = forwardRef<HTMLElement, ContentSpacerProps>(
   ({ as: Component = 'div', className, children, compact = true, ...rest }, ref) => {
-    const isRootPath = location.pathname === '/';
+    const isRootPath = window.location.pathname === '/';
 
     const baseStyles = classNames(
       `relative mx-10vw`,
