@@ -105,12 +105,11 @@ const Header = ({ children, size = 'medium' }: Props) => {
   }
 
   return (
-    <ContentSpacer
-      as="header"
-      className="flex items-center justify-between font-bold mb-48pxr text-neutral-900 dark:text-white"
-    >
-      {header}
-      <ToggleMode />
+    <ContentSpacer as="header" className="mb-48pxr">
+      <div className="flex items-center justify-between mx-auto font-bold max-w-7xl text-neutral-900 dark:text-white">
+        {header}
+        <ToggleMode />
+      </div>
     </ContentSpacer>
   );
 };
