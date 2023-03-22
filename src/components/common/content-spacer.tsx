@@ -11,7 +11,7 @@ interface ContentSpacerProps extends HTMLAttributes<HTMLElement> {
 }
 
 const ContentSpacer = forwardRef<HTMLElement, ContentSpacerProps>(
-  ({ as: Component = 'div', className, children, compact = true, ...rest }, ref) => {
+  ({ as: Component = 'div', className, children, compact = false, ...rest }, ref) => {
     const isRootPath = window.location.pathname === '/';
 
     const baseStyles = classNames(
