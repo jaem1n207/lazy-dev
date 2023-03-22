@@ -12,7 +12,10 @@ interface ContentSpacerProps extends HTMLAttributes<HTMLElement> {
 
 const ContentSpacer = forwardRef<HTMLElement, ContentSpacerProps>(
   ({ as: Component = 'div', className, children, compact = false, ...rest }, ref) => {
-    const isRootPath = window.location.pathname === '/';
+    // @ts-ignore
+    // eslint-disable-next-line no-undef
+    const rootPath = `${__PATH_PREFIX__}/`;
+    const isRootPath = window.location.pathname === rootPath;
 
     const baseStyles = classNames(
       `relative mx-10vw`,
