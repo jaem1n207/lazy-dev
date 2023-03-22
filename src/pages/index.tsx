@@ -13,7 +13,7 @@ import { graphql, HeadFC, HeadProps, PageProps } from 'gatsby';
 import queryString from 'query-string';
 
 import CategoryFilter from 'Components/category/category-filter';
-import { Grid, Spacer, H3, ContentSpacer } from 'Components/common';
+import { Grid, Spacer, H3, ContentSpacer, H6 } from 'Components/common';
 import PostCard from 'Components/post/post-card';
 import Seo from 'Components/seo';
 import Tag from 'Components/tag';
@@ -241,9 +241,14 @@ const IndexPage: FC<PageProps<Queries.HomeQuery, ContextProps>> = ({ data, locat
 
       <Spacer size="xs" className="col-span-full" />
       <ContentSpacer>
-        <h2 className="font-bold text-32pxr mb-24pxr tablet:text-28pxr">
-          {currentCategory ? firstLetterUppercase(currentCategory) : CATEGORY_TYPE.ALL} Posts
-        </h2>
+        <Grid>
+          <H6 as="div" className="col-span-full mb-24pxr">
+            <strong>
+              {currentCategory ? firstLetterUppercase(currentCategory) : CATEGORY_TYPE.ALL}
+            </strong>{' '}
+            Posts
+          </H6>
+        </Grid>
       </ContentSpacer>
       {/* <PostList posts={posts} ref={resultsRef} /> */}
       <ContentSpacer ref={resultsRef}>
@@ -252,7 +257,7 @@ const IndexPage: FC<PageProps<Queries.HomeQuery, ContextProps>> = ({ data, locat
             No posts found.
           </H3>
         ) : (
-          <Grid className="mb-64" renderContentSpacer={false}>
+          <Grid className="mb-64">
             {posts.map((post) => (
               <div key={post.slug} className="col-span-4 mb-40pxr">
                 <PostCard post={post} />
