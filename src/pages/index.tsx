@@ -177,7 +177,7 @@ const IndexPage: FC<PageProps<Queries.HomeQuery, ContextProps>> = ({ data, locat
               <H2 variant="secondary">
                 <div className="flex">
                   <span>For&nbsp;</span>
-                  <RotatingTag tags={tagsArray} interval={6000} rotationDuration={2} />
+                  <RotatingTag tags={tagsArray} interval={5000} rotationDuration={2} />
                 </div>
               </H2>
 
