@@ -1,9 +1,10 @@
-import React, { ElementType, ReactNode, useEffect } from 'react';
+import React, { ElementType, ReactNode, useEffect, useState } from 'react';
 
 import { Slice } from 'gatsby';
 import tw, { GlobalStyles as BaseStyles } from 'twin.macro';
 
 import CustomCursor from 'Components/custom-cursor';
+import { isTouchDevice } from 'Libs/device';
 
 interface LayoutProps {
   children: ReactNode;
@@ -13,6 +14,8 @@ interface LayoutProps {
 }
 
 const Layout = ({ children, location, title, as = 'div' }: LayoutProps) => {
+  const [shouldRenderCustomCursor, setShouldRenderCustomCursor] = useState(false);
+
   // @ts-ignore
   // eslint-disable-next-line no-undef
   const rootPath = `${__PATH_PREFIX__}/`;
@@ -27,6 +30,8 @@ const Layout = ({ children, location, title, as = 'div' }: LayoutProps) => {
 
     body.classList.add(...className.split(' '));
 
+    setShouldRenderCustomCursor(!isTouchDevice());
+
     return () => {
       body.classList.remove(...className.split(' '));
     };
@@ -35,7 +40,7 @@ const Layout = ({ children, location, title, as = 'div' }: LayoutProps) => {
   return (
     <As css={[isRootPath && tw`mb-80pxr`]}>
       <BaseStyles />
-      <CustomCursor />
+      <CustomCursor shouldRender={shouldRenderCustomCursor} />
       <Slice alias="header" size={isRootPath ? 'large' : 'medium'}>
         {title}
       </Slice>
