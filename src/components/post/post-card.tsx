@@ -15,12 +15,12 @@ const PostCard = ({
   post: { slug, title, summary, date, category, thumbnail, timeToRead },
 }: PostCardProps) => {
   const data = useStaticQuery<Queries.Query>(graphql`
-    query CenteredImage {
+    query ThumbnailImage {
       allImageSharp {
         edges {
           node {
             id
-            gatsbyImageData(formats: WEBP)
+            gatsbyImageData(width: 900, placeholder: BLURRED, formats: [AUTO, WEBP, AVIF])
           }
         }
       }
@@ -31,7 +31,7 @@ const PostCard = ({
     const image = data.allImageSharp.edges.find((edge) => edge.node.id === thumbnail);
 
     return image?.node.gatsbyImageData as GatsbyImageProps['image'];
-  }, [data.allImageSharp.edges, thumbnail]);
+  }, [data, thumbnail]);
 
   if (!slug) return null;
 
@@ -39,7 +39,7 @@ const PostCard = ({
     <article className="relative w-full">
       <Link
         to={ROUTES.BLOG_POST.toUrl(slug)}
-        className="relative block w-full group peer focus:outline-none"
+        className="relative block w-full select-none group peer focus:outline-none drag-none"
       >
         <div className="rounded-lg aspect-h-4 aspect-w-3">
           <GatsbyImage
