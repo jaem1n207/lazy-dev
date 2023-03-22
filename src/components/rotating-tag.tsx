@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 
 import { motion } from 'framer-motion';
 
+import { usePrevious } from 'Hooks/use-previous';
 import { isEmptyArray } from 'Libs/assertions';
 
 interface RotatingTagProps {
@@ -20,16 +21,23 @@ const getRandomIndex = (length: number, currentIndex: number) => {
 
 const RotatingTag = ({ tags, interval, rotationDuration }: RotatingTagProps) => {
   const [currentIndex, setCurrentIndex] = useState(0);
+  const prevTags = usePrevious(tags);
 
   useEffect(() => {
+    if (prevTags && !isEmptyArray(tags)) {
+      if (prevTags !== tags) {
+        setCurrentIndex((currentIndex) => getRandomIndex(tags.length, currentIndex));
+      }
+    }
+
     const timer = setInterval(() => {
-      setCurrentIndex((prevIndex) => getRandomIndex(tags.length, prevIndex));
+      setCurrentIndex((currentIndex) => getRandomIndex(tags.length, currentIndex));
     }, interval);
 
     return () => {
       clearInterval(timer);
     };
-  }, [interval, tags.length]);
+  }, [interval, prevTags, tags]);
 
   const calculateOpacity = (index: number, currentIndex: number) => {
     const distance = Math.abs(index - currentIndex);
