@@ -24,13 +24,21 @@ const Layout = ({ children, location, title, as = 'div' }: LayoutProps) => {
   const As = as;
 
   useEffect(() => {
+    const isNonTouchDevice = !isTouchDevice();
+
     const body = document.body;
     const className =
       'min-h-screen antialiased tracking-tight transition duration-500 text-text bg-background font-noto-sans-kr cursor-none';
 
+    if (isNonTouchDevice) {
+      body.classList.add('hide-cursor');
+    } else {
+      body.classList.remove('hide-cursor');
+    }
+
     body.classList.add(...className.split(' '));
 
-    setShouldRenderCustomCursor(!isTouchDevice());
+    setShouldRenderCustomCursor(isNonTouchDevice);
 
     return () => {
       body.classList.remove(...className.split(' '));

@@ -67,7 +67,11 @@
     --color-tag-text-checked: #000;
   }
 
-  body > #___gatsby * {
+  .hide-cursor {
+    @apply cursor-none;
+  }
+
+  .hide-cursor * {
     cursor: none !important;
   }
 
