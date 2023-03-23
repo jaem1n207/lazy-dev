@@ -5,6 +5,7 @@ import tw, { GlobalStyles as BaseStyles } from 'twin.macro';
 
 import CustomCursor from 'Components/custom-cursor';
 import { isTouchDevice } from 'Libs/device';
+import { checkRootPath } from 'Libs/url';
 
 interface LayoutProps {
   children: ReactNode;
@@ -15,11 +16,7 @@ interface LayoutProps {
 
 const Layout = ({ children, location, title, as = 'div' }: LayoutProps) => {
   const [shouldRenderCustomCursor, setShouldRenderCustomCursor] = useState(false);
-
-  // @ts-ignore
-  // eslint-disable-next-line no-undef
-  const rootPath = `${__PATH_PREFIX__}/`;
-  const isRootPath = location.pathname === rootPath;
+  const isRootPath = checkRootPath(location.pathname);
 
   const As = as;
 

@@ -3,6 +3,8 @@ import React, { ElementType, HTMLAttributes, forwardRef } from 'react';
 import { window } from 'browser-monads-ts';
 import classNames from 'classnames';
 
+import { checkRootPath } from 'Libs/url';
+
 interface ContentSpacerProps extends HTMLAttributes<HTMLElement> {
   as?: ElementType;
   className?: string;
@@ -12,10 +14,7 @@ interface ContentSpacerProps extends HTMLAttributes<HTMLElement> {
 
 const ContentSpacer = forwardRef<HTMLElement, ContentSpacerProps>(
   ({ as: Component = 'div', className, children, compact = false, ...rest }, ref) => {
-    // @ts-ignore
-    // eslint-disable-next-line no-undef
-    const rootPath = `${__PATH_PREFIX__}/`;
-    const isRootPath = window.location.pathname === rootPath;
+    const isRootPath = checkRootPath(window.location.pathname);
 
     const baseStyles = classNames(
       `relative mx-10vw`,
