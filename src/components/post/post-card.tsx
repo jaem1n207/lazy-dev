@@ -41,7 +41,7 @@ const PostCard = ({
         to={ROUTES.BLOG_POST.toUrl(slug)}
         className="relative block w-full select-none group peer focus:outline-none drag-none"
       >
-        <div className="rounded-lg aspect-h-4 aspect-w-3">
+        <div className="rounded-lg aspect-h-2 aspect-w-3">
           <GatsbyImage
             image={image}
             alt={title ?? 'post thumbnail'}
