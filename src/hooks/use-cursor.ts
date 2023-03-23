@@ -1,7 +1,8 @@
-import { useRef, CSSProperties, useCallback, useEffect } from 'react';
+import { useRef, CSSProperties, useCallback, useEffect, useState } from 'react';
 
 import { document } from 'browser-monads-ts';
 
+import { isTouchDevice } from 'Libs/device';
 import { getElements } from 'Libs/dom';
 import { clickableTransform } from 'Libs/transform';
 import { ELEMENT_SELECTOR } from 'Types/enum';
@@ -9,7 +10,7 @@ import { ELEMENT_SELECTOR } from 'Types/enum';
 import { useBoolean } from './use-boolean';
 import { useEventListener } from './use-event-listener';
 
-type CalculateCursorCSSProperties = Pick<CSSProperties, 'opacity' | 'top' | 'left' | 'transform'>;
+type CalculateCursorCSSProperties = Pick<CSSProperties, 'opacity' | 'transform' | 'top' | 'left'>;
 
 interface Styles {
   cursor: CalculateCursorCSSProperties;
@@ -21,14 +22,49 @@ const useCursor = () => {
   const [isActive, setIsActive] = useBoolean(false);
   const [isActiveClickable, setIsActiveClickable] = useBoolean(false);
   const cursorRef = useRef<HTMLDivElement>(null);
+  const [shouldRender, setShouldRender] = useState(false);
 
   const { handleMouseMove, handleMouseOut } = clickableTransform();
+
+  // const updateCursorPosition = useCallback(({ x, y }: { x: number; y: number }) => {
+  //   if (cursorRef.current) {
+  //     cursorRef.current.style.transform = `translate(${x}px, ${y}px)`;
+  //   }
+  // }, []);
+
+  // const onMouseMove = useCallback(
+  //   (e: MouseEvent) => {
+  //     e.preventDefault();
+  //     requestAnimationFrame(() => {
+  //       updateCursorPosition({ x: e.clientX, y: e.clientY });
+  //     });
+  //   },
+  //   [updateCursorPosition]
+  // );
 
   const onMouseMove = useCallback(({ clientX: x, clientY: y }: MouseEvent) => {
     if (cursorRef.current) {
       cursorRef.current.style.top = y + 'px';
       cursorRef.current.style.left = x + 'px';
     }
+  }, []);
+
+  useEffect(() => {
+    const isNonTouchDevice = !isTouchDevice();
+
+    const body = document.body;
+
+    if (isNonTouchDevice) {
+      body.classList.add('hide-cursor');
+    } else {
+      body.classList.remove('hide-cursor');
+    }
+
+    setShouldRender(isNonTouchDevice);
+
+    return () => {
+      body.classList.remove('hide-cursor');
+    };
   }, []);
 
   const onMouseDown = useCallback(() => {
@@ -127,7 +163,11 @@ const useCursor = () => {
     },
   };
 
-  return { styles, cursorRef };
+  return {
+    cursorRef,
+    styles,
+    shouldRender,
+  };
 };
 
 export default useCursor;

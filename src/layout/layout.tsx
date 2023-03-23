@@ -1,10 +1,9 @@
-import React, { ElementType, ReactNode, useEffect, useState } from 'react';
+import React, { ElementType, ReactNode, useEffect } from 'react';
 
 import { Slice } from 'gatsby';
 import tw, { GlobalStyles as BaseStyles } from 'twin.macro';
 
 import CustomCursor from 'Components/custom-cursor';
-import { isTouchDevice } from 'Libs/device';
 import { checkRootPath } from 'Libs/url';
 
 interface LayoutProps {
@@ -15,27 +14,16 @@ interface LayoutProps {
 }
 
 const Layout = ({ children, location, title, as = 'div' }: LayoutProps) => {
-  const [shouldRenderCustomCursor, setShouldRenderCustomCursor] = useState(false);
   const isRootPath = checkRootPath(location.pathname);
 
   const As = as;
 
   useEffect(() => {
-    const isNonTouchDevice = !isTouchDevice();
-
     const body = document.body;
     const className =
       'min-h-screen antialiased tracking-tight transition duration-500 text-text bg-background font-noto-sans-kr cursor-none';
 
-    if (isNonTouchDevice) {
-      body.classList.add('hide-cursor');
-    } else {
-      body.classList.remove('hide-cursor');
-    }
-
     body.classList.add(...className.split(' '));
-
-    setShouldRenderCustomCursor(isNonTouchDevice);
 
     return () => {
       body.classList.remove(...className.split(' '));
@@ -45,7 +33,7 @@ const Layout = ({ children, location, title, as = 'div' }: LayoutProps) => {
   return (
     <As css={[isRootPath && tw`mb-80pxr`]}>
       <BaseStyles />
-      <CustomCursor shouldRender={shouldRenderCustomCursor} />
+      <CustomCursor />
       <Slice alias="header" size={isRootPath ? 'large' : 'medium'}>
         {title}
       </Slice>
