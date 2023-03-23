@@ -47,7 +47,7 @@ const RotatingTag = ({ tags, interval, rotationDuration }: RotatingTagProps) => 
   if (isEmptyArray(tags)) return null;
 
   return (
-    <div className="relative overflow-hidden font-bold min-w-[10em] h-[1.2em] mobile:w-[9em]">
+    <div className="relative overflow-hidden font-bold min-w-[70vw] h-[1.2em]">
       {tags.map((tag, index) => (
         <motion.span
           key={tag}
