@@ -1,6 +1,5 @@
-import React, { ElementType, HTMLAttributes, forwardRef } from 'react';
+import React, { ElementType, HTMLAttributes, forwardRef, useEffect, useState } from 'react';
 
-import { window } from 'browser-monads-ts';
 import classNames from 'classnames';
 
 import { checkRootPath } from 'Libs/url';
@@ -14,7 +13,7 @@ interface ContentSpacerProps extends HTMLAttributes<HTMLElement> {
 
 const ContentSpacer = forwardRef<HTMLElement, ContentSpacerProps>(
   ({ as: Component = 'div', className, children, compact = false, ...rest }, ref) => {
-    const isRootPath = checkRootPath(window.location.pathname);
+    const [isRootPath, setIsRootPath] = useState(false);
 
     const baseStyles = classNames(
       `relative mx-10vw`,
@@ -24,6 +23,10 @@ const ContentSpacer = forwardRef<HTMLElement, ContentSpacerProps>(
       },
       className
     );
+
+    useEffect(() => {
+      setIsRootPath(checkRootPath(window.location.pathname));
+    }, []);
 
     return (
       <Component ref={ref} className={baseStyles} {...rest}>
