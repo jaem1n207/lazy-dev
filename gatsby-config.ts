@@ -21,6 +21,15 @@ const siteMetadata: GatsbyConfig['siteMetadata'] = {
   postTitle: 'All',
 };
 
+const analyserPlugins: GatsbyConfig['plugins'] = [
+  {
+    resolve: 'gatsby-plugin-webpack-bundle-analyser-v2',
+    options: {
+      devMode: true,
+    },
+  },
+];
+
 const corePlugins: GatsbyConfig['plugins'] = [
   {
     resolve: 'gatsby-source-filesystem',
@@ -273,6 +282,7 @@ const config: GatsbyConfig = {
   graphqlTypegen: true,
   siteMetadata,
   plugins: [
+    ...analyserPlugins,
     ...corePlugins,
     ...devPlugins,
     ...imagePlugins,
