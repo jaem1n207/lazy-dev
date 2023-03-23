@@ -21,7 +21,7 @@ const Layout = ({ children, location, title, as = 'div' }: LayoutProps) => {
   useEffect(() => {
     const body = document.body;
     const className =
-      'min-h-screen antialiased tracking-tight transition duration-500 text-text bg-background font-noto-sans-kr cursor-none';
+      'min-h-screen antialiased tracking-tight transition duration-500 text-text bg-background font-noto-sans-kr';
 
     body.classList.add(...className.split(' '));
 

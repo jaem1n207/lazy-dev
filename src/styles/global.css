@@ -2,6 +2,14 @@
 @tailwind components;
 @tailwind utilities;
 
+.hide-cursor {
+  @apply cursor-none;
+}
+
+.hide-cursor * {
+  cursor: none !important;
+}
+
 @layer base {
   :root {
     --color-primary: #d23669;
@@ -65,14 +73,6 @@
     --color-tag-text: #fff;
     --color-tag-bg-checked: #fff;
     --color-tag-text-checked: #000;
-  }
-
-  .hide-cursor {
-    @apply cursor-none;
-  }
-
-  .hide-cursor * {
-    cursor: none !important;
   }
 
   .transform-cursor {
