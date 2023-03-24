@@ -20,7 +20,12 @@ const PostCard = ({
         edges {
           node {
             id
-            gatsbyImageData(width: 900, placeholder: BLURRED, formats: [AUTO, WEBP, AVIF])
+            gatsbyImageData(
+              width: 900
+              placeholder: BLURRED
+              formats: [AUTO, WEBP, AVIF]
+              aspectRatio: 1
+            )
           }
         }
       }
