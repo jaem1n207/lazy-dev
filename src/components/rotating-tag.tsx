@@ -3,7 +3,7 @@ import React, { useEffect, useState } from 'react';
 import { motion } from 'framer-motion';
 
 import { usePrevious } from 'Hooks/use-previous';
-import { isEmptyArray } from 'Libs/assertions';
+import { isEmptyArray, arraysAreEqual } from 'Libs/assertions';
 
 interface RotatingTagProps {
   tags: (string | null)[];
@@ -25,7 +25,7 @@ const RotatingTag = ({ tags, interval, rotationDuration }: RotatingTagProps) => 
 
   useEffect(() => {
     if (prevTags && !isEmptyArray(tags)) {
-      if (prevTags !== tags) {
+      if (!arraysAreEqual(prevTags, tags)) {
         setCurrentIndex((currentIndex) => getRandomIndex(tags.length, currentIndex));
       }
     }
@@ -47,7 +47,7 @@ const RotatingTag = ({ tags, interval, rotationDuration }: RotatingTagProps) => 
   if (isEmptyArray(tags)) return null;
 
   return (
-    <div className="relative overflow-hidden font-bold min-w-[70vw] h-[1.2em]">
+    <div className="relative overflow-hidden font-bold min-w-[60vw] h-[1.2em]">
       {tags.map((tag, index) => (
         <motion.span
           key={tag}
