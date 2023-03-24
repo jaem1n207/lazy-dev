@@ -4,7 +4,6 @@ import { Slice } from 'gatsby';
 import tw, { GlobalStyles as BaseStyles } from 'twin.macro';
 
 import CustomCursor from 'Components/custom-cursor';
-import { checkRootPath } from 'Libs/url';
 
 interface LayoutProps {
   children: ReactNode;
@@ -14,7 +13,7 @@ interface LayoutProps {
 }
 
 const Layout = ({ children, location, title, as = 'div' }: LayoutProps) => {
-  const isRootPath = checkRootPath(location.pathname);
+  const isRootPath = location.pathname === '/';
 
   const As = as;
 
