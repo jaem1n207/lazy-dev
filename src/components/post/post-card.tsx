@@ -21,10 +21,11 @@ const PostCard = ({
           node {
             id
             gatsbyImageData(
-              width: 900
               placeholder: BLURRED
               formats: [AUTO, WEBP, AVIF]
               aspectRatio: 1
+              sizes: "(max-width:639px) 80vw','(min-width:640px) and (max-width:1023px) 40vw','(min-width:1024px) and (max-width:1620px) 25vw','420px'"
+              breakpoints: [280, 560, 840, 1100, 1300, 1650]
             )
           }
         }
