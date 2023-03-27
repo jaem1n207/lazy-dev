@@ -50,8 +50,8 @@ const BlogPost = ({ data, location }: PageProps<Queries.BlogPostBySlugQuery>) =>
 
   const { width } = useWindowSize();
 
-  // 가시성 대신 디스플레이를 사용하여 layout shift를 방지합니다.
-  const isTableOfContentsVisible = width ? width > 768 : false;
+  // layout shift를 방지합니다.
+  const isTableOfContentsVisible = width ? width > 1024 : false;
 
   useEffect(() => {
     ScrollManager.init();
@@ -65,10 +65,12 @@ const BlogPost = ({ data, location }: PageProps<Queries.BlogPostBySlugQuery>) =>
     <Layout location={location} title={siteTitme} as="article">
       <ContentSpacer>
         <Grid>
-          <div css={tw`col-span-4 col-start-12`}>
-            {isTableOfContentsVisible && <TableOfContents toc={tableOfContents} />}
-          </div>
-          <div css={tw`col-span-10 col-start-2`}>
+          {isTableOfContentsVisible && (
+            <div css={tw`col-span-4 col-start-12 desktop:visually-hide`}>
+              <TableOfContents toc={tableOfContents} />
+            </div>
+          )}
+          <div css={tw`col-span-10 col-start-2 desktop:(col-span-full col-start-1)`}>
             <header>
               <div
                 css={tw`flex items-center font-bold text-custom-gray text-16pxr gap-8pxr pb-4pxr`}
