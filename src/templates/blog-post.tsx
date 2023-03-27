@@ -13,36 +13,6 @@ import * as ScrollManager from 'Libs/scroll';
 import Markdown from 'Styles/markdown';
 import { rhythm } from 'Styles/typography';
 
-type DataProps = {
-  site: {
-    siteMetadata: {
-      author: {
-        name: string;
-        summary: string;
-      };
-      description: string;
-      lang: string;
-      favicon: string;
-      postTitle: string;
-      siteUrl: {
-        github: string;
-      };
-      title: string;
-    };
-  };
-  markdownRemark: {
-    id: string;
-    html: string;
-    timeToRead: number;
-    tableOfContents: string;
-    frontmatter: {
-      title: string;
-      date: string;
-      summary: string;
-    };
-  };
-};
-
 const BlogPost = ({ data, location }: PageProps<Queries.BlogPostBySlugQuery>) => {
   const siteTitme = data.site?.siteMetadata?.title || 'Title';
   const { frontmatter, html, timeToRead, tableOfContents } = data.markdownRemark!;
@@ -70,7 +40,7 @@ const BlogPost = ({ data, location }: PageProps<Queries.BlogPostBySlugQuery>) =>
               <TableOfContents toc={tableOfContents} />
             </div>
           )}
-          <div css={tw`col-span-10 col-start-2 desktop:(col-span-full col-start-1)`}>
+          <div css={tw`col-span-6 col-start-4 desktop:(col-span-full col-start-1)`}>
             <header>
               <div
                 css={tw`flex items-center font-bold text-custom-gray text-16pxr gap-8pxr pb-4pxr`}
@@ -102,12 +72,18 @@ const BlogPost = ({ data, location }: PageProps<Queries.BlogPostBySlugQuery>) =>
   );
 };
 
-export const Head = ({ data: { markdownRemark: post }, location }: HeadProps<DataProps>) => {
+export const Head = ({
+  data: { markdownRemark: post, site },
+  location,
+}: HeadProps<Queries.BlogPostBySlugQuery>) => {
+  const siteUrl = site?.siteMetadata?.siteUrl;
+
   return (
     <Seo
-      title={post.frontmatter.title}
-      description={post.frontmatter.summary}
+      title={post?.frontmatter?.title ?? 'Blog Post'}
+      description={post?.frontmatter?.summary ?? 'Post Summary'}
       pathname={location.pathname}
+      thumbnail={`${siteUrl}${post?.frontmatter?.thumbnail?.childImageSharp?.fixed?.src}`}
     />
   );
 };
@@ -141,6 +117,13 @@ export const query = graphql`
         title
         summary
         date(formatString: "MMMM DD, YY")
+        thumbnail {
+          childImageSharp {
+            fixed(width: 800) {
+              src
+            }
+          }
+        }
       }
     }
   }
