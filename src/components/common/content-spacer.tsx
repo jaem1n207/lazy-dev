@@ -14,7 +14,7 @@ const ContentSpacer = forwardRef<HTMLElement, ContentSpacerProps>(
     return (
       <Component
         ref={ref}
-        css={[tw`relative`, !compact && tw`mx-10vw max-w-7xl`, compact && tw`max-w-4xl mx-auto`]}
+        css={[tw`relative`, !compact && tw`mx-10vw`, compact && tw`mx-auto`]}
         className={className}
         {...rest}
       >
