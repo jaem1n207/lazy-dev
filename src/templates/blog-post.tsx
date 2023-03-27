@@ -64,7 +64,7 @@ const BlogPost = ({ data, location }: PageProps<Queries.BlogPostBySlugQuery>) =>
   return (
     <Layout location={location} title={siteTitme} as="article">
       {isTableOfContentsVisible && <TableOfContents toc={tableOfContents} />}
-      <ContentSpacer compact>
+      <ContentSpacer>
         <header>
           <div css={tw`flex items-center font-bold text-custom-gray text-16pxr gap-8pxr pb-4pxr`}>
             <time dateTime={date!}>{date}</time>
