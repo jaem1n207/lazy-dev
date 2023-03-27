@@ -14,6 +14,7 @@ import queryString from 'query-string';
 
 import CategoryFilter from 'Components/category/category-filter';
 import { Grid, Spacer, H3, ContentSpacer, H5, H1, H2 } from 'Components/common';
+import AnimatedContainer from 'Components/post/animated-container';
 import PostCard from 'Components/post/post-card';
 import RotatingTag from 'Components/rotating-tag';
 import Seo from 'Components/seo';
@@ -276,13 +277,15 @@ const IndexPage: FC<PageProps<Queries.HomeQuery, ContextProps>> = ({ data, locat
             </H3>
           </Grid>
         ) : (
-          <Grid className="mb-64">
-            {posts.map((post) => (
-              <div key={post.slug} className="col-span-4 mb-40pxr">
-                <PostCard post={post} />
-              </div>
-            ))}
-          </Grid>
+          <AnimatedContainer>
+            <Grid className="mb-64">
+              {posts.map((post) => (
+                <div key={post.slug} className="col-span-4 mb-40pxr">
+                  <PostCard post={post} />
+                </div>
+              ))}
+            </Grid>
+          </AnimatedContainer>
         )}
       </ContentSpacer>
     </Layout>
