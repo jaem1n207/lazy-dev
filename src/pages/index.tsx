@@ -9,12 +9,15 @@ import React, {
   useState,
 } from 'react';
 
+import { AnimatePresence } from 'framer-motion';
 import { graphql, HeadFC, HeadProps, PageProps } from 'gatsby';
 import queryString from 'query-string';
 
 import CategoryFilter from 'Components/category/category-filter';
-import { Grid, Spacer, H3, ContentSpacer, H5, H1, H2 } from 'Components/common';
-import AnimatedContainer from 'Components/post/animated-container';
+import { Grid, Spacer, H3, ContentSpacer, H5, H1 } from 'Components/common';
+import AnimateFadeContainer from 'Components/common/animate-fade-container';
+import AnimatedContainer from 'Components/common/animated-container';
+import HeroPostCard from 'Components/post/hero-post-card';
 import PostCard from 'Components/post/post-card';
 import RotatingTag from 'Components/rotating-tag';
 import Seo from 'Components/seo';
@@ -51,6 +54,29 @@ const useUpdateQueryStringValueWithoutNavigation = (queryKey: string, queryValue
 const IndexPage: FC<PageProps<Queries.HomeQuery, ContextProps>> = ({ data, location }) => {
   const [currentCategory, setCurrentCategory] = useState<string | undefined>();
   const { category, selectCategory, resetCategory } = useCategory();
+
+  const heroPost = useMemo(() => {
+    const heroPost = data.postsRemark.edges.find(
+      (edge) => edge.node.frontmatter?.title === 'JS 객체 이해하기'
+    );
+    if (!heroPost) return undefined;
+
+    const { slug } = heroPost.node.fields!;
+    const { title, date, category, summary, thumbnail } = heroPost.node.frontmatter!;
+    const { childImageSharp } = thumbnail!;
+    const post: Post = {
+      slug,
+      title,
+      date,
+      category,
+      summary,
+      thumbnail: childImageSharp?.id!,
+      timeToRead: heroPost.node.timeToRead,
+      tags: heroPost.node.frontmatter?.tags!,
+    };
+
+    return post;
+  }, [data.postsRemark.edges]);
 
   const categories = useMemo(() => data.categoriesGroup.group, [data.categoriesGroup.group]);
 
@@ -169,17 +195,18 @@ const IndexPage: FC<PageProps<Queries.HomeQuery, ContextProps>> = ({ data, locat
       />
 
       <Spacer size="xs" className="col-span-full" />
+
       {!isEmptyArray(tagsArray) && (
         <ContentSpacer>
           <Grid>
             <div className="select-none col-span-full">
               <H1 className="gradient-text">원하는 글을 찾아보세요&#46;</H1>
-              <H2 variant="secondary">
+              <H1 variant="secondary">
                 <div className="flex">
                   <span>For&nbsp;</span>
                   <RotatingTag tags={tagsArray} interval={4000} rotationDuration={2} />
                 </div>
-              </H2>
+              </H1>
 
               <div className="flex items-center justify-between my-24pxr">
                 <div className="flex items-center">
@@ -256,34 +283,44 @@ const IndexPage: FC<PageProps<Queries.HomeQuery, ContextProps>> = ({ data, locat
         </Grid>
       </ContentSpacer>
 
-      <ContentSpacer className="mb-10pxr">
-        <Grid>
-          <H5 as="div" className="col-span-full mb-24pxr">
-            Hero Posts
-          </H5>
-          <div className="col-span-full">{/* <HeroPost post={heroPost} /> */}</div>
-        </Grid>
-      </ContentSpacer>
-
-      <ContentSpacer ref={resultsRef}>
-        {posts.length === 0 ? (
-          <Grid className="mb-64">
-            <H3 as="p" variant="secondary" className="col-span-full">
-              No posts found.
-            </H3>
-          </Grid>
-        ) : (
-          <AnimatedContainer>
-            <Grid className="mb-64">
-              {posts.map((post) => (
-                <div key={post.slug} className="col-span-4 mb-40pxr">
-                  <PostCard post={post} />
-                </div>
-              ))}
+      <AnimatePresence>
+        {heroPost && !isSearching && (
+          <ContentSpacer className="mb-10pxr">
+            <Grid>
+              <H5 as="div" className="col-span-full mb-24pxr">
+                Hero Posts
+              </H5>
+              <div className="col-span-full">
+                <AnimateFadeContainer>
+                  <HeroPostCard post={heroPost} />
+                </AnimateFadeContainer>
+              </div>
             </Grid>
-          </AnimatedContainer>
+          </ContentSpacer>
         )}
-      </ContentSpacer>
+      </AnimatePresence>
+
+      <AnimatePresence>
+        <ContentSpacer ref={resultsRef}>
+          {posts.length === 0 ? (
+            <Grid className="mb-64">
+              <H3 as="p" variant="secondary" className="col-span-full">
+                No posts found.
+              </H3>
+            </Grid>
+          ) : (
+            <AnimatedContainer>
+              <Grid className="mb-64">
+                {posts.map((post) => (
+                  <div key={post.slug} className="col-span-4 mb-40pxr">
+                    <PostCard post={post} />
+                  </div>
+                ))}
+              </Grid>
+            </AnimatedContainer>
+          )}
+        </ContentSpacer>
+      </AnimatePresence>
     </Layout>
   );
 };

@@ -20,7 +20,7 @@ const getRandomIndex = (length: number, currentIndex: number) => {
 };
 
 const RotatingTag = ({ tags, interval, rotationDuration }: RotatingTagProps) => {
-  const [currentIndex, setCurrentIndex] = useState(0);
+  const [currentIndex, setCurrentIndex] = useState(getRandomIndex(tags.length, 0));
   const prevTags = usePrevious(tags);
 
   useEffect(() => {
