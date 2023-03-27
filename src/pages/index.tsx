@@ -23,7 +23,6 @@ import { useCategory } from 'Hooks/use-category';
 import Layout from 'Layout/layout';
 import { isEmptyArray } from 'Libs/assertions';
 import { filterPosts } from 'Libs/blog';
-import { firstLetterUppercase } from 'Libs/string';
 import { CATEGORY_TYPE } from 'Types/enum';
 import Post from 'Types/post';
 
@@ -231,7 +230,7 @@ const IndexPage: FC<PageProps<Queries.HomeQuery, ContextProps>> = ({ data, locat
       )}
 
       <Spacer size="xs" className="col-span-full" />
-      <ContentSpacer>
+      <ContentSpacer className="mb-56pxr">
         <Grid>
           <H5 as="div" className="col-span-full mb-24pxr">
             Search blog by keyword
@@ -257,18 +256,15 @@ const IndexPage: FC<PageProps<Queries.HomeQuery, ContextProps>> = ({ data, locat
         </Grid>
       </ContentSpacer>
 
-      <Spacer size="xs" className="col-span-full" />
-      <ContentSpacer>
+      <ContentSpacer className="mb-10pxr">
         <Grid>
           <H5 as="div" className="col-span-full mb-24pxr">
-            <strong>
-              {currentCategory ? firstLetterUppercase(currentCategory) : CATEGORY_TYPE.ALL}
-            </strong>
-            &nbsp; Posts
+            Hero Posts
           </H5>
+          <div className="col-span-full">{/* <HeroPost post={heroPost} /> */}</div>
         </Grid>
       </ContentSpacer>
-      {/* <PostList posts={posts} ref={resultsRef} /> */}
+
       <ContentSpacer ref={resultsRef}>
         {posts.length === 0 ? (
           <Grid className="mb-64">
