@@ -24,7 +24,7 @@ module.exports = {
       active: 'ui~="active"',
     },
     fontSize: {
-      ...range(12, 48).reduce((acc, px) => {
+      ...range(12, 96).reduce((acc, px) => {
         acc[`${px}pxr`] = pxToRem(px);
         return acc;
       }, {}),
