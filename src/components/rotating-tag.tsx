@@ -55,6 +55,10 @@ const RotatingTag = ({ tags, interval, rotationDuration }: RotatingTagProps) => 
             y: (index - currentIndex) * 100,
             opacity: calculateOpacity(index, currentIndex),
           }}
+          initial={{
+            y: (index - currentIndex) * 100,
+            opacity: calculateOpacity(index, currentIndex),
+          }}
           transition={{
             y: { duration: rotationDuration, ease: 'easeOut' },
             opacity: { duration: rotationDuration, ease: 'easeOut' },
