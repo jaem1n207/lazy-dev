@@ -12,7 +12,7 @@ interface PostCardProps {
 }
 
 const PostCard = ({
-  post: { slug, title, summary, date, category, thumbnail, timeToRead },
+  post: { slug, title, summary, date, thumbnail, timeToRead },
 }: PostCardProps) => {
   const data = useStaticQuery<Queries.Query>(graphql`
     query ThumbnailImage {
@@ -42,11 +42,8 @@ const PostCard = ({
   if (!slug) return null;
 
   return (
-    <article className="relative w-full">
-      <Link
-        to={ROUTES.BLOG_POST.toUrl(slug)}
-        className="relative block w-full select-none group peer focus:outline-none drag-none"
-      >
+    <article className="relative w-full select-none drag-none">
+      <Link to={ROUTES.BLOG_POST.toUrl(slug)} className="relative block w-full group peer ">
         <GatsbyImage
           image={image}
           alt={title ?? 'post thumbnail'}
