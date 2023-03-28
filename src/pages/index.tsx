@@ -14,7 +14,7 @@ import { graphql, HeadFC, HeadProps, PageProps } from 'gatsby';
 import queryString from 'query-string';
 
 import CategoryFilter from 'Components/category/category-filter';
-import { Grid, Spacer, H3, ContentSpacer, H5, H1 } from 'Components/common';
+import { Grid, Spacer, H3, ContentSpacer, H5, Typography } from 'Components/common';
 import AnimateFadeContainer from 'Components/common/animate-fade-container';
 import AnimatedContainer from 'Components/common/animated-container';
 import HeroPostCard from 'Components/post/hero-post-card';
@@ -200,13 +200,13 @@ const IndexPage: FC<PageProps<Queries.HomeQuery, ContextProps>> = ({ data, locat
         <ContentSpacer>
           <Grid>
             <div className="select-none col-span-full">
-              <H1 className="gradient-text">원하는 글을 찾아보세요&#46;</H1>
-              <H1 variant="secondary">
+              <Typography className="leading-tight text-44pxr foldable:text-32pxr">
+                <div>원하는 글을 찾아보세요&#46;</div>
                 <div className="flex">
                   <span>For&nbsp;</span>
                   <RotatingTag tags={tagsArray} interval={4000} rotationDuration={2} />
                 </div>
-              </H1>
+              </Typography>
 
               <div className="flex items-center justify-between my-24pxr">
                 <div className="flex items-center">

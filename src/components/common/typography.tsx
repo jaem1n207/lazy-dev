@@ -79,19 +79,21 @@ const Typography = ({
   textColorClassName = 'text-secondary',
   className,
   id,
+  children,
 }: React.PropsWithChildren<ParagraphProps>) => {
   const Component = as;
   return (
     <Component
       id={id}
       className={classNames(
-        'text-28pxr tablet:text-18pxr',
         textColorClassName,
         className,
         prose && 'prose prose-light dark:prose-dark',
         'transition-colors duration-500'
       )}
-    />
+    >
+      {children}
+    </Component>
   );
 };
 
