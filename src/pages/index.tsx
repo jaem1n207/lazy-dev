@@ -56,6 +56,10 @@ const IndexPage: FC<PageProps<Queries.HomeQuery, ContextProps>> = ({ data, locat
   const [currentCategory, setCurrentCategory] = useState<string | undefined>();
   const { category, selectCategory, resetCategory } = useCategory();
 
+  const isCategoryAll = useMemo(() => {
+    return category === CATEGORY_TYPE.ALL;
+  }, [category]);
+
   const heroPost = useMemo(() => {
     const heroPost = data.postsRemark.edges.find(
       (edge) => edge.node.frontmatter?.title === 'JS 객체 이해하기'
@@ -201,8 +205,11 @@ const IndexPage: FC<PageProps<Queries.HomeQuery, ContextProps>> = ({ data, locat
         <ContentSpacer>
           <Grid>
             <div className="select-none col-span-full">
-              <Typography className="leading-tight text-44pxr foldable:text-32pxr">
-                <div>원하는 글을 찾아보세요&#46;</div>
+              <Typography
+                as="div"
+                className="font-bold leading-tight text-64pxr tablet:text-48pxr foldable:text-32pxr"
+              >
+                <div className="text-[#3D3D3D]">원하는 글을 찾아보세요&#46;</div>
                 <div className="flex">
                   <span>For&nbsp;</span>
                   <RotatingTag tags={tagsArray} interval={4000} rotationDuration={2} />
@@ -293,12 +300,9 @@ const IndexPage: FC<PageProps<Queries.HomeQuery, ContextProps>> = ({ data, locat
       </ContentSpacer>
 
       <AnimatePresence>
-        {heroPost && !isSearching && (
+        {heroPost && !isSearching && isCategoryAll && (
           <ContentSpacer className="mb-10pxr">
             <Grid>
-              <H5 as="div" className="col-span-full mb-24pxr">
-                Hero Posts
-              </H5>
               <div className="col-span-full">
                 <AnimateFadeContainer>
                   <HeroPostCard post={heroPost} />
@@ -309,6 +313,7 @@ const IndexPage: FC<PageProps<Queries.HomeQuery, ContextProps>> = ({ data, locat
         )}
       </AnimatePresence>
 
+      <Spacer size="xs" className="col-span-full" />
       <AnimatePresence>
         <ContentSpacer ref={resultsRef}>
           {posts.length === 0 ? (
