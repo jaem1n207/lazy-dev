@@ -43,12 +43,15 @@ const PostCard = ({
 
   return (
     <article className="relative w-full select-none drag-none">
-      <Link to={ROUTES.BLOG_POST.toUrl(slug)} className="relative block w-full group peer ">
+      <Link
+        to={ROUTES.BLOG_POST.toUrl(slug)}
+        className="relative block w-full group peer focus:outline-none"
+      >
         <GatsbyImage
           image={image}
           alt={title ?? 'post thumbnail'}
           loading="lazy"
-          className="object-cover object-center w-full transition rounded-lg"
+          className="object-cover object-center w-full transition rounded-lg focus-primary"
         />
         <div className="mt-32pxr text-20pxr">
           <time dateTime={date!}>{date}</time> — {timeToRead} min read
