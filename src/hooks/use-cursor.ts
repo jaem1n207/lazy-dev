@@ -103,11 +103,18 @@ const useCursor = () => {
     if (isActive) return;
 
     const clickables = getElements(ELEMENT_SELECTOR.CLICKABLE);
+    const animatable = getElements(ELEMENT_SELECTOR.ANIMATE);
 
-    clickables.forEach((el) => {
+    animatable.forEach((el) => {
       el.addEventListener('mousemove', (e) => {
         handleMouseMove(e, el);
       });
+      el.addEventListener('mouseout', () => {
+        handleMouseOut(el);
+      });
+    });
+
+    clickables.forEach((el) => {
       el.addEventListener('mouseover', () => {
         setIsActive.on();
       });
@@ -124,15 +131,20 @@ const useCursor = () => {
       el.addEventListener('mouseout', () => {
         setIsActive.off();
         setIsActiveClickable.off();
-        handleMouseOut(el);
       });
     });
 
     return () => {
-      clickables.forEach((el) => {
+      animatable.forEach((el) => {
         el.removeEventListener('mousemove', (e) => {
           handleMouseMove(e, el);
         });
+        el.removeEventListener('mouseout', () => {
+          handleMouseOut(el);
+        });
+      });
+
+      clickables.forEach((el) => {
         el.removeEventListener('mouseover', () => {
           setIsActive.on();
         });
@@ -149,7 +161,6 @@ const useCursor = () => {
         el.removeEventListener('mouseout', () => {
           setIsActive.off();
           setIsActiveClickable.off();
-          handleMouseOut(el);
         });
       });
     };
