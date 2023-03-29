@@ -75,6 +75,8 @@ const TableOfContents = ({ toc }: TableOfContentsProps) => {
 
       const { header, link } = headerElement;
 
+      link.classList.add('focus-primary');
+
       link.addEventListener('click', (e: Event) => {
         e.preventDefault();
 

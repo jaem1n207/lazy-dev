@@ -91,7 +91,7 @@ interface Props {
 
 const Header = ({ children, size = 'medium' }: Props) => {
   let header = (
-    <Link css={tw`no-underline text-24pxr`} to={ROUTES.HOME}>
+    <Link css={tw`no-underline text-24pxr`} to={ROUTES.HOME} className="focus-primary">
       {children}
     </Link>
   );
@@ -99,7 +99,9 @@ const Header = ({ children, size = 'medium' }: Props) => {
   if (size === 'large') {
     header = (
       <h1 css={tw`m-0pxr text-40pxr`}>
-        <Link to={ROUTES.HOME}>{children}</Link>
+        <Link to={ROUTES.HOME} className="focus-primary">
+          {children}
+        </Link>
       </h1>
     );
   }
