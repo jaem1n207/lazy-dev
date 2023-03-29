@@ -9,6 +9,7 @@ import React, {
   useState,
 } from 'react';
 
+import classNames from 'classnames';
 import { AnimatePresence } from 'framer-motion';
 import { graphql, HeadFC, HeadProps, PageProps } from 'gatsby';
 import queryString from 'query-string';
@@ -25,7 +26,7 @@ import Seo from 'Components/seo';
 import Tag from 'Components/tag';
 import { useCategory } from 'Hooks/use-category';
 import Layout from 'Layout/layout';
-import { isEmptyArray } from 'Libs/assertions';
+import { isEmptyArray, isEmptyString } from 'Libs/assertions';
 import { filterPosts } from 'Libs/blog';
 import { CATEGORY_TYPE } from 'Types/enum';
 import Post from 'Types/post';
@@ -190,6 +191,20 @@ const IndexPage: FC<PageProps<Queries.HomeQuery, ContextProps>> = ({ data, locat
     }
   };
 
+  const searchLabelBaseClasses =
+    'absolute top-0pxr left-0pxr w-full h-full flex items-center pl-[10px] duration-200';
+  const searchLabelFocusedClasses = classNames(
+    {
+      'group-focus-within:text-18pxr foldable:group-focus-within:text-16pxr mobile:group-focus-within:text-12pxr group-focus-within:h-5/6 group-focus-within:-translate-y-full group-focus-within:pl-0pxr':
+        isEmptyString(queryValue),
+    },
+    {
+      'h-5/6 -translate-y-full pl-0pxr text-18pxr foldable:text-16pxr mobile:text-14pxr':
+        !isEmptyString(queryValue),
+    }
+  );
+  const searchLabelClasses = classNames(searchLabelBaseClasses, searchLabelFocusedClasses);
+
   return (
     <Layout location={location} title={data.site?.siteMetadata?.title!}>
       <CategoryFilter
@@ -222,10 +237,7 @@ const IndexPage: FC<PageProps<Queries.HomeQuery, ContextProps>> = ({ data, locat
                 <div className="flex items-center">
                   <div className="relative group">
                     <NoneActiveWrapper>
-                      <label
-                        className="absolute top-0pxr left-0pxr w-full h-full flex items-center pl-[10px] duration-200 text-16pxr group-focus-within:text-18pxr foldable:group-focus-within:text-16pxr group-focus-within:h-5/6 group-focus-within:-translate-y-full group-focus-within:pl-0pxr"
-                        htmlFor="search-post-input"
-                      >
+                      <label className={searchLabelClasses} htmlFor="search-post-input">
                         What are you looking for?
                       </label>
                       <input
