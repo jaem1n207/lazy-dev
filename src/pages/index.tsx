@@ -17,6 +17,7 @@ import CategoryFilter from 'Components/category/category-filter';
 import { Grid, Spacer, H3, ContentSpacer, H5, Typography } from 'Components/common';
 import AnimateFadeContainer from 'Components/common/animate-fade-container';
 import AnimatedContainer from 'Components/common/animated-container';
+import NoneActiveWrapper from 'Components/common/none-active-wrapper';
 import HeroPostCard from 'Components/post/hero-post-card';
 import PostCard from 'Components/post/post-card';
 import RotatingTag from 'Components/rotating-tag';
@@ -208,25 +209,33 @@ const IndexPage: FC<PageProps<Queries.HomeQuery, ContextProps>> = ({ data, locat
                 </div>
               </Typography>
 
+              <Spacer size="xs" />
+
               <div className="flex items-center justify-between my-24pxr">
                 <div className="flex items-center">
-                  <label htmlFor="search" className="sr-only">
-                    Search
-                  </label>
-                  <input
-                    id="search"
-                    type="text"
-                    placeholder="What are you looking for?"
-                    className="rounded-full bg-secondary w-[16em] foldable:w-[12em] h-40pxr px-24pxr py-12pxr text-16pxr focus:outline-none focus:ring-2 focus:ring-primary"
-                    value={queryValue}
-                    onChange={handleSearchInputChange}
-                    onKeyUp={handleScrollToResults}
-                  />
+                  <div className="relative group">
+                    <NoneActiveWrapper>
+                      <label
+                        className="absolute top-0pxr left-0pxr w-full h-full flex items-center pl-[10px] duration-200 text-16pxr group-focus-within:text-18pxr foldable:group-focus-within:text-16pxr group-focus-within:h-5/6 group-focus-within:-translate-y-full group-focus-within:pl-0pxr"
+                        htmlFor="search-post-input"
+                      >
+                        What are you looking for?
+                      </label>
+                      <input
+                        id="search-post-input"
+                        type="text"
+                        className="rounded-full w-[16em] foldable:w-[12em] bg-secondary outline-none py-12pxr px-16pxr text-18pxr foldable:text-16pxr focus-primary group-focus-within:bg-opacity-60"
+                        value={queryValue}
+                        onChange={handleSearchInputChange}
+                        onKeyUp={handleScrollToResults}
+                      />
+                    </NoneActiveWrapper>
+                  </div>
                   {queryValue.length > 0 && (
                     <button
                       data-hoverable="true"
                       type="button"
-                      className="text-gray-500 ml-12pxr text-16pxr hover:text-gray-700 focus:outline-none focus:ring-2 focus:ring-primary"
+                      className="text-gray-500 ml-12pxr text-16pxr hover:text-gray-700 focus-primary"
                       onClick={handleClearSearch}
                     >
                       <span className="sr-only">Clear search</span>

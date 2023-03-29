@@ -4,6 +4,7 @@ import { graphql, Link, useStaticQuery } from 'gatsby';
 import { GatsbyImage, GatsbyImageProps } from 'gatsby-plugin-image';
 
 import { H3, H6 } from 'Components/common';
+import NoneActiveWrapper from 'Components/common/none-active-wrapper';
 import { ROUTES } from 'Types/enum';
 import Post from 'Types/post';
 
@@ -47,12 +48,14 @@ const PostCard = ({
         to={ROUTES.BLOG_POST.toUrl(slug)}
         className="relative block w-full group peer focus:outline-none"
       >
-        <GatsbyImage
-          image={image}
-          alt={title ?? 'post thumbnail'}
-          loading="lazy"
-          className="object-cover object-center w-full transition rounded-lg focus-primary"
-        />
+        <NoneActiveWrapper>
+          <GatsbyImage
+            image={image}
+            alt={title ?? 'post thumbnail'}
+            loading="lazy"
+            className="object-cover object-center w-full transition rounded-lg focus-primary"
+          />
+        </NoneActiveWrapper>
         <div className="mt-32pxr text-20pxr">
           <time dateTime={date!}>{date}</time> — {timeToRead} min read
         </div>
