@@ -82,7 +82,7 @@
   }
 
   .transform-cursor {
-    transition: all 260ms ease-out;
+    /* transition: all 260ms ease-out; */
   }
 
   .custom-cursor {
@@ -96,8 +96,8 @@
     mix-blend-mode: difference;
     z-index: 99;
     background: rgba(255, 255, 255, 1);
-    /* transition: 0.15s all cubic-bezier(0.075, 0.82, 0.165, 1); */
-    transition: opacity 0.15s ease-in-out, transform 0.15s ease-in-out;
+    transition: 0.15s all cubic-bezier(0.075, 0.82, 0.165, 1);
+    /* transition: opacity 0.15s ease-in-out, transform 0.15s ease-in-out; */
     opacity: 1;
   }
 

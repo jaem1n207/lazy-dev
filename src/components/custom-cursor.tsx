@@ -1,13 +1,17 @@
 import React from 'react';
 
-import useCursor from 'Hooks/use-cursor';
+import useCursor2 from 'Hooks/use-cursor2';
 
 const CustomCursor = () => {
-  const { styles, cursorRef, shouldRender } = useCursor();
+  const cursorRef = useCursor2();
 
-  if (!shouldRender) return null;
+  return <div ref={cursorRef} className="custom-cursor" />;
 
-  return <div ref={cursorRef} className="custom-cursor" style={styles.cursor} />;
+  // const { styles, cursorRef, shouldRender } = useCursor();
+
+  // if (!shouldRender) return null;
+
+  // return <div ref={cursorRef} className="custom-cursor" style={styles.cursor} />;
 };
 
 export default CustomCursor;
