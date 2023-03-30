@@ -10,6 +10,35 @@ import { ELEMENT_SELECTOR } from 'Types/enum';
 import { useBoolean } from './use-boolean';
 import { useEventListener } from './use-event-listener';
 
+const LAST_CURSOR_POSITION_KEY = 'lastCursorPosition';
+
+interface LastCursorPosition {
+  x: number;
+  y: number;
+}
+
+const useLastCursorPosition = () => {
+  const lastCursorPosition = useRef<LastCursorPosition>({ x: 0, y: 0 });
+
+  const saveCursorPosition = useCallback(({ x, y }: { x: number; y: number }) => {
+    const newPosition = { x, y };
+    lastCursorPosition.current = { x, y };
+    sessionStorage.setItem(LAST_CURSOR_POSITION_KEY, JSON.stringify(newPosition));
+  }, []);
+
+  useEffect(() => {
+    const storedCursorPosition = sessionStorage.getItem(LAST_CURSOR_POSITION_KEY);
+    if (storedCursorPosition) {
+      lastCursorPosition.current = JSON.parse(storedCursorPosition);
+    }
+  }, []);
+
+  return {
+    lastCursorPosition: lastCursorPosition.current,
+    saveCursorPosition,
+  };
+};
+
 type CalculateCursorCSSProperties = Pick<CSSProperties, 'opacity' | 'transform' | 'top' | 'left'>;
 
 interface Styles {
@@ -25,29 +54,18 @@ const useCursor = () => {
   const [shouldRender, setShouldRender] = useState(false);
 
   const { handleMouseMove, handleMouseOut } = clickableTransform();
+  const { lastCursorPosition, saveCursorPosition } = useLastCursorPosition();
 
-  // const updateCursorPosition = useCallback(({ x, y }: { x: number; y: number }) => {
-  //   if (cursorRef.current) {
-  //     cursorRef.current.style.transform = `translate(${x}px, ${y}px)`;
-  //   }
-  // }, []);
-
-  // const onMouseMove = useCallback(
-  //   (e: MouseEvent) => {
-  //     e.preventDefault();
-  //     requestAnimationFrame(() => {
-  //       updateCursorPosition({ x: e.clientX, y: e.clientY });
-  //     });
-  //   },
-  //   [updateCursorPosition]
-  // );
-
-  const onMouseMove = useCallback(({ clientX: x, clientY: y }: MouseEvent) => {
-    if (cursorRef.current) {
-      cursorRef.current.style.top = y + 'px';
-      cursorRef.current.style.left = x + 'px';
-    }
-  }, []);
+  const onMouseMove = useCallback(
+    ({ clientX: x, clientY: y }: MouseEvent) => {
+      if (cursorRef.current) {
+        cursorRef.current.style.top = y + 'px';
+        cursorRef.current.style.left = x + 'px';
+        saveCursorPosition({ x, y });
+      }
+    },
+    [saveCursorPosition]
+  );
 
   useEffect(() => {
     const isNonTouchDevice = !isTouchDevice();
@@ -167,10 +185,14 @@ const useCursor = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [setIsActive]);
 
+  useEffect(() => {
+    onMouseMove({ clientX: lastCursorPosition.x, clientY: lastCursorPosition.y } as MouseEvent);
+  }, [lastCursorPosition, onMouseMove]);
+
   const styles: Styles = {
     cursor: {
-      top: 0,
-      left: 0,
+      top: lastCursorPosition.y,
+      left: lastCursorPosition.x,
     },
   };
 
