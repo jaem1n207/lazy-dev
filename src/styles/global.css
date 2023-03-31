@@ -142,4 +142,12 @@
     background-size: 200% 200%;
     animation: gradientMovement 6s ease infinite;
   }
+
+  .clickable-element {
+  }
+
+  .animate-element {
+    transition: all 200ms ease-out !important;
+    will-change: transform;
+  }
 }
