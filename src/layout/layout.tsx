@@ -3,8 +3,6 @@ import React, { ElementType, ReactNode, useEffect } from 'react';
 import { Slice } from 'gatsby';
 import tw, { GlobalStyles as BaseStyles } from 'twin.macro';
 
-import CustomCursor from 'Components/custom-cursor';
-
 interface LayoutProps {
   children: ReactNode;
   location: Location;
@@ -13,9 +11,9 @@ interface LayoutProps {
 }
 
 const Layout = ({ children, location, title, as = 'div' }: LayoutProps) => {
-  const isRootPath = location.pathname === '/';
-
   const As = as;
+
+  const isRootPath = location.pathname === '/';
 
   useEffect(() => {
     const body = document.body;
@@ -32,7 +30,6 @@ const Layout = ({ children, location, title, as = 'div' }: LayoutProps) => {
   return (
     <As css={[isRootPath && tw`mb-80pxr`]}>
       <BaseStyles />
-      <CustomCursor />
       <Slice alias="header" size={isRootPath ? 'large' : 'medium'}>
         {title}
       </Slice>
