@@ -66,7 +66,7 @@ const CategoryFilter = ({
           <div className="w-1pxr h-32pxr mx-8pxr -translate-x-[50%] bg-divider" />
           <ul
             ref={categoryListRef}
-            className="flex w-full overflow-x-auto scroll-smooth gap-8pxr scrollbar-hide py-6pxr px-12pxr"
+            className="flex w-full overflow-x-auto scroll-smooth gap-10pxr scrollbar-hide p-12pxr"
           >
             {sortedCategories.map((categoryInfo) => {
               const { fieldValue } = categoryInfo;
