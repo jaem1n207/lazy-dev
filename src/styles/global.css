@@ -81,10 +81,6 @@
     --color-tag-text-checked: #000;
   }
 
-  .transform-cursor {
-    /* transition: all 260ms ease-out; */
-  }
-
   .custom-cursor {
     position: fixed;
     height: 65px;
@@ -132,7 +128,14 @@
   }
 
   .gradient-text {
-    background-image: linear-gradient(72.3deg, #d4418e, #0652c5);
+    background-image: linear-gradient(
+      90.13deg,
+      #d1aad7 0.11%,
+      #c88bc4 25.06%,
+      #7b8fdd 50%,
+      #86bff2 74.8%,
+      #bbdef2 99.76%
+    );
     -webkit-background-clip: text;
     background-clip: text;
     color: transparent !important;

@@ -224,7 +224,7 @@ const IndexPage: FC<PageProps<Queries.HomeQuery, ContextProps>> = ({ data, locat
                 as="div"
                 className="font-bold leading-tight text-64pxr tablet:text-48pxr foldable:text-32pxr"
               >
-                <div className="text-[#3D3D3D]">원하는 글을 찾아보세요&#46;</div>
+                <div className="gradient-text">원하는 글을 찾아보세요&#46;</div>
                 <div className="flex">
                   <span>For&nbsp;</span>
                   <RotatingTag tags={tagsArray} interval={4000} rotationDuration={2} />
