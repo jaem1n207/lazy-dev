@@ -1,4 +1,4 @@
-import React, { ElementType, ReactNode, useEffect } from 'react';
+import React, { ElementType, ReactNode } from 'react';
 
 import { Slice } from 'gatsby';
 import tw, { GlobalStyles as BaseStyles } from 'twin.macro';
@@ -14,18 +14,6 @@ const Layout = ({ children, location, title, as = 'div' }: LayoutProps) => {
   const As = as;
 
   const isRootPath = location.pathname === '/';
-
-  useEffect(() => {
-    const body = document.body;
-    const className =
-      'min-h-screen antialiased tracking-tight transition duration-500 text-text bg-background font-noto-sans-kr';
-
-    body.classList.add(...className.split(' '));
-
-    return () => {
-      body.classList.remove(...className.split(' '));
-    };
-  }, []);
 
   return (
     <As css={[isRootPath && tw`mb-80pxr`]}>

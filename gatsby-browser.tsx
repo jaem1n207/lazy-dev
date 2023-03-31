@@ -24,16 +24,16 @@ const withCustomCursor = (Component: React.ComponentType) => {
         body.classList.add('hide-cursor');
       }
 
-      // body.classList.add(
-      //   'min-h-screen',
-      //   'antialiased',
-      //   'tracking-tight',
-      //   'transition',
-      //   'duration-500',
-      //   'text-text',
-      //   'bg-background',
-      //   'font-noto-sans-kr'
-      // );
+      body.classList.add(
+        'min-h-screen',
+        'antialiased',
+        'tracking-tight',
+        'transition',
+        'duration-500',
+        'text-text',
+        'bg-background',
+        'font-noto-sans-kr'
+      );
 
       return () => {
         body.classList.remove('hide-cursor');
