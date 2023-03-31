@@ -30,7 +30,7 @@ const ELEMENT_PARTS = {
   radio: 'input[type="radio"]:not([disabled])',
   textarea: 'textarea:not([disabled])',
   tabindex: '[tabindex]:not([tabindex="-1"]):not([disabled])',
-  label: 'label:not([disabled])',
+  label: `label:not([data-state='unchecked']):not([disabled])`,
 };
 
 const ANIMATE_ELEMENT_PARTS = {
@@ -47,7 +47,7 @@ const ANIMATE_ELEMENT_PARTS = {
   radio: `input[type="radio"]:not(.${ELEMENT_CLASS.NONE_ACTIVE}):not([disabled])`,
   textarea: `textarea:not(.${ELEMENT_CLASS.NONE_ACTIVE}):not([disabled])`,
   tabindex: `[tabindex]:not([tabindex="-1"]):not(.${ELEMENT_CLASS.NONE_ACTIVE}):not([disabled])`,
-  label: `label:not(.${ELEMENT_CLASS.NONE_ACTIVE}):not([disabled])`,
+  label: `label:not([data-state='unchecked']):not(.${ELEMENT_CLASS.NONE_ACTIVE}):not([disabled])`,
 };
 
 export const ELEMENT_SELECTOR = {
