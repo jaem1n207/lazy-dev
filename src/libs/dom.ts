@@ -7,8 +7,7 @@
 const BODY = 'body';
 
 export const getElements = (selector: string) =>
-  // eslint-disable-next-line no-undef
-  document.querySelectorAll(selector) as unknown as NodeListOf<HTMLElement>;
+  Array.from(document.querySelectorAll(selector)) as HTMLElement[];
 export const getElement = (selector: string) => document.querySelector<HTMLElement>(selector);
 export const addClass = (element: Element, className: string) => element.classList.add(className);
 export const removeClass = (element: Element, className: string) =>

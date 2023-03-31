@@ -20,7 +20,7 @@ const TOCContent = tw.div`text-14pxr tablet:text-16pxr text-custom-gray font-bol
 const TableOfContents = ({ toc }: TableOfContentsProps) => {
   const getHeaderElements = () => {
     const headers = getElements('h1[id], h2[id], h3[id], h4[id], h5[id], h6[id]');
-    const headerElements = Array.from(headers).map((header) => {
+    const headerElements = headers.map((header) => {
       const id = header.getAttribute('id');
       if (!id) return null;
 
