@@ -33,7 +33,6 @@ const useLastCursorPosition = () => {
 
 const CustomCursor = () => {
   const [isRenderAllComplete, setIsRenderAllComplete] = useState(false);
-  const [isActive, setIsActive] = useState(false);
 
   const cursorRef = useRef<HTMLDivElement | null>(null);
 
@@ -56,12 +55,24 @@ const CustomCursor = () => {
     };
   }, []);
 
-  const updateCursor = (x: number, y: number) => {
+  const isElementInteractive = (el: Element | null): boolean => {
+    return Boolean(el?.classList.contains('clickable-element'));
+  };
+
+  const isElementInteractiveParent = (el?: Element | null): boolean => {
+    return Boolean(el?.parentElement?.classList.contains('clickable-element'));
+  };
+
+  const updateCursor = (x: number, y: number, hoveredElement: Element | null) => {
     if (!cursorRef.current) return;
 
     saveCursorPosition({ x, y });
 
-    if (isActive) {
+    if (
+      isElementInteractive(hoveredElement) ||
+      isElementInteractiveParent(hoveredElement) ||
+      getElements(ELEMENT_SELECTOR.CLICKABLE).some((el) => el.contains(hoveredElement))
+    ) {
       cursorRef.current.style.transform = `translate(-50%, -50%) translate(${x}px, ${y}px)`;
     } else {
       cursorRef.current.style.transform = `translate(-50%, -50%) translate(${x}px, ${y}px) scale(0.23, 0.23)`;
@@ -71,9 +82,10 @@ const CustomCursor = () => {
   const onMouseMove = (e: MouseEvent) => {
     const x = e.clientX;
     const y = e.clientY;
+    const hoveredElement = document.elementFromPoint(x, y);
 
     requestAnimationFrame(() => {
-      updateCursor(x, y);
+      updateCursor(x, y, hoveredElement);
     });
   };
 
@@ -84,11 +96,11 @@ const CustomCursor = () => {
     const animatable = getElements(ELEMENT_SELECTOR.ANIMATE);
 
     clickable.forEach((el) => {
-      el.addEventListener('mouseover', () => setIsActive(true));
-      el.addEventListener('mouseout', () => setIsActive(false));
+      el.classList.add('clickable-element');
     });
 
     animatable.forEach((el) => {
+      el.classList.add('animate-element');
       el.addEventListener('mousemove', (e) => {
         handleMouseMove(e, el);
       });
@@ -96,12 +108,8 @@ const CustomCursor = () => {
     });
 
     return () => {
-      clickable.forEach((el) => {
-        el.removeEventListener('mouseover', () => setIsActive(true));
-        el.removeEventListener('mouseout', () => setIsActive(false));
-      });
-
       animatable.forEach((el) => {
+        el.classList.remove('animate-element');
         el.removeEventListener('mousemove', (e) => {
           handleMouseMove(e, el);
         });
