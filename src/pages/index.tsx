@@ -226,7 +226,7 @@ const IndexPage: FC<PageProps<Queries.HomeQuery, ContextProps>> = ({ data, locat
               >
                 <div className="gradient-text">원하는 글을 찾아보세요&#46;</div>
                 <div className="flex">
-                  <span>For&nbsp;</span>
+                  <span>Find&nbsp;</span>
                   <RotatingTag tags={tagsArray} interval={4000} rotationDuration={2} />
                 </div>
               </Typography>
@@ -238,7 +238,7 @@ const IndexPage: FC<PageProps<Queries.HomeQuery, ContextProps>> = ({ data, locat
                   <div className="relative group">
                     <NoneActiveWrapper>
                       <label className={searchLabelClasses} htmlFor="search-post-input">
-                        What are you looking for?
+                        무엇을 찾고 계신가요?
                       </label>
                       <input
                         id="search-post-input"
@@ -288,7 +288,7 @@ const IndexPage: FC<PageProps<Queries.HomeQuery, ContextProps>> = ({ data, locat
       <ContentSpacer className="mb-56pxr">
         <Grid>
           <H5 as="div" className="col-span-full mb-24pxr">
-            Search blog by keyword
+            키워드로 원하는 글을 찾아보세요
           </H5>
           <div className="flex flex-wrap col-span-10 desktop:col-span-full">
             {tagsArray.map((tag) => {
@@ -313,11 +313,9 @@ const IndexPage: FC<PageProps<Queries.HomeQuery, ContextProps>> = ({ data, locat
 
       <AnimatePresence>
         {heroPost && !isSearching && isCategoryAll && (
-          <ContentSpacer className="mb-10pxr">
-            <AnimateFadeContainer>
-              <HeroPostCard post={heroPost} />
-            </AnimateFadeContainer>
-          </ContentSpacer>
+          <AnimateFadeContainer>
+            <HeroPostCard post={heroPost} />
+          </AnimateFadeContainer>
         )}
       </AnimatePresence>
 
