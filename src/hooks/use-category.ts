@@ -1,13 +1,12 @@
 import { useCallback, useEffect, useState } from 'react';
 
 import { window } from 'browser-monads-ts';
-import { navigate } from 'gatsby';
 import queryString from 'query-string';
 
 import * as ScrollManager from 'Libs/scroll';
 import { CATEGORY_TYPE, ROUTES } from 'Types/enum';
 
-const DEST_TOP = 114;
+const DEST_TOP = 204;
 
 export const useCategory = () => {
   const [category, setCategory] = useState(CATEGORY_TYPE.ALL);
@@ -15,13 +14,13 @@ export const useCategory = () => {
   const selectCategory = useCallback((category: string) => {
     setCategory(category);
     ScrollManager.go(DEST_TOP);
-    navigate(ROUTES.BLOG_CATEGORY.toUrl(category));
+    window.history.pushState(null, '', ROUTES.BLOG_CATEGORY.toUrl(category));
   }, []);
 
   const resetCategory = useCallback(() => {
     setCategory(CATEGORY_TYPE.ALL);
     ScrollManager.go(DEST_TOP);
-    navigate(ROUTES.HOME);
+    window.history.pushState(null, '', ROUTES.HOME);
   }, []);
 
   const changeCategory = useCallback((withScroll = true) => {
