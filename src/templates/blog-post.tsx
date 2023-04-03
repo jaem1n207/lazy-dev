@@ -116,7 +116,7 @@ export const query = graphql`
         category
         title
         summary
-        date(formatString: "MMMM DD, YY")
+        date(formatString: "MMMM Do, YY")
         thumbnail {
           childImageSharp {
             fixed(width: 800) {

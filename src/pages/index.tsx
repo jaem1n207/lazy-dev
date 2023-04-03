@@ -314,13 +314,9 @@ const IndexPage: FC<PageProps<Queries.HomeQuery, ContextProps>> = ({ data, locat
       <AnimatePresence>
         {heroPost && !isSearching && isCategoryAll && (
           <ContentSpacer className="mb-10pxr">
-            <Grid>
-              <div className="col-span-full">
-                <AnimateFadeContainer>
-                  <HeroPostCard post={heroPost} />
-                </AnimateFadeContainer>
-              </div>
-            </Grid>
+            <AnimateFadeContainer>
+              <HeroPostCard post={heroPost} />
+            </AnimateFadeContainer>
           </ContentSpacer>
         )}
       </AnimatePresence>
@@ -387,7 +383,7 @@ export const pageQuery = graphql`
             slug
           }
           frontmatter {
-            date(formatString: "MMMM DD, YY")
+            date(formatString: "MMMM Do, YYYY")
             title
             category
             summary
