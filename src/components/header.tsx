@@ -98,11 +98,9 @@ const Header = ({ children, size = 'medium' }: Props) => {
 
   if (size === 'large') {
     header = (
-      <h1 css={tw`m-0pxr text-40pxr`}>
-        <Link to={ROUTES.HOME} className="focus-primary">
-          {children}
-        </Link>
-      </h1>
+      <Link to={ROUTES.HOME} className="focus-primary m-0pxr text-40pxr">
+        {children}
+      </Link>
     );
   }
 

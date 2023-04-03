@@ -3,7 +3,7 @@ import React, { useEffect } from 'react';
 import { graphql, HeadProps, PageProps, Slice } from 'gatsby';
 import tw from 'twin.macro';
 
-import { ContentSpacer, Grid } from 'Components/common';
+import { ContentSpacer, Grid, H1 } from 'Components/common';
 import TableOfContents from 'Components/post/table-of-contents';
 import Seo from 'Components/seo';
 import Summary from 'Components/summary';
@@ -51,7 +51,7 @@ const BlogPost = ({ data, location }: PageProps<Queries.BlogPostBySlugQuery>) =>
                 <span css={tw`h-16pxr w-1pxr bg-custom-gray`} />
                 <span>{timeToRead} min read</span>
               </div>
-              <h1 css={tw`font-bold leading-snug text-36pxr tablet:text-32pxr`}>{title}</h1>
+              <H1 css={tw`font-bold leading-snug text-36pxr tablet:text-32pxr`}>{title}</H1>
             </header>
             <Summary summary={summary} />
             <div css={tw`h-1pxr mb-20pxr tablet:mb-16pxr`} />
