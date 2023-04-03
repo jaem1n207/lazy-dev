@@ -6,7 +6,7 @@ import queryString from 'query-string';
 import * as ScrollManager from 'Libs/scroll';
 import { CATEGORY_TYPE, ROUTES } from 'Types/enum';
 
-const DEST_TOP = 204;
+const DEST_TOP = 184;
 
 export const useCategory = () => {
   const [category, setCategory] = useState(CATEGORY_TYPE.ALL);
