@@ -48,7 +48,7 @@ export const wrapPageElement = ({ element, props }: any) => {
   return React.createElement(withCustomCursor(element.type), props);
 };
 
-const UPDATE_SCROLL_TIME_OUT = 1;
+const UPDATE_SCROLL_TIME_OUT = 30;
 
 /**
  * 블로그 상세 페이지에서 뒤로가기를 눌렀을 때 스크롤 위치를 유지하기 위한 설정
