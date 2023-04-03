@@ -41,6 +41,7 @@ const Title = ({
   children,
 }: TitleProps & { size: keyof typeof fontSize }) => {
   const Component = as ?? size;
+
   return (
     <Component
       id={id}
@@ -82,6 +83,7 @@ const Typography = ({
   children,
 }: React.PropsWithChildren<ParagraphProps>) => {
   const Component = as;
+
   return (
     <Component
       id={id}
