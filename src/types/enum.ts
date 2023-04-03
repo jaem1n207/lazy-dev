@@ -48,6 +48,7 @@ const ANIMATE_ELEMENT_PARTS = {
   textarea: `textarea:not(.${ELEMENT_CLASS.NONE_ACTIVE}):not([disabled])`,
   tabindex: `[tabindex]:not([tabindex="-1"]):not(.${ELEMENT_CLASS.NONE_ACTIVE}):not([disabled])`,
   label: `label:not([data-state='unchecked']):not(.${ELEMENT_CLASS.NONE_ACTIVE}):not([disabled])`,
+  heroSection: 'article.hero-section',
 };
 
 export const ELEMENT_SELECTOR = {
