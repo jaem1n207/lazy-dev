@@ -37,7 +37,7 @@ const Layout = ({ children, location, title, as = 'div' }: LayoutProps) => {
   }, []);
 
   return (
-    <As css={[isRootPath && tw`mb-80pxr`]}>
+    <As css={[isRootPath && tw`pb-80pxr`]}>
       <BaseStyles />
       <Slice alias="header" size={isRootPath ? 'large' : 'medium'}>
         {title}
