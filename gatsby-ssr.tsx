@@ -10,11 +10,7 @@ import { wrapPageElement as wrap } from './gatsby-browser';
  */
 export const wrapPageElement: GatsbySSR['wrapPageElement'] = wrap;
 
-export const onRenderBody: GatsbySSR['onRenderBody'] = ({
-  setHtmlAttributes,
-  setHeadComponents,
-}) => {
-  setHtmlAttributes({ lang: 'ko' });
+export const onRenderBody: GatsbySSR['onRenderBody'] = ({ setHeadComponents }) => {
   setHeadComponents([
     <meta
       key="google-search-console-verification"
@@ -25,8 +21,7 @@ export const onRenderBody: GatsbySSR['onRenderBody'] = ({
       key="preconnect-google-fonts"
       rel="preconnect"
       href="https://fonts.gstatic.com"
-      // @ts-ignore
-      crossOrigin="true"
+      crossOrigin="anonymous"
     />,
     <link
       key="preload-notosanskr-regular"
