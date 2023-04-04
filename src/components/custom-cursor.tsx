@@ -2,8 +2,8 @@ import React, { useCallback, useEffect, useRef, useState } from 'react';
 
 import { useEventListener } from 'Hooks/use-event-listener';
 import { getElements } from 'Libs/dom';
-import { clickableTransform } from 'Libs/transform';
-import { ELEMENT_SELECTOR } from 'Types/enum';
+import { movingElementsTransform } from 'Libs/transform';
+import { ELEMENT_CLASS, ELEMENT_SELECTOR } from 'Types/enum';
 
 const LAST_CURSOR_POSITION_KEY = 'lastCursorPosition';
 
@@ -36,12 +36,13 @@ const CustomCursor = () => {
 
   const cursorRef = useRef<HTMLDivElement | null>(null);
 
-  const { handleMouseMove, handleMouseOut } = clickableTransform();
+  const { handleMouseMove, handleMouseOut } = movingElementsTransform();
   const { lastCursorPosition, saveCursorPosition } = useLastCursorPosition();
 
   // DOM 트리가 변경되는지 감지하고 자식 노드가 변경되면 isRenderAllComplete를 true로 변경
   useEffect(() => {
     const observer = new MutationObserver(() => {
+      if (isRenderAllComplete) return;
       setIsRenderAllComplete(true);
     });
 
@@ -53,14 +54,14 @@ const CustomCursor = () => {
     return () => {
       observer.disconnect();
     };
-  }, []);
+  }, [isRenderAllComplete]);
 
   const isElementInteractive = (el: Element | null): boolean => {
-    return Boolean(el?.classList.contains('clickable-element'));
+    return Boolean(el?.classList.contains(ELEMENT_CLASS.CLICKABLE_ELEMENT));
   };
 
   const isElementInteractiveParent = (el?: Element | null): boolean => {
-    return Boolean(el?.parentElement?.classList.contains('clickable-element'));
+    return Boolean(el?.parentElement?.classList.contains(ELEMENT_CLASS.CLICKABLE_ELEMENT));
   };
 
   const updateCursor = (x: number, y: number, hoveredElement: Element | null) => {
@@ -87,36 +88,32 @@ const CustomCursor = () => {
     requestAnimationFrame(() => {
       updateCursor(x, y, hoveredElement);
     });
+
+    handleMouseMove(e);
   };
 
   useEventListener('mousemove', onMouseMove, document.body);
+  useEventListener('mouseout', handleMouseOut, document.body);
 
   useEffect(() => {
     const clickable = getElements(ELEMENT_SELECTOR.CLICKABLE);
-    const movingElements = getElements(ELEMENT_SELECTOR.ANIMATE);
+    const movingElements = getElements(ELEMENT_SELECTOR.MOVING);
 
     clickable.forEach((el) => {
-      el.classList.add('clickable-element');
+      el.classList.add(ELEMENT_CLASS.CLICKABLE_ELEMENT);
     });
 
+    // 'moving-element' 요소에 이벤트 리스너를 추가하는 대신 위에서 body에 두 개의 이벤트 리스너만 추가하기 때문에 성능 확보하기 위함.
     movingElements.forEach((el) => {
-      el.classList.add('moving-element');
-      el.addEventListener('mousemove', (e) => {
-        handleMouseMove(e, el);
-      });
-      el.addEventListener('mouseout', () => handleMouseOut(el));
+      el.classList.add(ELEMENT_CLASS.MOVING_ELEMENT);
     });
 
     return () => {
       movingElements.forEach((el) => {
-        el.classList.remove('moving-element');
-        el.removeEventListener('mousemove', (e) => {
-          handleMouseMove(e, el);
-        });
-        el.removeEventListener('mouseout', () => handleMouseOut(el));
+        el.classList.remove(ELEMENT_CLASS.MOVING_ELEMENT);
       });
     };
-  }, [handleMouseMove, handleMouseOut, isRenderAllComplete]);
+  }, [isRenderAllComplete]);
 
   return (
     <div

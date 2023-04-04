@@ -14,6 +14,8 @@ export const ROUTES = {
 
 export const ELEMENT_CLASS = {
   NONE_ACTIVE: 'none-active',
+  CLICKABLE_ELEMENT: 'clickable-element',
+  MOVING_ELEMENT: 'moving-element',
 };
 
 const ELEMENT_PARTS = {
@@ -33,7 +35,7 @@ const ELEMENT_PARTS = {
   label: `label:not([data-state='unchecked']):not([disabled])`,
 };
 
-const ANIMATE_ELEMENT_PARTS = {
+const MOVING_ELEMENT_PARTS = {
   details: `details:not(.${ELEMENT_CLASS.NONE_ACTIVE}):not([disabled])`,
   summary: `summary:not(.${ELEMENT_CLASS.NONE_ACTIVE}):not([disabled])`,
   anchor: `a:not(.${ELEMENT_CLASS.NONE_ACTIVE}):not([disabled])`,
@@ -53,5 +55,5 @@ const ANIMATE_ELEMENT_PARTS = {
 
 export const ELEMENT_SELECTOR = {
   CLICKABLE: Object.values(ELEMENT_PARTS).join(', '),
-  ANIMATE: Object.values(ANIMATE_ELEMENT_PARTS).join(', '),
+  MOVING: Object.values(MOVING_ELEMENT_PARTS).join(', '),
 };
