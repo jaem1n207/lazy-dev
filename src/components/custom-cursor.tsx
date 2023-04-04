@@ -43,6 +43,7 @@ const CustomCursor = () => {
   useEffect(() => {
     const observer = new MutationObserver(() => {
       if (isRenderAllComplete) return;
+
       setIsRenderAllComplete(true);
     });
 
@@ -97,13 +98,22 @@ const CustomCursor = () => {
 
   useEffect(() => {
     const clickable = getElements(ELEMENT_SELECTOR.CLICKABLE);
-    const movingElements = getElements(ELEMENT_SELECTOR.MOVING);
 
     clickable.forEach((el) => {
       el.classList.add(ELEMENT_CLASS.CLICKABLE_ELEMENT);
     });
 
-    // 'moving-element' 요소에 이벤트 리스너를 추가하는 대신 위에서 body에 두 개의 이벤트 리스너만 추가하기 때문에 성능 확보하기 위함.
+    return () => {
+      clickable.forEach((el) => {
+        el.classList.remove(ELEMENT_CLASS.CLICKABLE_ELEMENT);
+      });
+    };
+  }, []);
+
+  useEffect(() => {
+    const movingElements = getElements(ELEMENT_SELECTOR.MOVING);
+
+    // 'moving-element' 요소에 이벤트 리스너를 추가하는 대신 위에서 body에 두 개의 이벤트 리스너만 추가하기 때문에 성능 확보하기 위함
     movingElements.forEach((el) => {
       el.classList.add(ELEMENT_CLASS.MOVING_ELEMENT);
     });
