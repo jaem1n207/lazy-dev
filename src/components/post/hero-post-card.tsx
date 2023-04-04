@@ -52,6 +52,7 @@ const HeroPostCard = ({ post }: HeroPostCardProps) => {
               <div className="flex flex-col justify-between col-span-5 col-start-2 desktop:col-span-full">
                 <NoneActiveWrapper>
                   <Link
+                    aria-label={`Read more about ${post.title}`}
                     to={ROUTES.BLOG_POST.toUrl(post.slug)}
                     className="absolute z-10 rounded-lg focus-primary inset-0pxr left-0pxr right-0pxr mobile:left-0pxr mobile:right-0pxr foldable:-left-16pxr foldable:-right-16pxr tablet:-left-48pxr tablet:-right-48pxr desktop:-left-96pxr desktop:-right-96pxr"
                   />
@@ -97,14 +98,12 @@ const HeroPostCard = ({ post }: HeroPostCardProps) => {
               </div>
 
               <div className="relative col-span-4 col-start-8 mt-40pxr tablet:mt-32pxr desktop:col-span-full">
-                <div className="aspect-w-4 aspect-h-5 desktop:aspect-h-3 desktop:aspect-w-4">
-                  <GatsbyImage
-                    image={image}
-                    alt={post.title ?? 'post thumbnail'}
-                    loading="lazy"
-                    className="object-cover object-center w-full transition rounded-lg"
-                  />
-                </div>
+                <GatsbyImage
+                  image={image}
+                  alt={post.title ?? 'post thumbnail'}
+                  loading="lazy"
+                  className="object-cover object-center w-full transition rounded-lg"
+                />
               </div>
             </Grid>
           </ContentSpacer>
