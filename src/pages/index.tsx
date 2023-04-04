@@ -53,6 +53,8 @@ const useUpdateQueryStringValueWithoutNavigation = (queryKey: string, queryValue
   }, [queryKey, queryValue]);
 };
 
+const FeaturedPostTitle = 'Deep Clone an Object in JavaScript';
+
 const IndexPage: FC<PageProps<Queries.HomeQuery, ContextProps>> = ({ data, location }) => {
   const [currentCategory, setCurrentCategory] = useState<string | undefined>();
   const { category, selectCategory, resetCategory } = useCategory();
@@ -63,7 +65,7 @@ const IndexPage: FC<PageProps<Queries.HomeQuery, ContextProps>> = ({ data, locat
 
   const heroPost = useMemo(() => {
     const heroPost = data.postsRemark.edges.find(
-      (edge) => edge.node.frontmatter?.title === 'JS 객체 이해하기'
+      (edge) => edge.node.frontmatter?.title === FeaturedPostTitle
     );
     if (!heroPost) return undefined;
 
