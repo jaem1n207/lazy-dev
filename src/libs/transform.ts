@@ -18,8 +18,8 @@ export const clickableTransform = () => {
         ((mouseY - top - height / 2) / (height / 2)) * MAX_TRANSFORM_VALUE
       )
     );
-    element.style.transform = `matrix(1, 0, 0, 1, ${tx * TRANSFORM_INCREMENT}, ${
-      ty * TRANSFORM_INCREMENT
+    element.style.transform = `matrix(1, 0, 0, 1, ${tx * TRANSFORM_INCREMENT * 2}, ${
+      ty * TRANSFORM_INCREMENT * 2
     })`;
   };
 
