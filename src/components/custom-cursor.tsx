@@ -93,14 +93,14 @@ const CustomCursor = () => {
 
   useEffect(() => {
     const clickable = getElements(ELEMENT_SELECTOR.CLICKABLE);
-    const animatable = getElements(ELEMENT_SELECTOR.ANIMATE);
+    const movingElements = getElements(ELEMENT_SELECTOR.ANIMATE);
 
     clickable.forEach((el) => {
       el.classList.add('clickable-element');
     });
 
-    animatable.forEach((el) => {
-      el.classList.add('animate-element');
+    movingElements.forEach((el) => {
+      el.classList.add('moving-element');
       el.addEventListener('mousemove', (e) => {
         handleMouseMove(e, el);
       });
@@ -108,8 +108,8 @@ const CustomCursor = () => {
     });
 
     return () => {
-      animatable.forEach((el) => {
-        el.classList.remove('animate-element');
+      movingElements.forEach((el) => {
+        el.classList.remove('moving-element');
         el.removeEventListener('mousemove', (e) => {
           handleMouseMove(e, el);
         });

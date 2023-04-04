@@ -146,7 +146,7 @@
   .clickable-element {
   }
 
-  .animate-element {
+  .moving-element {
     transition: all 200ms ease-out !important;
     will-change: transform;
   }
