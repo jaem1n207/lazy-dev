@@ -1,7 +1,7 @@
 import React, { useCallback, useEffect, useRef, useState } from 'react';
 
 import { useEventListener } from 'Hooks/use-event-listener';
-import { getElements } from 'Libs/dom';
+import { addClass, getElements, removeClass } from 'Libs/dom';
 import { movingElementsTransform } from 'Libs/transform';
 import { ELEMENT_CLASS, ELEMENT_SELECTOR } from 'Types/enum';
 
@@ -100,12 +100,12 @@ const CustomCursor = () => {
     const clickable = getElements(ELEMENT_SELECTOR.CLICKABLE);
 
     clickable.forEach((el) => {
-      el.classList.add(ELEMENT_CLASS.CLICKABLE_ELEMENT);
+      addClass(el, ELEMENT_CLASS.CLICKABLE_ELEMENT);
     });
 
     return () => {
       clickable.forEach((el) => {
-        el.classList.remove(ELEMENT_CLASS.CLICKABLE_ELEMENT);
+        removeClass(el, ELEMENT_CLASS.CLICKABLE_ELEMENT);
       });
     };
   }, []);
@@ -115,12 +115,12 @@ const CustomCursor = () => {
 
     // 'moving-element' 요소에 이벤트 리스너를 추가하는 대신 위에서 body에 두 개의 이벤트 리스너만 추가하기 때문에 성능 확보하기 위함
     movingElements.forEach((el) => {
-      el.classList.add(ELEMENT_CLASS.MOVING_ELEMENT);
+      addClass(el, ELEMENT_CLASS.MOVING_ELEMENT);
     });
 
     return () => {
       movingElements.forEach((el) => {
-        el.classList.remove(ELEMENT_CLASS.MOVING_ELEMENT);
+        removeClass(el, ELEMENT_CLASS.MOVING_ELEMENT);
       });
     };
   }, [isRenderAllComplete]);
