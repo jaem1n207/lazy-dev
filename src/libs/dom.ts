@@ -4,8 +4,6 @@
  * modified by @jaem1n207
  */
 
-const BODY = 'body';
-
 export const getElements = (selector: string) =>
   Array.from(document.querySelectorAll(selector)) as HTMLElement[];
 export const getElement = (selector: string) => document.querySelector<HTMLElement>(selector);
@@ -14,11 +12,3 @@ export const removeClass = (element: Element, className: string) =>
   element.classList.remove(className);
 export const hasClass = (element: Element, className: string) =>
   element.classList.contains(className);
-export const getBody = () => getElement(BODY) || document.body;
-export const addClassToBody = (className: string) => addClass(getBody(), className);
-export const removeClassToBody = (className: string) => removeClass(getBody(), className);
-export const hasClassOfBody = (className: string) => hasClass(getBody(), className);
-export const getRect = (className: string) => getElement(className)?.getBoundingClientRect();
-export const getPosY = (className: string) => getRect(className)?.y;
-
-export const getDocumentHeight = () => document.documentElement.offsetHeight;
