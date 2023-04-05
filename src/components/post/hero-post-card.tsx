@@ -5,7 +5,7 @@ import { GatsbyImage, GatsbyImageProps } from 'gatsby-plugin-image';
 
 import { ContentSpacer, Grid, H2, H4, H5 } from 'Components/common';
 import NoneActiveWrapper from 'Components/common/none-active-wrapper';
-import { ROUTES } from 'Types/enum';
+import { ELEMENT_CLASS, ROUTES } from 'Types/enum';
 import Post from 'Types/post';
 
 interface HeroPostCardProps {
@@ -47,7 +47,7 @@ const HeroPostCard = ({ post }: HeroPostCardProps) => {
           <ContentSpacer>
             <Grid
               as="article"
-              className="bg-gray-800 rounded-lg pt-56pxr pb-48pxr desktop:pt-36pxr desktop:pb-24pxr group foldable:px-16pxr hero-section"
+              className={`bg-gray-800 rounded-lg pt-56pxr pb-48pxr desktop:pt-36pxr desktop:pb-24pxr group foldable:px-16pxr hero-section ${ELEMENT_CLASS.MOVING_ELEMENT}`}
             >
               <div className="flex flex-col justify-between col-span-5 col-start-2 desktop:col-span-full">
                 <NoneActiveWrapper>

@@ -5,7 +5,7 @@ import { GatsbyImage, GatsbyImageProps } from 'gatsby-plugin-image';
 
 import { H3, H6 } from 'Components/common';
 import NoneActiveWrapper from 'Components/common/none-active-wrapper';
-import { ROUTES } from 'Types/enum';
+import { ELEMENT_CLASS, ROUTES } from 'Types/enum';
 import Post from 'Types/post';
 
 interface PostCardProps {
@@ -46,7 +46,7 @@ const PostCard = ({
     <article className="relative w-full select-none drag-none">
       <Link
         to={ROUTES.BLOG_POST.toUrl(slug)}
-        className="relative block w-full group peer focus:outline-none"
+        className={`relative block w-full group peer focus:outline-none ${ELEMENT_CLASS.MOVING_ELEMENT}`}
       >
         <NoneActiveWrapper>
           <GatsbyImage
