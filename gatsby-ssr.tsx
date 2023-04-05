@@ -10,7 +10,13 @@ import { wrapPageElement as wrap } from './gatsby-browser';
  */
 export const wrapPageElement: GatsbySSR['wrapPageElement'] = wrap;
 
-export const onRenderBody: GatsbySSR['onRenderBody'] = ({ setHeadComponents }) => {
+export const onRenderBody: GatsbySSR['onRenderBody'] = ({
+  setHtmlAttributes,
+  setHeadComponents,
+}) => {
+  setHtmlAttributes({
+    lang: 'en',
+  });
   setHeadComponents([
     <meta
       key="google-search-console-verification"
