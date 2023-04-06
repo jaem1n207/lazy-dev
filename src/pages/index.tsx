@@ -328,6 +328,7 @@ const IndexPage: FC<PageProps<Queries.HomeQuery, ContextProps>> = ({ data, locat
             <Grid className="mb-64">
               <div className="flex flex-col items-center col-span-full">
                 <StaticImage
+                  draggable={false}
                   src="../images/not-found.png"
                   alt="Not Found Blog Post"
                   placeholder="blurred"
