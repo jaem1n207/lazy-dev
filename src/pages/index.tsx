@@ -4,6 +4,7 @@ import { MagnifyingGlassIcon, XMarkIcon } from '@heroicons/react/24/outline';
 import classNames from 'classnames';
 import { AnimatePresence, motion } from 'framer-motion';
 import { graphql, HeadFC, HeadProps, PageProps } from 'gatsby';
+import { StaticImage } from 'gatsby-plugin-image';
 import queryString from 'query-string';
 
 import CategoryFilter from 'Components/category/category-filter';
@@ -321,25 +322,38 @@ const IndexPage: FC<PageProps<Queries.HomeQuery, ContextProps>> = ({ data, locat
         )}
       </AnimatePresence>
 
-      <Spacer size="xs" className="col-span-full" />
       <AnimatePresence>
         <ContentSpacer ref={resultsRef}>
           {posts.length === 0 ? (
             <Grid className="mb-64">
-              <H3 as="p" variant="secondary" className="col-span-full">
-                No posts found.
-              </H3>
+              <div className="flex flex-col items-center col-span-full">
+                <StaticImage
+                  src="../images/not-found.png"
+                  alt="Not Found Blog Post"
+                  placeholder="blurred"
+                  layout="constrained"
+                  height={600}
+                  className="overflow-hidden"
+                />
+                <Spacer size="sm" />
+                <H3 as="p" variant="secondary" className="max-w-lg">
+                  검색하신 키워드에 해당하는 글이 없어요.
+                </H3>
+              </div>
             </Grid>
           ) : (
-            <AnimatedContainer>
-              <Grid className="mb-64">
-                {posts.map((post) => (
-                  <div key={post.slug} className="col-span-4 mb-40pxr">
-                    <PostCard post={post} />
-                  </div>
-                ))}
-              </Grid>
-            </AnimatedContainer>
+            <>
+              <Spacer size="xs" className="col-span-full" />
+              <AnimatedContainer>
+                <Grid className="mb-64">
+                  {posts.map((post) => (
+                    <div key={post.slug} className="col-span-4 mb-40pxr">
+                      <PostCard post={post} />
+                    </div>
+                  ))}
+                </Grid>
+              </AnimatedContainer>
+            </>
           )}
         </ContentSpacer>
       </AnimatePresence>

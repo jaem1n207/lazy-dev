@@ -31,14 +31,12 @@ const NotFoundPage: FC<PageProps<Queries.NotFoundQuery>> = ({ data, location }) 
           className="mb-16pxr"
         >
           <StaticImage
-            className="rounded-sm"
-            draggable={false}
-            layout="fixed"
-            width={256}
-            height={256}
+            src="../images/not-found.png"
+            alt="Not Found Blog URL"
             placeholder="blurred"
-            src="../images/favicon.png"
-            alt="404"
+            layout="constrained"
+            width={512}
+            className="overflow-hidden"
           />
         </motion.div>
         <motion.h1
