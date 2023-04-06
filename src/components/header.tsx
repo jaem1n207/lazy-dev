@@ -70,7 +70,7 @@ const ToggleMode = () => {
       <Switch
         width={50}
         height={24}
-        activeBoxShadow="0 0 2px 3px #ffa7c4"
+        activeBoxShadow="0 0 2px 3px var(--color-primary)"
         onColor="#1A202C"
         offColor="#0F1114"
         onChange={ThemeToggle}
