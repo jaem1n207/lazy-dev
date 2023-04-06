@@ -90,6 +90,8 @@ module.exports = {
         'tag-text': 'var(--color-tag-text)',
         'tag-background-checked': 'var(--color-tag-bg-checked)',
         'tag-text-checked': 'var(--color-tag-text-checked)',
+
+        'heading-highlight': 'var(--color-heading-highlight)',
       },
       fontFamily: {
         'noto-sans-kr': ['Noto Sans KR', ...defaultTheme.fontFamily.sans],

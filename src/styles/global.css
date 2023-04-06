@@ -54,9 +54,14 @@
     --color-gray-900: #1f2028;
     --color-slate-500: #a9adc1;
     --color-red-500: #ff4545;
+
+    --color-heading-highlight: hsla(0, 0%, 0%, 0.07);
   }
 
-  :root[class='dark'] {
+  /* 브라우저에서 번역을 통해 다른 클래스가 추가되는 경우에 대비하여 `dark` 클래스가 있을 때 다른 클래스가 있는지 여부에 관계없이 적용되도록 함 */
+  /* class가 dark로 시작하거나 또는 dark가 포함된 경우 */
+  :root[class^='dark'],
+  :root[class*=' dark'] {
     --color-primary: #ffa7c4;
     --color-secondary: #282c35;
     --color-background: #1c1c1e;
@@ -79,6 +84,8 @@
     --color-tag-text: #fff;
     --color-tag-bg-checked: #fff;
     --color-tag-text-checked: #000;
+
+    --color-heading-highlight: #3a3a3a;
   }
 
   .custom-cursor {
@@ -175,7 +182,5 @@ input:-webkit-autofill:active {
 input:-webkit-autofill::first-line {
   font-size: 1.125rem;
   font-weight: 500;
-  font-family: Matter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI',
-    Roboto, 'Helvetica Neue', Arial, 'Noto Sans', sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji',
-    'Segoe UI Symbol', 'Noto Color Emoji';
+  font-family: 'Noto Sans KR', system-ui, sans-serif;
 }

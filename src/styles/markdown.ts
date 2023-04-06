@@ -17,18 +17,13 @@ const Markdown = styled.article<{ rhythm: typeof typography['rhythm'] }>`
   h6 {
     font-family: 'Noto Sans KR', 'Fira Mono', Consolas, Liberation Mono, Menlo, monospace;
     font-weight: 700;
-    letter-spacing: -0.1px;
   }
 
   h1,
   h2,
   h3 {
-    border-bottom: 1px solid hsla(0, 0%, 0%, 0.07);
+    border-bottom: 1px solid var(--color-heading-highlight);
     padding-bottom: calc(0.40625rem - 1px);
-  }
-
-  .dark h2 {
-    border-bottom-color: #3a3a3a;
   }
 
   table {
