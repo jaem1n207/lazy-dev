@@ -100,7 +100,12 @@ const devPlugins: GatsbyConfig['plugins'] = [
     resolve: 'gatsby-plugin-typescript',
   },
   'gatsby-plugin-emotion',
-  'gatsby-plugin-postcss',
+  {
+    resolve: 'gatsby-plugin-postcss',
+    options: {
+      postCssPlugins: [require('tailwindcss'), require('autoprefixer')],
+    },
+  },
 ];
 
 const markdownPlugins: GatsbyConfig['plugins'] = [
