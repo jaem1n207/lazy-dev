@@ -15,7 +15,7 @@ const Summary = ({ summary }: SummaryProps) => {
         </div>
       </div>
       <p className="font-bold">{summary}</p>
-      <div className="w-full h-1pxr box-decoration-slice bg-gradient-to-r from-hyperlink to-primary my-48pxr tablet:my-40pxr" />
+      <div className="w-full h-1pxr box-decoration-slice bg-gradient-to-r from-hyperlink to-primary my-40pxr tablet:my-32pxr" />
     </section>
   );
 };
