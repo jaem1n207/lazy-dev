@@ -40,7 +40,7 @@ const BlogPost = ({ data, location }: PageProps<Queries.BlogPostBySlugQuery>) =>
               <TableOfContents toc={tableOfContents} />
             </div>
           )}
-          <div css={tw`col-span-6 col-start-4 desktop:(col-span-full col-start-1)`}>
+          <div css={tw`col-span-8 col-start-3 desktop:(col-span-full col-start-1)`}>
             <header>
               <div
                 css={tw`flex items-center font-bold text-custom-gray text-16pxr gap-8pxr pb-4pxr`}
@@ -62,7 +62,7 @@ const BlogPost = ({ data, location }: PageProps<Queries.BlogPostBySlugQuery>) =>
               rhythm={rhythm}
             />
             <div
-              css={tw`w-full h-1pxr my-64pxr box-decoration-slice bg-gradient-to-r from-hyperlink to-primary tablet:my-48pxr`}
+              css={tw`w-full h-1pxr my-64pxr box-decoration-slice bg-gradient-to-r from-primary to-gradient-cyan tablet:my-48pxr`}
             />
             <Slice alias="bio" />
           </div>

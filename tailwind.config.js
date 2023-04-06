@@ -81,7 +81,6 @@ module.exports = {
         secondary: 'var(--color-secondary)',
         text: 'var(--color-text)',
         'custom-gray': 'var(--text-custom-gray)',
-        hyperlink: 'var(--color-hyperlink)',
         'article-background': 'var(--article-background)',
         'article-border': 'var(--article-border)',
         'button-text': 'var(--button-text)',
@@ -91,7 +90,8 @@ module.exports = {
         'tag-background-checked': 'var(--color-tag-bg-checked)',
         'tag-text-checked': 'var(--color-tag-text-checked)',
 
-        'heading-highlight': 'var(--color-heading-highlight)',
+        'border-highlight': 'var(--color-border-highlight)',
+        'gradient-cyan': 'var(--color-cyan-50)',
       },
       fontFamily: {
         'noto-sans-kr': ['Noto Sans KR', ...defaultTheme.fontFamily.sans],
