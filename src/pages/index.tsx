@@ -172,10 +172,10 @@ const IndexPage: FC<PageProps<Queries.HomeQuery, ContextProps>> = ({ data, locat
   };
 
   useEffect(() => {
-    if (queryString.parse(location.search).category) {
+    if (!isEmptyString(category)) {
       setQuery('');
     }
-  }, [location.search]);
+  }, [category]);
 
   const resultsRef = useRef<HTMLOListElement>(null);
   const handleScrollToResults = (event: KeyboardEvent<HTMLElement>) => {
