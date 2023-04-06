@@ -115,6 +115,8 @@ const CustomCursor = () => {
 
     // 'moving-element' 요소에 이벤트 리스너를 추가하는 대신 위에서 body에 두 개의 이벤트 리스너만 추가하기 때문에 성능 확보하기 위함
     movingElements.forEach((el) => {
+      // medium-zoom-image 이미지는 확대하기 위한 이미지이기 때문에 커서가 올라가도 moving-element 클래스를 추가하지 않음
+      if (el.classList.contains('medium-zoom-image')) return;
       addClass(el, ELEMENT_CLASS.MOVING_ELEMENT);
     });
 
