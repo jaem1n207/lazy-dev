@@ -1,16 +1,8 @@
-import React, {
-  ChangeEvent,
-  FC,
-  KeyboardEvent,
-  MouseEvent,
-  useEffect,
-  useMemo,
-  useRef,
-  useState,
-} from 'react';
+import React, { ChangeEvent, FC, KeyboardEvent, useEffect, useMemo, useRef, useState } from 'react';
 
+import { MagnifyingGlassIcon, XMarkIcon } from '@heroicons/react/24/outline';
 import classNames from 'classnames';
-import { AnimatePresence } from 'framer-motion';
+import { AnimatePresence, motion } from 'framer-motion';
 import { graphql, HeadFC, HeadProps, PageProps } from 'gatsby';
 import queryString from 'query-string';
 
@@ -58,6 +50,8 @@ const FeaturedPostTitle = 'Deep Clone an Object in JavaScript';
 const IndexPage: FC<PageProps<Queries.HomeQuery, ContextProps>> = ({ data, location }) => {
   const [currentCategory, setCurrentCategory] = useState<string | undefined>();
   const { category, selectCategory, resetCategory } = useCategory();
+
+  const searchInputRef = useRef<HTMLInputElement>(null);
 
   const isCategoryAll = useMemo(() => {
     return category === CATEGORY_TYPE.ALL;
@@ -171,10 +165,9 @@ const IndexPage: FC<PageProps<Queries.HomeQuery, ContextProps>> = ({ data, locat
     setQuery(value.toLowerCase());
   };
 
-  const handleClearSearch = (event: MouseEvent<HTMLButtonElement>) => {
-    event.preventDefault();
-
+  const handleClearSearch = () => {
     setQuery('');
+    searchInputRef.current?.focus();
   };
 
   useEffect(() => {
@@ -194,14 +187,14 @@ const IndexPage: FC<PageProps<Queries.HomeQuery, ContextProps>> = ({ data, locat
   };
 
   const searchLabelBaseClasses =
-    'absolute top-0pxr left-0pxr w-full h-full flex items-center pl-[10px] duration-200';
+    'absolute top-0pxr left-0pxr w-full h-full flex items-center duration-200 pl-40pxr';
   const searchLabelFocusedClasses = classNames(
     {
       'group-focus-within:text-18pxr foldable:group-focus-within:text-16pxr mobile:group-focus-within:text-12pxr group-focus-within:h-5/6 group-focus-within:-translate-y-full group-focus-within:pl-0pxr':
         isEmptyString(queryValue),
     },
     {
-      'h-5/6 -translate-y-full pl-0pxr text-18pxr foldable:text-16pxr mobile:text-14pxr':
+      'h-5/6 -translate-y-full group-focus-within:pl-0pxr pl-0pxr text-18pxr foldable:text-16pxr mobile:text-14pxr':
         !isEmptyString(queryValue),
     }
   );
@@ -216,7 +209,7 @@ const IndexPage: FC<PageProps<Queries.HomeQuery, ContextProps>> = ({ data, locat
         resetCategory={resetCategory}
       />
 
-      <Spacer size="xs" className="col-span-full" />
+      <Spacer size="sm" className="col-span-full" />
 
       {!isEmptyArray(tagsArray) && (
         <ContentSpacer>
@@ -233,60 +226,67 @@ const IndexPage: FC<PageProps<Queries.HomeQuery, ContextProps>> = ({ data, locat
                 </div>
               </Typography>
 
-              <Spacer size="xs" />
+              <Spacer size="sm" />
 
-              <div className="flex items-center justify-between my-24pxr">
-                <div className="flex items-center">
+              <div className="flex items-center justify-between my-24pxr col-span-full">
+                <form className="relative flex items-center" onSubmit={(e) => e.preventDefault()}>
+                  <NoneActiveWrapper>
+                    <button
+                      title="Search"
+                      className="absolute z-10 flex items-center h-full top-0pxr left-12pxr w-24pxr text-tag-text"
+                    >
+                      <MagnifyingGlassIcon />
+                    </button>
+                  </NoneActiveWrapper>
                   <div className="relative group">
                     <NoneActiveWrapper>
                       <label className={searchLabelClasses} htmlFor="search-post-input">
                         무엇을 찾고 계신가요?
                       </label>
                       <input
+                        ref={searchInputRef}
                         id="search-post-input"
-                        type="text"
-                        className="rounded-full w-[16em] foldable:w-[12em] bg-secondary outline-none py-12pxr px-16pxr text-18pxr foldable:text-16pxr focus-primary group-focus-within:bg-opacity-60"
+                        type="search"
+                        className="w-full rounded-full outline-none appearance-none bg-secondary py-24pxr foldable:py-12pxr pl-48pxr pr-64pxr text-18pxr foldable:text-16pxr focus-primary group-focus-within:bg-opacity-60"
                         value={queryValue}
                         onChange={handleSearchInputChange}
                         onKeyUp={handleScrollToResults}
                       />
                     </NoneActiveWrapper>
                   </div>
-                  {queryValue.length > 0 && (
-                    <button
-                      data-hoverable="true"
-                      type="button"
-                      className="text-gray-500 ml-12pxr text-16pxr hover:text-gray-700 focus-primary"
-                      onClick={handleClearSearch}
-                    >
-                      <span className="sr-only">Clear search</span>
-                      <svg
-                        className="w-16pxr h-16pxr"
-                        xmlns="http://www.w3.org/2000/svg"
-                        fill="none"
-                        viewBox="0 0 24 24"
-                        stroke="currentColor"
-                      >
-                        <path
-                          strokeLinecap="round"
-                          strokeLinejoin="round"
-                          strokeWidth={2}
-                          d="M6 18L18 6M6 6l12 12"
-                        />
-                      </svg>
-                    </button>
-                  )}
-                  <div className="ml-24pxr">
-                    <span className="text-text text-16pxr">{posts.length}</span>
+                  <AnimatePresence>
+                    {queryValue.length > 0 && (
+                      <NoneActiveWrapper>
+                        <motion.button
+                          aria-label="Clear search"
+                          title="Clear search"
+                          data-hoverable="true"
+                          animate={{ opacity: 1 }}
+                          exit={{ opacity: 0 }}
+                          initial={{ opacity: 0 }}
+                          type="reset"
+                          className="absolute my-auto -translate-y-1/2 rounded-full focus-primary right-36pxr top-1/2 text-tag-text mr-8pxr"
+                          onClick={handleClearSearch}
+                          tabIndex={-1}
+                        >
+                          <span className="sr-only">Clear search</span>
+                          <XMarkIcon className="w-24pxr h-24pxr" />
+                        </motion.button>
+                      </NoneActiveWrapper>
+                    )}
+                  </AnimatePresence>
+                  <div className="absolute flex items-center h-full top-0pxr right-4pxr w-32pxr text-tag-text">
+                    {posts.length}
                   </div>
-                </div>
+                </form>
               </div>
             </div>
           </Grid>
         </ContentSpacer>
       )}
 
-      <Spacer size="xs" className="col-span-full" />
+      <Spacer size="sm" className="col-span-full" />
+
       <ContentSpacer className="mb-56pxr">
         <Grid>
           <H5 as="div" className="col-span-full mb-24pxr">
