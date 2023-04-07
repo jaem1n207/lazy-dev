@@ -157,12 +157,12 @@
 
   .gradient-text {
     background-image: linear-gradient(
-      90.13deg,
-      #d1aad7 0.11%,
-      #c88bc4 25.06%,
+      90deg,
+      #f2056f 0.11%,
+      #d6cbf6 25.06%,
       #7b8fdd 50%,
-      #86bff2 74.8%,
-      #bbdef2 99.76%
+      var(--color-blue-300) 74.8%,
+      var(--color-blue-500) 99.76%
     );
     -webkit-background-clip: text;
     background-clip: text;
@@ -184,17 +184,7 @@ input:-webkit-autofill,
 input:-webkit-autofill:hover,
 input:-webkit-autofill:focus,
 input:-webkit-autofill:active {
-  -webkit-text-fill-color: black !important;
-  -webkit-box-shadow: 0 0 0 999px var(--color-bg-secondary) inset !important;
-  box-shadow: 0 0 0 999px var(--color-bg-secondary) inset !important;
-  background-clip: content-box !important;
-}
-
-.dark input:-webkit-autofill,
-.dark input:-webkit-autofill:hover,
-.dark input:-webkit-autofill:focus,
-.dark input:-webkit-autofill:active {
-  -webkit-text-fill-color: white !important;
+  -webkit-text-fill-color: var(--color-text-primary) !important;
   -webkit-box-shadow: 0 0 0 999px var(--color-bg-secondary) inset !important;
   box-shadow: 0 0 0 999px var(--color-bg-secondary) inset !important;
   background-clip: content-box !important;
@@ -202,6 +192,6 @@ input:-webkit-autofill:active {
 
 input:-webkit-autofill::first-line {
   font-size: 1.125rem;
-  font-weight: 500;
+  font-weight: 400;
   font-family: 'Noto Sans KR', system-ui, sans-serif;
 }

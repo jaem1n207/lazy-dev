@@ -15,12 +15,12 @@ interface CommonProps {
 }
 
 const fontSize = {
-  h1: 'leading-tight text-48pxr tablet:text-36pxr',
-  h2: 'leading-tight text-36pxr tablet:text-30pxr',
-  h3: 'font-medium text-30pxr leading-9 tablet:text-24pxr tablet:leading-8',
-  h4: 'font-medium text-24pxr leading-8 tablet:text-20pxr tablet:leading-7',
-  h5: 'font-medium text-20pxr leading-7 tablet:text-18pxr tablet:leading-6',
-  h6: 'font-medium text-18pxr leading-6',
+  h1: 'leading-tight text-48pxr tablet:text-36pxr foldable:text-30pxr',
+  h2: 'leading-tight text-36pxr tablet:text-30pxr foldable:text-24pxr',
+  h3: 'font-medium text-30pxr leading-9 tablet:text-24pxr tablet:leading-8 foldable:text-20pxr foldable:leading-7',
+  h4: 'font-medium text-24pxr leading-8 tablet:text-20pxr tablet:leading-7 foldable:text-18pxr foldable:leading-6',
+  h5: 'font-medium text-20pxr leading-7 tablet:text-18pxr tablet:leading-6 foldable:text-16pxr foldable:leading-5',
+  h6: 'font-medium text-18pxr leading-6 tablet:text-16pxr tablet:leading-5 foldable:text-14pxr foldable:leading-4',
 };
 
 const titleColors = {

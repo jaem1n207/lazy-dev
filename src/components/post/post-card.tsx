@@ -3,7 +3,7 @@ import React, { useMemo } from 'react';
 import { graphql, Link, useStaticQuery } from 'gatsby';
 import { GatsbyImage, GatsbyImageProps } from 'gatsby-plugin-image';
 
-import { H3, H6 } from 'Components/common';
+import { H3, H5, H6 } from 'Components/common';
 import NoneActiveWrapper from 'Components/common/none-active-wrapper';
 import { ELEMENT_CLASS, ROUTES } from 'Types/enum';
 import Post from 'Types/post';
@@ -56,9 +56,9 @@ const PostCard = ({
             className="object-cover object-center w-full transition rounded-lg focus-primary"
           />
         </NoneActiveWrapper>
-        <div className="mt-32pxr text-20pxr">
+        <H5 as="div" className="mt-32pxr" variant="secondary">
           <time dateTime={date!}>{date}</time> — {timeToRead} min read
-        </div>
+        </H5>
         <H3 as="div" className="mt-16pxr">
           {title}
         </H3>
