@@ -77,7 +77,7 @@ interface ParagraphProps extends CommonProps {
 const Typography = ({
   as = 'p',
   prose = true,
-  textColorClassName = 'text-tag-text',
+  textColorClassName = 'text-text-primary',
   className,
   id,
   children,

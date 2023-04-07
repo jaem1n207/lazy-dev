@@ -234,7 +234,7 @@ const IndexPage: FC<PageProps<Queries.HomeQuery, ContextProps>> = ({ data, locat
                   <NoneActiveWrapper>
                     <button
                       title="Search"
-                      className="absolute z-10 flex items-center h-full top-0pxr left-12pxr w-24pxr text-tag-text"
+                      className="absolute z-10 flex items-center h-full top-0pxr left-12pxr w-24pxr text-text-primary"
                     >
                       <MagnifyingGlassIcon />
                     </button>
@@ -248,7 +248,7 @@ const IndexPage: FC<PageProps<Queries.HomeQuery, ContextProps>> = ({ data, locat
                         ref={searchInputRef}
                         id="search-post-input"
                         type="search"
-                        className="w-full rounded-full outline-none appearance-none bg-bg-secondary py-24pxr foldable:py-12pxr pl-48pxr pr-64pxr text-18pxr foldable:text-16pxr focus-primary group-focus-within:bg-opacity-60"
+                        className="w-full rounded-full outline-none appearance-none bg-bg-secondary py-24pxr foldable:py-12pxr pl-48pxr pr-64pxr text-18pxr foldable:text-16pxr focus-primary group-focus-within:bg-opacity-60 border-1pxr border-border-secondary"
                         value={queryValue}
                         onChange={handleSearchInputChange}
                         onKeyUp={handleScrollToResults}
@@ -266,7 +266,7 @@ const IndexPage: FC<PageProps<Queries.HomeQuery, ContextProps>> = ({ data, locat
                           exit={{ opacity: 0 }}
                           initial={{ opacity: 0 }}
                           type="reset"
-                          className="absolute my-auto -translate-y-1/2 rounded-full focus-primary right-36pxr top-1/2 text-tag-text mr-8pxr"
+                          className="absolute my-auto -translate-y-1/2 rounded-full focus-primary right-36pxr top-1/2 text-text-primary mr-8pxr"
                           onClick={handleClearSearch}
                           tabIndex={-1}
                         >
@@ -276,7 +276,7 @@ const IndexPage: FC<PageProps<Queries.HomeQuery, ContextProps>> = ({ data, locat
                       </NoneActiveWrapper>
                     )}
                   </AnimatePresence>
-                  <div className="absolute flex items-center h-full top-0pxr right-4pxr w-32pxr text-tag-text">
+                  <div className="absolute flex items-center h-full top-0pxr right-4pxr w-32pxr text-text-primary">
                     {posts.length}
                   </div>
                 </form>

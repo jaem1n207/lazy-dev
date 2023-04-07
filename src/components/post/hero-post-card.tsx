@@ -42,12 +42,12 @@ const HeroPostCard = ({ post }: HeroPostCardProps) => {
 
   return (
     <div className="w-full px-0pxr desktop:px-32pxr">
-      <div className="bg-transparent rounded-lg desktop:bg-gray-800">
+      <div className="bg-transparent rounded-lg">
         <div className="mx-0pxr tablet:-mx-32pxr">
           <ContentSpacer>
             <Grid
               as="article"
-              className={`bg-gray-800 rounded-lg pt-56pxr pb-48pxr desktop:pt-36pxr desktop:pb-24pxr group foldable:px-16pxr hero-section ${ELEMENT_CLASS.MOVING_ELEMENT}`}
+              className={`bg-bg-secondary rounded-lg pt-56pxr pb-48pxr desktop:pt-36pxr desktop:pb-24pxr group foldable:px-16pxr hero-section ${ELEMENT_CLASS.MOVING_ELEMENT}`}
             >
               <div className="flex flex-col justify-between col-span-5 col-start-2 desktop:col-span-full">
                 <NoneActiveWrapper>
@@ -60,7 +60,7 @@ const HeroPostCard = ({ post }: HeroPostCardProps) => {
 
                 <div>
                   <H5 as="h2">추천 글</H5>
-                  <H2 as="h3" className="mt-40pxr tablet:mt-32pxr">
+                  <H2 as="h3" className="mt-40pxr tablet:mt-32pxr text-text-primary">
                     {post.title}
                   </H2>
                   <H4 as="div" variant="secondary" className="mt-24pxr">
@@ -72,7 +72,7 @@ const HeroPostCard = ({ post }: HeroPostCardProps) => {
                   <div className="relative w-24pxr h-24pxr desktop:w-32pxr desktop:h-32pxr">
                     <div className="absolute w-full h-full transition-all duration-300 ease-in-out border-2 rounded-full border-primary group-hover:border-transparent group-hover:animate-arrow">
                       <svg
-                        className="absolute w-full h-full text-white group-hover:text-primary"
+                        className="absolute w-full h-full text-text-primary group-hover:text-primary"
                         viewBox="0 0 24 24"
                         fill="none"
                         xmlns="http://www.w3.org/2000/svg"

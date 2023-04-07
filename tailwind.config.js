@@ -76,18 +76,17 @@ module.exports = {
           500: 'var(--color-red-500)',
         },
 
-        'tag-text': 'var(--color-tag-text)',
-        'tag-background-checked': 'var(--color-tag-bg-checked)',
-        'tag-text-checked': 'var(--color-tag-text-checked)',
-
         /* contents */
         primary: 'var(--color-primary)',
         'text-primary': 'var(--color-text-primary)',
         'text-secondary': 'var(--color-text-secondary)',
+        'text-inner': 'var(--color-text-inner)',
         'bg-primary': 'var(--color-bg-primary)',
         'bg-secondary': 'var(--color-bg-secondary)',
+        'bg-inner': 'var(--color-bg-inner)',
         'bg-divider': 'var(--color-bg-divider)',
         'border-primary': 'var(--color-border-primary)',
+        'border-secondary': 'var(--color-border-secondary)',
         'all-custom-gray': 'var(--color-all-custom-gray)',
         'bg-tag': 'var(--color-bg-tag)',
 

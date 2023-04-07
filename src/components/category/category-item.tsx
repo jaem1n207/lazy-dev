@@ -23,7 +23,7 @@ const CategoryItem = ({
   const tabRef = React.useRef<HTMLButtonElement | null>(null);
 
   const buttonClasses = classNames(
-    'shadow-sm focus-primary border-1pxr bg-bg-tag border-zinc-700',
+    'shadow-sm focus-primary bg-bg-tag border-1pxr border-border-secondary',
     {
       'mr-12pxr': title === CATEGORY_TYPE.ALL,
     }
