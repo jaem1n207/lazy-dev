@@ -16,7 +16,7 @@ interface CategoryFilterProps {
 
 const ACTIVE_ID = 'active';
 
-const Nav = tw.nav`z-20 sticky top-0pxr mb-48pxr [button]:(block font-bold transition-colors rounded-lg py-8pxr px-16pxr text-14pxr hover:(text-background bg-primary) foldable:(!py-6pxr !px-12pxr !text-13pxr)) [button[data-ui=${ACTIVE_ID}]]:(text-background bg-primary)`;
+const Nav = tw.nav`z-20 sticky top-0pxr mb-48pxr [button]:(block font-bold transition-colors rounded-lg py-8pxr px-16pxr text-14pxr hover:(text-text-secondary bg-primary) foldable:(!py-6pxr !px-12pxr !text-13pxr)) [button[data-ui=${ACTIVE_ID}]]:(text-text-secondary bg-primary)`;
 
 const CategoryFilter = ({
   category,
@@ -55,7 +55,7 @@ const CategoryFilter = ({
   return (
     <Nav>
       <ContentSpacer>
-        <div className="flex items-center mx-auto rounded-lg bg-secondary max-w-7xl px-24pxr py-12pxr foldable:py-8pxr foldable:px-16pxr">
+        <div className="flex items-center mx-auto rounded-lg border-border-primary border-1pxr bg-bg-secondary max-w-7xl px-24pxr py-12pxr foldable:py-8pxr foldable:px-16pxr">
           <CategoryItem
             title={CATEGORY_TYPE.ALL}
             selectedCategory={category}
@@ -63,7 +63,7 @@ const CategoryFilter = ({
             scrollToCenter={scrollToCenter}
             ACTIVE_ID={ACTIVE_ID}
           />
-          <div className="w-1pxr h-32pxr mx-8pxr -translate-x-[50%] bg-divider" />
+          <div className="w-1pxr h-32pxr mx-8pxr -translate-x-[50%] bg-bg-divider" />
           <ul
             ref={categoryListRef}
             className="flex w-full overflow-x-auto scroll-smooth gap-10pxr scrollbar-hide p-12pxr"

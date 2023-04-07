@@ -24,7 +24,7 @@ const Tag = ({ tag, checked, onChange, onKeyUp, disabled }: TagProps) => {
       className={classNames(
         `inline-block relative mb-16pxr mr-16pxr select-none h-auto w-auto rounded-full px-24pxr py-12pxr transition tablet:px-16pxr tablet:py-8pxr tablet:text-14pxr outline-none ${ELEMENT_CLASS.MOVING_ELEMENT}`,
         {
-          'text-tag-text bg-tag-background': !checked,
+          'text-tag-text bg-bg-tag': !checked,
           'text-tag-text-checked bg-tag-background-checked': checked,
           'focus-primary opacity-100': !disabled,
           'opacity-25': disabled,

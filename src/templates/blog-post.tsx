@@ -43,12 +43,12 @@ const BlogPost = ({ data, location }: PageProps<Queries.BlogPostBySlugQuery>) =>
           <div css={tw`col-span-8 col-start-3 desktop:(col-span-full col-start-1)`}>
             <header>
               <div
-                css={tw`flex items-center font-bold text-custom-gray text-16pxr gap-8pxr pb-4pxr`}
+                css={tw`flex items-center font-bold text-all-custom-gray text-16pxr gap-8pxr pb-4pxr`}
               >
                 <time dateTime={date!}>{date}</time>
-                <span css={tw`h-16pxr w-1pxr bg-custom-gray`} />
+                <span css={tw`h-16pxr w-1pxr bg-all-custom-gray`} />
                 <span>{category}</span>
-                <span css={tw`h-16pxr w-1pxr bg-custom-gray`} />
+                <span css={tw`h-16pxr w-1pxr bg-all-custom-gray`} />
                 <span>{timeToRead} min read</span>
               </div>
               <H1 css={tw`font-bold leading-snug text-36pxr tablet:text-32pxr`}>{title}</H1>
