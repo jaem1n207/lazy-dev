@@ -58,6 +58,10 @@ module.exports = {
         white: 'var(--color-white)',
         black: 'var(--color-black)',
 
+        blue: {
+          300: 'var(--color-blue-300)',
+          500: 'var(--color-blue-500)',
+        },
         gray: {
           100: 'var(--color-gray-100)',
           200: 'var(--color-gray-200)',
@@ -69,11 +73,22 @@ module.exports = {
           800: 'var(--color-gray-800)',
           900: 'var(--color-gray-900)',
         },
+        zinc: {
+          900: 'var(--color-zinc-900)',
+        },
         slate: {
+          200: 'var(--color-slate-200)',
           500: 'var(--color-slate-500)',
+          700: 'var(--color-slate-700)',
+        },
+        neutral: {
+          300: 'var(--color-neutral-300)',
         },
         red: {
           500: 'var(--color-red-500)',
+        },
+        cyan: {
+          50: 'var(--color-cyan-50)',
         },
 
         /* contents */
