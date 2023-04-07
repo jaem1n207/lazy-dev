@@ -172,7 +172,7 @@ const Markdown = styled.article<{ rhythm: typeof typography['rhythm'] }>`
   pre[class*='language-'] {
     font-family: 'Fira Mono', Consolas, 'Liberation Mono', Menlo, monospace;
     background-color: var(--color-pre-bg) !important;
-    color: var(--color-text);
+    color: var(--color-text-primary);
     text-align: left;
     white-space: pre;
     word-spacing: normal;

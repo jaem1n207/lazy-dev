@@ -76,10 +76,8 @@ module.exports = {
           500: 'var(--color-red-500)',
         },
 
-        primary: 'var(--color-primary)',
         background: 'var(--color-background)',
         secondary: 'var(--color-secondary)',
-        text: 'var(--color-text)',
         'custom-gray': 'var(--text-custom-gray)',
         'article-background': 'var(--article-background)',
         'article-border': 'var(--article-border)',
@@ -90,6 +88,11 @@ module.exports = {
         'tag-background-checked': 'var(--color-tag-bg-checked)',
         'tag-text-checked': 'var(--color-tag-text-checked)',
 
+        /* contents */
+        primary: 'var(--color-primary)',
+        'text-primary': 'var(--color-text-primary)',
+
+        /* markdown */
         'border-highlight': 'var(--color-border-highlight)',
         'gradient-cyan': 'var(--color-cyan-50)',
       },

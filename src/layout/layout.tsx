@@ -24,7 +24,7 @@ const Layout = ({ children, location, title, as = 'div' }: LayoutProps) => {
       'tracking-tight',
       'transition',
       'duration-500',
-      'text-text',
+      'text-text-primary',
       'bg-background',
       'font-noto-sans-kr',
     ];

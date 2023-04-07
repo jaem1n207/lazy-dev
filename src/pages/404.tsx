@@ -40,7 +40,7 @@ const NotFoundPage: FC<PageProps<Queries.NotFoundQuery>> = ({ data, location }) 
           />
         </motion.div>
         <motion.h1
-          className="font-bold text-text text-36pxr mb-16pxr"
+          className="font-bold text-text-primary text-36pxr mb-16pxr"
           initial={{ opacity: 0, y: -50 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.2 }}
@@ -48,7 +48,7 @@ const NotFoundPage: FC<PageProps<Queries.NotFoundQuery>> = ({ data, location }) 
           앗! 죄송해요.
         </motion.h1>
         <motion.p
-          className="text-center text-text text-18pxr mb-32pxr"
+          className="text-center text-text-primary text-18pxr mb-32pxr"
           initial={{ opacity: 0, y: -50 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.4 }}

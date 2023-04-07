@@ -21,7 +21,6 @@
     --color-primary: #36a3ff;
     --color-secondary: #f4f7f8;
     --color-background: #fff;
-    --color-text: #111111;
     --text-custom-gray: #696969;
     --article-background: #f0f0f066;
     --article-border: #0a2647;
@@ -37,7 +36,9 @@
     --color-white: #fff;
     --color-black: #000;
     --color-black-800: #252525;
+    --color-black-850: #111111;
     --color-black-900: hsla(0, 0%, 0%, 0.07);
+    --color-neutral-300: #cbd5e0;
     --color-gray-100: #f7f7f7;
     --color-gray-200: #e6e9ee;
     --color-gray-300: #dde0e4;
@@ -50,6 +51,9 @@
     --color-slate-500: #a9adc1;
     --color-red-500: #ff4545;
     --color-cyan-50: #bbdef2;
+
+    /* contents */
+    --color-text-primary: var(--color-black-850);
 
     /* markdown */
     --color-border-highlight: var(--color-black-900);
@@ -72,7 +76,6 @@
     --color-primary: #86bff2;
     --color-secondary: #282c35;
     --color-background: #1c1c1e;
-    --color-text: #cbd5e0;
     --text-custom-gray: #8c8c8c;
     --article-background: #27272a66;
     --article-border: #ffffff0d;
@@ -85,6 +88,10 @@
     --color-tag-bg-checked: #fff;
     --color-tag-text-checked: #000;
 
+    /* contents */
+    --color-text-primary: var(--color-neutral-300);
+
+    /* markdown */
     --color-border-highlight: var(--color-gray-700);
     --color-th-highlight: var(--color-black-900);
     --color-blockquote: var(--color-gray-100);
@@ -129,7 +136,7 @@
 
   ::selection {
     background-color: theme(colors.primary);
-    color: theme(colors.button-text);
+    color: #fff;
   }
 
   @keyframes gradientMovement {
