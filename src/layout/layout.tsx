@@ -1,9 +1,7 @@
-import React, { ElementType, ReactNode } from 'react';
+import React, { ElementType, ReactNode, useEffect } from 'react';
 
 import { Slice } from 'gatsby';
 import tw, { GlobalStyles as BaseStyles } from 'twin.macro';
-
-import CustomCursor from 'Components/custom-cursor';
 
 interface LayoutProps {
   children: ReactNode;
@@ -13,17 +11,34 @@ interface LayoutProps {
 }
 
 const Layout = ({ children, location, title, as = 'div' }: LayoutProps) => {
-  // @ts-ignore
-  // eslint-disable-next-line no-undef
-  const rootPath = `${__PATH_PREFIX__}/`;
-  const isRootPath = location.pathname === rootPath;
-
   const As = as;
 
+  const isRootPath = location.pathname === '/';
+
+  useEffect(() => {
+    const body = document.body;
+
+    const classes = [
+      'min-h-screen',
+      'antialiased',
+      'tracking-tight',
+      'transition',
+      'duration-500',
+      'text-text-primary',
+      'bg-bg-primary',
+      'font-noto-sans-kr',
+    ];
+
+    body.classList.add(...classes);
+
+    return () => {
+      body.classList.remove(...classes);
+    };
+  }, []);
+
   return (
-    <As css={[tw`max-w-2xl mx-auto my-0pxr py-40pxr px-20pxr`, isRootPath && tw`mb-80pxr`]}>
+    <As css={[isRootPath && tw`pb-80pxr`]}>
       <BaseStyles />
-      <CustomCursor />
       <Slice alias="header" size={isRootPath ? 'large' : 'medium'}>
         {title}
       </Slice>

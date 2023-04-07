@@ -7,6 +7,8 @@ import tw from 'twin.macro';
 
 import { ROUTES } from 'Types/enum';
 
+import { ContentSpacer } from './common';
+
 type Theme = 'dark' | 'light';
 
 const Moon = () => (
@@ -68,7 +70,7 @@ const ToggleMode = () => {
       <Switch
         width={50}
         height={24}
-        activeBoxShadow="0 0 2px 3px #ffa7c4"
+        activeBoxShadow="0 0 2px 3px var(--color-primary)"
         onColor="#1A202C"
         offColor="#0F1114"
         onChange={ThemeToggle}
@@ -89,26 +91,26 @@ interface Props {
 
 const Header = ({ children, size = 'medium' }: Props) => {
   let header = (
-    <Link css={tw`no-underline text-24pxr`} to={ROUTES.HOME}>
+    <Link css={tw`no-underline text-24pxr`} to={ROUTES.HOME} className="focus-primary">
       {children}
     </Link>
   );
 
   if (size === 'large') {
     header = (
-      <h1 css={tw`m-0pxr text-40pxr`}>
-        <Link to={ROUTES.HOME}>{children}</Link>
-      </h1>
+      <Link to={ROUTES.HOME} className="focus-primary m-0pxr text-40pxr">
+        {children}
+      </Link>
     );
   }
 
   return (
-    <header
-      css={tw`flex items-center justify-between font-bold mb-48pxr text-neutral-900 dark:text-white`}
-    >
-      {header}
-      <ToggleMode />
-    </header>
+    <ContentSpacer as="header" className="py-48pxr foldable:py-24pxr">
+      <div className="flex items-center justify-between mx-auto font-bold max-w-7xl text-neutral-900 dark:text-white">
+        {header}
+        <ToggleMode />
+      </div>
+    </ContentSpacer>
   );
 };
 

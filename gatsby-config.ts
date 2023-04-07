@@ -21,6 +21,15 @@ const siteMetadata: GatsbyConfig['siteMetadata'] = {
   postTitle: 'All',
 };
 
+const analyserPlugins: GatsbyConfig['plugins'] = [
+  {
+    resolve: 'gatsby-plugin-webpack-bundle-analyser-v2',
+    options: {
+      devMode: true,
+    },
+  },
+];
+
 const corePlugins: GatsbyConfig['plugins'] = [
   {
     resolve: 'gatsby-source-filesystem',
@@ -91,7 +100,12 @@ const devPlugins: GatsbyConfig['plugins'] = [
     resolve: 'gatsby-plugin-typescript',
   },
   'gatsby-plugin-emotion',
-  'gatsby-plugin-postcss',
+  {
+    resolve: 'gatsby-plugin-postcss',
+    options: {
+      postCssPlugins: [require('tailwindcss'), require('autoprefixer')],
+    },
+  },
 ];
 
 const markdownPlugins: GatsbyConfig['plugins'] = [
@@ -273,6 +287,7 @@ const config: GatsbyConfig = {
   graphqlTypegen: true,
   siteMetadata,
   plugins: [
+    ...analyserPlugins,
     ...corePlugins,
     ...devPlugins,
     ...imagePlugins,

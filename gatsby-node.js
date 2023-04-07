@@ -85,7 +85,7 @@ exports.createPages = async ({ graphql, actions, reporter }) => {
             id
             tableOfContents
             frontmatter {
-              date(formatString: "MMMM DD, YY")
+              date(formatString: "MMMM Do, YY")
               title
               category
               tags

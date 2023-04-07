@@ -3,7 +3,50 @@ import '@fontsource/fira-mono';
 import './src/styles/global.css';
 import 'prismjs/themes/prism-tomorrow.css';
 
+import React, { useEffect } from 'react';
+
 import type { GatsbyBrowser } from 'gatsby';
+import { createPortal } from 'react-dom';
+
+import CustomCursor from './src/components/custom-cursor';
+import { useIsTouchDevice } from './src/hooks/use-is-touch-device';
+
+const withCustomCursor = (Component: React.ComponentType) => {
+  const CustomCursorWrapper: React.FC<any> = (props) => {
+    const isTouchDevice = useIsTouchDevice();
+
+    useEffect(() => {
+      const body = document.body;
+
+      if (isTouchDevice) {
+        body.classList.remove('hide-cursor');
+      } else {
+        body.classList.add('hide-cursor');
+      }
+
+      return () => {
+        body.classList.remove('hide-cursor');
+      };
+    }, [isTouchDevice]);
+
+    return (
+      <>
+        {!isTouchDevice && typeof document !== 'undefined'
+          ? createPortal(<CustomCursor />, document.body)
+          : null}
+        <Component {...props} />
+      </>
+    );
+  };
+
+  CustomCursorWrapper.displayName = `withCustomCursor(${Component.displayName || Component.name})`;
+
+  return CustomCursorWrapper;
+};
+
+export const wrapPageElement = ({ element, props }: any) => {
+  return React.createElement(withCustomCursor(element.type), props);
+};
 
 const UPDATE_SCROLL_TIME_OUT = 1;
 

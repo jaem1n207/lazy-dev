@@ -24,13 +24,13 @@ module.exports = {
       active: 'ui~="active"',
     },
     fontSize: {
-      ...range(12, 48).reduce((acc, px) => {
+      ...range(12, 96).reduce((acc, px) => {
         acc[`${px}pxr`] = pxToRem(px);
         return acc;
       }, {}),
     },
     spacing: {
-      ...range(0, 100).reduce((acc, px) => {
+      ...range(0, 400).reduce((acc, px) => {
         acc[`${px}pxr`] = pxToRem(px);
         return acc;
       }, {}),
@@ -49,12 +49,19 @@ module.exports = {
       mobile: { max: '360px' },
     },
     extend: {
+      spacing: {
+        '10vw': '10vw',
+      },
       colors: {
         transparent: 'transparent',
         current: 'currentColor',
         white: 'var(--color-white)',
         black: 'var(--color-black)',
 
+        blue: {
+          300: 'var(--color-blue-300)',
+          500: 'var(--color-blue-500)',
+        },
         gray: {
           100: 'var(--color-gray-100)',
           200: 'var(--color-gray-200)',
@@ -66,30 +73,44 @@ module.exports = {
           800: 'var(--color-gray-800)',
           900: 'var(--color-gray-900)',
         },
+        zinc: {
+          900: 'var(--color-zinc-900)',
+        },
         slate: {
+          200: 'var(--color-slate-200)',
           500: 'var(--color-slate-500)',
+          700: 'var(--color-slate-700)',
+        },
+        neutral: {
+          300: 'var(--color-neutral-300)',
         },
         red: {
           500: 'var(--color-red-500)',
         },
+        cyan: {
+          50: 'var(--color-cyan-50)',
+        },
 
+        /* contents */
         primary: 'var(--color-primary)',
-        background: 'var(--color-background)',
-        secondary: 'var(--color-secondary)',
-        text: 'var(--color-text)',
-        'custom-gray': 'var(--text-custom-gray)',
-        hyperlink: 'var(--color-hyperlink)',
-        'article-background': 'var(--article-background)',
-        'article-border': 'var(--article-border)',
-        'button-text': 'var(--button-text)',
-        divider: 'var(--color-divider)',
-        'tag-background': 'var(--color-tag-bg)',
-        'tag-text': 'var(--color-tag-text)',
-        'tag-background-checked': 'var(--color-tag-bg-checked)',
-        'tag-text-checked': 'var(--color-tag-text-checked)',
+        'text-primary': 'var(--color-text-primary)',
+        'text-secondary': 'var(--color-text-secondary)',
+        'text-inner': 'var(--color-text-inner)',
+        'bg-primary': 'var(--color-bg-primary)',
+        'bg-secondary': 'var(--color-bg-secondary)',
+        'bg-inner': 'var(--color-bg-inner)',
+        'bg-divider': 'var(--color-bg-divider)',
+        'border-primary': 'var(--color-border-primary)',
+        'border-secondary': 'var(--color-border-secondary)',
+        'all-custom-gray': 'var(--color-all-custom-gray)',
+        'bg-tag': 'var(--color-bg-tag)',
+
+        /* markdown */
+        'border-highlight': 'var(--color-border-highlight)',
+        'gradient-cyan': 'var(--color-cyan-50)',
       },
       fontFamily: {
-        spoqa: ['Noto Sans KR', ...defaultTheme.fontFamily.sans],
+        'noto-sans-kr': ['Noto Sans KR', ...defaultTheme.fontFamily.sans],
       },
       boxShadow: {
         'text-underline': '0 1px 0 0 currentColor',
@@ -159,6 +180,7 @@ module.exports = {
   plugins: [
     require('./src/plugins/scrollbar-hide'),
     require('./src/plugins/visually-hide'),
+    require('./src/plugins/drag-none'),
     require('@tailwindcss/typography'),
   ],
 };

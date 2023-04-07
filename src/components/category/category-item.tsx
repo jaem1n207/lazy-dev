@@ -1,5 +1,7 @@
 import React, { useCallback, useEffect } from 'react';
 
+import classNames from 'classnames';
+
 import { firstLetterUppercase } from 'Libs/string';
 import { CATEGORY_TYPE } from 'Types/enum';
 
@@ -20,6 +22,13 @@ const CategoryItem = ({
 }: CategoryItemProps) => {
   const tabRef = React.useRef<HTMLButtonElement | null>(null);
 
+  const buttonClasses = classNames(
+    'shadow-sm focus-primary bg-bg-tag border-1pxr border-border-secondary',
+    {
+      'mr-12pxr': title === CATEGORY_TYPE.ALL,
+    }
+  );
+
   const handleClick = useCallback(() => {
     onClick(title);
     scrollToCenter(tabRef);
@@ -34,6 +43,7 @@ const CategoryItem = ({
   if (title === CATEGORY_TYPE.ALL) {
     return (
       <button
+        className={buttonClasses}
         data-ui={selectedCategory === title ? ACTIVE_ID : undefined}
         tabIndex={selectedCategory === title ? -1 : undefined}
         onClick={handleClick}
@@ -46,6 +56,7 @@ const CategoryItem = ({
   return (
     <li className="mb-0pxr">
       <button
+        className={buttonClasses}
         ref={tabRef}
         data-ui={selectedCategory === title ? ACTIVE_ID : undefined}
         tabIndex={selectedCategory === title ? -1 : undefined}

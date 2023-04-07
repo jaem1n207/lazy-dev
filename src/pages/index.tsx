@@ -1,25 +1,26 @@
-import React, {
-  ChangeEvent,
-  FC,
-  KeyboardEvent,
-  MouseEvent,
-  useEffect,
-  useMemo,
-  useRef,
-  useState,
-} from 'react';
+import React, { ChangeEvent, FC, KeyboardEvent, useEffect, useMemo, useRef, useState } from 'react';
 
+import { MagnifyingGlassIcon, XMarkIcon } from '@heroicons/react/24/outline';
+import classNames from 'classnames';
+import { AnimatePresence, motion } from 'framer-motion';
 import { graphql, HeadFC, HeadProps, PageProps } from 'gatsby';
+import { StaticImage } from 'gatsby-plugin-image';
 import queryString from 'query-string';
 
 import CategoryFilter from 'Components/category/category-filter';
-import PostList from 'Components/post/post-list';
+import { Grid, Spacer, H3, ContentSpacer, H5, Typography } from 'Components/common';
+import AnimateFadeContainer from 'Components/common/animate-fade-container';
+import AnimatedContainer from 'Components/common/animated-container';
+import NoneActiveWrapper from 'Components/common/none-active-wrapper';
+import HeroPostCard from 'Components/post/hero-post-card';
+import PostCard from 'Components/post/post-card';
+import RotatingTag from 'Components/rotating-tag';
 import Seo from 'Components/seo';
 import Tag from 'Components/tag';
 import { useCategory } from 'Hooks/use-category';
 import Layout from 'Layout/layout';
+import { isEmptyArray, isEmptyString } from 'Libs/assertions';
 import { filterPosts } from 'Libs/blog';
-import { firstLetterUppercase } from 'Libs/string';
 import { CATEGORY_TYPE } from 'Types/enum';
 import Post from 'Types/post';
 
@@ -45,9 +46,40 @@ const useUpdateQueryStringValueWithoutNavigation = (queryKey: string, queryValue
   }, [queryKey, queryValue]);
 };
 
+const FeaturedPostTitle = 'Deep Clone an Object in JavaScript';
+
 const IndexPage: FC<PageProps<Queries.HomeQuery, ContextProps>> = ({ data, location }) => {
   const [currentCategory, setCurrentCategory] = useState<string | undefined>();
   const { category, selectCategory, resetCategory } = useCategory();
+
+  const searchInputRef = useRef<HTMLInputElement>(null);
+
+  const isCategoryAll = useMemo(() => {
+    return category === CATEGORY_TYPE.ALL;
+  }, [category]);
+
+  const heroPost = useMemo(() => {
+    const heroPost = data.postsRemark.edges.find(
+      (edge) => edge.node.frontmatter?.title === FeaturedPostTitle
+    );
+    if (!heroPost) return undefined;
+
+    const { slug } = heroPost.node.fields!;
+    const { title, date, category, summary, thumbnail } = heroPost.node.frontmatter!;
+    const { childImageSharp } = thumbnail!;
+    const post: Post = {
+      slug,
+      title,
+      date,
+      category,
+      summary,
+      thumbnail: childImageSharp?.id!,
+      timeToRead: heroPost.node.timeToRead,
+      tags: heroPost.node.frontmatter?.tags!,
+    };
+
+    return post;
+  }, [data.postsRemark.edges]);
 
   const categories = useMemo(() => data.categoriesGroup.group, [data.categoriesGroup.group]);
 
@@ -134,17 +166,16 @@ const IndexPage: FC<PageProps<Queries.HomeQuery, ContextProps>> = ({ data, locat
     setQuery(value.toLowerCase());
   };
 
-  const handleClearSearch = (event: MouseEvent<HTMLButtonElement>) => {
-    event.preventDefault();
-
+  const handleClearSearch = () => {
     setQuery('');
+    searchInputRef.current?.focus();
   };
 
   useEffect(() => {
-    if (queryString.parse(location.search).category) {
+    if (!isEmptyString(category)) {
       setQuery('');
     }
-  }, [location.search]);
+  }, [category]);
 
   const resultsRef = useRef<HTMLOListElement>(null);
   const handleScrollToResults = (event: KeyboardEvent<HTMLElement>) => {
@@ -156,6 +187,20 @@ const IndexPage: FC<PageProps<Queries.HomeQuery, ContextProps>> = ({ data, locat
     }
   };
 
+  const searchLabelBaseClasses =
+    'absolute top-0pxr left-0pxr w-full h-full flex items-center duration-200 pl-40pxr';
+  const searchLabelFocusedClasses = classNames(
+    {
+      'group-focus-within:text-18pxr foldable:group-focus-within:text-16pxr mobile:group-focus-within:text-12pxr group-focus-within:h-5/6 group-focus-within:-translate-y-full group-focus-within:pl-0pxr':
+        isEmptyString(queryValue),
+    },
+    {
+      'h-5/6 -translate-y-full group-focus-within:pl-0pxr pl-0pxr text-18pxr foldable:text-16pxr mobile:text-14pxr':
+        !isEmptyString(queryValue),
+    }
+  );
+  const searchLabelClasses = classNames(searchLabelBaseClasses, searchLabelFocusedClasses);
+
   return (
     <Layout location={location} title={data.site?.siteMetadata?.title!}>
       <CategoryFilter
@@ -164,75 +209,155 @@ const IndexPage: FC<PageProps<Queries.HomeQuery, ContextProps>> = ({ data, locat
         selectCategory={selectCategory}
         resetCategory={resetCategory}
       />
-      <div className="flex items-center justify-between mb-24pxr">
-        <div className="flex items-center">
-          <label htmlFor="search" className="sr-only">
-            Search
-          </label>
-          <input
-            id="search"
-            type="text"
-            placeholder="What are you looking for?"
-            className="rounded-full w-320pxr h-40pxr px-24pxr py-12pxr text-16pxr focus:outline-none focus:ring-2 focus:ring-primary"
-            value={queryValue}
-            onChange={handleSearchInputChange}
-            onKeyUp={handleScrollToResults}
-          />
-          {queryValue.length > 0 && (
-            <button
-              data-hoverable="true"
-              type="button"
-              className="text-gray-500 ml-12pxr text-16pxr hover:text-gray-700 focus:outline-none focus:ring-2 focus:ring-primary"
-              onClick={handleClearSearch}
-            >
-              <span className="sr-only">Clear search</span>
-              <svg
-                className="w-16pxr h-16pxr"
-                xmlns="http://www.w3.org/2000/svg"
-                fill="none"
-                viewBox="0 0 24 24"
-                stroke="currentColor"
+
+      <Spacer size="sm" className="col-span-full" />
+
+      {!isEmptyArray(tagsArray) && (
+        <ContentSpacer>
+          <Grid>
+            <div className="select-none col-span-full">
+              <Typography
+                as="div"
+                className="font-bold leading-tight text-64pxr tablet:text-48pxr foldable:text-32pxr"
               >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth={2}
-                  d="M6 18L18 6M6 6l12 12"
+                <div className="gradient-text">원하는 글을 찾아보세요&#46;</div>
+                <div className="flex">
+                  <span>Find&nbsp;</span>
+                  <RotatingTag tags={tagsArray} interval={4000} rotationDuration={2} />
+                </div>
+              </Typography>
+
+              <Spacer size="sm" />
+
+              <div className="flex items-center justify-between my-24pxr col-span-full">
+                <form className="relative flex items-center" onSubmit={(e) => e.preventDefault()}>
+                  <NoneActiveWrapper>
+                    <button
+                      title="Search"
+                      className="absolute z-10 flex items-center h-full top-0pxr left-12pxr w-24pxr text-text-primary"
+                    >
+                      <MagnifyingGlassIcon />
+                    </button>
+                  </NoneActiveWrapper>
+                  <div className="relative group">
+                    <NoneActiveWrapper>
+                      <label className={searchLabelClasses} htmlFor="search-post-input">
+                        무엇을 찾고 계신가요?
+                      </label>
+                      <input
+                        ref={searchInputRef}
+                        id="search-post-input"
+                        type="search"
+                        className="w-full rounded-full outline-none appearance-none bg-bg-secondary py-24pxr foldable:py-12pxr pl-48pxr pr-64pxr text-18pxr foldable:text-16pxr focus-primary group-focus-within:bg-opacity-60 border-1pxr border-border-secondary"
+                        value={queryValue}
+                        onChange={handleSearchInputChange}
+                        onKeyUp={handleScrollToResults}
+                      />
+                    </NoneActiveWrapper>
+                  </div>
+                  <AnimatePresence>
+                    {queryValue.length > 0 && (
+                      <NoneActiveWrapper>
+                        <motion.button
+                          aria-label="Clear search"
+                          title="Clear search"
+                          data-hoverable="true"
+                          animate={{ opacity: 1 }}
+                          exit={{ opacity: 0 }}
+                          initial={{ opacity: 0 }}
+                          type="reset"
+                          className="absolute my-auto -translate-y-1/2 rounded-full focus-primary right-36pxr top-1/2 text-text-primary mr-8pxr"
+                          onClick={handleClearSearch}
+                          tabIndex={-1}
+                        >
+                          <span className="sr-only">Clear search</span>
+                          <XMarkIcon className="w-24pxr h-24pxr" />
+                        </motion.button>
+                      </NoneActiveWrapper>
+                    )}
+                  </AnimatePresence>
+                  <div className="absolute flex items-center h-full top-0pxr right-4pxr w-32pxr text-text-primary">
+                    {posts.length}
+                  </div>
+                </form>
+              </div>
+            </div>
+          </Grid>
+        </ContentSpacer>
+      )}
+
+      <Spacer size="sm" className="col-span-full" />
+
+      <ContentSpacer className="mb-56pxr">
+        <Grid>
+          <H5 as="div" className="col-span-full mb-24pxr">
+            키워드로 원하는 글을 찾아보세요
+          </H5>
+          <div className="flex flex-wrap col-span-10 desktop:col-span-full">
+            {tagsArray.map((tag) => {
+              if (!tag) return null;
+              const selected = query.includes(tag);
+
+              return (
+                <Tag
+                  key={tag}
+                  tag={tag}
+                  checked={selected}
+                  onChange={() => toggleTag(tag)}
+                  onKeyUp={handleScrollToResults}
+                  /* disabled 조건에 해당되도 선택된 상태에서는 disabled를 해제한다. */
+                  disabled={!visibleTags.has(tag) ? !selected : false}
                 />
-              </svg>
-            </button>
-          )}
-          <div className="ml-24pxr">
-            <span className="text-gray-500 text-16pxr">{posts.length}</span>
+              );
+            })}
           </div>
-        </div>
-      </div>
+        </Grid>
+      </ContentSpacer>
 
-      <div className="flex items-center justify-between mb-24pxr">
-        <div className="flex flex-wrap">
-          {tagsArray.map((tag) => {
-            if (!tag) return null;
-            const selected = query.includes(tag);
+      <AnimatePresence>
+        {heroPost && !isSearching && isCategoryAll && (
+          <AnimateFadeContainer>
+            <HeroPostCard post={heroPost} />
+          </AnimateFadeContainer>
+        )}
+      </AnimatePresence>
 
-            return (
-              <Tag
-                key={tag}
-                tag={tag}
-                checked={selected}
-                onChange={() => toggleTag(tag)}
-                onKeyUp={handleScrollToResults}
-                /* disabled 조건에 해당되도 선택된 상태에서는 disabled를 해제한다. */
-                disabled={!visibleTags.has(tag) ? !selected : false}
-              />
-            );
-          })}
-        </div>
-      </div>
-      <hr className="mb-24pxr" />
-      <h2 className="font-bold text-32pxr mb-24pxr tablet:text-28pxr">
-        {currentCategory ? firstLetterUppercase(currentCategory) : CATEGORY_TYPE.ALL} Posts
-      </h2>
-      <PostList posts={posts} ref={resultsRef} />
+      <AnimatePresence>
+        <ContentSpacer ref={resultsRef}>
+          {posts.length === 0 ? (
+            <Grid className="mb-64">
+              <div className="flex flex-col items-center col-span-full">
+                <StaticImage
+                  draggable={false}
+                  src="../images/not-found.png"
+                  alt="Not Found Blog Post"
+                  placeholder="blurred"
+                  layout="constrained"
+                  height={600}
+                  className="overflow-hidden"
+                />
+                <Spacer size="sm" />
+                <H3 as="p" variant="secondary" className="max-w-lg">
+                  검색하신 키워드에 해당하는 글이 없어요.
+                </H3>
+              </div>
+            </Grid>
+          ) : (
+            <>
+              <Spacer size="xs" className="col-span-full" />
+              <AnimatedContainer>
+                <Grid className="mb-64">
+                  {posts.map((post) => (
+                    <div key={post.slug} className="col-span-4 mb-40pxr">
+                      <PostCard post={post} />
+                    </div>
+                  ))}
+                </Grid>
+              </AnimatedContainer>
+            </>
+          )}
+        </ContentSpacer>
+      </AnimatePresence>
     </Layout>
   );
 };
@@ -273,7 +398,7 @@ export const pageQuery = graphql`
             slug
           }
           frontmatter {
-            date(formatString: "MMMM DD, YY")
+            date(formatString: "MMMM Do, YYYY")
             title
             category
             summary

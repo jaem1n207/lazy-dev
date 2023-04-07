@@ -3,6 +3,17 @@ import styled from '@emotion/styled';
 import typography from './typography';
 
 const Markdown = styled.article<{ rhythm: typeof typography['rhythm'] }>`
+  & > * {
+    font-family: 'Noto Sans KR', 'Fira Mono', Consolas, Liberation Mono, Menlo, monospace;
+    margin-top: 1px;
+    margin-bottom: 1px;
+    padding: 3px 2px;
+  }
+
+  & > *:not(h1):not(h2):not(h3):not(h4):not(h5):not(h6):first-of-type {
+    margin-top: 0;
+  }
+
   ul,
   li,
   th,
@@ -15,20 +26,18 @@ const Markdown = styled.article<{ rhythm: typeof typography['rhythm'] }>`
   h4,
   h5,
   h6 {
-    font-family: 'Noto Sans KR', 'Fira Mono', Consolas, Liberation Mono, Menlo, monospace;
     font-weight: 700;
-    letter-spacing: -0.1px;
   }
 
   h1,
   h2,
-  h3 {
-    border-bottom: 1px solid hsla(0, 0%, 0%, 0.07);
+  h3,
+  h4,
+  h5,
+  h6 {
+    border-bottom: 1px solid var(--color-primary);
     padding-bottom: calc(0.40625rem - 1px);
-  }
-
-  .dark h2 {
-    border-bottom-color: #3a3a3a;
+    color: var(--color-primary);
   }
 
   table {
@@ -40,10 +49,15 @@ const Markdown = styled.article<{ rhythm: typeof typography['rhythm'] }>`
     overflow-wrap: break-word;
   }
 
+  th {
+    background-color: var(--color-th-highlight);
+  }
+
   td,
   th {
-    border-bottom: 1px solid #3a3a3a;
+    border: 1px solid var(--color-border-highlight);
     font-size: 90%;
+    padding: 7px 9px;
   }
 
   strong {
@@ -53,77 +67,61 @@ const Markdown = styled.article<{ rhythm: typeof typography['rhythm'] }>`
   a,
   p {
     font-weight: 400;
-    font-family: 'Noto Sans KR', 'Fira Mono', Consolas;
   }
 
   a {
     text-decoration: none;
     color: var(--color-primary) !important;
+    * {
+      color: var(--color-primary) !important;
+    }
     &:hover,
     &:active {
       text-decoration: underline;
     }
   }
 
-  & > *:first-of-type {
-    margin-top: 0;
-  }
-
   h1 {
-    /* font-size: 2rem; */
-    font-size: 2.25rem;
-    line-height: 2.5rem;
+    font-size: 2rem;
 
     @media (min-width: 768px) {
-      /* font-size: 2.5rem; */
-      font-size: 3rem;
-      line-height: 1;
+      font-size: 2.5rem;
     }
   }
 
   h2 {
-    /* font-size: 1.3125rem;
-    line-height: 1.3; */
-    font-size: 1.875rem;
-    line-height: 2.25rem;
-    margin-bottom: ${({ rhythm }) => rhythm(1)};
-    margin-top: ${({ rhythm }) => rhythm(2.25)};
+    font-size: 1.3125rem;
+    line-height: 1.3;
+    margin-bottom: ${({ rhythm }) => rhythm(1.5)};
+    margin-top: ${({ rhythm }) => rhythm(3)};
 
     @media (min-width: 768px) {
-      /* font-size: 1.75rem; */
-      font-size: 2.25rem;
-      line-height: 2.5rem;
+      font-size: 1.875rem;
     }
   }
 
   h3 {
-    /* font-size: 1.1875rem;
-    line-height: 1.3; */
-    font-size: 1.5rem;
-    line-height: 2rem;
-    margin-bottom: ${({ rhythm }) => rhythm(1)};
-    margin-top: ${({ rhythm }) => rhythm(1.5)};
+    font-size: 1.1875rem;
+    line-height: 1.3;
+    margin-bottom: ${({ rhythm }) => rhythm(0.5)};
+    margin-top: ${({ rhythm }) => rhythm(1.75)};
 
     @media (min-width: 768px) {
-      /* font-size: 1.31951rem; */
-      font-size: 1.875rem;
-      line-height: 2.25rem;
+      font-size: 1.31951rem;
     }
   }
 
   h4,
   h5,
   h6 {
-    margin-bottom: ${({ rhythm }) => rhythm(0.5)};
-    margin-top: ${({ rhythm }) => rhythm(1)};
+    margin-bottom: ${({ rhythm }) => rhythm(0.75)};
+    margin-top: ${({ rhythm }) => rhythm(1.35)};
   }
 
   ul,
   ol {
     list-style: initial !important;
-    margin-top: ${({ rhythm }) => rhythm(1)};
-    margin-bottom: ${({ rhythm }) => rhythm(1)};
-    margin-left: ${({ rhythm }) => rhythm(1.25)};
+    margin-left: ${({ rhythm }) => rhythm(1)};
   }
 
   li > ul,
@@ -138,7 +136,7 @@ const Markdown = styled.article<{ rhythm: typeof typography['rhythm'] }>`
 
   li > ol,
   li > ul {
-    margin-left: ${({ rhythm }) => rhythm(1.25)};
+    margin-left: ${({ rhythm }) => rhythm(1)};
   }
 
   li {
@@ -148,26 +146,21 @@ const Markdown = styled.article<{ rhythm: typeof typography['rhythm'] }>`
   p,
   li,
   blockquote {
-    font-size: 1.125rem;
-  }
-
-  p {
-    line-height: 1.68;
-    text-align: left;
-    margin-bottom: 24px;
+    font-size: 1.0625rem;
+    margin-bottom: ${({ rhythm }) => rhythm(0.5)};
   }
 
   hr {
-    margin: 40px 0;
-    background: #3a3a3a;
+    margin: 20px 0;
+    background: var(--color-border-highlight);
   }
 
   blockquote {
-    border-left: 0.25rem solid #2c2c2c;
-    padding-left: 16px;
-    margin: 24px 0;
+    border-left: 0.25rem solid var(--color-blockquote);
+    padding-left: 8px;
+    margin: 12px 0;
     * {
-      color: #999;
+      color: var(--color-blockquote);
     }
   }
 
@@ -178,14 +171,13 @@ const Markdown = styled.article<{ rhythm: typeof typography['rhythm'] }>`
   code[class*='language-'],
   pre[class*='language-'] {
     font-family: 'Fira Mono', Consolas, 'Liberation Mono', Menlo, monospace;
-    background-color: var(--color-code-block) !important;
-    color: var(--color-text);
+    background-color: var(--color-pre-bg) !important;
+    color: var(--color-text-primary);
     text-align: left;
     white-space: pre;
     word-spacing: normal;
     word-break: normal;
     word-wrap: normal;
-    line-height: 1.6;
     font-size: 0.9rem;
 
     -moz-tab-size: 2;
@@ -210,7 +202,7 @@ const Markdown = styled.article<{ rhythm: typeof typography['rhythm'] }>`
   }
 
   pre {
-    border: none;
+    border: 1px solid var(--color-pre-border);
     border-radius: 0.6em;
   }
 
@@ -220,11 +212,9 @@ const Markdown = styled.article<{ rhythm: typeof typography['rhythm'] }>`
 
   pre[class*='language-'] {
     padding: 1em;
-    margin: 0.5em 0;
 
     @media (min-width: 768px) {
       padding: 1.2rem;
-      margin: 1.5rem 0;
     }
   }
 
@@ -234,13 +224,16 @@ const Markdown = styled.article<{ rhythm: typeof typography['rhythm'] }>`
   }
 
   *:not(pre) > code {
-    background-color: var(--color-code-block);
-    padding: 0.2rem 0.4rem !important;
+    font-size: 85% !important;
+    padding: 0.2em 0.4em;
     margin: 0 !important;
-    font-size: 90% !important;
     border-radius: 3px !important;
-    background-image: linear-gradient(60deg, rgba(50, 134, 241, 1) 0%, rgba(255, 30, 86, 1) 100%);
-    color: var(--color-hyperlink) !important;
+    background-image: linear-gradient(
+      60deg,
+      var(--color-primary) 74.8%,
+      var(--color-cyan-50) 99.76%
+    ) !important;
+    color: transparent !important;
     -webkit-background-clip: text;
     background-clip: text;
     border: 1px solid var(--color-code-highlight-border);

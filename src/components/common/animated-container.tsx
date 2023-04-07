@@ -9,17 +9,11 @@ import { useEventListener } from 'Hooks/use-event-listener';
 const containerVariants: Variants = {
   hidden: {
     opacity: 0,
-    y: 100,
+    y: 50,
   },
   visible: {
     opacity: 1,
     y: 0,
-    transition: {
-      ease: 'easeOut',
-      duration: 1,
-      delay: 0.1,
-      staggerChildren: 0.1,
-    },
   },
 };
 
