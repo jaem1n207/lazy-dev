@@ -56,15 +56,11 @@ Timeline
 자세히 설명하자면 이 글이 너무 길어지고 내용이 산으로 갈 것 같아 각 지표들의 의미만 살펴보고 넘어가겠습니다.  
 해당 부분에 대한 건 따로 다른 글에서 자세히 설명하겠습니다.
 
-FP (First Paint): 페이지 네비게이션 후, 첫 픽셀을 그린 순간
-
-FCP (First Contentful Paint): 첫 엘리먼트를 그린 순간
-
-LCP (Largest Contentful Paint): 가장 큰 엘리먼트를 그린 순간
-
-DCL (Dom Content Loaded): DOM Tree를 구성하고, 스크립트(+ defer 스크립트)를 실행 완료했을 때 → defer 스크립트가 없다면 FP 전에 DCL이 올 수 있습니다.
-
-L (Load): 다큐먼트의 리소스들을 모두 로드 완료했을 때
+- FP (First Paint): 페이지 네비게이션 후, 첫 픽셀을 그린 순간
+- FCP (First Contentful Paint): 첫 엘리먼트를 그린 순간
+- LCP (Largest Contentful Paint): 가장 큰 엘리먼트를 그린 순간
+- DCL (Dom Content Loaded): DOM Tree를 구성하고, 스크립트(+ defer 스크립트)를 실행 완료했을 때 → defer 스크립트가 없다면 FP 전에 DCL이 올 수 있습니다.
+- L (Load): 다큐먼트의 리소스들을 모두 로드 완료했을 때
 
 ### CPU flame chart
 
