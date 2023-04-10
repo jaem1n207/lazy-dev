@@ -18,11 +18,6 @@ export const onRenderBody: GatsbySSR['onRenderBody'] = ({
     lang: 'en',
   });
   setHeadComponents([
-    <meta
-      key="google-search-console-verification"
-      name="google-site-verification"
-      content={process.env.GOOGLE_SEARCH_CONSOLE_VERIFICATION_CONTENT}
-    />,
     <link
       key="preconnect-google-fonts"
       rel="preconnect"
