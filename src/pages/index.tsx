@@ -46,7 +46,7 @@ const useUpdateQueryStringValueWithoutNavigation = (queryKey: string, queryValue
   }, [queryKey, queryValue]);
 };
 
-const FeaturedPostTitle = 'Deep Clone an Object in JavaScript';
+const FeaturedPostTitle = 'Chrome 브라우저에서 JavaScript 성능을 프로파일링 하는 방법';
 
 const IndexPage: FC<PageProps<Queries.HomeQuery, ContextProps>> = ({ data, location }) => {
   const [currentCategory, setCurrentCategory] = useState<string | undefined>();
