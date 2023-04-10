@@ -14,21 +14,6 @@ const Markdown = styled.article<{ rhythm: typeof typography['rhythm'] }>`
     margin-top: 0;
   }
 
-  ul,
-  li,
-  th,
-  td,
-  tr,
-  blockquote,
-  h1,
-  h2,
-  h3,
-  h4,
-  h5,
-  h6 {
-    font-weight: 700;
-  }
-
   h1,
   h2,
   h3,
@@ -38,6 +23,7 @@ const Markdown = styled.article<{ rhythm: typeof typography['rhythm'] }>`
     border-bottom: 1px solid var(--color-primary);
     padding-bottom: calc(0.40625rem - 1px);
     color: var(--color-primary);
+    font-weight: 700;
   }
 
   table {
@@ -51,6 +37,7 @@ const Markdown = styled.article<{ rhythm: typeof typography['rhythm'] }>`
 
   th {
     background-color: var(--color-th-highlight);
+    font-weight: 700;
   }
 
   td,
@@ -61,7 +48,7 @@ const Markdown = styled.article<{ rhythm: typeof typography['rhythm'] }>`
   }
 
   strong {
-    font-weight: 500;
+    font-weight: 700;
   }
 
   a,
@@ -146,7 +133,7 @@ const Markdown = styled.article<{ rhythm: typeof typography['rhythm'] }>`
   p,
   li,
   blockquote {
-    font-size: 1.0625rem;
+    font-size: 1rem;
     margin-bottom: ${({ rhythm }) => rhythm(0.5)};
   }
 
@@ -224,7 +211,7 @@ const Markdown = styled.article<{ rhythm: typeof typography['rhythm'] }>`
   }
 
   *:not(pre) > code {
-    font-size: 85% !important;
+    font-size: 85%;
     padding: 0.2em 0.4em;
     margin: 0 !important;
     border-radius: 3px !important;
