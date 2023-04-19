@@ -119,7 +119,7 @@
   "include": [
     "./git-hooks/*",
     "./src/**/*",
-    "gatsby-node.js",
+    "gatsby-node.mjs",
     "gatsby-config.ts",
     "./plugins/**/*"
   ],

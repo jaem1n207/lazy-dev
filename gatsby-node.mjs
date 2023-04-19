@@ -1,8 +1,8 @@
-const { resolve } = require('path');
+import { resolve } from 'path';
 
-const { createFilePath } = require('gatsby-source-filesystem');
+import { createFilePath } from 'gatsby-source-filesystem';
 
-exports.sourceNodes = ({ actions: { createNode }, createContentDigest, createNodeId }) => {
+export const sourceNodes = ({ actions: { createNode }, createContentDigest, createNodeId }) => {
   const authors = [
     {
       authorId: 'jaemin',
@@ -24,7 +24,7 @@ exports.sourceNodes = ({ actions: { createNode }, createContentDigest, createNod
   );
 };
 
-exports.createPages = async ({ graphql, actions, reporter }) => {
+export const createPages = async ({ graphql, actions, reporter }) => {
   const { createSlice, createPage } = actions;
 
   createSlice({
@@ -149,7 +149,7 @@ exports.createPages = async ({ graphql, actions, reporter }) => {
   }
 };
 
-exports.onCreateNode = ({ node, getNode, actions }) => {
+export const onCreateNode = ({ node, getNode, actions }) => {
   const { createNodeField } = actions;
 
   if (node.internal.type === 'MarkdownRemark') {
