@@ -36,6 +36,8 @@ const corePlugins: GatsbyConfig['plugins'] = [
     options: {
       name: 'blog',
       path: `${__dirname}/content/blog`,
+      // https://www.gatsbyjs.com/docs/reference/release-notes/v5.5/#faster-hashing-for-gatsby-source-filesytem
+      fastHash: true,
     },
   },
   {
@@ -43,6 +45,7 @@ const corePlugins: GatsbyConfig['plugins'] = [
     options: {
       name: 'assets',
       path: `${__dirname}/content/assets`,
+      fastHash: true,
     },
   },
   {
@@ -50,6 +53,7 @@ const corePlugins: GatsbyConfig['plugins'] = [
     options: {
       name: 'images',
       path: `${__dirname}/src/images`,
+      fastHash: true,
     },
   },
   {
