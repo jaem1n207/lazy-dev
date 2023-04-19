@@ -40,7 +40,7 @@ export const query = graphql`
       github
     }
     imageSharp(fields: { authorId: { eq: $slug } }) {
-      gatsbyImageData(width: 80, aspectRatio: 1, layout: FIXED, placeholder: BLURRED, formats: WEBP)
+      gatsbyImageData(width: 80, aspectRatio: 1, placeholder: BLURRED, formats: [AUTO, WEBP, AVIF])
     }
   }
 `;
