@@ -2,6 +2,10 @@ export const CATEGORY_TYPE = {
   ALL: 'All',
 };
 
+export const QUERY_PARAM = {
+  KEYWORDS: 'q',
+};
+
 export const ROUTES = {
   HOME: '/',
   BLOG_POST: {

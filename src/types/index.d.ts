@@ -1,3 +1,5 @@
+import { TwStyle } from 'twin.macro';
+
 export {};
 
 type Theme = 'dark' | 'light';
@@ -10,3 +12,9 @@ declare global {
 }
 
 declare const __PATH_PREFIX__: string;
+
+declare module 'gatsby' {
+  interface GatsbyLinkProps {
+    css?: TwStyle;
+  }
+}

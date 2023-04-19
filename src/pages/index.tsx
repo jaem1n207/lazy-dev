@@ -21,7 +21,7 @@ import { useCategory } from 'Hooks/use-category';
 import Layout from 'Layout/layout';
 import { isEmptyArray, isEmptyString } from 'Libs/assertions';
 import { filterPosts } from 'Libs/blog';
-import { CATEGORY_TYPE } from 'Types/enum';
+import { CATEGORY_TYPE, QUERY_PARAM } from 'Types/enum';
 import Post from 'Types/post';
 
 type ContextProps = {
@@ -126,14 +126,14 @@ const IndexPage: FC<PageProps<Queries.HomeQuery, ContextProps>> = ({ data, locat
   const tagsSet = new Set(refinedPosts.flatMap((post) => post.tags).filter(Boolean));
   const tagsArray = Array.from(tagsSet);
 
-  const [queryValue, setQuery] = useState<string>(() => {
-    return (queryString.parse(location.search).q as string) ?? '';
+  const [queryValue, setQueryValue] = useState<string>(() => {
+    return (queryString.parse(location.search)[QUERY_PARAM.KEYWORDS] as string) ?? '';
   });
   const query = queryValue.trim();
-  useUpdateQueryStringValueWithoutNavigation('q', query);
+  useUpdateQueryStringValueWithoutNavigation(QUERY_PARAM.KEYWORDS, query);
 
   const toggleTag = (tag: string) => {
-    setQuery((prevQuery) => {
+    setQueryValue((prevQuery) => {
       const expression = new RegExp(tag, 'ig');
 
       const newQuery = expression.test(prevQuery)
@@ -163,19 +163,13 @@ const IndexPage: FC<PageProps<Queries.HomeQuery, ContextProps>> = ({ data, locat
   const handleSearchInputChange = (event: ChangeEvent<HTMLInputElement>) => {
     const { value } = event.target;
     // 입력한 값이 태그와 일치함을 검사하기 위해 소문자로 변환
-    setQuery(value.toLowerCase());
+    setQueryValue(value.toLowerCase());
   };
 
   const handleClearSearch = () => {
-    setQuery('');
+    setQueryValue('');
     searchInputRef.current?.focus();
   };
-
-  useEffect(() => {
-    if (!isEmptyString(category)) {
-      setQuery('');
-    }
-  }, [category]);
 
   const resultsRef = useRef<HTMLOListElement>(null);
   const handleScrollToResults = (event: KeyboardEvent<HTMLElement>) => {
@@ -185,6 +179,15 @@ const IndexPage: FC<PageProps<Queries.HomeQuery, ContextProps>> = ({ data, locat
         resultsRef.current.scrollIntoView({ behavior: 'smooth' });
       }
     }
+  };
+
+  const handleSelectCategory = (category: string) => {
+    selectCategory(category);
+    setQueryValue('');
+  };
+  const handleResetCategory = () => {
+    resetCategory();
+    setQueryValue('');
   };
 
   const searchLabelBaseClasses =
@@ -206,8 +209,8 @@ const IndexPage: FC<PageProps<Queries.HomeQuery, ContextProps>> = ({ data, locat
       <CategoryFilter
         category={category}
         categories={categories}
-        selectCategory={selectCategory}
-        resetCategory={resetCategory}
+        selectCategory={handleSelectCategory}
+        resetCategory={handleResetCategory}
       />
 
       <Spacer size="sm" className="col-span-full" />
