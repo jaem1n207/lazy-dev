@@ -109,6 +109,10 @@ module.exports = {
     'react/no-unknown-property': [ERROR, { ignore: ['css'] }],
   },
   settings: {
+    react: {
+      // https://github.com/jsx-eslint/eslint-plugin-react/blob/master/README.md#configuration-legacy-eslintrc
+      version: 'detect',
+    },
     'import/resolver': {
       node: {
         extensions: ['.js', '.jsx', '.ts', '.tsx'],
