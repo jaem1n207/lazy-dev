@@ -247,6 +247,8 @@ const promptContents = async () => {
  * @param {string} rawContents.title
  * @param {string} rawContents.date
  * @param {string} rawContents.category
+ * @param {string} rawContents.tags
+ * @param {string} rawContents.draft
  * @param {string} rawContents.authorId
  * @param {string} rawContents.thumbnail
  * @param {string} rawContents.summary
