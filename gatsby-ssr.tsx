@@ -59,28 +59,40 @@ export const onRenderBody: GatsbySSR['onRenderBody'] = ({
     <script
       key="darkmode"
       dangerouslySetInnerHTML={{
+        /**
+         * IIFE 내부에 논리를 추가하여 전역 범위를 오염시키지 않고
+         * localStorage 검색과 설정을 동일한 try-catch 블록 내에서
+         * 처리하여 오류 처리를 단순화
+         */
         __html: `(function() {
-        function setTheme(theme) {
-          window.__theme = theme;
-          if (theme === 'dark') {
-            document.documentElement.className = 'dark';
-          } else {
-            document.documentElement.className = '';
-          }
-        };
-        window.__setPreferredTheme = function(theme) {
-          setTheme(theme);
+          function setTheme(theme) {
+            window.__theme = theme;
+            if (theme === 'dark') {
+              document.documentElement.className = 'dark';
+            } else if (theme === 'light') {
+              document.documentElement.className = '';
+            } else {
+              document.documentElement.className = darkQuery.matches ? 'dark' : '';
+            }
+          };
+          window.__setPreferredTheme = function(theme) {
+            setTheme(theme);
+            try {
+              localStorage.setItem('color-theme', theme);
+            } catch (e) {}
+          };
+          let preferredTheme;
           try {
-            localStorage.setItem('color-theme', theme);
+            preferredTheme = localStorage.getItem('color-theme');
           } catch (e) {}
-        };
-        let preferredTheme;
-        try {
-          preferredTheme = localStorage.getItem('color-theme');
-        } catch (e) {}
-        let darkQuery = window.matchMedia('(prefers-color-scheme: dark)');
-        setTheme(preferredTheme || (darkQuery.matches ? 'dark' : 'light'));
-      })();`,
+          let darkQuery = window.matchMedia('(prefers-color-scheme: dark)');
+          darkQuery.addEventListener('change', function (e) {
+            if (preferredTheme === 'auto') {
+              setTheme(e.matches ? 'dark' : 'light');
+            }
+          });
+          setTheme(preferredTheme || (darkQuery.matches ? 'dark' : 'light'));
+        })();`,
       }}
     />,
   ]);

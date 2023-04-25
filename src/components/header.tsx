@@ -9,8 +9,6 @@ import { ROUTES } from 'Types/enum';
 
 import { ContentSpacer } from './common';
 
-type Theme = 'dark' | 'light';
-
 const Moon = () => (
   <svg
     xmlns="http://www.w3.org/2000/svg"
@@ -51,13 +49,12 @@ const Sun = () => (
 );
 
 const ToggleMode = () => {
-  let websiteTheme: Theme;
+  let websiteTheme: Theme = 'auto';
   websiteTheme = window.__theme;
   useEffect(() => {
     setTheme(window.__theme);
   }, []);
 
-  // @ts-ignore
   const [theme, setTheme] = useState(websiteTheme || 'dark');
 
   const ThemeToggle = () => {
@@ -78,7 +75,7 @@ const ToggleMode = () => {
         checkedIcon={<Moon />}
         uncheckedIcon={<Sun />}
         id={theme}
-        aria-label="Toggle dark mode"
+        aria-label={theme === 'dark' ? 'Activate light mode' : 'Activate dark mode'}
       />
     </label>
   );
