@@ -61,8 +61,8 @@ export const onRenderBody: GatsbySSR['onRenderBody'] = ({
       dangerouslySetInnerHTML={{
         /**
          * IIFE 내부에 논리를 추가하여 전역 범위를 오염시키지 않고
-         * localStorage 검색과 설정을 동일한 try-catch 블록 내에서
-         * 처리하여 오류 처리를 단순화
+         * localStorage에 데이터 설정과 검색을 동일한
+         * try-catch 블록 내에서 처리하여 오류 처리를 단순화
          */
         __html: `(function() {
           function setTheme(theme) {
@@ -76,22 +76,22 @@ export const onRenderBody: GatsbySSR['onRenderBody'] = ({
             }
           };
           window.__setPreferredTheme = function(theme) {
-            setTheme(theme);
             try {
               localStorage.setItem('color-theme', theme);
+              setTheme(theme);
             } catch (e) {}
           };
           let preferredTheme;
           try {
             preferredTheme = localStorage.getItem('color-theme');
+            let darkQuery = window.matchMedia('(prefers-color-scheme: dark)');
+            darkQuery.addEventListener('change', function (e) {
+              if (preferredTheme === 'auto') {
+                setTheme(e.matches ? 'dark' : 'light');
+              }
+            });
+            setTheme(preferredTheme || (darkQuery.matches ? 'dark' : 'light'));
           } catch (e) {}
-          let darkQuery = window.matchMedia('(prefers-color-scheme: dark)');
-          darkQuery.addEventListener('change', function (e) {
-            if (preferredTheme === 'auto') {
-              setTheme(e.matches ? 'dark' : 'light');
-            }
-          });
-          setTheme(preferredTheme || (darkQuery.matches ? 'dark' : 'light'));
         })();`,
       }}
     />,
