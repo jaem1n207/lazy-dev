@@ -12,6 +12,7 @@ import { Grid, Spacer, H3, ContentSpacer, H5, Typography } from 'Components/comm
 import AnimateFadeContainer from 'Components/common/animate-fade-container';
 import AnimatedContainer from 'Components/common/animated-container';
 import NoneActiveWrapper from 'Components/common/none-active-wrapper';
+import Skeleton from 'Components/common/skeleton';
 import HeroPostCard from 'Components/post/hero-post-card';
 import PostCard from 'Components/post/post-card';
 import RotatingTag from 'Components/rotating-tag';
@@ -52,17 +53,14 @@ const FeaturedPostTitle = 'Chrome 브라우저에서 JavaScript 성능을 프로
 const IndexPage: FC<PageProps<Queries.HomeQuery, ContextProps>> = ({ data, location }) => {
   const [currentCategory, setCurrentCategory] = useState<string | undefined>();
   const { category, selectCategory, resetCategory } = useCategory();
-  const [isLoadingPosts, { on: startLoadingPosts, off: completeLoadingPosts }] = useBoolean(true);
+
+  const [isLoadingContents, { off: completeLoadingContents }] = useBoolean(true);
 
   const searchInputRef = useRef<HTMLInputElement>(null);
 
   const isCategoryAll = useMemo(() => {
     return category === CATEGORY_TYPE.ALL;
   }, [category]);
-
-  useEffect(() => {
-    completeLoadingPosts();
-  }, [completeLoadingPosts]);
 
   const heroPost = useMemo(() => {
     const heroPost = data.postsRemark.edges.find(
@@ -210,6 +208,10 @@ const IndexPage: FC<PageProps<Queries.HomeQuery, ContextProps>> = ({ data, locat
   );
   const searchLabelClasses = classNames(searchLabelBaseClasses, searchLabelFocusedClasses);
 
+  useEffect(() => {
+    completeLoadingContents();
+  }, [completeLoadingContents]);
+
   return (
     <Layout location={location} title={data.site?.siteMetadata?.title!}>
       <CategoryFilter
@@ -221,162 +223,163 @@ const IndexPage: FC<PageProps<Queries.HomeQuery, ContextProps>> = ({ data, locat
 
       <Spacer size="sm" className="col-span-full" />
 
-      {!isEmptyArray(tagsArray) && (
-        <ContentSpacer>
-          <Grid>
-            <div className="select-none col-span-full">
-              <Typography
-                as="div"
-                className="font-bold leading-tight text-64pxr tablet:text-48pxr foldable:text-32pxr"
-              >
-                <div className="gradient-text">원하는 글을 찾아보세요&#46;</div>
-                <div className="flex">
-                  <span>Find&nbsp;</span>
-                  <RotatingTag tags={tagsArray} interval={4000} rotationDuration={2} />
-                </div>
-              </Typography>
+      {isLoadingContents ? (
+        <div>
+          <Skeleton />
+        </div>
+      ) : (
+        <>
+          {!isEmptyArray(tagsArray) && (
+            <ContentSpacer>
+              <Grid>
+                <div className="select-none col-span-full">
+                  <Typography
+                    as="div"
+                    className="font-bold leading-tight text-64pxr tablet:text-48pxr foldable:text-32pxr"
+                  >
+                    <div className="gradient-text">원하는 글을 찾아보세요&#46;</div>
+                    <div className="flex">
+                      <span>Find&nbsp;</span>
+                      <RotatingTag tags={tagsArray} interval={4000} rotationDuration={2} />
+                    </div>
+                  </Typography>
 
-              <Spacer size="sm" />
+                  <Spacer size="sm" />
 
-              <div className="flex items-center justify-between my-24pxr col-span-full">
-                <form className="relative flex items-center" onSubmit={(e) => e.preventDefault()}>
-                  <NoneActiveWrapper>
-                    <button
-                      title="Search"
-                      className="absolute z-10 flex items-center h-full top-0pxr left-12pxr w-24pxr text-text-primary"
+                  <div className="flex items-center justify-between my-24pxr col-span-full">
+                    <form
+                      className="relative flex items-center"
+                      onSubmit={(e) => e.preventDefault()}
                     >
-                      <MagnifyingGlassIcon />
-                    </button>
-                  </NoneActiveWrapper>
-                  <div className="relative group">
-                    <NoneActiveWrapper>
-                      <label className={searchLabelClasses} htmlFor="search-post-input">
-                        무엇을 찾고 계신가요?
-                      </label>
-                      <input
-                        ref={searchInputRef}
-                        id="search-post-input"
-                        type="search"
-                        className="w-full rounded-full outline-none appearance-none bg-bg-secondary py-24pxr foldable:py-12pxr pl-48pxr pr-64pxr text-18pxr foldable:text-16pxr focus-primary group-focus-within:bg-opacity-60 border-1pxr border-border-secondary"
-                        value={queryValue}
-                        onChange={handleSearchInputChange}
-                        onKeyUp={handleScrollToResults}
-                      />
-                    </NoneActiveWrapper>
-                  </div>
-                  <AnimatePresence>
-                    {queryValue.length > 0 && (
                       <NoneActiveWrapper>
-                        <motion.button
-                          aria-label="Clear search"
-                          title="Clear search"
-                          data-hoverable="true"
-                          animate={{ opacity: 1 }}
-                          exit={{ opacity: 0 }}
-                          initial={{ opacity: 0 }}
-                          type="reset"
-                          className="absolute my-auto -translate-y-1/2 rounded-full focus-primary right-36pxr top-1/2 text-text-primary mr-8pxr"
-                          onClick={handleClearSearch}
-                          tabIndex={-1}
+                        <button
+                          title="Search"
+                          className="absolute z-10 flex items-center h-full top-0pxr left-12pxr w-24pxr text-text-primary"
                         >
-                          <span className="sr-only">Clear search</span>
-                          <XMarkIcon className="w-24pxr h-24pxr" />
-                        </motion.button>
+                          <MagnifyingGlassIcon />
+                        </button>
                       </NoneActiveWrapper>
-                    )}
-                  </AnimatePresence>
-                  <div className="absolute flex items-center h-full top-0pxr right-4pxr w-32pxr text-text-primary">
-                    {posts.length}
+                      <div className="relative group">
+                        <NoneActiveWrapper>
+                          <label className={searchLabelClasses} htmlFor="search-post-input">
+                            무엇을 찾고 계신가요?
+                          </label>
+                          <input
+                            ref={searchInputRef}
+                            id="search-post-input"
+                            type="search"
+                            className="w-full rounded-full outline-none appearance-none bg-bg-secondary py-24pxr foldable:py-12pxr pl-48pxr pr-64pxr text-18pxr foldable:text-16pxr focus-primary group-focus-within:bg-opacity-60 border-1pxr border-border-secondary"
+                            value={queryValue}
+                            onChange={handleSearchInputChange}
+                            onKeyUp={handleScrollToResults}
+                          />
+                        </NoneActiveWrapper>
+                      </div>
+                      <AnimatePresence>
+                        {queryValue.length > 0 && (
+                          <NoneActiveWrapper>
+                            <motion.button
+                              aria-label="Clear search"
+                              title="Clear search"
+                              data-hoverable="true"
+                              animate={{ opacity: 1 }}
+                              exit={{ opacity: 0 }}
+                              initial={{ opacity: 0 }}
+                              type="reset"
+                              className="absolute my-auto -translate-y-1/2 rounded-full focus-primary right-36pxr top-1/2 text-text-primary mr-8pxr"
+                              onClick={handleClearSearch}
+                              tabIndex={-1}
+                            >
+                              <span className="sr-only">Clear search</span>
+                              <XMarkIcon className="w-24pxr h-24pxr" />
+                            </motion.button>
+                          </NoneActiveWrapper>
+                        )}
+                      </AnimatePresence>
+                      <div className="absolute flex items-center h-full top-0pxr right-4pxr w-32pxr text-text-primary">
+                        {posts.length}
+                      </div>
+                    </form>
                   </div>
-                </form>
-              </div>
-            </div>
-          </Grid>
-        </ContentSpacer>
-      )}
+                </div>
+              </Grid>
+            </ContentSpacer>
+          )}
 
-      <Spacer size="sm" className="col-span-full" />
+          <Spacer size="sm" className="col-span-full" />
 
-      <ContentSpacer className="mb-56pxr">
-        <Grid>
-          <H5 as="div" className="col-span-full mb-24pxr">
-            키워드로 원하는 글을 찾아보세요
-          </H5>
-          <div className="flex flex-wrap col-span-10 desktop:col-span-full">
-            {tagsArray.map((tag) => {
-              if (!tag) return null;
-              const selected = query.includes(tag);
+          <ContentSpacer className="mb-56pxr">
+            <Grid>
+              <H5 as="div" className="col-span-full mb-24pxr">
+                키워드로 원하는 글을 찾아보세요
+              </H5>
+              <div className="flex flex-wrap col-span-10 desktop:col-span-full">
+                {tagsArray.map((tag) => {
+                  if (!tag) return null;
+                  const selected = query.includes(tag);
 
-              return (
-                <Tag
-                  key={tag}
-                  tag={tag}
-                  checked={selected}
-                  onChange={() => toggleTag(tag)}
-                  onKeyUp={handleScrollToResults}
-                  /* disabled 조건에 해당되도 선택된 상태에서는 disabled를 해제한다. */
-                  disabled={!visibleTags.has(tag) ? !selected : false}
-                />
-              );
-            })}
-          </div>
-        </Grid>
-      </ContentSpacer>
-
-      <AnimatePresence>
-        {heroPost && !isSearching && isCategoryAll && (
-          <AnimateFadeContainer>
-            <HeroPostCard post={heroPost} />
-          </AnimateFadeContainer>
-        )}
-      </AnimatePresence>
-
-      <AnimatePresence>
-        <ContentSpacer ref={resultsRef}>
-          {isLoadingPosts ? (
-            <div role="status" className="mx-auto max-w-7xl animate-pulse">
-              <div className="bg-gray-200 rounded-full h-10pxr dark:bg-gray-700 w-192pxr mb-16pxr"></div>
-              <div className="h-8pxr bg-gray-200 rounded-full dark:bg-gray-700 max-w-[360px] mb-10pxr"></div>
-              <div className="bg-gray-200 rounded-full h-8pxr dark:bg-gray-700 mb-10pxr"></div>
-              <div className="h-8pxr bg-gray-200 rounded-full dark:bg-gray-700 max-w-[330px] mb-10pxr"></div>
-              <div className="h-8pxr bg-gray-200 rounded-full dark:bg-gray-700 max-w-[300px] mb-10pxr"></div>
-              <div className="h-8pxr bg-gray-200 rounded-full dark:bg-gray-700 max-w-[360px]"></div>
-              <span className="sr-only">Loading...</span>
-            </div>
-          ) : isEmptyArray(posts) ? (
-            <Grid className="mb-64">
-              <div className="flex flex-col items-center col-span-full">
-                <StaticImage
-                  draggable={false}
-                  src="../images/not-found.png"
-                  alt="Not Found Blog Post"
-                  placeholder="blurred"
-                  layout="constrained"
-                  height={600}
-                  className="overflow-hidden"
-                />
-                <Spacer size="sm" />
-                <H3 as="p" variant="secondary" className="max-w-lg">
-                  검색하신 키워드에 해당하는 글이 없어요.
-                </H3>
+                  return (
+                    <Tag
+                      key={tag}
+                      tag={tag}
+                      checked={selected}
+                      onChange={() => toggleTag(tag)}
+                      onKeyUp={handleScrollToResults}
+                      /* disabled 조건에 해당되도 선택된 상태에서는 disabled를 해제한다. */
+                      disabled={!visibleTags.has(tag) ? !selected : false}
+                    />
+                  );
+                })}
               </div>
             </Grid>
-          ) : (
-            <>
-              <Spacer size="xs" className="col-span-full" />
-              <AnimatedContainer>
+          </ContentSpacer>
+
+          <AnimatePresence>
+            {heroPost && !isSearching && isCategoryAll && (
+              <AnimateFadeContainer>
+                <HeroPostCard post={heroPost} />
+              </AnimateFadeContainer>
+            )}
+          </AnimatePresence>
+
+          <AnimatePresence>
+            <ContentSpacer ref={resultsRef}>
+              {isEmptyArray(posts) ? (
                 <Grid className="mb-64">
-                  {posts.map((post) => (
-                    <div key={post.slug} className="col-span-4 mb-40pxr">
-                      <PostCard post={post} />
-                    </div>
-                  ))}
+                  <div className="flex flex-col items-center col-span-full">
+                    <StaticImage
+                      draggable={false}
+                      src="../images/not-found.png"
+                      alt="Not Found Blog Post"
+                      placeholder="blurred"
+                      layout="constrained"
+                      height={600}
+                      className="overflow-hidden"
+                    />
+                    <Spacer size="sm" />
+                    <H3 as="p" variant="secondary" className="max-w-lg">
+                      검색하신 키워드에 해당하는 글이 없어요.
+                    </H3>
+                  </div>
                 </Grid>
-              </AnimatedContainer>
-            </>
-          )}
-        </ContentSpacer>
-      </AnimatePresence>
+              ) : (
+                <>
+                  <Spacer size="xs" className="col-span-full" />
+                  <AnimatedContainer>
+                    <Grid className="mb-64">
+                      {posts.map((post) => (
+                        <div key={post.slug} className="col-span-4 mb-40pxr">
+                          <PostCard post={post} />
+                        </div>
+                      ))}
+                    </Grid>
+                  </AnimatedContainer>
+                </>
+              )}
+            </ContentSpacer>
+          </AnimatePresence>
+        </>
+      )}
     </Layout>
   );
 };
