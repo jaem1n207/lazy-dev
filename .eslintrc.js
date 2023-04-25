@@ -24,6 +24,8 @@ module.exports = {
     graphql: true,
     Queries: true,
     __dirname: true,
+    /* ESLint에게 `Theme`가 전역 유형이며 정의되지 않은 것으로 간주되어서는 안된다는 것을 알리도록 함 */
+    Theme: 'readonly',
   },
   extends: [
     'eslint:recommended',
