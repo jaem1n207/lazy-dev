@@ -17,6 +17,7 @@ import PostCard from 'Components/post/post-card';
 import RotatingTag from 'Components/rotating-tag';
 import Seo from 'Components/seo';
 import Tag from 'Components/tag';
+import { useBoolean } from 'Hooks/use-boolean';
 import { useCategory } from 'Hooks/use-category';
 import Layout from 'Layout/layout';
 import { isEmptyArray, isEmptyString } from 'Libs/assertions';
@@ -51,12 +52,17 @@ const FeaturedPostTitle = 'Chrome 브라우저에서 JavaScript 성능을 프로
 const IndexPage: FC<PageProps<Queries.HomeQuery, ContextProps>> = ({ data, location }) => {
   const [currentCategory, setCurrentCategory] = useState<string | undefined>();
   const { category, selectCategory, resetCategory } = useCategory();
+  const [isLoadingPosts, { on: startLoadingPosts, off: completeLoadingPosts }] = useBoolean(true);
 
   const searchInputRef = useRef<HTMLInputElement>(null);
 
   const isCategoryAll = useMemo(() => {
     return category === CATEGORY_TYPE.ALL;
   }, [category]);
+
+  useEffect(() => {
+    completeLoadingPosts();
+  }, [completeLoadingPosts]);
 
   const heroPost = useMemo(() => {
     const heroPost = data.postsRemark.edges.find(
@@ -327,7 +333,17 @@ const IndexPage: FC<PageProps<Queries.HomeQuery, ContextProps>> = ({ data, locat
 
       <AnimatePresence>
         <ContentSpacer ref={resultsRef}>
-          {posts.length === 0 ? (
+          {isLoadingPosts ? (
+            <div role="status" className="mx-auto max-w-7xl animate-pulse">
+              <div className="bg-gray-200 rounded-full h-10pxr dark:bg-gray-700 w-192pxr mb-16pxr"></div>
+              <div className="h-8pxr bg-gray-200 rounded-full dark:bg-gray-700 max-w-[360px] mb-10pxr"></div>
+              <div className="bg-gray-200 rounded-full h-8pxr dark:bg-gray-700 mb-10pxr"></div>
+              <div className="h-8pxr bg-gray-200 rounded-full dark:bg-gray-700 max-w-[330px] mb-10pxr"></div>
+              <div className="h-8pxr bg-gray-200 rounded-full dark:bg-gray-700 max-w-[300px] mb-10pxr"></div>
+              <div className="h-8pxr bg-gray-200 rounded-full dark:bg-gray-700 max-w-[360px]"></div>
+              <span className="sr-only">Loading...</span>
+            </div>
+          ) : isEmptyArray(posts) ? (
             <Grid className="mb-64">
               <div className="flex flex-col items-center col-span-full">
                 <StaticImage
