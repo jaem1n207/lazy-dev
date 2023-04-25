@@ -55,7 +55,6 @@ const ToggleMode = () => {
     setTheme(window.__theme);
   }, []);
 
-  // @ts-ignore
   const [theme, setTheme] = useState(websiteTheme || 'dark');
 
   const ThemeToggle = () => {
@@ -76,7 +75,7 @@ const ToggleMode = () => {
         checkedIcon={<Moon />}
         uncheckedIcon={<Sun />}
         id={theme}
-        aria-label="Toggle dark mode"
+        aria-label={theme === 'dark' ? 'Activate light mode' : 'Activate dark mode'}
       />
     </label>
   );
