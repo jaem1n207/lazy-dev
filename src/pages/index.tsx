@@ -11,6 +11,7 @@ import CategoryFilter from 'Components/category/category-filter';
 import { Grid, Spacer, H3, ContentSpacer, H5, Typography } from 'Components/common';
 import AnimateFadeContainer from 'Components/common/animate-fade-container';
 import AnimatedContainer from 'Components/common/animated-container';
+import ConditionalRender from 'Components/common/conditional-render';
 import NoneActiveWrapper from 'Components/common/none-active-wrapper';
 import Skeleton from 'Components/common/skeleton';
 import HeroPostCard from 'Components/post/hero-post-card';
@@ -223,163 +224,264 @@ const IndexPage: FC<PageProps<Queries.HomeQuery, ContextProps>> = ({ data, locat
 
       <Spacer size="sm" className="col-span-full" />
 
-      {isLoadingContents ? (
-        <div>
-          <Skeleton />
-        </div>
-      ) : (
-        <>
-          {!isEmptyArray(tagsArray) && (
-            <ContentSpacer>
-              <Grid>
-                <div className="select-none col-span-full">
-                  <Typography
-                    as="div"
-                    className="font-bold leading-tight text-64pxr tablet:text-48pxr foldable:text-32pxr"
-                  >
-                    <div className="gradient-text">원하는 글을 찾아보세요&#46;</div>
-                    <div className="flex">
-                      <span>Find&nbsp;</span>
-                      <RotatingTag tags={tagsArray} interval={4000} rotationDuration={2} />
-                    </div>
-                  </Typography>
+      {!isEmptyArray(tagsArray) && (
+        <ContentSpacer>
+          <Grid>
+            <div className="select-none col-span-full">
+              <ConditionalRender
+                condition={!isLoadingContents}
+                fallback={
+                  <Skeleton className="flex flex-col gap-y-8pxr">
+                    <Skeleton.Item>
+                      <div className="w-4/6 rounded h-64pxr tablet:h-48pxr foldable:h-32pxr" />
+                      <div className="w-2/6 h-16pxr" />
+                      <div className="flex gap-x-4pxr min-w-[60vw] h-[1.2em] bg-transparent">
+                        {Array.from({ length: 8 }).map((_, index) => (
+                          <div key={index} className="w-full h-full rounded" />
+                        ))}
+                      </div>
+                    </Skeleton.Item>
+                  </Skeleton>
+                }
+              >
+                <Typography
+                  as="div"
+                  className="font-bold leading-tight text-64pxr tablet:text-48pxr foldable:text-32pxr"
+                >
+                  <div className="gradient-text">원하는 글을 찾아보세요&#46;</div>
+                  <div className="flex">
+                    <span>Find&nbsp;</span>
+                    <RotatingTag tags={tagsArray} interval={4000} rotationDuration={2} />
+                  </div>
+                </Typography>
+              </ConditionalRender>
 
-                  <Spacer size="sm" />
+              <Spacer size="sm" />
 
-                  <div className="flex items-center justify-between my-24pxr col-span-full">
-                    <form
-                      className="relative flex items-center"
-                      onSubmit={(e) => e.preventDefault()}
-                    >
+              <div className="flex items-center justify-between my-24pxr col-span-full">
+                <ConditionalRender
+                  condition={!isLoadingContents}
+                  fallback={
+                    <Skeleton className="flex space-x-16pxr">
+                      <div className="rounded-full w-40pxr h-40pxr bg-slate-700"></div>
+                      <div className="flex-1 py-4pxr space-y-24pxr">
+                        <div className="rounded h-8pxr bg-slate-700"></div>
+                        <div className="space-y-12pxr">
+                          <div className="grid grid-cols-3 gap-16pxr">
+                            <div className="col-span-2 rounded h-8pxr bg-slate-700"></div>
+                            <div className="col-span-1 rounded h-8pxr bg-slate-700"></div>
+                          </div>
+                          <div className="rounded h-8pxr bg-slate-700"></div>
+                        </div>
+                      </div>
+                    </Skeleton>
+                  }
+                >
+                  <form className="relative flex items-center" onSubmit={(e) => e.preventDefault()}>
+                    <NoneActiveWrapper>
+                      <button
+                        title="Search"
+                        className="absolute z-10 flex items-center h-full top-0pxr left-12pxr w-24pxr text-text-primary"
+                      >
+                        <MagnifyingGlassIcon />
+                      </button>
+                    </NoneActiveWrapper>
+                    <div className="relative group">
                       <NoneActiveWrapper>
-                        <button
-                          title="Search"
-                          className="absolute z-10 flex items-center h-full top-0pxr left-12pxr w-24pxr text-text-primary"
-                        >
-                          <MagnifyingGlassIcon />
-                        </button>
+                        <label className={searchLabelClasses} htmlFor="search-post-input">
+                          무엇을 찾고 계신가요?
+                        </label>
+                        <input
+                          ref={searchInputRef}
+                          id="search-post-input"
+                          type="search"
+                          className="w-full rounded-full outline-none appearance-none bg-bg-secondary py-24pxr foldable:py-12pxr pl-48pxr pr-64pxr text-18pxr foldable:text-16pxr focus-primary group-focus-within:bg-opacity-60 border-1pxr border-border-secondary"
+                          value={queryValue}
+                          onChange={handleSearchInputChange}
+                          onKeyUp={handleScrollToResults}
+                        />
                       </NoneActiveWrapper>
-                      <div className="relative group">
+                    </div>
+                    <AnimatePresence>
+                      {queryValue.length > 0 && (
                         <NoneActiveWrapper>
-                          <label className={searchLabelClasses} htmlFor="search-post-input">
-                            무엇을 찾고 계신가요?
-                          </label>
-                          <input
-                            ref={searchInputRef}
-                            id="search-post-input"
-                            type="search"
-                            className="w-full rounded-full outline-none appearance-none bg-bg-secondary py-24pxr foldable:py-12pxr pl-48pxr pr-64pxr text-18pxr foldable:text-16pxr focus-primary group-focus-within:bg-opacity-60 border-1pxr border-border-secondary"
-                            value={queryValue}
-                            onChange={handleSearchInputChange}
-                            onKeyUp={handleScrollToResults}
-                          />
+                          <motion.button
+                            aria-label="Clear search"
+                            title="Clear search"
+                            data-hoverable="true"
+                            animate={{ opacity: 1 }}
+                            exit={{ opacity: 0 }}
+                            initial={{ opacity: 0 }}
+                            type="reset"
+                            className="absolute my-auto -translate-y-1/2 rounded-full focus-primary right-36pxr top-1/2 text-text-primary mr-8pxr"
+                            onClick={handleClearSearch}
+                            tabIndex={-1}
+                          >
+                            <span className="sr-only">Clear search</span>
+                            <XMarkIcon className="w-24pxr h-24pxr" />
+                          </motion.button>
                         </NoneActiveWrapper>
-                      </div>
-                      <AnimatePresence>
-                        {queryValue.length > 0 && (
-                          <NoneActiveWrapper>
-                            <motion.button
-                              aria-label="Clear search"
-                              title="Clear search"
-                              data-hoverable="true"
-                              animate={{ opacity: 1 }}
-                              exit={{ opacity: 0 }}
-                              initial={{ opacity: 0 }}
-                              type="reset"
-                              className="absolute my-auto -translate-y-1/2 rounded-full focus-primary right-36pxr top-1/2 text-text-primary mr-8pxr"
-                              onClick={handleClearSearch}
-                              tabIndex={-1}
-                            >
-                              <span className="sr-only">Clear search</span>
-                              <XMarkIcon className="w-24pxr h-24pxr" />
-                            </motion.button>
-                          </NoneActiveWrapper>
-                        )}
-                      </AnimatePresence>
-                      <div className="absolute flex items-center h-full top-0pxr right-4pxr w-32pxr text-text-primary">
-                        {posts.length}
-                      </div>
-                    </form>
+                      )}
+                    </AnimatePresence>
+                    <div className="absolute flex items-center h-full top-0pxr right-4pxr w-32pxr text-text-primary">
+                      {posts.length}
+                    </div>
+                  </form>
+                </ConditionalRender>
+              </div>
+            </div>
+          </Grid>
+        </ContentSpacer>
+      )}
+
+      <Spacer size="sm" className="col-span-full" />
+
+      <ContentSpacer className="mb-56pxr">
+        <Grid>
+          <ConditionalRender
+            condition={!isLoadingContents}
+            fallback={
+              <Skeleton className="flex space-x-16pxr">
+                <div className="rounded-full w-40pxr h-40pxr bg-slate-700"></div>
+                <div className="flex-1 py-4pxr space-y-24pxr">
+                  <div className="rounded h-8pxr bg-slate-700"></div>
+                  <div className="space-y-12pxr">
+                    <div className="grid grid-cols-3 gap-16pxr">
+                      <div className="col-span-2 rounded h-8pxr bg-slate-700"></div>
+                      <div className="col-span-1 rounded h-8pxr bg-slate-700"></div>
+                    </div>
+                    <div className="rounded h-8pxr bg-slate-700"></div>
                   </div>
                 </div>
-              </Grid>
-            </ContentSpacer>
-          )}
+              </Skeleton>
+            }
+          >
+            <H5 as="div" className="col-span-full mb-24pxr">
+              키워드로 원하는 글을 찾아보세요
+            </H5>
+            <div className="flex flex-wrap col-span-10 desktop:col-span-full">
+              {tagsArray.map((tag) => {
+                if (!tag) return null;
+                const selected = query.includes(tag);
 
-          <Spacer size="sm" className="col-span-full" />
+                return (
+                  <Tag
+                    key={tag}
+                    tag={tag}
+                    checked={selected}
+                    onChange={() => toggleTag(tag)}
+                    onKeyUp={handleScrollToResults}
+                    /* disabled 조건에 해당되도 선택된 상태에서는 disabled를 해제한다. */
+                    disabled={!visibleTags.has(tag) ? !selected : false}
+                  />
+                );
+              })}
+            </div>
+          </ConditionalRender>
+        </Grid>
+      </ContentSpacer>
 
-          <ContentSpacer className="mb-56pxr">
-            <Grid>
-              <H5 as="div" className="col-span-full mb-24pxr">
-                키워드로 원하는 글을 찾아보세요
-              </H5>
-              <div className="flex flex-wrap col-span-10 desktop:col-span-full">
-                {tagsArray.map((tag) => {
-                  if (!tag) return null;
-                  const selected = query.includes(tag);
-
-                  return (
-                    <Tag
-                      key={tag}
-                      tag={tag}
-                      checked={selected}
-                      onChange={() => toggleTag(tag)}
-                      onKeyUp={handleScrollToResults}
-                      /* disabled 조건에 해당되도 선택된 상태에서는 disabled를 해제한다. */
-                      disabled={!visibleTags.has(tag) ? !selected : false}
-                    />
-                  );
-                })}
-              </div>
-            </Grid>
-          </ContentSpacer>
-
-          <AnimatePresence>
-            {heroPost && !isSearching && isCategoryAll && (
-              <AnimateFadeContainer>
-                <HeroPostCard post={heroPost} />
-              </AnimateFadeContainer>
-            )}
-          </AnimatePresence>
-
-          <AnimatePresence>
-            <ContentSpacer ref={resultsRef}>
-              {isEmptyArray(posts) ? (
-                <Grid className="mb-64">
-                  <div className="flex flex-col items-center col-span-full">
-                    <StaticImage
-                      draggable={false}
-                      src="../images/not-found.png"
-                      alt="Not Found Blog Post"
-                      placeholder="blurred"
-                      layout="constrained"
-                      height={600}
-                      className="overflow-hidden"
-                    />
-                    <Spacer size="sm" />
-                    <H3 as="p" variant="secondary" className="max-w-lg">
-                      검색하신 키워드에 해당하는 글이 없어요.
-                    </H3>
+      <AnimatePresence>
+        {heroPost && !isSearching && isCategoryAll && (
+          <AnimateFadeContainer>
+            <ConditionalRender
+              condition={!isLoadingContents}
+              fallback={
+                <Skeleton className="flex space-x-16pxr">
+                  <div className="rounded-full w-40pxr h-40pxr bg-slate-700"></div>
+                  <div className="flex-1 py-4pxr space-y-24pxr">
+                    <div className="rounded h-8pxr bg-slate-700"></div>
+                    <div className="space-y-12pxr">
+                      <div className="grid grid-cols-3 gap-16pxr">
+                        <div className="col-span-2 rounded h-8pxr bg-slate-700"></div>
+                        <div className="col-span-1 rounded h-8pxr bg-slate-700"></div>
+                      </div>
+                      <div className="rounded h-8pxr bg-slate-700"></div>
+                    </div>
                   </div>
-                </Grid>
-              ) : (
-                <>
-                  <Spacer size="xs" className="col-span-full" />
-                  <AnimatedContainer>
-                    <Grid className="mb-64">
-                      {posts.map((post) => (
-                        <div key={post.slug} className="col-span-4 mb-40pxr">
-                          <PostCard post={post} />
+                </Skeleton>
+              }
+            >
+              <HeroPostCard post={heroPost} />
+            </ConditionalRender>
+          </AnimateFadeContainer>
+        )}
+      </AnimatePresence>
+
+      <AnimatePresence>
+        <ContentSpacer ref={resultsRef}>
+          {isEmptyArray(posts) ? (
+            <Grid className="mb-64">
+              <ConditionalRender
+                condition={!isLoadingContents}
+                fallback={
+                  <Skeleton className="flex space-x-16pxr">
+                    <div className="rounded-full w-40pxr h-40pxr bg-slate-700"></div>
+                    <div className="flex-1 py-4pxr space-y-24pxr">
+                      <div className="rounded h-8pxr bg-slate-700"></div>
+                      <div className="space-y-12pxr">
+                        <div className="grid grid-cols-3 gap-16pxr">
+                          <div className="col-span-2 rounded h-8pxr bg-slate-700"></div>
+                          <div className="col-span-1 rounded h-8pxr bg-slate-700"></div>
                         </div>
-                      ))}
-                    </Grid>
-                  </AnimatedContainer>
-                </>
-              )}
-            </ContentSpacer>
-          </AnimatePresence>
-        </>
-      )}
+                        <div className="rounded h-8pxr bg-slate-700"></div>
+                      </div>
+                    </div>
+                  </Skeleton>
+                }
+              >
+                <div className="flex flex-col items-center col-span-full">
+                  <StaticImage
+                    draggable={false}
+                    src="../images/not-found.png"
+                    alt="Not Found Blog Post"
+                    placeholder="blurred"
+                    layout="constrained"
+                    height={600}
+                    className="overflow-hidden"
+                  />
+                  <Spacer size="sm" />
+                  <H3 as="p" variant="secondary" className="max-w-lg">
+                    검색하신 키워드에 해당하는 글이 없어요.
+                  </H3>
+                </div>
+              </ConditionalRender>
+            </Grid>
+          ) : (
+            <>
+              <Spacer size="xs" className="col-span-full" />
+              <AnimatedContainer>
+                <Grid className="mb-64">
+                  <ConditionalRender
+                    condition={!isLoadingContents}
+                    fallback={
+                      <Skeleton className="flex space-x-16pxr">
+                        <div className="rounded-full w-40pxr h-40pxr bg-slate-700"></div>
+                        <div className="flex-1 py-4pxr space-y-24pxr">
+                          <div className="rounded h-8pxr bg-slate-700"></div>
+                          <div className="space-y-12pxr">
+                            <div className="grid grid-cols-3 gap-16pxr">
+                              <div className="col-span-2 rounded h-8pxr bg-slate-700"></div>
+                              <div className="col-span-1 rounded h-8pxr bg-slate-700"></div>
+                            </div>
+                            <div className="rounded h-8pxr bg-slate-700"></div>
+                          </div>
+                        </div>
+                      </Skeleton>
+                    }
+                  >
+                    {posts.map((post) => (
+                      <div key={post.slug} className="col-span-4 mb-40pxr">
+                        <PostCard post={post} />
+                      </div>
+                    ))}
+                  </ConditionalRender>
+                </Grid>
+              </AnimatedContainer>
+            </>
+          )}
+        </ContentSpacer>
+      </AnimatePresence>
     </Layout>
   );
 };
