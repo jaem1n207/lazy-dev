@@ -1,38 +1,18 @@
-import React from 'react';
+import React, { PropsWithChildren } from 'react';
 
-import { motion } from 'framer-motion';
+import classNames from 'classnames';
 
 interface SkeletonProps {
-  width?: string | number;
-  height?: string | number;
+  className?: string;
 }
 
-const Skeleton: React.FC<SkeletonProps> = ({ width = 'full', height = 'full' }) => {
-  const loadingVariants = {
-    initial: {
-      x: '-100%',
-      opacity: 0.5,
-    },
-    animate: {
-      x: '100%',
-      opacity: 1,
-    },
-  };
-
-  const transition = {
-    duration: 1.5,
-    repeat: Infinity,
-    ease: 'linear',
-  };
+const Skeleton = ({ className, children }: PropsWithChildren<SkeletonProps>) => {
+  const classes = classNames('animate-pulse', className);
 
   return (
-    <motion.div
-      className={`w-${width} h-${height} absolute top-0 left-0 bg-gradient-to-r from-gray-300 via-gray-200 to-gray-300`}
-      variants={loadingVariants}
-      initial="initial"
-      animate="animate"
-      transition={transition}
-    />
+    <div role="status" aria-label="Loading content" className={classes}>
+      {children}
+    </div>
   );
 };
 
