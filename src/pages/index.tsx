@@ -228,106 +228,70 @@ const IndexPage: FC<PageProps<Queries.HomeQuery, ContextProps>> = ({ data, locat
         <ContentSpacer>
           <Grid>
             <div className="select-none col-span-full">
-              <ConditionalRender
-                condition={!isLoadingContents}
-                fallback={
-                  <Skeleton className="flex flex-col gap-y-8pxr">
-                    <Skeleton.Item>
-                      <div className="w-4/6 rounded h-64pxr tablet:h-48pxr foldable:h-32pxr" />
-                      <div className="w-2/6 h-16pxr" />
-                      <div className="flex gap-x-4pxr min-w-[60vw] h-[1.2em] bg-transparent">
-                        {Array.from({ length: 8 }).map((_, index) => (
-                          <div key={index} className="w-full h-full rounded" />
-                        ))}
-                      </div>
-                    </Skeleton.Item>
-                  </Skeleton>
-                }
+              <Typography
+                as="div"
+                className="font-bold leading-tight text-64pxr tablet:text-48pxr foldable:text-32pxr"
               >
-                <Typography
-                  as="div"
-                  className="font-bold leading-tight text-64pxr tablet:text-48pxr foldable:text-32pxr"
-                >
-                  <div className="gradient-text">원하는 글을 찾아보세요&#46;</div>
-                  <div className="flex">
-                    <span>Find&nbsp;</span>
-                    <RotatingTag tags={tagsArray} interval={4000} rotationDuration={2} />
-                  </div>
-                </Typography>
-              </ConditionalRender>
+                <div className="gradient-text">원하는 글을 찾아보세요&#46;</div>
+                <div className="flex">
+                  <span>Find&nbsp;</span>
+                  <RotatingTag tags={tagsArray} interval={4000} rotationDuration={2} />
+                </div>
+              </Typography>
 
               <Spacer size="sm" />
 
               <div className="flex items-center justify-between my-24pxr col-span-full">
-                <ConditionalRender
-                  condition={!isLoadingContents}
-                  fallback={
-                    <Skeleton className="flex space-x-16pxr">
-                      <div className="rounded-full w-40pxr h-40pxr bg-slate-700"></div>
-                      <div className="flex-1 py-4pxr space-y-24pxr">
-                        <div className="rounded h-8pxr bg-slate-700"></div>
-                        <div className="space-y-12pxr">
-                          <div className="grid grid-cols-3 gap-16pxr">
-                            <div className="col-span-2 rounded h-8pxr bg-slate-700"></div>
-                            <div className="col-span-1 rounded h-8pxr bg-slate-700"></div>
-                          </div>
-                          <div className="rounded h-8pxr bg-slate-700"></div>
-                        </div>
-                      </div>
-                    </Skeleton>
-                  }
-                >
-                  <form className="relative flex items-center" onSubmit={(e) => e.preventDefault()}>
+                <form className="relative flex items-center" onSubmit={(e) => e.preventDefault()}>
+                  <NoneActiveWrapper>
+                    <button
+                      title="Search"
+                      className="absolute z-10 flex items-center h-full top-0pxr left-12pxr w-24pxr text-text-primary"
+                    >
+                      <MagnifyingGlassIcon />
+                    </button>
+                  </NoneActiveWrapper>
+                  <div className="relative group">
                     <NoneActiveWrapper>
-                      <button
-                        title="Search"
-                        className="absolute z-10 flex items-center h-full top-0pxr left-12pxr w-24pxr text-text-primary"
-                      >
-                        <MagnifyingGlassIcon />
-                      </button>
+                      <label className={searchLabelClasses} htmlFor="search-post-input">
+                        무엇을 찾고 계신가요?
+                      </label>
+                      <input
+                        ref={searchInputRef}
+                        id="search-post-input"
+                        type="search"
+                        className="w-full rounded-full outline-none appearance-none bg-bg-secondary py-24pxr foldable:py-12pxr pl-48pxr pr-64pxr text-18pxr foldable:text-16pxr focus-primary group-focus-within:bg-opacity-60 border-1pxr border-border-secondary"
+                        value={queryValue}
+                        onChange={handleSearchInputChange}
+                        onKeyUp={handleScrollToResults}
+                      />
                     </NoneActiveWrapper>
-                    <div className="relative group">
+                  </div>
+                  <AnimatePresence>
+                    {queryValue.length > 0 && (
                       <NoneActiveWrapper>
-                        <label className={searchLabelClasses} htmlFor="search-post-input">
-                          무엇을 찾고 계신가요?
-                        </label>
-                        <input
-                          ref={searchInputRef}
-                          id="search-post-input"
-                          type="search"
-                          className="w-full rounded-full outline-none appearance-none bg-bg-secondary py-24pxr foldable:py-12pxr pl-48pxr pr-64pxr text-18pxr foldable:text-16pxr focus-primary group-focus-within:bg-opacity-60 border-1pxr border-border-secondary"
-                          value={queryValue}
-                          onChange={handleSearchInputChange}
-                          onKeyUp={handleScrollToResults}
-                        />
+                        <motion.button
+                          aria-label="Clear search"
+                          title="Clear search"
+                          data-hoverable="true"
+                          animate={{ opacity: 1 }}
+                          exit={{ opacity: 0 }}
+                          initial={{ opacity: 0 }}
+                          type="reset"
+                          className="absolute my-auto -translate-y-1/2 rounded-full focus-primary right-36pxr top-1/2 text-text-primary mr-8pxr"
+                          onClick={handleClearSearch}
+                          tabIndex={-1}
+                        >
+                          <span className="sr-only">Clear search</span>
+                          <XMarkIcon className="w-24pxr h-24pxr" />
+                        </motion.button>
                       </NoneActiveWrapper>
-                    </div>
-                    <AnimatePresence>
-                      {queryValue.length > 0 && (
-                        <NoneActiveWrapper>
-                          <motion.button
-                            aria-label="Clear search"
-                            title="Clear search"
-                            data-hoverable="true"
-                            animate={{ opacity: 1 }}
-                            exit={{ opacity: 0 }}
-                            initial={{ opacity: 0 }}
-                            type="reset"
-                            className="absolute my-auto -translate-y-1/2 rounded-full focus-primary right-36pxr top-1/2 text-text-primary mr-8pxr"
-                            onClick={handleClearSearch}
-                            tabIndex={-1}
-                          >
-                            <span className="sr-only">Clear search</span>
-                            <XMarkIcon className="w-24pxr h-24pxr" />
-                          </motion.button>
-                        </NoneActiveWrapper>
-                      )}
-                    </AnimatePresence>
-                    <div className="absolute flex items-center h-full top-0pxr right-4pxr w-32pxr text-text-primary">
-                      {posts.length}
-                    </div>
-                  </form>
-                </ConditionalRender>
+                    )}
+                  </AnimatePresence>
+                  <div className="absolute flex items-center h-full top-0pxr right-4pxr w-32pxr text-text-primary">
+                    {posts.length}
+                  </div>
+                </form>
               </div>
             </div>
           </Grid>
@@ -341,18 +305,33 @@ const IndexPage: FC<PageProps<Queries.HomeQuery, ContextProps>> = ({ data, locat
           <ConditionalRender
             condition={!isLoadingContents}
             fallback={
-              <Skeleton className="flex space-x-16pxr">
-                <div className="rounded-full w-40pxr h-40pxr bg-slate-700"></div>
-                <div className="flex-1 py-4pxr space-y-24pxr">
-                  <div className="rounded h-8pxr bg-slate-700"></div>
-                  <div className="space-y-12pxr">
-                    <div className="grid grid-cols-3 gap-16pxr">
-                      <div className="col-span-2 rounded h-8pxr bg-slate-700"></div>
-                      <div className="col-span-1 rounded h-8pxr bg-slate-700"></div>
-                    </div>
-                    <div className="rounded h-8pxr bg-slate-700"></div>
+              <Skeleton className="col-span-10 desktop:col-span-full">
+                <Skeleton.Item>
+                  {/* Sub Title Section */}
+                  <div className="w-5/6 rounded-lg h-64pxr mb-12pxr foldable:h-40pxr" />
+                  <div className="w-4/6 rounded-lg h-64pxr foldable:h-40pxr" />
+                  <Spacer size="sm" data-skeleton-exclude-bg="true" />
+                  {/* Search */}
+                  <div className="rounded-lg w-300pxr h-72pxr foldable:w-200pxr foldable:h-50pxr" />
+                  <Spacer size="sm" data-skeleton-exclude-bg="true" />
+                  {/* Tags */}
+                  <div className="w-2/6 rounded-full h-16pxr mb-24pxr" />
+                  <div className="flex flex-wrap mb-56pxr" data-skeleton-exclude-bg="true">
+                    {Array.from({ length: 8 }).map((_, index) => (
+                      <div
+                        key={index}
+                        className="rounded-full w-115pxr h-50pxr mb-16pxr mr-16pxr foldable:h-40pxr"
+                      />
+                    ))}
                   </div>
-                </div>
+                  {/* Hero Post */}
+                  {!isSearching && isCategoryAll && (
+                    <>
+                      <div className="max-w-7xl h-[900px] rounded-lg foldable:h-400pxr tablet:h-[600pxr]" />
+                      <Spacer size="xs" className="col-span-full" data-skeleton-exclude-bg="true" />
+                    </>
+                  )}
+                </Skeleton.Item>
               </Skeleton>
             }
           >
@@ -384,24 +363,7 @@ const IndexPage: FC<PageProps<Queries.HomeQuery, ContextProps>> = ({ data, locat
       <AnimatePresence>
         {heroPost && !isSearching && isCategoryAll && (
           <AnimateFadeContainer>
-            <ConditionalRender
-              condition={!isLoadingContents}
-              fallback={
-                <Skeleton className="flex space-x-16pxr">
-                  <div className="rounded-full w-40pxr h-40pxr bg-slate-700"></div>
-                  <div className="flex-1 py-4pxr space-y-24pxr">
-                    <div className="rounded h-8pxr bg-slate-700"></div>
-                    <div className="space-y-12pxr">
-                      <div className="grid grid-cols-3 gap-16pxr">
-                        <div className="col-span-2 rounded h-8pxr bg-slate-700"></div>
-                        <div className="col-span-1 rounded h-8pxr bg-slate-700"></div>
-                      </div>
-                      <div className="rounded h-8pxr bg-slate-700"></div>
-                    </div>
-                  </div>
-                </Skeleton>
-              }
-            >
+            <ConditionalRender condition={!isLoadingContents} fallback={null}>
               <HeroPostCard post={heroPost} />
             </ConditionalRender>
           </AnimateFadeContainer>
@@ -411,25 +373,28 @@ const IndexPage: FC<PageProps<Queries.HomeQuery, ContextProps>> = ({ data, locat
       <AnimatePresence>
         <ContentSpacer ref={resultsRef}>
           {isEmptyArray(posts) ? (
-            <Grid className="mb-64">
-              <ConditionalRender
-                condition={!isLoadingContents}
-                fallback={
-                  <Skeleton className="flex space-x-16pxr">
-                    <div className="rounded-full w-40pxr h-40pxr bg-slate-700"></div>
-                    <div className="flex-1 py-4pxr space-y-24pxr">
-                      <div className="rounded h-8pxr bg-slate-700"></div>
-                      <div className="space-y-12pxr">
-                        <div className="grid grid-cols-3 gap-16pxr">
-                          <div className="col-span-2 rounded h-8pxr bg-slate-700"></div>
-                          <div className="col-span-1 rounded h-8pxr bg-slate-700"></div>
+            <ConditionalRender
+              condition={!isLoadingContents}
+              fallback={
+                <Skeleton>
+                  <Grid data-skeleton-exclude-bg="true">
+                    <Skeleton.Item>
+                      {Array.from({ length: 6 }).map((_, index) => (
+                        <div
+                          key={index}
+                          className="col-span-4 mb-40pxr h-322pxr"
+                          data-skeleton-exclude-bg="true"
+                        >
+                          <div className="w-full rounded-lg h-256pxr" />
+                          <div className="rounded-lg mt-16pxr h-40pxr" />
                         </div>
-                        <div className="rounded h-8pxr bg-slate-700"></div>
-                      </div>
-                    </div>
-                  </Skeleton>
-                }
-              >
+                      ))}
+                    </Skeleton.Item>
+                  </Grid>
+                </Skeleton>
+              }
+            >
+              <Grid className="mb-64pxr">
                 <div className="flex flex-col items-center col-span-full">
                   <StaticImage
                     draggable={false}
@@ -445,37 +410,18 @@ const IndexPage: FC<PageProps<Queries.HomeQuery, ContextProps>> = ({ data, locat
                     검색하신 키워드에 해당하는 글이 없어요.
                   </H3>
                 </div>
-              </ConditionalRender>
-            </Grid>
+              </Grid>
+            </ConditionalRender>
           ) : (
             <>
               <Spacer size="xs" className="col-span-full" />
               <AnimatedContainer>
-                <Grid className="mb-64">
-                  <ConditionalRender
-                    condition={!isLoadingContents}
-                    fallback={
-                      <Skeleton className="flex space-x-16pxr">
-                        <div className="rounded-full w-40pxr h-40pxr bg-slate-700"></div>
-                        <div className="flex-1 py-4pxr space-y-24pxr">
-                          <div className="rounded h-8pxr bg-slate-700"></div>
-                          <div className="space-y-12pxr">
-                            <div className="grid grid-cols-3 gap-16pxr">
-                              <div className="col-span-2 rounded h-8pxr bg-slate-700"></div>
-                              <div className="col-span-1 rounded h-8pxr bg-slate-700"></div>
-                            </div>
-                            <div className="rounded h-8pxr bg-slate-700"></div>
-                          </div>
-                        </div>
-                      </Skeleton>
-                    }
-                  >
-                    {posts.map((post) => (
-                      <div key={post.slug} className="col-span-4 mb-40pxr">
-                        <PostCard post={post} />
-                      </div>
-                    ))}
-                  </ConditionalRender>
+                <Grid>
+                  {posts.map((post) => (
+                    <div key={post.slug} className="col-span-4 mb-40pxr">
+                      <PostCard post={post} />
+                    </div>
+                  ))}
                 </Grid>
               </AnimatedContainer>
             </>
