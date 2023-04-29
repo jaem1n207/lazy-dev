@@ -10,12 +10,24 @@ interface SkeletonItemProps {
   children: React.ReactNode;
 }
 
+const DATA_ATTRIBUTE = {
+  SKELETON_EXCLUDE_BG: 'data-skeleton-exclude-bg',
+};
+
 /**
  * 전달 받은 children의 모든 자식 요소에 bg-slate-700 클래스를 추가합니다.
  */
 const addClassToChildren = (children: React.ReactNode): React.ReactNode => {
   return React.Children.map(children, (child) => {
     if (React.isValidElement(child)) {
+      const isExcludeBg = child.props[DATA_ATTRIBUTE.SKELETON_EXCLUDE_BG] === 'true';
+
+      if (isExcludeBg) {
+        return React.cloneElement(child as React.ReactElement, {
+          children: addClassToChildren(child.props.children),
+        });
+      }
+
       const className = child.props.className
         ? `${child.props.className} bg-slate-700`
         : 'bg-slate-700';
