@@ -11,12 +11,15 @@ import CategoryFilter from 'Components/category/category-filter';
 import { Grid, Spacer, H3, ContentSpacer, H5, Typography } from 'Components/common';
 import AnimateFadeContainer from 'Components/common/animate-fade-container';
 import AnimatedContainer from 'Components/common/animated-container';
+import ConditionalRender from 'Components/common/conditional-render';
 import NoneActiveWrapper from 'Components/common/none-active-wrapper';
+import Skeleton from 'Components/common/skeleton';
 import HeroPostCard from 'Components/post/hero-post-card';
 import PostCard from 'Components/post/post-card';
 import RotatingTag from 'Components/rotating-tag';
 import Seo from 'Components/seo';
 import Tag from 'Components/tag';
+import { useBoolean } from 'Hooks/use-boolean';
 import { useCategory } from 'Hooks/use-category';
 import Layout from 'Layout/layout';
 import { isEmptyArray, isEmptyString } from 'Libs/assertions';
@@ -46,11 +49,13 @@ const useUpdateQueryStringValueWithoutNavigation = (queryKey: string, queryValue
   }, [queryKey, queryValue]);
 };
 
-const FeaturedPostTitle = 'Chrome 브라우저에서 JavaScript 성능을 프로파일링 하는 방법';
+const FeaturedPostTitle = '새로운 팀에서 비효율적인 업무를 개선한 사례';
 
 const IndexPage: FC<PageProps<Queries.HomeQuery, ContextProps>> = ({ data, location }) => {
   const [currentCategory, setCurrentCategory] = useState<string | undefined>();
   const { category, selectCategory, resetCategory } = useCategory();
+
+  const [isLoadingContents, { off: completeLoadingContents }] = useBoolean(true);
 
   const searchInputRef = useRef<HTMLInputElement>(null);
 
@@ -204,6 +209,10 @@ const IndexPage: FC<PageProps<Queries.HomeQuery, ContextProps>> = ({ data, locat
   );
   const searchLabelClasses = classNames(searchLabelBaseClasses, searchLabelFocusedClasses);
 
+  useEffect(() => {
+    completeLoadingContents();
+  }, [completeLoadingContents]);
+
   return (
     <Layout location={location} title={data.site?.siteMetadata?.title!}>
       <CategoryFilter
@@ -293,63 +302,121 @@ const IndexPage: FC<PageProps<Queries.HomeQuery, ContextProps>> = ({ data, locat
 
       <ContentSpacer className="mb-56pxr">
         <Grid>
-          <H5 as="div" className="col-span-full mb-24pxr">
-            키워드로 원하는 글을 찾아보세요
-          </H5>
-          <div className="flex flex-wrap col-span-10 desktop:col-span-full">
-            {tagsArray.map((tag) => {
-              if (!tag) return null;
-              const selected = query.includes(tag);
+          <ConditionalRender
+            condition={!isLoadingContents}
+            fallback={
+              <Skeleton className="col-span-10 desktop:col-span-full">
+                <Skeleton.Item>
+                  {/* Sub Title Section */}
+                  <div className="w-5/6 rounded-lg h-64pxr mb-12pxr foldable:h-40pxr" />
+                  <div className="w-4/6 rounded-lg h-64pxr foldable:h-40pxr" />
+                  <Spacer size="sm" data-skeleton-exclude-bg="true" />
+                  {/* Search */}
+                  <div className="rounded-lg w-300pxr h-72pxr foldable:w-200pxr foldable:h-50pxr" />
+                  <Spacer size="sm" data-skeleton-exclude-bg="true" />
+                  {/* Tags */}
+                  <div className="w-2/6 rounded-full h-16pxr mb-24pxr" />
+                  <div className="flex flex-wrap mb-56pxr" data-skeleton-exclude-bg="true">
+                    {Array.from({ length: 8 }).map((_, index) => (
+                      <div
+                        key={index}
+                        className="rounded-full w-115pxr h-50pxr mb-16pxr mr-16pxr foldable:h-40pxr"
+                      />
+                    ))}
+                  </div>
+                  {/* Hero Post */}
+                  {!isSearching && isCategoryAll && (
+                    <>
+                      <div className="max-w-7xl h-[900px] rounded-lg foldable:h-400pxr tablet:h-[600pxr]" />
+                      <Spacer size="xs" className="col-span-full" data-skeleton-exclude-bg="true" />
+                    </>
+                  )}
+                </Skeleton.Item>
+              </Skeleton>
+            }
+          >
+            <H5 as="div" className="col-span-full mb-24pxr">
+              키워드로 원하는 글을 찾아보세요
+            </H5>
+            <div className="flex flex-wrap col-span-10 desktop:col-span-full">
+              {tagsArray.map((tag) => {
+                if (!tag) return null;
+                const selected = query.includes(tag);
 
-              return (
-                <Tag
-                  key={tag}
-                  tag={tag}
-                  checked={selected}
-                  onChange={() => toggleTag(tag)}
-                  onKeyUp={handleScrollToResults}
-                  /* disabled 조건에 해당되도 선택된 상태에서는 disabled를 해제한다. */
-                  disabled={!visibleTags.has(tag) ? !selected : false}
-                />
-              );
-            })}
-          </div>
+                return (
+                  <Tag
+                    key={tag}
+                    tag={tag}
+                    checked={selected}
+                    onChange={() => toggleTag(tag)}
+                    onKeyUp={handleScrollToResults}
+                    /* disabled 조건에 해당되도 선택된 상태에서는 disabled를 해제한다. */
+                    disabled={!visibleTags.has(tag) ? !selected : false}
+                  />
+                );
+              })}
+            </div>
+          </ConditionalRender>
         </Grid>
       </ContentSpacer>
 
       <AnimatePresence>
         {heroPost && !isSearching && isCategoryAll && (
           <AnimateFadeContainer>
-            <HeroPostCard post={heroPost} />
+            <ConditionalRender condition={!isLoadingContents} fallback={null}>
+              <HeroPostCard post={heroPost} />
+            </ConditionalRender>
           </AnimateFadeContainer>
         )}
       </AnimatePresence>
 
       <AnimatePresence>
         <ContentSpacer ref={resultsRef}>
-          {posts.length === 0 ? (
-            <Grid className="mb-64">
-              <div className="flex flex-col items-center col-span-full">
-                <StaticImage
-                  draggable={false}
-                  src="../images/not-found.png"
-                  alt="Not Found Blog Post"
-                  placeholder="blurred"
-                  layout="constrained"
-                  height={600}
-                  className="overflow-hidden"
-                />
-                <Spacer size="sm" />
-                <H3 as="p" variant="secondary" className="max-w-lg">
-                  검색하신 키워드에 해당하는 글이 없어요.
-                </H3>
-              </div>
-            </Grid>
+          {isEmptyArray(posts) ? (
+            <ConditionalRender
+              condition={!isLoadingContents}
+              fallback={
+                <Skeleton>
+                  <Grid data-skeleton-exclude-bg="true">
+                    <Skeleton.Item>
+                      {Array.from({ length: 6 }).map((_, index) => (
+                        <div
+                          key={index}
+                          className="col-span-4 mb-40pxr h-322pxr"
+                          data-skeleton-exclude-bg="true"
+                        >
+                          <div className="w-full rounded-lg h-256pxr" />
+                          <div className="rounded-lg mt-16pxr h-40pxr" />
+                        </div>
+                      ))}
+                    </Skeleton.Item>
+                  </Grid>
+                </Skeleton>
+              }
+            >
+              <Grid className="mb-64pxr">
+                <div className="flex flex-col items-center col-span-full">
+                  <StaticImage
+                    draggable={false}
+                    src="../images/not-found.png"
+                    alt="Not Found Blog Post"
+                    placeholder="blurred"
+                    layout="constrained"
+                    height={600}
+                    className="overflow-hidden"
+                  />
+                  <Spacer size="sm" />
+                  <H3 as="p" variant="secondary" className="max-w-lg">
+                    검색하신 키워드에 해당하는 글이 없어요.
+                  </H3>
+                </div>
+              </Grid>
+            </ConditionalRender>
           ) : (
             <>
               <Spacer size="xs" className="col-span-full" />
               <AnimatedContainer>
-                <Grid className="mb-64">
+                <Grid>
                   {posts.map((post) => (
                     <div key={post.slug} className="col-span-4 mb-40pxr">
                       <PostCard post={post} />
