@@ -139,6 +139,7 @@ const Markdown = styled.article<{ rhythm: typeof typography['rhythm'] }>`
 
   hr {
     margin: 20px 0;
+    height: 1px;
     background: var(--color-border-highlight);
   }
 
