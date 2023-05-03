@@ -2,7 +2,9 @@
 title: Chrome 브라우저에서 JavaScript 성능을 프로파일링 하는 방법
 date: "2023-04-10 02:52:11"
 category: javascript
-tags: ['javascript', 'performance']
+tags:
+  - performance
+  - chrome
 draft: false
 authorId: jaemin
 thumbnail: ../thumbnails/javascript.jpg
