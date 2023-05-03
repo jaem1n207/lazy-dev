@@ -49,6 +49,7 @@ const Markdown = styled.article<{ rhythm: typeof typography['rhythm'] }>`
 
   strong {
     font-weight: 700;
+    color: var(--color-primary);
   }
 
   a,
@@ -79,8 +80,8 @@ const Markdown = styled.article<{ rhythm: typeof typography['rhythm'] }>`
   h2 {
     font-size: 1.3125rem;
     line-height: 1.3;
-    margin-bottom: ${({ rhythm }) => rhythm(1.5)};
-    margin-top: ${({ rhythm }) => rhythm(3)};
+    margin-bottom: ${({ rhythm }) => rhythm(1.2)};
+    margin-top: ${({ rhythm }) => rhythm(2.6)};
 
     @media (min-width: 768px) {
       font-size: 1.875rem;
@@ -130,11 +131,16 @@ const Markdown = styled.article<{ rhythm: typeof typography['rhythm'] }>`
     margin-bottom: ${({ rhythm }) => rhythm(0.3)};
   }
 
-  p,
   li,
   blockquote {
     font-size: 1rem;
     margin-bottom: ${({ rhythm }) => rhythm(0.5)};
+    color: var(--color-paragraph-text);
+  }
+
+  p {
+    color: var(--color-paragraph-text);
+    margin: 24px 0px 8px;
   }
 
   hr {

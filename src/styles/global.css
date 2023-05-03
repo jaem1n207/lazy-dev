@@ -24,6 +24,7 @@
     --color-white: #fff;
     --color-black: #000;
     --color-black-700: #383636;
+    --color-black-750: #333d4b;
     --color-black-800: #252525;
     --color-black-850: #111111;
     --color-black-900: hsla(0, 0%, 0%, 0.07);
@@ -35,6 +36,7 @@
     --color-gray-100: #f7f7f7;
     --color-gray-200: #e6e9ee;
     --color-gray-300: #dde0e4;
+    --color-gray-350: #d2d2d2;
     --color-gray-400: #8c8c8c;
     --color-gray-500: #535661;
     --color-gray-600: #4b4c53;
@@ -60,6 +62,7 @@
     --color-bg-tag: var(--color-gray-100);
 
     /* markdown */
+    --color-paragraph-text: var(--color-black-750);
     --color-border-highlight: var(--color-black-900);
     --color-th-highlight: var(--color-gray-100);
     --color-blockquote: var(--color-gray-900);
@@ -94,6 +97,7 @@
     --color-bg-tag: var(--color-gray-700);
 
     /* markdown */
+    --color-paragraph-text: var(--color-gray-350);
     --color-border-highlight: var(--color-gray-700);
     --color-th-highlight: var(--color-black-900);
     --color-blockquote: var(--color-gray-100);

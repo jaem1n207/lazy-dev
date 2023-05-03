@@ -106,6 +106,7 @@ module.exports = {
         'bg-tag': 'var(--color-bg-tag)',
 
         /* markdown */
+        'paragraph-text': 'var(--color-paragraph-text)',
         'border-highlight': 'var(--color-border-highlight)',
         'gradient-cyan': 'var(--color-cyan-50)',
       },
