@@ -69,7 +69,7 @@ JS로 작업할 때 `Array.prototype`과 같은 내장 객체에 직접 함수�
     ```tsx
     // Library A
     
-    type NestedArray<T> = T | NestedArray<T>[];
+    type NestedArray<T> = Array<T | NestedArray<T>>;
     
     declare global {
       interface Array<T> {
@@ -104,7 +104,7 @@ JS로 작업할 때 `Array.prototype`과 같은 내장 객체에 직접 함수�
     ```tsx
     // Library B
     
-    type NestedArray<T> = T | NestedArray<T>[];
+    type NestedArray<T> = Array<T | NestedArray<T>>;
     
     declare global {
       interface Array<T> {
@@ -175,7 +175,7 @@ console.log(arr2.replace('2', '1')); // 실제 출력 결과: [10, '1', '1', '1'
 ```tsx
 // utils/array.ts
 
-type NestedArray<T> = T | NestedArray<T>[];
+type NestedArray<T> = Array<T | NestedArray<T>>;
 
 const replace = <T>(array: NestedArray<T>, oldValue: T, newValue: T): NestedArray<T> => {
   if (Array.isArray(array)) {
