@@ -2,7 +2,9 @@
 title: '자바스크립트에서 객체를 복사하는 다양한 방법과 깊은 복사하는 로직 직접 구현해보기'
 date: 2022-12-10 00:20:30
 category: 'javascript'
-tags: ['javascript', 'lodash']
+tags: 
+  - deep copy
+  - lodash
 draft: false
 authorId: 'jaemin'
 thumbnail: '../thumbnails/javascript.jpg'

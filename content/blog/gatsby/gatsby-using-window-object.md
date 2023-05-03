@@ -3,7 +3,6 @@ title: "Gatsby에서 원활한 경험을 보장하기: window 객체 사용"
 date: "2023-04-20 16:39:38"
 category: gatsby
 tags:
-  - gatsby
   - rendering
   - framework
 draft: false

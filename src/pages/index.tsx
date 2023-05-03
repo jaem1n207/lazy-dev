@@ -49,7 +49,7 @@ const useUpdateQueryStringValueWithoutNavigation = (queryKey: string, queryValue
   }, [queryKey, queryValue]);
 };
 
-const FeaturedPostTitle = '새로운 팀에서 비효율적인 업무를 개선한 사례';
+const FeaturedPostTitle = 'JavaScript에서 내장 객체를 확장하는 것이 위험한 이유';
 
 const IndexPage: FC<PageProps<Queries.HomeQuery, ContextProps>> = ({ data, location }) => {
   const [currentCategory, setCurrentCategory] = useState<string | undefined>();
