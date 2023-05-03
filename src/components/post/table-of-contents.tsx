@@ -45,17 +45,9 @@ const TableOfContents = ({ toc }: TableOfContentsProps) => {
 
       const { top } = header.getBoundingClientRect();
       const elementTop = top + window.scrollY;
-      const isScrollBottom = window.innerHeight + window.scrollY >= document.body.offsetHeight;
 
       if (window.scrollY >= elementTop - THRESHOLD - 10) {
         addClass(link, 'active');
-      } else if (isScrollBottom) {
-        const lastHeader = headerElements[headerElements.length - 1];
-        if (!lastHeader) return;
-
-        const { link: lastLink } = lastHeader;
-        addClass(lastLink, 'active');
-        return;
       } else {
         removeClass(link, 'active');
       }
