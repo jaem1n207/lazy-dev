@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useCallback, useEffect, useMemo } from 'react';
 
 import { window } from 'browser-monads-ts';
 import tw from 'twin.macro';
@@ -11,14 +11,14 @@ interface TableOfContentsProps {
   toc: Queries.MarkdownRemark['tableOfContents'];
 }
 
-const THRESHOLD = 100;
-
 const TOCWrapper = tw.div`fixed px-12pxr py-4pxr bg-transparent border-l-2pxr border-all-custom-gray z-10`;
 
 const TOCContent = tw.div`text-14pxr tablet:text-16pxr text-all-custom-gray font-bold border-spacing-24pxr tablet:border-spacing-28pxr tracking-normal tablet:tracking-tighter [a.active]:(text-[110%] text-primary transition-all)`;
 
 const TableOfContents = ({ toc }: TableOfContentsProps) => {
-  const getHeaderElements = () => {
+  const THRESHOLD = useMemo(() => window.innerHeight / 2, []);
+
+  const getHeaderElements = useCallback(() => {
     const headers = getElements('h1[id], h2[id], h3[id], h4[id], h5[id], h6[id]');
     const headerElements = headers.map((header) => {
       const id = header.getAttribute('id');
@@ -34,25 +34,29 @@ const TableOfContents = ({ toc }: TableOfContentsProps) => {
     });
 
     return headerElements;
-  };
+  }, []);
 
-  const onScroll = () => {
+  const onScroll = useCallback(() => {
     const headerElements = getHeaderElements();
+
     headerElements.forEach((headerElement) => {
       if (!headerElement) return;
 
       const { header, link } = headerElement;
-
       const { top } = header.getBoundingClientRect();
       const elementTop = top + window.scrollY;
 
-      if (window.scrollY >= elementTop - THRESHOLD - 10) {
+      if (elementTop <= window.scrollY + THRESHOLD) {
         addClass(link, 'active');
-      } else {
+      } else if (elementTop >= window.scrollY + THRESHOLD) {
         removeClass(link, 'active');
       }
+
+      return () => {
+        removeClass(link, 'active');
+      };
     });
-  };
+  }, [THRESHOLD, getHeaderElements]);
 
   useScrollEvent(() => {
     return EventManager.toFit(onScroll, {})();
@@ -76,7 +80,7 @@ const TableOfContents = ({ toc }: TableOfContentsProps) => {
         const elementTop = top + window.scrollY;
 
         window.scrollTo({
-          top: elementTop - THRESHOLD,
+          top: elementTop - 50,
           behavior: 'smooth',
         });
       });
@@ -85,7 +89,7 @@ const TableOfContents = ({ toc }: TableOfContentsProps) => {
         link.removeEventListener('click', () => {});
       };
     });
-  }, []);
+  }, [getHeaderElements]);
 
   if (!toc) return null;
 
