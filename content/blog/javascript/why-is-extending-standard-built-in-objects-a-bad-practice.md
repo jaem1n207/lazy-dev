@@ -5,7 +5,7 @@ category: javascript
 tags:
   - 프로토타입
   - 배열
-  - defineProperty
+  - define property
 draft: false
 authorId: jaemin
 thumbnail: ../thumbnails/js-expansion.jpg
