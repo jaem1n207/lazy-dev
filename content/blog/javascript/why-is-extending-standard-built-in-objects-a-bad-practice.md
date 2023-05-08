@@ -5,7 +5,7 @@ category: javascript
 tags:
   - 프로토타입
   - 배열
-  - defineProperty
+  - define property
 draft: false
 authorId: jaemin
 thumbnail: ../thumbnails/js-expansion.jpg
@@ -70,18 +70,14 @@ JS로 작업할 때 `Array.prototype`과 같은 내장 객체에 직접 함수�
     // Library A
     
     type NestedArray<T> = Array<T | NestedArray<T>>;
-    
+
     declare global {
       interface Array<T> {
         replace<U extends T>(oldValue: U, newValue: U): NestedArray<T>;
       }
     }
-    
-    Array.prototype.replace = function <T>(
-      this: NestedArray<T>,
-      oldValue: T,
-      newValue: T
-    ): NestedArray<T> {
+
+    Array.prototype.replace = function <T>(this: NestedArray<T>, oldValue: T, newValue: T): NestedArray<T> {
       if (Array.isArray(this)) {
         let replaced = false;
         return this.map((item) => {
@@ -94,7 +90,7 @@ JS로 작업할 때 `Array.prototype`과 같은 내장 객체에 직접 함수�
       }
       return this;
     };
-    
+
     export {};
     ```
     
@@ -104,7 +100,7 @@ JS로 작업할 때 `Array.prototype`과 같은 내장 객체에 직접 함수�
     ```tsx
     // Library B
     
-    type NestedArray<T> = Array<T | NestedArray<T>>;
+   type NestedArray<T> = Array<T | NestedArray<T>>;
     
     declare global {
       interface Array<T> {
@@ -120,7 +116,7 @@ JS로 작업할 때 `Array.prototype`과 같은 내장 객체에 직접 함수�
       if (Array.isArray(this)) {
         return this.map((item) => {
           if (Array.isArray(item)) {
-            return (item as unknown as Array<T>).replace(oldValue, newValue);
+            return (item as unknown as T[]).replace(oldValue, newValue);
           }
           return item === oldValue ? newValue : item;
         });
@@ -172,7 +168,7 @@ console.log(arr2.replace('2', '1')); // 실제 출력 결과: [10, '1', '1', '1'
 
 예를 들어, 유틸리티 함수를 만들어 `Array.prototype`을 수정하지 않고 배열의 특정 항목을 교체하는 것입니다. 아래 코드는 위 `Array.prototype` 을 확장하던 코드를 유틸리티 함수로 구현한 코드입니다.
 
-```tsx
+```typescript
 // utils/array.ts
 
 type NestedArray<T> = Array<T | NestedArray<T>>;
@@ -236,10 +232,10 @@ console.log(replaceAll(arr2, '2', '3')); // Output: [10, '3', '3', '1']
 const arr1 = [1, 2, 3, 2];
 
 if (!Array.prototype.replace) {
-  Object.defineProperty(Array.prototype, 'replace', {
-    value: function (oldValue: any, newValue: any) {
+  Object.defineProperty<unknown[]>(Array.prototype, 'replace', {
+    value: function (oldValue: unknown, newValue: unknown) {
       let replaced = false;
-      return this.map((item: any) => {
+      return this.map((item: unknown) => {
         if (!replaced && item === oldValue) {
           replaced = true;
           return newValue;
