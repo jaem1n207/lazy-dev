@@ -71,6 +71,48 @@ const isEmptyString = (value) => {
   return isNil(value) || value?.toString().trim() === '';
 };
 
+/**
+ * @name validateCapitalLetter
+ * @description Validate that the input does not contain capital letters
+ *
+ * @example
+ * validateCapitalLetter('hello') // true
+ * validateCapitalLetter('Hello') // '태그에는 대문자를 사용할 수 없어요'
+ *
+ * @param {string} input
+ * @returns {boolean|string} If the input contains capital letters, return a string. Otherwise, return true.
+ */
+const validateCapitalLetter = (input) => {
+  const capitalLetterRegex = /[A-Z]/;
+  const hasCapitalLetter = capitalLetterRegex.test(input);
+  if (hasCapitalLetter) {
+    return '태그에는 대문자를 사용할 수 없어요';
+  }
+
+  return true;
+};
+
+/**
+ * @name validateSpecialSymbol
+ * @description Validate that the input does not contain special symbols
+ *
+ * @example
+ * validateSpecialSymbol('hello') // true
+ * validateSpecialSymbol('hello!') // '태그에는 특수문자를 사용할 수 없어요'
+ *
+ * @param {string} input
+ * @returns {boolean|string} If the input contains special symbols, return a string. Otherwise, return true.
+ */
+const validateSpecialSymbol = (input) => {
+  const specialSymbolRegex = /[~!@#$%^&*()_+|<>?:{}]/;
+  const hasSpecialSymbol = specialSymbolRegex.test(input);
+  if (hasSpecialSymbol) {
+    return '태그에는 특수문자를 사용할 수 없어요';
+  }
+
+  return true;
+};
+
 const getContentsInquirer = async () => {
   const categories = await getCategory(BLOG_DIR_PATH);
   const categoryInquirer = [
@@ -144,7 +186,24 @@ const getContentsInquirer = async () => {
     {
       type: 'input',
       name: 'tag',
-      message: '태그 입력 (태그 입력을 끝내려면 빈 문자열을 입력해주세요): ',
+      message: '태그 입력 (태그 입력을 끝내려면 빈 문자열을 입력해주세요 - 최대 10개): ',
+      validate: (input) => {
+        if (isEmptyString(input)) {
+          return true;
+        }
+
+        const isCapitalLetter = validateCapitalLetter(input);
+        if (isCapitalLetter !== true) {
+          return isCapitalLetter;
+        }
+
+        const isSpecialSymbol = validateSpecialSymbol(input);
+        if (isSpecialSymbol !== true) {
+          return isSpecialSymbol;
+        }
+
+        return true;
+      },
     },
   ];
 
