@@ -1,4 +1,4 @@
-import { matchSorter, rankings } from 'match-sorter';
+import { MatchSorterOptions, matchSorter, rankings } from 'match-sorter';
 
 import Post from 'Types/post';
 
@@ -7,7 +7,7 @@ export const filterPosts = (posts: Post[], searchString: string): Post[] => {
     return posts;
   }
 
-  const options = {
+  const options: MatchSorterOptions<Post> = {
     keys: [
       {
         threshold: rankings.CONTAINS,
@@ -41,10 +41,7 @@ export const filterPosts = (posts: Post[], searchString: string): Post[] => {
   const individualWordOptions = {
     ...options,
     keys: options.keys?.map((key) => {
-      return {
-        ...key,
-        threshold: rankings.CONTAINS,
-      };
+      return Object.assign({}, key, { threshold: rankings.CONTAINS });
     }),
   };
 
