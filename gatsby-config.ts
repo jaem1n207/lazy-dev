@@ -165,6 +165,12 @@ const imagePlugins: GatsbyConfig['plugins'] = [
 const searchPlugins: GatsbyConfig['plugins'] = [
   'gatsby-plugin-sitemap',
   {
+    resolve: 'gatsby-plugin-robots-txt',
+    options: {
+      policy: [{ userAgent: '*', allow: '/' }],
+    },
+  },
+  {
     resolve: 'gatsby-plugin-feed',
     options: {
       query: `{
