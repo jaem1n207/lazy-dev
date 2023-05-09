@@ -93,7 +93,7 @@ const Markdown = styled.article<{ rhythm: typeof typography['rhythm'] }>`
     margin-bottom: ${({ rhythm }) => rhythm(1.4)};
 
     @media (min-width: 768px) {
-      font-size: 2rem;
+      font-size: 1.875rem;
     }
   }
 
