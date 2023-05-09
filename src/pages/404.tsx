@@ -7,18 +7,13 @@ import { StaticImage } from 'gatsby-plugin-image';
 
 import Seo from 'Components/seo';
 import Layout from 'Layout/layout';
-import { isBrowser } from 'Libs/environment';
 import { ROUTES } from 'Types/enum';
 
 const NotFoundPage: FC<PageProps<Queries.NotFoundQuery>> = ({ data, location }) => {
   const siteTitle = data.site?.siteMetadata?.title || null;
 
-  const goBack = () => {
-    if (isBrowser && window.history.length > 1) {
-      navigate(-1);
-    } else {
-      navigate(ROUTES.HOME);
-    }
+  const goHome = () => {
+    navigate(ROUTES.HOME);
   };
 
   return (
@@ -58,11 +53,11 @@ const NotFoundPage: FC<PageProps<Queries.NotFoundQuery>> = ({ data, location }) 
         </motion.p>
         <div>
           <button
-            onClick={goBack}
-            className="inline-flex items-center font-medium text-white rounded-md text-16pxr bg-primary px-16pxr py-8pxr focus-primary"
+            onClick={goHome}
+            className="inline-flex items-center font-medium rounded-md text-text-secondary text-16pxr bg-primary px-16pxr py-8pxr focus-primary"
           >
             <ArrowLeftIcon className="w-20pxr h-20pxr mr-8pxr" />
-            이전 페이지로 돌아가기
+            블로그 홈으로 돌아갈게요.
           </button>
         </div>
       </div>

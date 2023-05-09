@@ -14,14 +14,28 @@ const Markdown = styled.article<{ rhythm: typeof typography['rhythm'] }>`
     margin-top: 0;
   }
 
+  *:not(h1):not(h2):not(h3):not(h4):not(h5):not(h6) strong {
+    font-size: 0.95rem;
+    font-weight: 700;
+    color: var(--color-text-strong);
+
+    &:before {
+      content: "'";
+    }
+
+    &:after {
+      content: "'";
+    }
+  }
+
   h1,
   h2,
   h3,
   h4,
   h5,
   h6 {
-    border-bottom: 1px solid var(--color-primary);
-    padding-bottom: calc(0.40625rem - 1px);
+    /* border-bottom: 1px solid var(--color-primary);
+    padding-bottom: calc(0.40625rem - 1px); */
     color: var(--color-primary);
     font-weight: 700;
   }
@@ -43,13 +57,8 @@ const Markdown = styled.article<{ rhythm: typeof typography['rhythm'] }>`
   td,
   th {
     border: 1px solid var(--color-border-highlight);
-    font-size: 90%;
+    font-size: 0.9rem;
     padding: 7px 9px;
-  }
-
-  strong {
-    font-weight: 700;
-    color: var(--color-primary);
   }
 
   a,
@@ -78,10 +87,10 @@ const Markdown = styled.article<{ rhythm: typeof typography['rhythm'] }>`
   }
 
   h2 {
-    font-size: 1.3125rem;
-    line-height: 1.3;
-    margin-bottom: ${({ rhythm }) => rhythm(1.2)};
+    font-size: 1.75rem;
+    line-height: 1.25;
     margin-top: ${({ rhythm }) => rhythm(2.6)};
+    margin-bottom: ${({ rhythm }) => rhythm(1.4)};
 
     @media (min-width: 768px) {
       font-size: 1.875rem;
@@ -89,14 +98,10 @@ const Markdown = styled.article<{ rhythm: typeof typography['rhythm'] }>`
   }
 
   h3 {
-    font-size: 1.1875rem;
-    line-height: 1.3;
-    margin-bottom: ${({ rhythm }) => rhythm(0.5)};
-    margin-top: ${({ rhythm }) => rhythm(1.75)};
-
-    @media (min-width: 768px) {
-      font-size: 1.31951rem;
-    }
+    font-size: 1.5rem;
+    line-height: 1.25;
+    margin-top: ${({ rhythm }) => rhythm(1.9)};
+    margin-bottom: ${({ rhythm }) => rhythm(0.175)};
   }
 
   h4,
@@ -116,15 +121,12 @@ const Markdown = styled.article<{ rhythm: typeof typography['rhythm'] }>`
   li > ol {
     margin-top: 0;
     margin-bottom: 0;
+    margin-left: ${({ rhythm }) => rhythm(1)};
   }
 
   li > p {
+    margin-top: 4px;
     margin-bottom: 0;
-  }
-
-  li > ol,
-  li > ul {
-    margin-left: ${({ rhythm }) => rhythm(1)};
   }
 
   li {
@@ -140,6 +142,8 @@ const Markdown = styled.article<{ rhythm: typeof typography['rhythm'] }>`
 
   p {
     color: var(--color-paragraph-text);
+    letter-spacing: 0em;
+    line-height: 1.6;
     margin: 24px 0px 8px;
   }
 
@@ -218,7 +222,7 @@ const Markdown = styled.article<{ rhythm: typeof typography['rhythm'] }>`
   }
 
   *:not(pre) > code {
-    font-size: 85%;
+    font-size: 0.85rem;
     padding: 0.2em 0.4em;
     margin: 0 !important;
     border-radius: 3px !important;
