@@ -1,20 +1,20 @@
 import React, { FC } from 'react';
 
 import { ArrowLeftIcon } from '@heroicons/react/24/outline';
+import { window } from 'browser-monads-ts';
 import { motion } from 'framer-motion';
 import { graphql, HeadFC, navigate, PageProps } from 'gatsby';
 import { StaticImage } from 'gatsby-plugin-image';
 
 import Seo from 'Components/seo';
 import Layout from 'Layout/layout';
-import { isBrowser } from 'Libs/environment';
 import { ROUTES } from 'Types/enum';
 
 const NotFoundPage: FC<PageProps<Queries.NotFoundQuery>> = ({ data, location }) => {
   const siteTitle = data.site?.siteMetadata?.title || null;
 
   const goBack = () => {
-    if (isBrowser && window.history.length > 1) {
+    if (window.history.length > 1) {
       navigate(-1);
     } else {
       navigate(ROUTES.HOME);
