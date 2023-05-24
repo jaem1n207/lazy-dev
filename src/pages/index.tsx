@@ -1,4 +1,14 @@
-import React, { ChangeEvent, FC, KeyboardEvent, useEffect, useMemo, useRef, useState } from 'react';
+import React, {
+  ChangeEvent,
+  FC,
+  KeyboardEvent,
+  lazy,
+  useEffect,
+  useMemo,
+  useRef,
+  useState,
+  Suspense,
+} from 'react';
 
 import { MagnifyingGlassIcon, XMarkIcon } from '@heroicons/react/24/outline';
 import classNames from 'classnames';
@@ -8,24 +18,21 @@ import { StaticImage } from 'gatsby-plugin-image';
 import queryString from 'query-string';
 
 import CategoryFilter from 'Components/category/category-filter';
-import { Grid, Spacer, H3, ContentSpacer, H5, Typography } from 'Components/common';
+import { Grid, Spacer, H3, ContentSpacer, Typography, H5 } from 'Components/common';
 import AnimateFadeContainer from 'Components/common/animate-fade-container';
-import AnimatedContainer from 'Components/common/animated-container';
-import ConditionalRender from 'Components/common/conditional-render';
 import NoneActiveWrapper from 'Components/common/none-active-wrapper';
-import Skeleton from 'Components/common/skeleton';
 import HeroPostCard from 'Components/post/hero-post-card';
-import PostCard from 'Components/post/post-card';
 import RotatingTag from 'Components/rotating-tag';
 import Seo from 'Components/seo';
 import Tag from 'Components/tag';
-import { useBoolean } from 'Hooks/use-boolean';
 import { useCategory } from 'Hooks/use-category';
 import Layout from 'Layout/layout';
 import { isEmptyArray, isEmptyString } from 'Libs/assertions';
 import { filterPosts } from 'Libs/blog';
 import { CATEGORY_TYPE, QUERY_PARAM } from 'Types/enum';
 import Post from 'Types/post';
+
+const PostCard = lazy(() => import('Components/post/post-card'));
 
 type ContextProps = {
   category: string;
@@ -54,8 +61,6 @@ const FeaturedPostTitle = 'JavaScript에서 내장 객체를 확장하는 것이
 const IndexPage: FC<PageProps<Queries.HomeQuery, ContextProps>> = ({ data, location }) => {
   const [currentCategory, setCurrentCategory] = useState<string | undefined>();
   const { category, selectCategory, resetCategory } = useCategory();
-
-  const [isLoadingContents, { off: completeLoadingContents }] = useBoolean(true);
 
   const searchInputRef = useRef<HTMLInputElement>(null);
 
@@ -209,10 +214,6 @@ const IndexPage: FC<PageProps<Queries.HomeQuery, ContextProps>> = ({ data, locat
   );
   const searchLabelClasses = classNames(searchLabelBaseClasses, searchLabelFocusedClasses);
 
-  useEffect(() => {
-    completeLoadingContents();
-  }, [completeLoadingContents]);
-
   return (
     <Layout location={location} title={data.site?.siteMetadata?.title!}>
       <CategoryFilter
@@ -302,132 +303,68 @@ const IndexPage: FC<PageProps<Queries.HomeQuery, ContextProps>> = ({ data, locat
 
       <ContentSpacer className="mb-56pxr">
         <Grid>
-          <ConditionalRender
-            condition={!isLoadingContents}
-            fallback={
-              <Skeleton className="col-span-10 desktop:col-span-full">
-                <Skeleton.Item>
-                  {/* Sub Title Section */}
-                  <div className="w-5/6 rounded-lg h-64pxr mb-12pxr foldable:h-40pxr" />
-                  <div className="w-4/6 rounded-lg h-64pxr foldable:h-40pxr" />
-                  <Spacer size="sm" data-skeleton-exclude-bg="true" />
-                  {/* Search */}
-                  <div className="rounded-lg w-300pxr h-72pxr foldable:w-200pxr foldable:h-50pxr" />
-                  <Spacer size="sm" data-skeleton-exclude-bg="true" />
-                  {/* Tags */}
-                  <div className="w-2/6 rounded-full h-16pxr mb-24pxr" />
-                  <div className="flex flex-wrap mb-56pxr" data-skeleton-exclude-bg="true">
-                    {Array.from({ length: 8 }).map((_, index) => (
-                      <div
-                        key={index}
-                        className="rounded-full w-115pxr h-50pxr mb-16pxr mr-16pxr foldable:h-40pxr"
-                      />
-                    ))}
-                  </div>
-                  {/* Hero Post */}
-                  {!isSearching && isCategoryAll && (
-                    <>
-                      <div className="max-w-7xl h-[900px] rounded-lg foldable:h-400pxr tablet:h-[600pxr]" />
-                      <Spacer size="xs" className="col-span-full" data-skeleton-exclude-bg="true" />
-                    </>
-                  )}
-                </Skeleton.Item>
-              </Skeleton>
-            }
-          >
-            <H5 as="div" className="col-span-full mb-24pxr">
-              키워드로 원하는 글을 찾아보세요
-            </H5>
-            <div className="flex flex-wrap col-span-10 desktop:col-span-full">
-              {tagsArray.map((tag) => {
-                if (!tag) return null;
-                const selected = query.includes(tag);
+          <H5 as="div" className="col-span-full mb-24pxr">
+            키워드로 원하는 글을 찾아보세요
+          </H5>
+          <div className="flex flex-wrap col-span-10 desktop:col-span-full">
+            {tagsArray.map((tag) => {
+              if (!tag) return null;
+              const selected = query.includes(tag);
 
-                return (
-                  <Tag
-                    key={tag}
-                    tag={tag}
-                    checked={selected}
-                    onChange={() => toggleTag(tag)}
-                    onKeyUp={handleScrollToResults}
-                    /* disabled 조건에 해당되도 선택된 상태에서는 disabled를 해제한다. */
-                    disabled={!visibleTags.has(tag) ? !selected : false}
-                  />
-                );
-              })}
-            </div>
-          </ConditionalRender>
+              return (
+                <Tag
+                  key={tag}
+                  tag={tag}
+                  checked={selected}
+                  onChange={() => toggleTag(tag)}
+                  onKeyUp={handleScrollToResults}
+                  /* disabled 조건에 해당되도 선택된 상태에서는 disabled를 해제한다. */
+                  disabled={!visibleTags.has(tag) ? !selected : false}
+                />
+              );
+            })}
+          </div>
         </Grid>
       </ContentSpacer>
 
-      <AnimatePresence>
-        {heroPost && !isSearching && isCategoryAll && (
-          <AnimateFadeContainer>
-            <ConditionalRender condition={!isLoadingContents} fallback={null}>
-              <HeroPostCard post={heroPost} />
-            </ConditionalRender>
-          </AnimateFadeContainer>
-        )}
-      </AnimatePresence>
+      {heroPost && !isSearching && isCategoryAll && <HeroPostCard post={heroPost} />}
 
-      <AnimatePresence>
-        <ContentSpacer ref={resultsRef}>
-          {isEmptyArray(posts) ? (
-            <ConditionalRender
-              condition={!isLoadingContents}
-              fallback={
-                <Skeleton>
-                  <Grid data-skeleton-exclude-bg="true">
-                    <Skeleton.Item>
-                      {Array.from({ length: 6 }).map((_, index) => (
-                        <div
-                          key={index}
-                          className="col-span-4 mb-40pxr h-322pxr"
-                          data-skeleton-exclude-bg="true"
-                        >
-                          <div className="w-full rounded-lg h-256pxr" />
-                          <div className="rounded-lg mt-16pxr h-40pxr" />
-                        </div>
-                      ))}
-                    </Skeleton.Item>
-                  </Grid>
-                </Skeleton>
-              }
-            >
-              <Grid className="mb-64pxr">
-                <div className="flex flex-col items-center col-span-full">
-                  <StaticImage
-                    draggable={false}
-                    src="../images/not-found.png"
-                    alt="Not Found Blog Post"
-                    placeholder="blurred"
-                    layout="constrained"
-                    height={600}
-                    className="overflow-hidden"
-                  />
-                  <Spacer size="sm" />
-                  <H3 as="p" variant="secondary" className="max-w-lg">
-                    검색하신 키워드에 해당하는 글이 없어요.
-                  </H3>
-                </div>
-              </Grid>
-            </ConditionalRender>
-          ) : (
-            <>
-              <Spacer size="xs" className="col-span-full" />
-              <AnimatedContainer>
-                <Grid>
+      <ContentSpacer ref={resultsRef}>
+        {isEmptyArray(posts) ? (
+          <Grid className="mb-64pxr">
+            <div className="flex flex-col items-center col-span-full">
+              <StaticImage
+                draggable={false}
+                src="../images/not-found.png"
+                alt="Not Found Blog Post"
+                placeholder="blurred"
+                layout="constrained"
+                height={600}
+                className="overflow-hidden"
+              />
+              <Spacer size="sm" />
+              <H3 as="p" variant="secondary" className="max-w-lg">
+                검색하신 키워드에 해당하는 글이 없어요.
+              </H3>
+            </div>
+          </Grid>
+        ) : (
+          <>
+            <Spacer size="xs" className="col-span-full" />
+            <Grid>
+              <Suspense fallback={<div>Loading...</div>}>
+                <AnimatePresence>
                   {posts.map((post) => (
-                    <div key={post.slug} className="col-span-4 mb-40pxr">
+                    <AnimateFadeContainer key={post.slug} className="col-span-4 mb-40pxr">
                       <PostCard post={post} />
-                    </div>
+                    </AnimateFadeContainer>
                   ))}
-                </Grid>
-              </AnimatedContainer>
-            </>
-          )}
-        </ContentSpacer>
-      </AnimatePresence>
+                </AnimatePresence>
+              </Suspense>
+            </Grid>
+          </>
+        )}
+      </ContentSpacer>
     </Layout>
   );
 };
