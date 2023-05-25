@@ -20,7 +20,6 @@ import CategoryFilter from 'Components/category/category-filter';
 import { Grid, Spacer, H3, ContentSpacer, Typography, H5 } from 'Components/common';
 import AnimateFadeContainer from 'Components/common/animate-fade-container';
 import NoneActiveWrapper from 'Components/common/none-active-wrapper';
-import Skeleton from 'Components/common/skeleton';
 import SSRSuspense from 'Components/common/ssr-suspense';
 import RotatingTag from 'Components/rotating-tag';
 import Seo from 'Components/seo';
@@ -331,12 +330,13 @@ const IndexPage: FC<PageProps<Queries.HomeQuery, ContextProps>> = ({ data, locat
 
       <SSRSuspense
         fallback={
-          <Skeleton className="mx-10vw">
-            <Skeleton.Item>
-              <div className="max-w-7xl h-[26.875rem] rounded-lg foldable:h-400pxr tablet:h-300pxr" />
-              <Spacer size="xs" className="col-span-full" data-skeleton-exclude-bg="true" />
-            </Skeleton.Item>
-          </Skeleton>
+          // <Skeleton className="mx-10vw">
+          //   <Skeleton.Item>
+          //     <div className="max-w-7xl h-[26.875rem] rounded-lg foldable:h-400pxr tablet:h-300pxr" />
+          //     <Spacer size="xs" className="col-span-full" data-skeleton-exclude-bg="true" />
+          //   </Skeleton.Item>
+          // </Skeleton>
+          null
         }
       >
         {heroPost && !isSearching && isCategoryAll && <HeroPostCard post={heroPost} />}
@@ -367,18 +367,19 @@ const IndexPage: FC<PageProps<Queries.HomeQuery, ContextProps>> = ({ data, locat
             <Grid>
               <SSRSuspense
                 fallback={
-                  <>
-                    {Array.from({ length: 6 }).map((_, index) => (
-                      <Skeleton className="col-span-4" key={index}>
-                        <Skeleton.Item>
-                          <div className="w-full mb-40pxr h-322pxr" data-skeleton-exclude-bg="true">
-                            <div className="w-full rounded-lg h-256pxr" />
-                            <div className="rounded-lg mt-16pxr h-40pxr" />
-                          </div>
-                        </Skeleton.Item>
-                      </Skeleton>
-                    ))}
-                  </>
+                  // <>
+                  //   {Array.from({ length: 6 }).map((_, index) => (
+                  //     <Skeleton className="col-span-4" key={index}>
+                  //       <Skeleton.Item>
+                  //         <div className="w-full mb-40pxr h-322pxr" data-skeleton-exclude-bg="true">
+                  //           <div className="w-full rounded-lg h-256pxr" />
+                  //           <div className="rounded-lg mt-16pxr h-40pxr" />
+                  //         </div>
+                  //       </Skeleton.Item>
+                  //     </Skeleton>
+                  //   ))}
+                  // </>
+                  null
                 }
               >
                 <AnimatePresence>
