@@ -55,6 +55,7 @@ const Seo = ({ description, title, thumbnail, pathname: propsPathname, children 
       {/* HTML Meta Tags */}
       <title>{site.title ? `${title} | ${site.title}` : title}</title>
       <meta name="description" content={seo.description} />
+      <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
       {/* Facebook Meta Tags */}
       <meta property="og:url" content={seo.url} />
@@ -62,6 +63,8 @@ const Seo = ({ description, title, thumbnail, pathname: propsPathname, children 
       <meta property="og:title" content={seo.title} />
       <meta property="og:description" content={seo.description} />
       <meta property="og:image" content={seo.image} />
+      <meta property="og:site_name" content={seo.title} />
+      <meta property="og:locale" content="ko_KR" />
 
       {/* Twitter Meta Tags */}
       <meta name="twitter:card" content="summary_large_image" />
