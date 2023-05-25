@@ -5,7 +5,7 @@ dotenv.config({
   path: `.env.${process.env.NODE_ENV}`,
 });
 
-const siteMetadata: GatsbyConfig['siteMetadata'] = {
+const siteMetadata: GatsbyConfig['siteMetadata'] = Object.freeze({
   title: 'Lazy Dev',
   description: '웹 프론트 개발에 대한 이야기를 다룹니다.',
   siteUrl: 'https://lazyDev.gatsbyjs.io',
@@ -19,7 +19,7 @@ const siteMetadata: GatsbyConfig['siteMetadata'] = {
   },
   favicon: '/images/favicon.png',
   postTitle: 'All',
-};
+});
 
 const analyserPlugins: GatsbyConfig['plugins'] = [
   {
