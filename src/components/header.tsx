@@ -103,7 +103,7 @@ const Header = ({ children, size = 'medium' }: Props) => {
 
   return (
     <ContentSpacer as="header" className="py-48pxr foldable:py-24pxr">
-      <div className="flex items-center justify-between mx-auto font-bold max-w-7xl text-neutral-900 dark:text-white">
+      <div className="flex items-center justify-between mx-auto font-bold max-w-7xl text-bg-inner">
         {header}
         <ToggleMode />
       </div>
