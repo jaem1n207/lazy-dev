@@ -13,7 +13,11 @@ export const wrapPageElement: GatsbySSR['wrapPageElement'] = wrap;
 export const onRenderBody: GatsbySSR['onRenderBody'] = ({
   setHtmlAttributes,
   setHeadComponents,
+  setBodyAttributes,
 }) => {
+  setBodyAttributes({
+    className: 'min-h-screen antialiased tracking-tight text-text-primary bg-bg-primary transition',
+  });
   setHtmlAttributes({
     lang: 'en',
   });
