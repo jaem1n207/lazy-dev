@@ -132,7 +132,7 @@ const CustomCursor = () => {
       ref={cursorRef}
       className="custom-cursor"
       style={{
-        transform: `translate(-50%, -50%) translate(${lastCursorPosition.x}px, ${lastCursorPosition.y}px)`,
+        transform: `translate(-50%, -50%) translate(${lastCursorPosition.x}px, ${lastCursorPosition.y}px) scale(0.23, 0.23)`,
       }}
     />
   );
