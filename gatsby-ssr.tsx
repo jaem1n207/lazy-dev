@@ -22,41 +22,10 @@ export const onRenderBody: GatsbySSR['onRenderBody'] = ({
     lang: 'en',
   });
   setHeadComponents([
-    <link
-      key="preconnect-google-fonts"
-      rel="preconnect"
-      href="https://fonts.gstatic.com"
-      crossOrigin="anonymous"
-    />,
-    <link
-      key="preload-notosanskr-regular"
-      rel="preload"
-      as="font"
-      type="font/woff2"
-      href="/fonts/NotoSansKr-Regular.woff2"
-      crossOrigin="anonymous"
-    />,
-    <link
-      key="preload-notosanskr-bold"
-      rel="preload"
-      as="font"
-      type="font/woff2"
-      href="/fonts/NotoSansKr-Bold.woff2"
-      crossOrigin="anonymous"
-    />,
     <style key="local-fonts" type="text/css">
       {`
-      @font-face {
-        font-family: 'Noto Sans KR';
-        font-weight: 400;
-        src: url('/fonts/NotoSansKr-Regular.woff2') format('woff2');
-        font-display: swap;
-      }
-      @font-face {
-        font-family: 'Noto Sans KR';
-        font-weight: 700;
-        src: url('/fonts/NotoSansKr-Bold.woff2') format('woff2');
-        font-display: swap;
+      body {
+        font-family: Noto Sans KR, -apple-system, ui-sans-serif, system-ui;
       }
     `}
     </style>,
