@@ -111,7 +111,7 @@ module.exports = {
         'gradient-cyan': 'var(--color-cyan-50)',
       },
       fontFamily: {
-        'noto-sans-kr': ['Noto Sans KR', ...defaultTheme.fontFamily.sans],
+        'noto-sans-kr': ['Noto Sans KR', '-apple-system', ...defaultTheme.fontFamily.sans],
       },
       boxShadow: {
         'text-underline': '0 1px 0 0 currentColor',
