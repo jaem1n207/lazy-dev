@@ -14,7 +14,7 @@ const withCustomCursor = (Component: React.ComponentType) => {
   const CustomCursorWrapper: React.FC<any> = (props) => {
     return (
       <>
-        {createPortal(<CustomCursor />, document.body)}
+        {typeof document !== 'undefined' ? createPortal(<CustomCursor />, document.body) : null}
         <Component {...props} />
       </>
     );
