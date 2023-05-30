@@ -2,13 +2,18 @@ import React from 'react';
 
 import type { GatsbySSR } from 'gatsby';
 
-import { wrapPageElement as wrap } from './gatsby-browser';
+// import { wrapPageElement as wrap } from './gatsby-browser';
+import Layout from './src/layout/layout';
 
 /**
  * Gatsby의 서버 측 렌더링(SSR)은 window 또는 document 개체에 액세스할 수 없으므로
  * 클라이언트 측에서만 custom-cursor 로직을 조건부로 적용
  */
-export const wrapPageElement: GatsbySSR['wrapPageElement'] = wrap;
+// export const wrapPageElement: GatsbySSR['wrapPageElement'] = wrap;
+export const wrapPageElement: GatsbySSR['wrapPageElement'] = ({ element, props }) => {
+  // @ts-ignore
+  return <Layout {...props}>{element}</Layout>;
+};
 
 export const onRenderBody: GatsbySSR['onRenderBody'] = ({
   setHtmlAttributes,

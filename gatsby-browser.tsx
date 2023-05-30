@@ -10,6 +10,7 @@ import { createPortal } from 'react-dom';
 
 import CustomCursor from './src/components/custom-cursor';
 import { useIsTouchDevice } from './src/hooks/use-is-touch-device';
+import Layout from './src/layout/layout';
 
 const withCustomCursor = (Component: React.ComponentType) => {
   const CustomCursorWrapper: React.FC<any> = (props) => {
@@ -44,8 +45,13 @@ const withCustomCursor = (Component: React.ComponentType) => {
   return CustomCursorWrapper;
 };
 
+// export const wrapPageElement: GatsbyBrowser['wrapPageElement'] = ({ element, props }) => {
+//   return React.createElement(withCustomCursor(element.props.type || 'div'), props, element);
+// };
+
 export const wrapPageElement: GatsbyBrowser['wrapPageElement'] = ({ element, props }) => {
-  return React.createElement(withCustomCursor(element.props.type || 'div'), props, element);
+  // @ts-ignore
+  return <Layout {...props}>{element}</Layout>;
 };
 
 const UPDATE_SCROLL_TIME_OUT = 1;
