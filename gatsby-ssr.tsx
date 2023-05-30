@@ -2,23 +2,19 @@ import React from 'react';
 
 import type { GatsbySSR } from 'gatsby';
 
-// import { wrapPageElement as wrap } from './gatsby-browser';
-import Layout from './src/layout/layout';
+import { wrapPageElement as wrap } from './gatsby-browser';
 
 /**
  * Gatsby의 서버 측 렌더링(SSR)은 window 또는 document 개체에 액세스할 수 없으므로
  * 클라이언트 측에서만 custom-cursor 로직을 조건부로 적용
  */
-// export const wrapPageElement: GatsbySSR['wrapPageElement'] = wrap;
-export const wrapPageElement: GatsbySSR['wrapPageElement'] = ({ element, props }) => {
-  // @ts-ignore
-  return <Layout {...props}>{element}</Layout>;
-};
+export const wrapPageElement: GatsbySSR['wrapPageElement'] = wrap;
 
 export const onRenderBody: GatsbySSR['onRenderBody'] = ({
   setHtmlAttributes,
   setHeadComponents,
   setBodyAttributes,
+  setPreBodyComponents,
 }) => {
   setBodyAttributes({
     className: 'min-h-screen antialiased tracking-tight text-text-primary bg-bg-primary transition',
@@ -29,48 +25,69 @@ export const onRenderBody: GatsbySSR['onRenderBody'] = ({
   setHeadComponents([
     <style key="local-fonts" type="text/css">
       {`
-      body {
-        font-family: Noto Sans KR, -apple-system, ui-sans-serif, system-ui;
-      }
-    `}
+        body {
+          font-family: Noto Sans KR, -apple-system, ui-sans-serif, system-ui;
+        }
+      `}
     </style>,
+  ]);
+  setPreBodyComponents([
     <script
-      key="darkmode"
+      key="code-to-run-on-client"
       dangerouslySetInnerHTML={{
         /**
-         * IIFE 내부에 논리를 추가하여 전역 범위를 오염시키지 않고
-         * localStorage에 데이터 설정과 검색을 동일한
-         * try-catch 블록 내에서 처리하여 오류 처리를 단순화
+         * IIFE를 사용해 전역 범위를 오염시키지 않고
+         * 혹시 모를 브라우저 지원을 위해 let, const, 화살표 함수를 사용하지 않음
          */
-        __html: `(function() {
-          function setTheme(theme) {
-            window.__theme = theme;
-            if (theme === 'dark') {
-              document.documentElement.className = 'dark';
-            } else if (theme === 'light') {
-              document.documentElement.className = '';
-            } else {
-              document.documentElement.className = darkQuery.matches ? 'dark' : '';
+        __html: `
+          (function () {
+            function setTheme(newTheme) {
+              window.__theme = newTheme;
+              if (newTheme === 'dark') {
+                document.documentElement.classList.add('dark');
+              } else if (newTheme === 'light') {
+                document.documentElement.classList.remove('dark');
+              }
             }
-          };
-          window.__setPreferredTheme = function(theme) {
+          
+            var preferredTheme;
             try {
-              localStorage.setItem('color-theme', theme);
-              setTheme(theme);
+              preferredTheme = localStorage.getItem('theme');
             } catch (e) {}
-          };
-          let preferredTheme;
-          try {
-            preferredTheme = localStorage.getItem('color-theme');
-            let darkQuery = window.matchMedia('(prefers-color-scheme: dark)');
+          
+            window.__setPreferredTheme = function (newTheme) {
+              preferredTheme = newTheme;
+              setTheme(newTheme);
+              try {
+                localStorage.setItem('theme', newTheme);
+                setTheme(newTheme);
+              } catch (e) {}
+            };
+          
+            var initialTheme = preferredTheme || 'system';
+            var darkQuery = window.matchMedia('(prefers-color-scheme: dark)');
+          
+            if (initialTheme === 'system') {
+              initialTheme = darkQuery.matches ? 'dark' : 'light';
+            }
+            setTheme(initialTheme);
+          
             darkQuery.addEventListener('change', function (e) {
-              if (preferredTheme === 'auto') {
+              if (preferredTheme === 'system') {
                 setTheme(e.matches ? 'dark' : 'light');
               }
+              setTheme(darkQuery.matches ? 'dark' : 'light');
             });
-            setTheme(preferredTheme || (darkQuery.matches ? 'dark' : 'light'));
-          } catch (e) {}
-        })();`,
+          
+            var isTouchDevice =
+              'ontouchstart' in window || navigator.msMaxTouchPoints > 0 || navigator.maxTouchPoints > 0;
+            if (isTouchDevice) {
+              document.documentElement.classList.remove('hide-cursor');
+            } else {
+              document.documentElement.classList.add('hide-cursor');
+            }
+          })();
+        `,
       }}
     />,
   ]);

@@ -5,7 +5,7 @@ import { TwStyle } from 'twin.macro';
 export {};
 
 declare global {
-  type Theme = 'dark' | 'light' | 'auto';
+  type Theme = 'dark' | 'light' | undefined;
   interface Window {
     __theme: Theme;
     __setPreferredTheme: (theme: Theme) => void;
