@@ -22,7 +22,7 @@ const Header = ({ children, size = 'medium' }: Props) => {
 
   if (size === 'large') {
     header = (
-      <Link to={ROUTES.HOME} className="focus-primary m-0pxr text-40pxr">
+      <Link to={ROUTES.HOME} className="focus-primary m-0pxr text-40pxr foldable:text-32pxr">
         {children}
       </Link>
     );
