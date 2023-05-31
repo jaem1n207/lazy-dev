@@ -10,15 +10,13 @@ const variants = {
   show: { opacity: 1, rotate: 0 },
 };
 
-const SunIcon: React.FC<{ className?: string; size?: number }> = ({ className, size }) => (
+const SunIcon = ({ className }: { className?: string }) => (
   <svg
     xmlns="http://www.w3.org/2000/svg"
     className={classNames('icon icon-tabler icon-tabler-sun', className)}
-    width={size}
-    height={size}
     viewBox="0 0 24 24"
     strokeWidth="1.5"
-    stroke="#ffec00"
+    stroke="#1f2028"
     fill="none"
     strokeLinecap="round"
     strokeLinejoin="round"
@@ -29,27 +27,27 @@ const SunIcon: React.FC<{ className?: string; size?: number }> = ({ className, s
   </svg>
 );
 
-const MoonIcon: React.FC<{ className?: string; size?: number }> = ({ className, size }) => (
+const MoonIcon = ({ className }: { className?: string }) => (
   <svg
     xmlns="http://www.w3.org/2000/svg"
-    className={classNames('icon icon-tabler icon-tabler-moon-stars', className)}
-    width={size}
-    height={size}
+    className={classNames('icon icon-tabler icon-tabler-moon-filled w-full h-full', className)}
     viewBox="0 0 24 24"
     strokeWidth="1.5"
-    stroke="#FFEF60"
+    stroke="#2e3039"
     fill="none"
     strokeLinecap="round"
     strokeLinejoin="round"
   >
     <path stroke="none" d="M0 0h24v24H0z" fill="none" />
-    <path d="M12 3c.132 0 .263 0 .393 0a7.5 7.5 0 0 0 7.92 12.446a9 9 0 1 1 -8.313 -12.454z" />
-    <path d="M17 4a2 2 0 0 0 2 2a2 2 0 0 0 -2 2a2 2 0 0 0 -2 -2a2 2 0 0 0 2 -2" />
-    <path d="M19 11h2m-1 -1v2" />
+    <path
+      d="M12 1.992a10 10 0 1 0 9.236 13.838c.341 -.82 -.476 -1.644 -1.298 -1.31a6.5 6.5 0 0 1 -6.864 -10.787l.077 -.08c.551 -.63 .113 -1.653 -.758 -1.653h-.266l-.068 -.006l-.06 -.002z"
+      strokeWidth="0"
+      fill="currentColor"
+    />
   </svg>
 );
 
-const ThemeToggle: React.FC = () => {
+const ThemeToggle = () => {
   const [theme, setTheme] = useState<Theme>(undefined);
 
   const isDarkMode = theme === 'dark';
@@ -85,7 +83,7 @@ const ThemeToggle: React.FC = () => {
     <NoneActiveWrapper>
       <button
         onClick={toggleTheme}
-        className="relative w-50pxr h-50pxr"
+        className="relative w-36pxr h-36pxr foldable:w-24pxr foldable:h-24pxr"
         aria-label={`Activate ${isDarkMode ? 'light' : 'dark'} mode`}
         title={`Activate ${isDarkMode ? 'light' : 'dark'} mode`}
       >
@@ -99,7 +97,7 @@ const ThemeToggle: React.FC = () => {
               variants={variants}
               className="absolute inset-0pxr"
             >
-              <MoonIcon size={36} />
+              <MoonIcon />
             </motion.div>
           ) : (
             <motion.div
@@ -110,7 +108,7 @@ const ThemeToggle: React.FC = () => {
               variants={variants}
               className="absolute inset-0pxr"
             >
-              <SunIcon size={36} />
+              <SunIcon />
             </motion.div>
           )}
         </AnimatePresence>
