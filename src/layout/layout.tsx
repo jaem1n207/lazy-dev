@@ -1,7 +1,10 @@
 import React, { ElementType, ReactNode } from 'react';
 
 import { Slice } from 'gatsby';
+import { createPortal } from 'react-dom';
 import tw, { GlobalStyles as BaseStyles } from 'twin.macro';
+
+import CustomCursor from 'Components/custom-cursor';
 
 interface LayoutProps {
   children: ReactNode;
@@ -18,6 +21,7 @@ const Layout = ({ children, location, title, as = 'div' }: LayoutProps) => {
   return (
     <As css={[isRootPath && tw`pb-80pxr`]}>
       <BaseStyles />
+      {typeof document !== 'undefined' ? createPortal(<CustomCursor />, document.body) : null}
       <Slice alias="header" size={isRootPath ? 'large' : 'medium'}>
         {title}
       </Slice>

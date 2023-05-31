@@ -3,31 +3,7 @@ import '@fontsource/fira-mono';
 import './src/styles/global.css';
 import 'prismjs/themes/prism-tomorrow.css';
 
-import React from 'react';
-
 import type { GatsbyBrowser } from 'gatsby';
-import { createPortal } from 'react-dom';
-
-import CustomCursor from './src/components/custom-cursor';
-
-const withCustomCursor = (Component: React.ComponentType) => {
-  const CustomCursorWrapper: React.FC<any> = (props) => {
-    return (
-      <>
-        {typeof document !== 'undefined' ? createPortal(<CustomCursor />, document.body) : null}
-        <Component {...props} />
-      </>
-    );
-  };
-
-  CustomCursorWrapper.displayName = `withCustomCursor(${Component.displayName || Component.name})`;
-
-  return CustomCursorWrapper;
-};
-
-export const wrapPageElement: GatsbyBrowser['wrapPageElement'] = ({ element, props }) => {
-  return React.createElement(withCustomCursor(element.props.type || 'div'), props, element);
-};
 
 const UPDATE_SCROLL_TIME_OUT = 1;
 
