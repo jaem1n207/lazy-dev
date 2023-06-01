@@ -20,12 +20,12 @@ import CategoryFilter from 'Components/category/category-filter';
 import { Grid, Spacer, H3, ContentSpacer, Typography, H5 } from 'Components/common';
 import AnimateFadeContainer from 'Components/common/animate-fade-container';
 import NoneActiveWrapper from 'Components/common/none-active-wrapper';
+import Skeleton from 'Components/common/skeleton';
 import SSRSuspense from 'Components/common/ssr-suspense';
 import RotatingTag from 'Components/rotating-tag';
 import Seo from 'Components/seo';
 import Tag from 'Components/tag';
 import { useCategory } from 'Hooks/use-category';
-import Layout from 'Layout/layout';
 import { isEmptyArray, isEmptyString } from 'Libs/assertions';
 import { filterPosts } from 'Libs/blog';
 import { CATEGORY_TYPE, QUERY_PARAM } from 'Types/enum';
@@ -33,10 +33,6 @@ import Post from 'Types/post';
 
 const HeroPostCard = lazy(() => import('Components/post/hero-post-card'));
 const PostCard = lazy(() => import('Components/post/post-card'));
-
-type ContextProps = {
-  category: string;
-};
 
 const useUpdateQueryStringValueWithoutNavigation = (queryKey: string, queryValue: string) => {
   useEffect(() => {
@@ -58,7 +54,7 @@ const useUpdateQueryStringValueWithoutNavigation = (queryKey: string, queryValue
 
 const FeaturedPostTitle = 'JavaScript에서 내장 객체를 확장하는 것이 위험한 이유';
 
-const IndexPage: FC<PageProps<Queries.HomeQuery, ContextProps>> = ({ data, location }) => {
+const IndexPage: FC<PageProps<Queries.HomeQuery>> = ({ data, location }) => {
   console.log('🚀 ~ file: index.tsx:62 ~ data:', data);
   const [currentCategory, setCurrentCategory] = useState<string | undefined>();
   const { category, selectCategory, resetCategory } = useCategory();
@@ -216,7 +212,7 @@ const IndexPage: FC<PageProps<Queries.HomeQuery, ContextProps>> = ({ data, locat
   const searchLabelClasses = classNames(searchLabelBaseClasses, searchLabelFocusedClasses);
 
   return (
-    <Layout location={location} title={data.site?.siteMetadata?.title!}>
+    <>
       <CategoryFilter
         category={category}
         categories={categories}
@@ -330,13 +326,12 @@ const IndexPage: FC<PageProps<Queries.HomeQuery, ContextProps>> = ({ data, locat
 
       <SSRSuspense
         fallback={
-          // <Skeleton className="mx-10vw">
-          //   <Skeleton.Item>
-          //     <div className="max-w-7xl h-[26.875rem] rounded-lg foldable:h-400pxr tablet:h-300pxr" />
-          //     <Spacer size="xs" className="col-span-full" data-skeleton-exclude-bg="true" />
-          //   </Skeleton.Item>
-          // </Skeleton>
-          null
+          <Skeleton className="mx-10vw">
+            <Skeleton.Item>
+              <div className="max-w-7xl h-[26.875rem] rounded-lg foldable:h-400pxr tablet:h-300pxr" />
+              <Spacer size="xs" className="col-span-full" data-skeleton-exclude-bg="true" />
+            </Skeleton.Item>
+          </Skeleton>
         }
       >
         {heroPost && !isSearching && isCategoryAll && <HeroPostCard post={heroPost} />}
@@ -367,19 +362,18 @@ const IndexPage: FC<PageProps<Queries.HomeQuery, ContextProps>> = ({ data, locat
             <Grid>
               <SSRSuspense
                 fallback={
-                  // <>
-                  //   {Array.from({ length: 6 }).map((_, index) => (
-                  //     <Skeleton className="col-span-4" key={index}>
-                  //       <Skeleton.Item>
-                  //         <div className="w-full mb-40pxr h-322pxr" data-skeleton-exclude-bg="true">
-                  //           <div className="w-full rounded-lg h-256pxr" />
-                  //           <div className="rounded-lg mt-16pxr h-40pxr" />
-                  //         </div>
-                  //       </Skeleton.Item>
-                  //     </Skeleton>
-                  //   ))}
-                  // </>
-                  null
+                  <>
+                    {Array.from({ length: 6 }).map((_, index) => (
+                      <Skeleton className="col-span-4" key={index}>
+                        <Skeleton.Item>
+                          <div className="w-full mb-40pxr h-322pxr" data-skeleton-exclude-bg="true">
+                            <div className="w-full rounded-lg h-256pxr" />
+                            <div className="rounded-lg mt-16pxr h-40pxr" />
+                          </div>
+                        </Skeleton.Item>
+                      </Skeleton>
+                    ))}
+                  </>
                 }
               >
                 <AnimatePresence>
@@ -394,7 +388,7 @@ const IndexPage: FC<PageProps<Queries.HomeQuery, ContextProps>> = ({ data, locat
           </>
         )}
       </ContentSpacer>
-    </Layout>
+    </>
   );
 };
 
@@ -406,11 +400,6 @@ export const Head: HeadFC = ({ location }: HeadProps) => (
 
 export const pageQuery = graphql`
   query Home {
-    site {
-      siteMetadata {
-        title
-      }
-    }
     categoriesGroup: allMarkdownRemark(
       filter: { frontmatter: { category: { ne: "null" } } }
       sort: { frontmatter: { category: ASC } }
