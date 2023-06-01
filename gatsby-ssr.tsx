@@ -2,10 +2,16 @@ import React from 'react';
 
 import type { GatsbySSR } from 'gatsby';
 
-/**
- * Gatsby의 서버 측 렌더링(SSR)은 window 또는 document 개체에 액세스할 수 없으므로
- * 클라이언트 측에서만 custom-cursor 로직을 조건부로 적용
- */
+import Layout from './src/layout/layout';
+import Root from './src/root';
+
+export const wrapPageElement: GatsbySSR['wrapPageElement'] = ({ element, props }) => {
+  return (
+    <Root>
+      <Layout location={props.location}>{element}</Layout>
+    </Root>
+  );
+};
 
 export const onRenderBody: GatsbySSR['onRenderBody'] = ({
   setHtmlAttributes,

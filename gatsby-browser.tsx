@@ -3,27 +3,40 @@ import '@fontsource/fira-mono';
 import './src/styles/global.css';
 import 'prismjs/themes/prism-tomorrow.css';
 
+import React from 'react';
+
 import type { GatsbyBrowser } from 'gatsby';
 
-const UPDATE_SCROLL_TIME_OUT = 1;
+import Layout from './src/layout/layout';
+import Root from './src/root';
 
-/**
- * 블로그 상세 페이지에서 뒤로가기를 눌렀을 때 스크롤 위치를 유지하기 위한 설정
- * 스크롤 복원할 때, 블로그 상세 페이지의 스크롤이 홈에서 저장된 스크롤 위치로 먼저 복원되고,
- * 블로그 홈으로 이동되서 잠깐 깜빡이는 문제를 해결하기 위함
- * @see https://github.com/gatsbyjs/gatsby/issues/28794#issuecomment-905173663
- */
-export const shouldUpdateScroll: GatsbyBrowser['shouldUpdateScroll'] = ({
-  routerProps: { location },
-  getSavedScrollPosition,
-}) => {
-  window.history.scrollRestoration = 'manual';
-  const currentPosition = getSavedScrollPosition(location);
-  window.setTimeout(() => {
-    window.scrollTo(...currentPosition);
-  }, UPDATE_SCROLL_TIME_OUT);
-  return false;
+export const wrapPageElement: GatsbyBrowser['wrapPageElement'] = ({ element, props }) => {
+  return (
+    <Root>
+      <Layout location={props.location}>{element}</Layout>
+    </Root>
+  );
 };
+
+// const UPDATE_SCROLL_TIME_OUT = 1;
+
+// /**
+//  * 블로그 상세 페이지에서 뒤로가기를 눌렀을 때 스크롤 위치를 유지하기 위한 설정
+//  * 스크롤 복원할 때, 블로그 상세 페이지의 스크롤이 홈에서 저장된 스크롤 위치로 먼저 복원되고,
+//  * 블로그 홈으로 이동되서 잠깐 깜빡이는 문제를 해결하기 위함
+//  * @see https://github.com/gatsbyjs/gatsby/issues/28794#issuecomment-905173663
+//  */
+// export const shouldUpdateScroll: GatsbyBrowser['shouldUpdateScroll'] = ({
+//   routerProps: { location },
+//   getSavedScrollPosition,
+// }) => {
+//   window.history.scrollRestoration = 'manual';
+//   const currentPosition = getSavedScrollPosition(location);
+//   window.setTimeout(() => {
+//     window.scrollTo(...currentPosition);
+//   }, UPDATE_SCROLL_TIME_OUT);
+//   return false;
+// };
 
 export const onServiceWorkerUpdateReady: GatsbyBrowser['onServiceWorkerUpdateReady'] = () => {
   const answer = window.confirm(

@@ -8,13 +8,11 @@ import TableOfContents from 'Components/post/table-of-contents';
 import Seo from 'Components/seo';
 import Summary from 'Components/summary';
 import { useWindowSize } from 'Hooks/use-window-size';
-import Layout from 'Layout/layout';
 import * as ScrollManager from 'Libs/scroll';
 import Markdown from 'Styles/markdown';
 import { rhythm } from 'Styles/typography';
 
-const BlogPost = ({ data, location }: PageProps<Queries.BlogPostBySlugQuery>) => {
-  const siteTitme = data.site?.siteMetadata?.title || 'Title';
+const BlogPost = ({ data }: PageProps<Queries.BlogPostBySlugQuery>) => {
   const { frontmatter, html, timeToRead, tableOfContents } = data.markdownRemark!;
   const { title, date, category, summary } = frontmatter!;
 
@@ -32,43 +30,41 @@ const BlogPost = ({ data, location }: PageProps<Queries.BlogPostBySlugQuery>) =>
   }, []);
 
   return (
-    <Layout location={location} title={siteTitme} as="article">
-      <ContentSpacer>
-        <Grid>
-          {isTableOfContentsVisible && (
-            <div css={tw`col-span-4 col-start-12 desktop:visually-hide`}>
-              <TableOfContents toc={tableOfContents} />
-            </div>
-          )}
-          <div css={tw`col-span-8 col-start-3 desktop:(col-span-full col-start-1)`}>
-            <header>
-              <div
-                css={tw`flex items-center font-bold text-all-custom-gray text-16pxr gap-8pxr pb-4pxr`}
-              >
-                <time dateTime={date!}>{date}</time>
-                <span css={tw`h-16pxr w-1pxr bg-all-custom-gray`} />
-                <span>{category}</span>
-                <span css={tw`h-16pxr w-1pxr bg-all-custom-gray`} />
-                <span>{timeToRead} min read</span>
-              </div>
-              <H1 css={tw`font-bold leading-snug text-36pxr tablet:text-32pxr`}>{title}</H1>
-            </header>
-            <Summary summary={summary} />
-            <div css={tw`h-1pxr mb-20pxr tablet:mb-16pxr`} />
-            <Markdown
-              key="body"
-              dangerouslySetInnerHTML={{ __html: html! }}
-              itemProp="articleBody"
-              rhythm={rhythm}
-            />
-            <div
-              css={tw`w-full h-1pxr my-64pxr box-decoration-slice bg-gradient-to-r from-primary to-gradient-cyan tablet:my-48pxr`}
-            />
-            <Slice alias="bio" />
+    <ContentSpacer>
+      <Grid>
+        {isTableOfContentsVisible && (
+          <div css={tw`col-span-4 col-start-12 desktop:visually-hide`}>
+            <TableOfContents toc={tableOfContents} />
           </div>
-        </Grid>
-      </ContentSpacer>
-    </Layout>
+        )}
+        <div css={tw`col-span-8 col-start-3 desktop:(col-span-full col-start-1)`}>
+          <header>
+            <div
+              css={tw`flex items-center font-bold text-all-custom-gray text-16pxr gap-8pxr pb-4pxr`}
+            >
+              <time dateTime={date!}>{date}</time>
+              <span css={tw`h-16pxr w-1pxr bg-all-custom-gray`} />
+              <span>{category}</span>
+              <span css={tw`h-16pxr w-1pxr bg-all-custom-gray`} />
+              <span>{timeToRead} min read</span>
+            </div>
+            <H1 css={tw`font-bold leading-snug text-36pxr tablet:text-32pxr`}>{title}</H1>
+          </header>
+          <Summary summary={summary} />
+          <div css={tw`h-1pxr mb-20pxr tablet:mb-16pxr`} />
+          <Markdown
+            key="body"
+            dangerouslySetInnerHTML={{ __html: html! }}
+            itemProp="articleBody"
+            rhythm={rhythm}
+          />
+          <div
+            css={tw`w-full h-1pxr my-64pxr box-decoration-slice bg-gradient-to-r from-primary to-gradient-cyan tablet:my-48pxr`}
+          />
+          <Slice alias="bio" />
+        </div>
+      </Grid>
+    </ContentSpacer>
   );
 };
 
