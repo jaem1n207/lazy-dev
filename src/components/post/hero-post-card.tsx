@@ -13,8 +13,8 @@ interface HeroPostCardProps {
 }
 
 const HeroPostCard = ({ post }: HeroPostCardProps) => {
-  const data = useStaticQuery<Queries.Query>(graphql`
-    query ThumbnailImage {
+  const data = useStaticQuery<Queries.HeroThumbnailImageQuery>(graphql`
+    query HeroThumbnailImage {
       allImageSharp {
         edges {
           node {

@@ -1,13 +1,7 @@
 import { useStaticQuery, graphql } from 'gatsby';
 
-interface SiteMetaData {
-  site: {
-    siteMetadata: Queries.SiteSiteMetadata;
-  };
-}
-
 export const useSiteMetadata = () => {
-  const { site } = useStaticQuery<SiteMetaData>(
+  const { site } = useStaticQuery<Queries.SiteMetaDataQuery>(
     graphql`
       query SiteMetaData {
         site {
@@ -30,6 +24,13 @@ export const useSiteMetadata = () => {
       }
     `
   );
+
+  if (!site?.siteMetadata) {
+    console.error('site.siteMetadata is undefined');
+
+    return undefined;
+  }
+
   return site.siteMetadata;
 };
 

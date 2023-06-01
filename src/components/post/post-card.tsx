@@ -15,8 +15,8 @@ interface PostCardProps {
 const PostCard = ({
   post: { slug, title, summary, date, thumbnail, timeToRead },
 }: PostCardProps) => {
-  const data = useStaticQuery<Queries.Query>(graphql`
-    query ThumbnailImage {
+  const data = useStaticQuery<Queries.PostThumbnailImageQuery>(graphql`
+    query PostThumbnailImage {
       allImageSharp {
         edges {
           node {

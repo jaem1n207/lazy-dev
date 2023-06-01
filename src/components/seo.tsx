@@ -1,6 +1,6 @@
 import React, { ReactNode } from 'react';
 
-import { useStaticQuery, graphql } from 'gatsby';
+import { useSiteMetadata } from 'Hooks/use-site-metadata';
 
 interface SeoProps extends Pick<Queries.SiteSiteMetadata, 'title'> {
   description?: Queries.Maybe<string>;
@@ -9,51 +9,21 @@ interface SeoProps extends Pick<Queries.SiteSiteMetadata, 'title'> {
   children?: ReactNode;
 }
 
-interface SiteMetaData {
-  site: {
-    siteMetadata: Queries.SiteSiteMetadata;
-  };
-}
-
 const Seo = ({ description, title, thumbnail, pathname: propsPathname, children }: SeoProps) => {
-  const data = useStaticQuery<SiteMetaData>(
-    graphql`
-      query SiteMetaData {
-        site {
-          siteMetadata {
-            author {
-              name
-              summary
-            }
-            description
-            lang
-            favicon
-            postTitle
-            siteUrl
-            social {
-              github
-            }
-            title
-          }
-        }
-      }
-    `
-  );
-
-  const site = data.site.siteMetadata;
+  const site = useSiteMetadata();
 
   const seo = {
-    title: title || site.title!,
-    description: description || site.description!,
+    title: title || site?.title!,
+    description: description || site?.description!,
     image: thumbnail || undefined,
-    url: `${site.siteUrl}${propsPathname || ''}`,
-    author: site.author!.name || '',
+    url: `${site?.siteUrl}${propsPathname || ''}`,
+    author: site?.author!.name || '',
   };
 
   return (
     <>
       {/* HTML Meta Tags */}
-      <title>{site.title ? `${title} | ${site.title}` : title}</title>
+      <title>{site?.title ? `${title} | ${site.title}` : title}</title>
       <meta name="description" content={seo.description} />
       <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
