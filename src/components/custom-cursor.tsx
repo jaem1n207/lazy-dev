@@ -1,35 +1,9 @@
-import React, { useCallback, useEffect, useRef, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 
 import { useEventListener } from 'Hooks/use-event-listener';
 import { addClass, getElements, removeClass } from 'Libs/dom';
 import { movingElementsTransform } from 'Libs/transform';
 import { ELEMENT_CLASS, ELEMENT_SELECTOR } from 'Types/enum';
-
-const LAST_CURSOR_POSITION_KEY = 'lastCursorPosition';
-
-interface LastCursorPosition {
-  x: number;
-  y: number;
-}
-
-const useLastCursorPosition = () => {
-  const storedCursorPosition = sessionStorage.getItem(LAST_CURSOR_POSITION_KEY);
-  const initialPosition: LastCursorPosition = storedCursorPosition
-    ? JSON.parse(storedCursorPosition)
-    : { x: 0, y: 0 };
-  const lastCursorPosition = useRef<LastCursorPosition>(initialPosition);
-
-  const saveCursorPosition = useCallback(({ x, y }: { x: number; y: number }) => {
-    const newPosition = { x, y };
-    lastCursorPosition.current = newPosition;
-    sessionStorage.setItem(LAST_CURSOR_POSITION_KEY, JSON.stringify(newPosition));
-  }, []);
-
-  return {
-    lastCursorPosition: lastCursorPosition.current,
-    saveCursorPosition,
-  };
-};
 
 const CustomCursor = () => {
   const [isRenderAllComplete, setIsRenderAllComplete] = useState(false);
@@ -37,7 +11,6 @@ const CustomCursor = () => {
   const cursorRef = useRef<HTMLDivElement | null>(null);
 
   const { handleMouseMove, handleMouseOut } = movingElementsTransform();
-  const { lastCursorPosition, saveCursorPosition } = useLastCursorPosition();
 
   // DOM 트리가 변경되는지 감지하고 자식 노드가 변경되면 isRenderAllComplete를 true로 변경
   useEffect(() => {
@@ -67,8 +40,6 @@ const CustomCursor = () => {
 
   const updateCursor = (x: number, y: number, hoveredElement: Element | null) => {
     if (!cursorRef.current) return;
-
-    saveCursorPosition({ x, y });
 
     if (
       isElementInteractive(hoveredElement) ||
@@ -132,7 +103,7 @@ const CustomCursor = () => {
       ref={cursorRef}
       className="custom-cursor"
       style={{
-        transform: `translate(-50%, -50%) translate(${lastCursorPosition.x}px, ${lastCursorPosition.y}px) scale(0.23, 0.23)`,
+        transform: `translate(-50%, -50%) translate(0px, 0px) scale(0.23, 0.23)`,
       }}
     />
   );
