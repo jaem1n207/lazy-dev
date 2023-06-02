@@ -13,15 +13,12 @@ import { MagnifyingGlassIcon, XMarkIcon } from '@heroicons/react/24/outline';
 import classNames from 'classnames';
 import { AnimatePresence, motion } from 'framer-motion';
 import { graphql, HeadFC, HeadProps, PageProps } from 'gatsby';
-import { StaticImage } from 'gatsby-plugin-image';
 import queryString from 'query-string';
 
 import CategoryFilter from 'Components/category/category-filter';
-import { Grid, Spacer, H3, ContentSpacer, Typography, H5 } from 'Components/common';
+import { Grid, Spacer, ContentSpacer, Typography, H5 } from 'Components/common';
 import AnimateFadeContainer from 'Components/common/animate-fade-container';
 import NoneActiveWrapper from 'Components/common/none-active-wrapper';
-import Skeleton from 'Components/common/skeleton';
-import SSRSuspense from 'Components/common/ssr-suspense';
 import RotatingTag from 'Components/rotating-tag';
 import Seo from 'Components/seo';
 import Tag from 'Components/tag';
@@ -54,7 +51,7 @@ const useUpdateQueryStringValueWithoutNavigation = (queryKey: string, queryValue
 
 const FeaturedPostTitle = 'JavaScript에서 내장 객체를 확장하는 것이 위험한 이유';
 
-const IndexPage: FC<PageProps<Queries.HomeQuery>> = ({ data, location }) => {
+const IndexPage: FC<PageProps<Queries.HomeQuery>> = ({ data, location, pageContext }) => {
   console.log('🚀 ~ file: index.tsx:62 ~ data:', data);
   const [currentCategory, setCurrentCategory] = useState<string | undefined>();
   const { category, selectCategory, resetCategory } = useCategory();
@@ -111,7 +108,7 @@ const IndexPage: FC<PageProps<Queries.HomeQuery>> = ({ data, location }) => {
       })
       .map((edge) => {
         const { slug } = edge.node.fields!;
-        const { title, date, category, summary, thumbnail } = edge.node.frontmatter!;
+        const { title, date, category, summary, thumbnail, tags } = edge.node.frontmatter!;
         const { childImageSharp } = thumbnail!;
         const post: Post = {
           slug,
@@ -121,7 +118,7 @@ const IndexPage: FC<PageProps<Queries.HomeQuery>> = ({ data, location }) => {
           summary,
           thumbnail: childImageSharp?.id!,
           timeToRead: edge.node.timeToRead,
-          tags: edge.node.frontmatter?.tags!,
+          tags,
         };
 
         return post;
@@ -222,79 +219,79 @@ const IndexPage: FC<PageProps<Queries.HomeQuery>> = ({ data, location }) => {
 
       <Spacer size="sm" className="col-span-full" />
 
-      {!isEmptyArray(tagsArray) && (
-        <ContentSpacer>
-          <Grid>
-            <div className="select-none col-span-full">
-              <Typography
-                as="div"
-                className="font-bold leading-tight text-64pxr tablet:text-48pxr foldable:text-32pxr"
-              >
-                <div className="gradient-text">원하는 글을 찾아보세요&#46;</div>
-                <div className="flex">
-                  <span>Find&nbsp;</span>
+      <ContentSpacer>
+        <Grid>
+          <div className="select-none col-span-full">
+            <Typography
+              as="div"
+              className="font-bold leading-tight text-64pxr tablet:text-48pxr foldable:text-32pxr"
+            >
+              <div className="gradient-text">원하는 글을 찾아보세요&#46;</div>
+              <div className="flex">
+                <span>Find&nbsp;</span>
+                {!isEmptyArray(tagsArray) && (
                   <RotatingTag tags={tagsArray} interval={4000} rotationDuration={2} />
-                </div>
-              </Typography>
-
-              <Spacer size="sm" />
-
-              <div className="flex items-center justify-between my-24pxr col-span-full">
-                <form className="relative flex items-center" onSubmit={(e) => e.preventDefault()}>
-                  <NoneActiveWrapper>
-                    <button
-                      title="Search"
-                      className="absolute z-10 flex items-center h-full top-0pxr left-12pxr w-24pxr text-text-primary"
-                    >
-                      <MagnifyingGlassIcon />
-                    </button>
-                  </NoneActiveWrapper>
-                  <div className="relative group">
-                    <NoneActiveWrapper>
-                      <label className={searchLabelClasses} htmlFor="search-post-input">
-                        무엇을 찾고 계신가요?
-                      </label>
-                      <input
-                        ref={searchInputRef}
-                        id="search-post-input"
-                        type="search"
-                        className="w-full rounded-full outline-none appearance-none bg-bg-secondary py-24pxr foldable:py-12pxr pl-48pxr pr-64pxr text-18pxr foldable:text-16pxr focus-primary group-focus-within:bg-opacity-60 border-1pxr border-border-secondary"
-                        value={queryValue}
-                        onChange={handleSearchInputChange}
-                        onKeyUp={handleScrollToResults}
-                      />
-                    </NoneActiveWrapper>
-                  </div>
-                  <AnimatePresence>
-                    {queryValue.length > 0 && (
-                      <NoneActiveWrapper>
-                        <motion.button
-                          aria-label="Clear search"
-                          title="Clear search"
-                          data-hoverable="true"
-                          animate={{ opacity: 1 }}
-                          exit={{ opacity: 0 }}
-                          initial={{ opacity: 0 }}
-                          type="reset"
-                          className="absolute my-auto -translate-y-1/2 rounded-full focus-primary right-36pxr top-1/2 text-text-primary mr-8pxr"
-                          onClick={handleClearSearch}
-                          tabIndex={-1}
-                        >
-                          <span className="sr-only">Clear search</span>
-                          <XMarkIcon className="w-24pxr h-24pxr" />
-                        </motion.button>
-                      </NoneActiveWrapper>
-                    )}
-                  </AnimatePresence>
-                  <div className="absolute flex items-center h-full top-0pxr right-4pxr w-32pxr text-text-primary">
-                    {posts.length}
-                  </div>
-                </form>
+                )}
               </div>
+            </Typography>
+
+            <Spacer size="sm" />
+
+            <div className="flex items-center justify-between my-24pxr col-span-full">
+              <form className="relative flex items-center" onSubmit={(e) => e.preventDefault()}>
+                <NoneActiveWrapper>
+                  <button
+                    title="Search"
+                    className="absolute z-10 flex items-center h-full top-0pxr left-12pxr w-24pxr text-text-primary"
+                  >
+                    <MagnifyingGlassIcon />
+                  </button>
+                </NoneActiveWrapper>
+                <div className="relative group">
+                  <NoneActiveWrapper>
+                    <label className={searchLabelClasses} htmlFor="search-post-input">
+                      무엇을 찾고 계신가요?
+                    </label>
+                    <input
+                      ref={searchInputRef}
+                      id="search-post-input"
+                      type="search"
+                      className="w-full rounded-full outline-none appearance-none bg-bg-secondary py-24pxr foldable:py-12pxr pl-48pxr pr-64pxr text-18pxr foldable:text-16pxr focus-primary group-focus-within:bg-opacity-60 border-1pxr border-border-secondary"
+                      value={queryValue}
+                      onChange={handleSearchInputChange}
+                      onKeyUp={handleScrollToResults}
+                    />
+                  </NoneActiveWrapper>
+                </div>
+                <AnimatePresence>
+                  {queryValue.length > 0 && (
+                    <NoneActiveWrapper>
+                      <motion.button
+                        aria-label="Clear search"
+                        title="Clear search"
+                        data-hoverable="true"
+                        animate={{ opacity: 1 }}
+                        exit={{ opacity: 0 }}
+                        initial={{ opacity: 0 }}
+                        type="reset"
+                        className="absolute my-auto -translate-y-1/2 rounded-full focus-primary right-36pxr top-1/2 text-text-primary mr-8pxr"
+                        onClick={handleClearSearch}
+                        tabIndex={-1}
+                      >
+                        <span className="sr-only">Clear search</span>
+                        <XMarkIcon className="w-24pxr h-24pxr" />
+                      </motion.button>
+                    </NoneActiveWrapper>
+                  )}
+                </AnimatePresence>
+                <div className="absolute flex items-center h-full top-0pxr right-4pxr w-32pxr text-text-primary">
+                  {posts.length}
+                </div>
+              </form>
             </div>
-          </Grid>
-        </ContentSpacer>
-      )}
+          </div>
+        </Grid>
+      </ContentSpacer>
 
       <Spacer size="sm" className="col-span-full" />
 
@@ -324,21 +321,10 @@ const IndexPage: FC<PageProps<Queries.HomeQuery>> = ({ data, location }) => {
         </Grid>
       </ContentSpacer>
 
-      <SSRSuspense
-        fallback={
-          <Skeleton className="mx-10vw">
-            <Skeleton.Item>
-              <div className="max-w-7xl h-[26.875rem] rounded-lg foldable:h-400pxr tablet:h-300pxr" />
-              <Spacer size="xs" className="col-span-full" data-skeleton-exclude-bg="true" />
-            </Skeleton.Item>
-          </Skeleton>
-        }
-      >
-        {heroPost && !isSearching && isCategoryAll && <HeroPostCard post={heroPost} />}
-      </SSRSuspense>
+      {heroPost && !isSearching && isCategoryAll && <HeroPostCard post={heroPost} />}
 
       <ContentSpacer ref={resultsRef}>
-        {isEmptyArray(posts) ? (
+        {/* {isEmptyArray(posts) ? (
           <Grid className="mb-64pxr">
             <div className="flex flex-col items-center col-span-full">
               <StaticImage
@@ -357,36 +343,19 @@ const IndexPage: FC<PageProps<Queries.HomeQuery>> = ({ data, location }) => {
             </div>
           </Grid>
         ) : (
-          <>
-            <Spacer size="xs" className="col-span-full" />
-            <Grid>
-              <SSRSuspense
-                fallback={
-                  <>
-                    {Array.from({ length: 6 }).map((_, index) => (
-                      <Skeleton className="col-span-4" key={index}>
-                        <Skeleton.Item>
-                          <div className="w-full mb-40pxr h-322pxr" data-skeleton-exclude-bg="true">
-                            <div className="w-full rounded-lg h-256pxr" />
-                            <div className="rounded-lg mt-16pxr h-40pxr" />
-                          </div>
-                        </Skeleton.Item>
-                      </Skeleton>
-                    ))}
-                  </>
-                }
-              >
-                <AnimatePresence>
-                  {posts.map((post) => (
-                    <AnimateFadeContainer key={post.slug} className="col-span-4 mb-40pxr">
-                      <PostCard post={post} />
-                    </AnimateFadeContainer>
-                  ))}
-                </AnimatePresence>
-              </SSRSuspense>
-            </Grid>
-          </>
-        )}
+          <> */}
+        <Spacer size="xs" className="col-span-full" />
+        <Grid>
+          <AnimatePresence>
+            {posts.map((post) => (
+              <AnimateFadeContainer key={post.slug} className="col-span-4 mb-40pxr">
+                <PostCard post={post} />
+              </AnimateFadeContainer>
+            ))}
+          </AnimatePresence>
+        </Grid>
+        {/* </>
+        )} */}
       </ContentSpacer>
     </>
   );
