@@ -73,6 +73,33 @@ export const createPages = async ({ graphql, actions, reporter }) => {
 
   const blogPostTemplate = resolve('./src/templates/blog-post.tsx');
 
+  // query MyQuery {
+  //   allMarkdownRemark {
+  //     nodes {
+  //       id
+  //       frontmatter {
+  //         date(formatString: "YYYY.MM.DD")
+  //         title
+  //         thumbnail {
+  //           childImageSharp {
+  //             gatsbyImageData(
+  //               formats: [AUTO, WEBP, AVIF]
+  //               placeholder: BLURRED
+  //               aspectRatio: 0.5
+  //               width: 280
+  //             )
+  //           }
+  //         }
+  //         summary
+  //         tags
+  //         category
+  //       }
+  //       fields {
+  //         slug
+  //       }
+  //     }
+  //   }
+  // }
   const blogResult = await graphql(`
     {
       postsRemark: allMarkdownRemark(
