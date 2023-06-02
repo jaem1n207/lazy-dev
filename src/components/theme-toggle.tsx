@@ -10,6 +10,10 @@ const variants = {
   show: { opacity: 1, rotate: 0 },
 };
 
+const whileHover = {
+  rotate: 15,
+};
+
 const SunIcon = ({ className }: { className?: string }) => (
   <svg
     xmlns="http://www.w3.org/2000/svg"
@@ -94,6 +98,7 @@ const ThemeToggle = () => {
               initial="hidden"
               animate="show"
               exit="hidden"
+              whileHover={whileHover}
               variants={variants}
               className="absolute inset-0pxr"
             >
@@ -105,6 +110,7 @@ const ThemeToggle = () => {
               initial="hidden"
               animate="show"
               exit="hidden"
+              whileHover={whileHover}
               variants={variants}
               className="absolute inset-0pxr"
             >
