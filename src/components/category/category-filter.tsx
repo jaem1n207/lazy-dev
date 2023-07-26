@@ -16,7 +16,7 @@ interface CategoryFilterProps {
 
 const ACTIVE_ID = 'active';
 
-const Nav = tw.nav`z-20 sticky top-0pxr mb-48pxr [button]:(block font-bold transition-colors rounded-lg py-8pxr px-16pxr text-14pxr hover:(text-text-secondary bg-primary) foldable:(!py-6pxr !px-12pxr !text-13pxr)) [button[data-ui=${ACTIVE_ID}]]:(text-text-secondary bg-primary)`;
+const Nav = tw.nav`z-20 sticky top-0pxr mb-48pxr [button]:(block font-bold transition-colors rounded-lg py-8pxr px-16pxr text-16pxr hover:(text-text-secondary bg-primary) foldable:(!py-6pxr !px-12pxr !text-14pxr)) [button[data-ui=${ACTIVE_ID}]]:(text-text-secondary bg-primary)`;
 
 const CategoryFilter = ({
   category,

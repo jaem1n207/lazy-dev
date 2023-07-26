@@ -14,7 +14,7 @@ const Summary = ({ summary }: SummaryProps) => {
           <FlowerCircleIcon className="fill-primary bg-bg-primary" size={48} />
         </div>
       </div>
-      <p className="text-16pxr tablet:text-14pxr">{summary}</p>
+      <p className="font-semibold text-16pxr tablet:text-14pxr">{summary}</p>
       <div className="w-full h-1pxr box-decoration-slice bg-gradient-to-r from-primary to-gradient-cyan my-24pxr tablet:my-16pxr" />
     </section>
   );

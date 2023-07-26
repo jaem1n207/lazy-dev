@@ -13,7 +13,7 @@ interface TableOfContentsProps {
 
 const TOCWrapper = tw.div`fixed px-12pxr py-4pxr bg-transparent border-l-2pxr border-all-custom-gray z-10 max-h-[70vh] max-w-[20vw] overflow-auto`;
 
-const TOCContent = tw.div`text-14pxr tablet:text-16pxr text-all-custom-gray font-bold border-spacing-24pxr tablet:border-spacing-28pxr tracking-normal tablet:tracking-tighter [a.active]:(text-[110%] text-primary transition-all)`;
+const TOCContent = tw.div`text-16pxr text-all-custom-gray font-bold border-spacing-24pxr tablet:border-spacing-28pxr tracking-normal tablet:tracking-tighter [a.active]:(text-[110%] text-primary transition-all)`;
 
 const TableOfContents = ({ toc }: TableOfContentsProps) => {
   const THRESHOLD = useMemo(() => window.innerHeight / 2, []);
