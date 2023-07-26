@@ -12,7 +12,7 @@ interface RootProps {
 const Root = ({ children }: RootProps) => {
   return (
     <div>
-      <BaseStyles />;
+      <BaseStyles />
       {typeof document !== 'undefined' ? createPortal(<CustomCursor />, document.body) : null}
       {children}
     </div>
