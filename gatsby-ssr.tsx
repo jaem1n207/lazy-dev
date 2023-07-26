@@ -15,7 +15,6 @@ export const wrapPageElement: GatsbySSR['wrapPageElement'] = ({ element, props }
 
 export const onRenderBody: GatsbySSR['onRenderBody'] = ({
   setHtmlAttributes,
-  setHeadComponents,
   setBodyAttributes,
   setPreBodyComponents,
 }) => {
@@ -25,15 +24,6 @@ export const onRenderBody: GatsbySSR['onRenderBody'] = ({
   setHtmlAttributes({
     lang: 'en',
   });
-  setHeadComponents([
-    <style key="local-fonts" type="text/css">
-      {`
-        body {
-          font-family: Noto Sans KR, -apple-system, ui-sans-serif, system-ui;
-        }
-      `}
-    </style>,
-  ]);
   setPreBodyComponents([
     <script
       key="code-to-run-on-client"

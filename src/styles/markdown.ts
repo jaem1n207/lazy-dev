@@ -4,9 +4,6 @@ import typography from './typography';
 
 const Markdown = styled.article<{ rhythm: typeof typography['rhythm'] }>`
   & > * {
-    // font-family: 'Noto Sans KR', 'Fira Mono', Consolas, Liberation Mono, Menlo, monospace;
-    font-family: Pretendard Variable, Apple SD Gothic Neo, Segoe UI, sans-serif, Apple Color Emoji,
-      Segoe UI Emoji;
     margin-top: 1px;
     margin-bottom: 1px;
     padding: 3px 2px;
@@ -19,6 +16,7 @@ const Markdown = styled.article<{ rhythm: typeof typography['rhythm'] }>`
   *:not(h1):not(h2):not(h3):not(h4):not(h5):not(h6) strong {
     box-shadow: inset 0 -0.2em 0 var(--color-primary);
     color: var(--color-text-white);
+    font-weight: 600;
   }
 
   h1,
@@ -28,7 +26,7 @@ const Markdown = styled.article<{ rhythm: typeof typography['rhythm'] }>`
   h5,
   h6 {
     color: var(--color-primary);
-    font-weight: 700;
+    font-weight: 600;
   }
 
   table {
@@ -42,7 +40,7 @@ const Markdown = styled.article<{ rhythm: typeof typography['rhythm'] }>`
 
   th {
     background-color: var(--color-th-highlight);
-    font-weight: 700;
+    font-weight: 600;
   }
 
   td,

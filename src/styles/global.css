@@ -17,21 +17,9 @@
 }
 
 @layer base {
-  /* Noto Sans KR */
-  @font-face {
-    font-family: 'Noto Sans KR';
-    font-weight: 400;
-    font-style: normal;
-    font-display: swap;
-    src: url('/fonts/NotoSansKr-Regular.woff2') format('woff2');
-  }
-
-  @font-face {
-    font-family: 'Noto Sans KR';
-    font-weight: 700;
-    font-style: normal;
-    font-display: swap;
-    src: url('/fonts/NotoSansKr-Bold.woff2') format('woff2');
+  body {
+    font-family: Pretendard Variable, Apple SD Gothic Neo, Segoe UI, sans-serif, Apple Color Emoji,
+      Segoe UI Emoji;
   }
 
   :root {
