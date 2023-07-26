@@ -11,33 +11,33 @@ interface RotatingTagProps {
   rotationDuration: number;
 }
 
-const getRandomIndex = (length: number, currentIndex: number) => {
-  let newIndex = currentIndex;
-  while (newIndex === currentIndex) {
-    newIndex = Math.floor(Math.random() * length);
-  }
-  return newIndex;
+const getRandomIndex = (from: number, to: number): number => {
+  const index = Math.floor(Math.random() * from);
+  // 랜덤으로 선택된 인덱스가 현재 인덱스와 같다면 다시 랜덤으로 선택
+  return index === to ? getRandomIndex(from, to) : index;
 };
 
 const RotatingTag = ({ tags, interval, rotationDuration }: RotatingTagProps) => {
-  const [currentIndex, setCurrentIndex] = useState(getRandomIndex(tags.length, 0));
+  const [currentIndex, setCurrentIndex] = useState(0);
   const prevTags = usePrevious(tags);
 
   useEffect(() => {
     if (prevTags && !isEmptyArray(tags)) {
       if (!arraysAreEqual(prevTags, tags)) {
-        setCurrentIndex((currentIndex) => getRandomIndex(tags.length, currentIndex));
+        const index = getRandomIndex(tags.length, currentIndex);
+        setCurrentIndex(index);
       }
     }
 
     const timer = setInterval(() => {
-      setCurrentIndex((currentIndex) => getRandomIndex(tags.length, currentIndex));
+      const index = getRandomIndex(tags.length, currentIndex);
+      setCurrentIndex(index);
     }, interval);
 
     return () => {
       clearInterval(timer);
     };
-  }, [interval, prevTags, tags]);
+  }, [prevTags, tags, currentIndex, interval]);
 
   const calculateOpacity = (index: number, currentIndex: number) => {
     const distance = Math.abs(index - currentIndex);
@@ -47,7 +47,7 @@ const RotatingTag = ({ tags, interval, rotationDuration }: RotatingTagProps) => 
   if (isEmptyArray(tags)) return null;
 
   return (
-    <div className="relative overflow-hidden font-bold min-w-[60vw] h-[1.2em]">
+    <div className="relative w-full overflow-hidden font-bold">
       {tags.map((tag, index) => (
         <motion.span
           key={tag}
