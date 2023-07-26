@@ -57,6 +57,14 @@ const corePlugins: GatsbyConfig['plugins'] = [
     },
   },
   {
+    resolve: 'gatsby-source-filesystem',
+    options: {
+      path: `${__dirname}/src/data`,
+      name: 'data',
+    },
+  },
+  'gatsby-transformer-json',
+  {
     resolve: `gatsby-plugin-gatsby-cloud`,
     options: {
       headers: {

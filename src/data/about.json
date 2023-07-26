@@ -1,0 +1,19 @@
+{
+  "career": "Frontend Developer",
+  "resume": {
+    "experience": ["Job 1", "Job 2"],
+    "education": ["Education 1", "Education 2"],
+    "skills": ["Skill 1", "Skill 2"]
+  },
+  "portfolio": [
+    {
+      "name": "Project 1",
+      "description": "Some details about Project 1.",
+      "githubLink": "https://github.com/jaem1n207/lazy-dev",
+      "link": "https://lazydev.gatsbyjs.io/",
+      "images": ["images/test.jpg"],
+      "tags": ["react", "typescript"],
+      "subDescription": "<strong>리액트</strong>를 사용한 프로젝트입니다. <ul><li>hello1</li><li>hello2</li></ul>"
+    }
+  ]
+}

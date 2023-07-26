@@ -74,6 +74,7 @@
     "gatsby-remark-responsive-iframe": "^6.10.0",
     "gatsby-remark-table-of-contents": "^2.0.0",
     "gatsby-source-filesystem": "^5.10.0",
+    "gatsby-transformer-json": "^5.11.0",
     "gatsby-transformer-remark": "^6.10.0",
     "gatsby-transformer-sharp": "^5.10.0",
     "gray-matter": "^4.0.3",
