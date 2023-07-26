@@ -4,7 +4,9 @@ import typography from './typography';
 
 const Markdown = styled.article<{ rhythm: typeof typography['rhythm'] }>`
   & > * {
-    font-family: 'Noto Sans KR', 'Fira Mono', Consolas, Liberation Mono, Menlo, monospace;
+    // font-family: 'Noto Sans KR', 'Fira Mono', Consolas, Liberation Mono, Menlo, monospace;
+    font-family: Pretendard Variable, Apple SD Gothic Neo, Segoe UI, sans-serif, Apple Color Emoji,
+      Segoe UI Emoji;
     margin-top: 1px;
     margin-bottom: 1px;
     padding: 3px 2px;
@@ -15,17 +17,8 @@ const Markdown = styled.article<{ rhythm: typeof typography['rhythm'] }>`
   }
 
   *:not(h1):not(h2):not(h3):not(h4):not(h5):not(h6) strong {
-    font-size: 0.95rem;
-    font-weight: 700;
-    color: var(--color-text-strong);
-
-    &:before {
-      content: "'";
-    }
-
-    &:after {
-      content: "'";
-    }
+    box-shadow: inset 0 -0.2em 0 var(--color-primary);
+    color: var(--color-text-white);
   }
 
   h1,
@@ -34,8 +27,6 @@ const Markdown = styled.article<{ rhythm: typeof typography['rhythm'] }>`
   h4,
   h5,
   h6 {
-    /* border-bottom: 1px solid var(--color-primary);
-    padding-bottom: calc(0.40625rem - 1px); */
     color: var(--color-primary);
     font-weight: 700;
   }
@@ -142,9 +133,9 @@ const Markdown = styled.article<{ rhythm: typeof typography['rhythm'] }>`
 
   p {
     color: var(--color-paragraph-text);
-    letter-spacing: 0em;
+    letter-spacing: -0.003em;
     line-height: 1.6;
-    margin: 24px 0px 8px;
+    margin: 1.25rem 0px 8px;
   }
 
   hr {
@@ -169,14 +160,14 @@ const Markdown = styled.article<{ rhythm: typeof typography['rhythm'] }>`
   code[class*='language-'],
   pre[class*='language-'] {
     font-family: 'Fira Mono', Consolas, 'Liberation Mono', Menlo, monospace;
-    background-color: var(--color-pre-bg) !important;
+    font-size: 0.9rem;
     color: var(--color-text-primary);
+    background-color: var(--color-pre-bg);
     text-align: left;
     white-space: pre;
     word-spacing: normal;
     word-break: normal;
     word-wrap: normal;
-    font-size: 0.9rem;
 
     -moz-tab-size: 2;
     -o-tab-size: 2;
@@ -193,10 +184,6 @@ const Markdown = styled.article<{ rhythm: typeof typography['rhythm'] }>`
 
   pre[class*='language-'] > code[class*='language-'] {
     font-family: 'Fira Mono', Consolas, 'Liberation Mono', Menlo, monospace;
-  }
-
-  code[class*='language-'] {
-    font-family: 'Noto Sans KR', 'Fira Mono', Consolas, 'Liberation Mono', Menlo, monospace;
   }
 
   pre {
@@ -222,18 +209,11 @@ const Markdown = styled.article<{ rhythm: typeof typography['rhythm'] }>`
   }
 
   *:not(pre) > code {
-    font-size: 0.85rem;
+    font-size: 0.85rem !important;
     padding: 0.2em 0.4em;
     margin: 0 !important;
     border-radius: 3px !important;
-    background-image: linear-gradient(
-      60deg,
-      var(--color-primary) 74.8%,
-      var(--color-cyan-50) 99.76%
-    ) !important;
-    color: transparent !important;
-    -webkit-background-clip: text;
-    background-clip: text;
+    background-color: var(--color-code-highlight-bg) !important;
     border: 1px solid var(--color-code-highlight-border);
   }
 

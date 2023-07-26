@@ -91,6 +91,7 @@
     --color-token-function: #e36209;
     --color-token-punctuation: #000;
     --color-token-string: #22863a;
+    --color-code-highlight-bg: rgba(0, 0, 0, 0.05);
     --color-code-highlight-border: rgba(0, 0, 0, 0.2);
     --color-text-strong: var(--color-zinc-900);
   }
@@ -127,7 +128,8 @@
     --color-token-function: #f08d49;
     --color-token-punctuation: #ccc;
     --color-token-string: #7ec699;
-    --color-code-highlight-border: rgba(255, 255, 255, 0.2);
+    --color-code-highlight-bg: #2a2828;
+    --color-code-highlight-border: #3e3c3c;
     --color-text-strong: var(--color-white);
   }
 
