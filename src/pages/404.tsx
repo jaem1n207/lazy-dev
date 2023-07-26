@@ -6,62 +6,57 @@ import { graphql, HeadFC, navigate, PageProps } from 'gatsby';
 import { StaticImage } from 'gatsby-plugin-image';
 
 import Seo from 'Components/seo';
-import Layout from 'Layout/layout';
 import { ROUTES } from 'Types/enum';
 
-const NotFoundPage: FC<PageProps<Queries.NotFoundQuery>> = ({ data, location }) => {
-  const siteTitle = data.site?.siteMetadata?.title || null;
-
+const NotFoundPage: FC<PageProps<Queries.NotFoundQuery>> = () => {
   const goHome = () => {
     navigate(ROUTES.HOME);
   };
 
   return (
-    <Layout location={location} title={siteTitle}>
-      <div className="flex flex-col items-center justify-center select-none">
-        <motion.div
-          initial={{ opacity: 0, y: -50 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0 }}
-          className="mb-16pxr"
+    <div className="flex flex-col items-center justify-center select-none">
+      <motion.div
+        initial={{ opacity: 0, y: -50 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ delay: 0 }}
+        className="mb-16pxr"
+      >
+        <StaticImage
+          src="../images/not-found.png"
+          alt="Not Found Blog URL"
+          placeholder="blurred"
+          layout="constrained"
+          width={512}
+          className="overflow-hidden"
+        />
+      </motion.div>
+      <motion.h1
+        className="font-bold text-text-primary text-36pxr mb-16pxr"
+        initial={{ opacity: 0, y: -50 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ delay: 0.2 }}
+      >
+        앗! 죄송해요.
+      </motion.h1>
+      <motion.p
+        className="text-center text-text-primary text-18pxr mb-32pxr"
+        initial={{ opacity: 0, y: -50 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ delay: 0.4 }}
+      >
+        요청하신 페이지를 찾을 수 없어요. <br />
+        입력하신 주소가 정확한지 다시 한번 확인해주세요.
+      </motion.p>
+      <div>
+        <button
+          onClick={goHome}
+          className="inline-flex items-center font-medium rounded-md text-text-secondary text-16pxr bg-primary px-16pxr py-8pxr focus-primary"
         >
-          <StaticImage
-            src="../images/not-found.png"
-            alt="Not Found Blog URL"
-            placeholder="blurred"
-            layout="constrained"
-            width={512}
-            className="overflow-hidden"
-          />
-        </motion.div>
-        <motion.h1
-          className="font-bold text-text-primary text-36pxr mb-16pxr"
-          initial={{ opacity: 0, y: -50 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.2 }}
-        >
-          앗! 죄송해요.
-        </motion.h1>
-        <motion.p
-          className="text-center text-text-primary text-18pxr mb-32pxr"
-          initial={{ opacity: 0, y: -50 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.4 }}
-        >
-          요청하신 페이지를 찾을 수 없어요. <br />
-          입력하신 주소가 정확한지 다시 한번 확인해주세요.
-        </motion.p>
-        <div>
-          <button
-            onClick={goHome}
-            className="inline-flex items-center font-medium rounded-md text-text-secondary text-16pxr bg-primary px-16pxr py-8pxr focus-primary"
-          >
-            <ArrowLeftIcon className="w-20pxr h-20pxr mr-8pxr" />
-            블로그 홈으로 돌아갈게요.
-          </button>
-        </div>
+          <ArrowLeftIcon className="w-20pxr h-20pxr mr-8pxr" />
+          블로그 홈으로 돌아갈게요.
+        </button>
       </div>
-    </Layout>
+    </div>
   );
 };
 
