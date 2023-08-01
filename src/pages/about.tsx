@@ -1,22 +1,21 @@
 import React, { FC } from 'react';
 
 import { PageProps, graphql } from 'gatsby';
-import { GatsbyImage, getImage } from 'gatsby-plugin-image';
 
-import { ContentSpacer, Grid, UnderlineLink } from 'Components/common';
+import { ContentSpacer, Grid } from 'Components/common';
 
 const About: FC<PageProps<Queries.AboutQuery>> = ({ data }) => {
   const aboutData = data.allDataJson.edges[0].node;
-  const imageData = data.allFile.nodes.reduce(
-    (acc, node) => ({ ...acc, [node.relativePath]: node.childImageSharp }),
-    {}
-  );
+  // const imageData = data.allFile.nodes.reduce(
+  //   (acc, node) => ({ ...acc, [node.relativePath]: node.childImageSharp }),
+  //   {}
+  // );
 
   return (
     <ContentSpacer>
       <Grid>
         <h1>About Me</h1>
-        {aboutData.portfolio?.map((project, index) => (
+        {/* {aboutData.portfolio?.map((project, index) => (
           <div key={index}>
             <h2>{project?.name}</h2>
             {project?.images?.map(
@@ -39,7 +38,7 @@ const About: FC<PageProps<Queries.AboutQuery>> = ({ data }) => {
               Github Link
             </UnderlineLink>
           </div>
-        ))}
+        ))} */}
       </Grid>
     </ContentSpacer>
   );
@@ -63,9 +62,14 @@ export const pageQuery = graphql`
             description
             githubLink
             link
-            images
             tags
             subDescription
+            images {
+              id
+              childrenImageSharp {
+                gatsbyImageData
+              }
+            }
           }
         }
       }
