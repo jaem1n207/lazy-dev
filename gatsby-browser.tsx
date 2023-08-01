@@ -25,7 +25,7 @@ export const onClientEntry: GatsbyBrowser['onClientEntry'] = () => {
   const hasMouseCapabilities = 'MouseEvent' in window;
 
   // 터치스크린 노트북과 같이 터치 입력과 비터치 입력을 모두 지원하는 장치에 대한 처리
-  if (isTouchDevice && !hasMouseCapabilities) {
+  if (isTouchDevice || !hasMouseCapabilities) {
     document.documentElement.classList.remove('hide-cursor');
   } else {
     document.documentElement.classList.add('hide-cursor');
