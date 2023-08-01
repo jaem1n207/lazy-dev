@@ -71,14 +71,6 @@ export const onRenderBody: GatsbySSR['onRenderBody'] = ({
               }
               setTheme(darkQuery.matches ? 'dark' : 'light');
             });
-          
-            var isTouchDevice =
-              'ontouchstart' in window || navigator.msMaxTouchPoints > 0 || navigator.maxTouchPoints > 0;
-            if (isTouchDevice) {
-              document.documentElement.classList.remove('hide-cursor');
-            } else {
-              document.documentElement.classList.add('hide-cursor');
-            }
           })();
         `,
       }}
