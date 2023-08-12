@@ -33,13 +33,6 @@ const Header = () => {
           {title}
         </Link>
         <div className="flex items-center gap-16pxr">
-          <Link
-            to={ROUTES.ABOUT}
-            className="focus-primary m-0pxr text-24pxr foldable:text-18pxr"
-            aria-label="About"
-          >
-            About
-          </Link>
           <ThemeToggle />
         </div>
       </div>
