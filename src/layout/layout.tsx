@@ -1,19 +1,14 @@
-import React, { ElementType, ReactNode } from 'react';
+import React, { ReactNode } from 'react';
 
 import { Slice } from 'gatsby';
-import tw from 'twin.macro';
 
 interface LayoutProps {
   children: ReactNode;
-  location: Location;
-  as?: ElementType;
 }
 
-const Layout = ({ children, location }: LayoutProps) => {
-  const isRootPath = location.pathname === '/';
-
+const Layout = ({ children }: LayoutProps) => {
   return (
-    <div css={[isRootPath && tw`pb-80pxr`]}>
+    <div>
       <Slice alias="header" />
       <main>{children}</main>
       <Slice alias="footer" />

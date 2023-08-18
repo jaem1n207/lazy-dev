@@ -5,10 +5,10 @@ import type { GatsbySSR } from 'gatsby';
 import Layout from './src/layout/layout';
 import Root from './src/root';
 
-export const wrapPageElement: GatsbySSR['wrapPageElement'] = ({ element, props }) => {
+export const wrapPageElement: GatsbySSR['wrapPageElement'] = ({ element }) => {
   return (
     <Root>
-      <Layout location={props.location}>{element}</Layout>
+      <Layout>{element}</Layout>
     </Root>
   );
 };
@@ -26,12 +26,8 @@ export const onRenderBody: GatsbySSR['onRenderBody'] = ({
   });
   setPreBodyComponents([
     <script
-      key="code-to-run-on-client"
+      key="theme-hydration"
       dangerouslySetInnerHTML={{
-        /**
-         * IIFE를 사용해 전역 범위를 오염시키지 않고
-         * 혹시 모를 브라우저 지원을 위해 let, const, 화살표 함수를 사용하지 않음
-         */
         __html: `
           (function () {
             function setTheme(newTheme) {
