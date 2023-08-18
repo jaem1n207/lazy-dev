@@ -330,7 +330,7 @@ const pwaPlugins: GatsbyConfig['plugins'] = [
 
 const config: GatsbyConfig = {
   flags: {
-    DEV_SSR: false,
+    DEV_SSR: true,
   },
   graphqlTypegen: true,
   siteMetadata,
