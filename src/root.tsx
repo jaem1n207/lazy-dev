@@ -8,11 +8,11 @@ interface RootProps {
 
 const Root = ({ children }: RootProps) => {
   return (
-    <div>
+    <>
       <BaseStyles />
       {/* {typeof document !== 'undefined' ? createPortal(<CustomCursor />, document.body) : null} */}
       {children}
-    </div>
+    </>
   );
 };
 

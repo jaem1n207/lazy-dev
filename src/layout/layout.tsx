@@ -8,11 +8,11 @@ interface LayoutProps {
 
 const Layout = ({ children }: LayoutProps) => {
   return (
-    <div>
+    <>
       <Slice alias="header" />
-      <main>{children}</main>
+      {children}
       <Slice alias="footer" />
-    </div>
+    </>
   );
 };
 
