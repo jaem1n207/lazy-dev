@@ -7,9 +7,9 @@ export const FlowerCircleIcon = ({ color, viewBox, className, size }: SvgIconDat
     <svg
       xmlns="http://www.w3.org/2000/svg"
       width={size || '48px'}
-      id="icon flower circle"
       height={size || '48px'}
-      fill={color || 'currentColor'}
+      id="icon flower circle"
+      fill={color || 'none'}
       viewBox={viewBox || '0 0 1642 1642'}
       className={className}
     >
