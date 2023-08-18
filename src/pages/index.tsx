@@ -1,13 +1,4 @@
-import React, {
-  ChangeEvent,
-  FC,
-  KeyboardEvent,
-  lazy,
-  useEffect,
-  useMemo,
-  useRef,
-  useState,
-} from 'react';
+import React, { ChangeEvent, FC, KeyboardEvent, useEffect, useMemo, useRef, useState } from 'react';
 
 import { MagnifyingGlassIcon, XMarkIcon } from '@heroicons/react/24/outline';
 import classNames from 'classnames';
@@ -19,6 +10,8 @@ import CategoryFilter from 'Components/category/category-filter';
 import { Grid, Spacer, ContentSpacer, Typography, H5 } from 'Components/common';
 import AnimateFadeContainer from 'Components/common/animate-fade-container';
 import NoneActiveWrapper from 'Components/common/none-active-wrapper';
+import HeroPostCard from 'Components/post/hero-post-card';
+import PostCard from 'Components/post/post-card';
 import RotatingTag from 'Components/rotating-tag';
 import Seo from 'Components/seo';
 import Tag from 'Components/tag';
@@ -27,9 +20,6 @@ import { isEmptyArray, isEmptyString } from 'Libs/assertions';
 import { filterPosts } from 'Libs/blog';
 import { CATEGORY_TYPE, QUERY_PARAM } from 'Types/enum';
 import Post from 'Types/post';
-
-const HeroPostCard = lazy(() => import('Components/post/hero-post-card'));
-const PostCard = lazy(() => import('Components/post/post-card'));
 
 const useUpdateQueryStringValueWithoutNavigation = (queryKey: string, queryValue: string) => {
   useEffect(() => {
@@ -51,7 +41,7 @@ const useUpdateQueryStringValueWithoutNavigation = (queryKey: string, queryValue
 
 const FeaturedPostTitle = 'JavaScript에서 내장 객체를 확장하는 것이 위험한 이유';
 
-const IndexPage: FC<PageProps<Queries.HomeQuery>> = ({ data, location, pageContext }) => {
+const IndexPage: FC<PageProps<Queries.HomeQuery>> = ({ data, location }) => {
   console.log('🚀 ~ file: index.tsx:62 ~ data:', data);
   const [currentCategory, setCurrentCategory] = useState<string | undefined>();
   const { category, selectCategory, resetCategory } = useCategory();
