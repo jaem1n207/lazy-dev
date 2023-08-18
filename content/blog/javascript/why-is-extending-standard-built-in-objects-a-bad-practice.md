@@ -6,7 +6,6 @@ tags:
   - 프로토타입
   - 배열
   - define property
-draft: false
 authorId: jaemin
 thumbnail: ../thumbnails/js-expansion.jpg
 summary: >-

@@ -6,7 +6,6 @@ tags:
   - productivity
   - inquirer
   - google translate api
-draft: false
 authorId: jaemin
 thumbnail: ../thumbnails/javascript.jpg
 summary: >-

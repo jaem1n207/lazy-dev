@@ -5,7 +5,6 @@ category: gatsby
 tags:
   - rendering
   - framework
-draft: false
 authorId: jaemin
 thumbnail: ../thumbnails/gatsby-thumbnail.jpeg
 summary: Gatsby의 특성을 알아보고 Gatsby에서 window 객체를 사용하기 위한 여러가지 방법을 알아봅니다.

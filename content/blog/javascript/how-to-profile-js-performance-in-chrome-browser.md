@@ -5,7 +5,6 @@ category: javascript
 tags:
   - performance
   - chrome
-draft: false
 authorId: jaemin
 thumbnail: ../thumbnails/javascript.jpg
 summary: Chrome 브라우저에서 performance 탭을 이용해서 웹 애플리케이션의 성능 병목 현상을 식별하고 해결하는 방법을 알아봅니다.

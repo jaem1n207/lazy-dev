@@ -307,7 +307,6 @@ const promptContents = async () => {
  * @param {string} rawContents.date
  * @param {string} rawContents.category
  * @param {string} rawContents.tags
- * @param {string} rawContents.draft
  * @param {string} rawContents.authorId
  * @param {string} rawContents.thumbnail
  * @param {string} rawContents.summary
@@ -321,7 +320,6 @@ module.exports = (async function () {
 
   const { category, title, tags, thumbnail, summary } = await promptContents();
   const date = dayjs().format('YYYY-MM-DD HH:mm:ss');
-  const draft = false;
   const fileName = getFileName(title);
 
   const destDir = path.join(BLOG_DIR_PATH, category);
@@ -336,7 +334,6 @@ module.exports = (async function () {
     date,
     category,
     tags,
-    draft,
     authorId: AUTHOR_ID,
     thumbnail,
     summary,
