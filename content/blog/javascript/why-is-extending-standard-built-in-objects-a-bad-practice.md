@@ -3,9 +3,9 @@ title: JavaScript에서 내장 객체를 확장하는 것이 위험한 이유
 date: "2023-05-03 10:16:52"
 category: javascript
 tags:
+  - JavaScript
+keywords:
   - 프로토타입
-  - 배열
-  - define property
 authorId: jaemin
 thumbnail: ../thumbnails/js-expansion.jpg
 summary: >-

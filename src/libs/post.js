@@ -207,6 +207,31 @@ const getContentsInquirer = async () => {
     },
   ];
 
+  const keywordInquirer = [
+    {
+      type: 'input',
+      name: 'keyword',
+      message: '키워드 입력 (키워드 입력을 끝내려면 빈 문자열을 입력해주세요 - 최대 10개): ',
+      validate: (input) => {
+        if (isEmptyString(input)) {
+          return true;
+        }
+
+        const isCapitalLetter = validateCapitalLetter(input);
+        if (isCapitalLetter !== true) {
+          return isCapitalLetter;
+        }
+
+        const isSpecialSymbol = validateSpecialSymbol(input);
+        if (isSpecialSymbol !== true) {
+          return isSpecialSymbol;
+        }
+
+        return true;
+      },
+    },
+  ];
+
   const thumbnails = getFilesOfDir(THUMBNAIL_TARGET_DIR);
   const thumbnailInquirer = [
     {
@@ -239,6 +264,7 @@ const getContentsInquirer = async () => {
     },
     titleInquirer,
     tagInquirer,
+    keywordInquirer,
     thumbnailInquirer,
     summaryInquirer,
   };
@@ -280,6 +306,19 @@ const promptContents = async () => {
   }
   step++;
 
+  interactiveLog.await(`[%d/%d] - 키워드를 입력하는 중이예요...`, step, totalSteps);
+  const keywords = [];
+  const maxKeywordCount = 10;
+  for (let i = 0; i < maxKeywordCount; i++) {
+    const { tag } = await inquirer.prompt(contentsInquirer.keywordInquirer);
+    if (isEmptyString(tag)) {
+      break;
+    }
+
+    keywords.push(tag);
+  }
+  step++;
+
   interactiveLog.await(`[%d/%d] - 썸네일을 선택하는 중이예요...`, step, totalSteps);
   let thumbnail = null;
   const { selectedThumbnail } = await inquirer.prompt(contentsInquirer.thumbnailInquirer);
@@ -295,6 +334,7 @@ const promptContents = async () => {
     category: categoryValue,
     title,
     tags,
+    keywords,
     thumbnail,
     summary,
   };
@@ -318,7 +358,7 @@ const refineContents = (rawContents) =>
 module.exports = (async function () {
   console.log(''); // empty line
 
-  const { category, title, tags, thumbnail, summary } = await promptContents();
+  const { category, title, tags, keywords, thumbnail, summary } = await promptContents();
   const date = dayjs().format('YYYY-MM-DD HH:mm:ss');
   const fileName = getFileName(title);
 
@@ -334,6 +374,7 @@ module.exports = (async function () {
     date,
     category,
     tags,
+    keywords,
     authorId: AUTHOR_ID,
     thumbnail,
     summary,

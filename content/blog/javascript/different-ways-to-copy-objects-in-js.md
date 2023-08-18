@@ -3,8 +3,11 @@ title: '자바스크립트에서 객체를 복사하는 다양한 방법과 깊�
 date: 2022-12-10 00:20:30
 category: 'javascript'
 tags: 
-  - deep copy
-  - lodash
+  - JavaScript
+  - Developments
+keywords:
+  - 리액트
+  - 자바스크립트
 authorId: 'jaemin'
 thumbnail: '../thumbnails/javascript.jpg'
 summary: '객체를 복사하는 다양한 방법의 장단점을 살펴보고, lodash를 사용하지 않고 객체를 깊게 복사하는 로직을 직접 구현합니다. 우리 프로젝트의 번들 크기는 중요하니까요.'

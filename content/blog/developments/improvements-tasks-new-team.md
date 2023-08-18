@@ -3,9 +3,11 @@ title: 새로운 팀에서 비효율적인 업무를 개선한 사례
 date: "2023-04-27 02:36:57"
 category: developments
 tags:
-  - productivity
-  - inquirer
-  - google translate api
+  - Productivity
+  - Developments
+keywords:
+  - 개발
+  - 생산성
 authorId: jaemin
 thumbnail: ../thumbnails/javascript.jpg
 summary: >-
