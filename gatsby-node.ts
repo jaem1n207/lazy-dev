@@ -32,14 +32,27 @@ export const sourceNodes: GatsbyNode['sourceNodes'] = ({
 export const createPages: GatsbyNode['createPages'] = async ({ graphql, actions, reporter }) => {
   const { createSlice, createPage } = actions;
 
+  const headerResults = await graphql<Queries.Query>(`
+    query site {
+      site {
+        siteMetadata {
+          title
+        }
+      }
+    }
+  `);
+
   createSlice({
-    id: 'header',
-    component: resolve('./src/components/header.tsx'),
+    id: 'nav',
+    component: resolve('./src/components/slice/nav.tsx'),
+    context: {
+      title: headerResults.data?.site?.siteMetadata?.title,
+    },
   });
 
   createSlice({
     id: 'footer',
-    component: resolve('./src/components/footer.tsx'),
+    component: resolve('./src/components/slice/footer.tsx'),
   });
 
   const authorBio = resolve('./src/components/bio.tsx');
