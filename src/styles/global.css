@@ -136,16 +136,6 @@
     will-change: transform;
   }
 
-  header,
-  h1,
-  h2,
-  h3,
-  h4,
-  h5,
-  h6 {
-    font-family: 'Noto Sans KR', system-ui, sans-serif;
-  }
-
   a > svg {
     fill: theme(colors.primary);
   }
