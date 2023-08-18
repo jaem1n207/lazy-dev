@@ -1,8 +1,13 @@
 import { resolve } from 'path';
 
+import type { GatsbyNode } from 'gatsby';
 import { createFilePath } from 'gatsby-source-filesystem';
 
-export const sourceNodes = ({ actions: { createNode }, createContentDigest, createNodeId }) => {
+export const sourceNodes: GatsbyNode['sourceNodes'] = ({
+  actions: { createNode },
+  createContentDigest,
+  createNodeId,
+}) => {
   const authors = [
     {
       authorId: 'jaemin',
@@ -24,7 +29,7 @@ export const sourceNodes = ({ actions: { createNode }, createContentDigest, crea
   );
 };
 
-export const createPages = async ({ graphql, actions, reporter }) => {
+export const createPages: GatsbyNode['createPages'] = async ({ graphql, actions, reporter }) => {
   const { createSlice, createPage } = actions;
 
   createSlice({
@@ -39,25 +44,23 @@ export const createPages = async ({ graphql, actions, reporter }) => {
 
   const authorBio = resolve('./src/components/bio.tsx');
 
-  const authorResults = await graphql(
-    `
-      {
-        allAuthor {
-          edges {
-            node {
-              authorId
-            }
+  const authorResults = await graphql<Queries.Query>(`
+    query allAuthors {
+      allAuthor {
+        edges {
+          node {
+            authorId
           }
         }
       }
-    `
-  );
+    }
+  `);
 
   if (authorResults.errors) {
     reporter.panicOnBuild('There was an error loading your author bio', authorResults.errors);
     return;
   }
-  const authors = authorResults.data.allAuthor.edges;
+  const authors = authorResults.data?.allAuthor.edges ?? [];
 
   if (authors.length > 0) {
     authors.forEach((author) => {
@@ -73,76 +76,17 @@ export const createPages = async ({ graphql, actions, reporter }) => {
 
   const blogPostTemplate = resolve('./src/templates/blog-post.tsx');
 
-  // query MyQuery {
-  //   allMarkdownRemark {
-  //     nodes {
-  //       id
-  //       frontmatter {
-  //         date(formatString: "YYYY.MM.DD")
-  //         title
-  //         thumbnail {
-  //           childImageSharp {
-  //             gatsbyImageData(
-  //               formats: [AUTO, WEBP, AVIF]
-  //               placeholder: BLURRED
-  //               aspectRatio: 0.5
-  //               width: 280
-  //             )
-  //           }
-  //         }
-  //         summary
-  //         tags
-  //         category
-  //       }
-  //       fields {
-  //         slug
-  //       }
-  //     }
-  //   }
-  // }
-  const blogResult = await graphql(`
-    {
-      postsRemark: allMarkdownRemark(
-        sort: { frontmatter: { date: DESC } }
-        filter: { fileAbsolutePath: { regex: "/(content/blog)/" } }
-      ) {
+  const blogResult = await graphql<Queries.Query>(`
+    query allMarkdownRemark {
+      allMarkdownRemark(filter: { fileAbsolutePath: { regex: "/(content/blog)/" } }) {
         edges {
           node {
-            timeToRead
+            fields {
+              slug
+            }
             id
-            tableOfContents
             frontmatter {
-              date(formatString: "MMMM Do, YY")
-              title
-              category
-              tags
               authorId
-              thumbnail {
-                childImageSharp {
-                  id
-                }
-                base
-              }
-              summary
-            }
-            fields {
-              slug
-            }
-          }
-          next {
-            fields {
-              slug
-            }
-            frontmatter {
-              title
-            }
-          }
-          previous {
-            fields {
-              slug
-            }
-            frontmatter {
-              title
             }
           }
         }
@@ -154,44 +98,44 @@ export const createPages = async ({ graphql, actions, reporter }) => {
     reporter.panicOnBuild('There was an error loading your blog posts', blogResult.errors);
   }
 
-  const posts = blogResult.data.postsRemark.edges;
+  const posts = blogResult.data?.allMarkdownRemark.edges ?? [];
 
   if (posts.length > 0) {
     posts.forEach((post) => {
-      const slug = post.node.fields.slug;
+      const slug = post.node.fields?.slug ?? '';
 
       createPage({
         path: slug,
         component: blogPostTemplate,
         context: {
           slug: slug,
-          next: post.previous,
-          previous: post.previous,
         },
         slices: {
-          bio: `bio--${post.node.frontmatter.authorId}`,
+          bio: `bio--${post.node.frontmatter?.authorId}`,
         },
       });
     });
   }
 };
 
-export const onCreateNode = ({ node, getNode, actions }) => {
+export const onCreateNode: GatsbyNode['onCreateNode'] = ({ node, getNode, actions }) => {
   const { createNodeField } = actions;
 
   if (node.internal.type === 'MarkdownRemark') {
-    const value = createFilePath({ node, getNode });
+    const relativeFilePath = createFilePath({ node, getNode });
 
     createNodeField({
       node,
       name: `slug`,
-      value,
+      value: relativeFilePath,
     });
   }
 
   if (node.internal.type === `ImageSharp`) {
+    if (!node.parent) return;
     const parent = getNode(node.parent);
 
+    if (!parent?.relativeDirectory) return;
     if (parent.relativeDirectory === 'author') {
       createNodeField({
         node,
