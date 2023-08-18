@@ -28,7 +28,7 @@
     "typecheck": "tsc --noEmit",
     "format": "prettier --write \"**/*.{js,jsx,ts,tsx,json,md,mdx}\"",
     "lint": "eslint --ext .js,.jsx,.ts,.tsx .",
-    "lint:fix": "eslint --ext .js,.jsx,.ts,.tsx . --fix",
+    "lint:fix": "eslint --fix --ext .js,.jsx,.ts,.tsx .",
     "prepare": "husky install",
     "commit": "git-cz",
     "post": "node ./src/libs/post.js",
