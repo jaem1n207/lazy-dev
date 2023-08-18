@@ -6,7 +6,7 @@ import tw from 'twin.macro';
 import { ContentSpacer, Grid, H1 } from 'Components/common';
 import TableOfContents from 'Components/post/table-of-contents';
 import Seo from 'Components/seo';
-import Summary from 'Components/summary';
+import { FlowerCircleIcon } from 'Components/svg/svg-icon';
 import { useWindowSize } from 'Hooks/use-window-size';
 import * as ScrollManager from 'Libs/scroll';
 import Markdown from 'Styles/markdown';
@@ -50,7 +50,15 @@ const BlogPost = ({ data }: PageProps<Queries.BlogPostBySlugQuery>) => {
             </div>
             <H1 css={tw`font-bold leading-snug tablet:text-32pxr`}>{title}</H1>
           </header>
-          <Summary summary={summary} />
+          <section>
+            <div className="relative w-full h-1pxr mt-56pxr mb-32pxr box-decoration-slice bg-gradient-to-r from-primary to-gradient-cyan">
+              <div className="absolute -top-24pxr left-[calc(50%-2.25rem)] flex justify-center bg-bg-primary px-12pxr">
+                <FlowerCircleIcon className="fill-primary bg-bg-primary" size={48} />
+              </div>
+            </div>
+            <p className="font-semibold text-16pxr tablet:text-14pxr">{summary}</p>
+            <div className="w-full h-1pxr box-decoration-slice bg-gradient-to-r from-primary to-gradient-cyan my-24pxr tablet:my-16pxr" />
+          </section>
           <div css={tw`h-1pxr mb-20pxr tablet:mb-16pxr`} />
           <Markdown
             key="body"
