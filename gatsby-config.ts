@@ -130,6 +130,7 @@ const devPlugins: GatsbyConfig['plugins'] = [
         Layout: 'src/layout',
         Templates: 'src/templates',
         Types: 'src/types',
+        Apps: 'src/apps',
       },
       extensions: ['ts', 'tsx', 'js'],
     },

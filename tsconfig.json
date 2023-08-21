@@ -40,7 +40,8 @@
       "Styles/*": ["src/styles/*"],
       "Layout/*": ["src/layout/*"],
       "Templates/*": ["src/templates/*"],
-      "Types/*": ["src/types/*"]
+      "Types/*": ["src/types/*"],
+      "Apps/*": ["src/apps/*"]
     } /* Specify a set of entries that re-map imports to additional lookup locations. */,
     // "rootDirs": [],                                   /* Allow multiple folders to be treated as one when resolving modules. */
     "typeRoots": [

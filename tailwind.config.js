@@ -19,6 +19,8 @@ module.exports = {
     './src/pages/**/*.{js,jsx,ts,tsx}',
     './src/layout/**/*.{js,jsx,ts,tsx}',
     './src/components/**/*.{js,jsx,ts,tsx}',
+    './src/apps/**/*.{js,jsx,ts,tsx}',
+    './src/templates/**/*.{js,jsx,ts,tsx}',
   ],
   theme: {
     data: {
@@ -50,6 +52,11 @@ module.exports = {
       mobile: { max: '360px' },
     },
     extend: {
+      gridTemplateColumns: {
+        'main-three-large': '25fr 50fr 25fr',
+        'main-three-small': '3fr 4fr 3fr',
+        'main-two': '66fr 34fr',
+      },
       spacing: {
         '10vw': '10vw',
       },
