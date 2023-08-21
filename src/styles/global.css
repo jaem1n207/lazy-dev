@@ -16,6 +16,12 @@
   }
 }
 
+@layer components {
+  .aside-scroll {
+    @apply top-40pxr sticky overflow-y-auto h-[calc(100vh-124px)] foldable:relative foldable:h-auto foldable:top-0pxr;
+  }
+}
+
 @layer base {
   body {
     font-family: Pretendard Variable, Apple SD Gothic Neo, Segoe UI, sans-serif, Apple Color Emoji,

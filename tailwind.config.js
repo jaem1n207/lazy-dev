@@ -53,8 +53,8 @@ module.exports = {
     },
     extend: {
       gridTemplateColumns: {
-        'main-three-large': '25fr 50fr 25fr',
-        'main-three-small': '3fr 4fr 3fr',
+        'main-three-large': '15fr 60fr 25fr',
+        'main-three-small': '2fr 5fr 3fr',
         'main-two': '66fr 34fr',
       },
       spacing: {
