@@ -1,9 +1,8 @@
+import type { IGatsbyImageData } from 'gatsby-plugin-image';
+
 export default interface Post
-  extends Pick<
-    Queries.MarkdownRemarkFrontmatter,
-    'date' | 'title' | 'category' | 'summary' | 'tags'
-  > {
-  thumbnail: string;
+  extends Pick<Queries.MarkdownRemarkFrontmatter, 'date' | 'title' | 'summary' | 'tags'> {
+  thumbnail: IGatsbyImageData;
   slug: Queries.MarkdownRemarkFields['slug'];
   timeToRead: Queries.MarkdownRemark['timeToRead'];
 }

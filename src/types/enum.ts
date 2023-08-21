@@ -3,7 +3,7 @@ export const CATEGORY_TYPE = {
 };
 
 export const QUERY_PARAM = {
-  KEYWORDS: 'q',
+  KEYWORDS: 's',
 };
 
 export const ROUTES = {
