@@ -1,84 +1,122 @@
 import React from 'react';
 
+import { StaticImage } from 'gatsby-plugin-image';
+
 import ParentRefContainer from 'Apps/common/parent-ref-context/components/parent-ref-container';
 import AboutCard from 'Apps/portfolio/components/about-card';
 import ProjectCard from 'Apps/portfolio/components/project-card';
 
 const fakeProjectCards: Omit<React.ComponentProps<typeof ProjectCard>, 'index'>[] = [
   {
-    name: 'Project 1',
-    description: 'This is project 1',
+    name: 'Synchronize Tab Scrolling',
+    description: '여러 탭의 스크롤 위치를 동기화할 수 있는 크롬 확장 프로그램',
     tags: [
       {
         name: 'React',
-        colorClass: 'text-blue-400',
+        colorClass: '!text-blue-400',
       },
       {
         name: 'TypeScript',
-        colorClass: 'text-green-400',
+        colorClass: '!text-green-400',
       },
     ],
-    image: 'https://picsum.photos/seed/picsum/300',
+    staticImageEl: (
+      <StaticImage
+        alt="project-thumbnail"
+        src="../images/skills/react.svg"
+        width={500}
+        height={250}
+        placeholder="blurred"
+        layout="fixed"
+      />
+    ),
     projectUrl: {
-      github: 'https://github.com',
-      live: 'https://github.com',
+      github: 'https://github.com/jaem1n207/synchronize-tab-scrolling/tree/main',
+      live: 'https://chrome.google.com/webstore/detail/synchronize-tab-scrolling/phceoocamipnafpgnchbfhkdlbleeafc/',
     },
   },
   {
-    name: 'Project 2',
-    description: 'This is project 2',
+    name: 'Tech Blog',
+    description: '프론트엔드 웹 개발자를 위한 기술 블로그',
     tags: [
       {
         name: 'React',
-        colorClass: 'text-blue-400',
+        colorClass: '!text-blue-400',
       },
       {
         name: 'TypeScript',
-        colorClass: 'text-green-400',
+        colorClass: '!text-green-400',
       },
     ],
-    image: 'https://picsum.photos/seed/picsum/300',
+    staticImageEl: (
+      <StaticImage
+        alt="project-thumbnail"
+        src="../images/skills/react.svg"
+        width={500}
+        height={250}
+        placeholder="blurred"
+        layout="fixed"
+      />
+    ),
     projectUrl: {
-      github: 'https://github.com',
-      live: 'https://github.com',
+      github: 'https://github.com/jaem1n207/lazy-dev/tree/main',
+      live: 'https://lazydev.gatsbyjs.io/',
     },
   },
   {
-    name: 'Project 3',
-    description: 'This is project 3',
+    name: 'Quick Weather View',
+    description:
+      '브라우저의 기본 페이지를 날씨 정보를 보여주는 페이지로 변경해주는 크롬 확장 프로그램',
     tags: [
       {
         name: 'React',
-        colorClass: 'text-blue-400',
+        colorClass: '!text-blue-400',
       },
       {
         name: 'TypeScript',
-        colorClass: 'text-green-400',
+        colorClass: '!text-green-400',
       },
     ],
-    image: 'https://picsum.photos/seed/picsum/300',
+    staticImageEl: (
+      <StaticImage
+        alt="project-thumbnail"
+        src="../images/skills/react.svg"
+        width={500}
+        height={250}
+        placeholder="blurred"
+        layout="fixed"
+      />
+    ),
     projectUrl: {
-      github: 'https://github.com',
-      live: 'https://github.com',
+      github: 'https://github.com/jaem1n207/quick-weather-view/tree/main',
     },
   },
   {
-    name: 'Project 4',
-    description: 'This is project 4',
+    name: 'JM Wordle',
+    description: 'Josh Wardle의 인기 게임인 Wordle에 약간의 기능을 추가한 웹 사이트',
     tags: [
       {
         name: 'React',
-        colorClass: 'text-blue-400',
+        colorClass: '!text-blue-400',
       },
       {
         name: 'TypeScript',
-        colorClass: 'text-green-400',
+        colorClass: '!text-green-400',
       },
     ],
-    image: 'https://picsum.photos/seed/picsum/300',
+    staticImageEl: (
+      <StaticImage
+        alt="project-thumbnail"
+        src="../images/skills/react.svg"
+        width={500}
+        height={250}
+        placeholder="blurred"
+        layout="fixed"
+      />
+    ),
     projectUrl: {
-      github: 'https://github.com',
-      live: 'https://github.com',
+      github: 'https://github.com/jaem1n207/jm-wordle/tree/master',
+      live: 'https://jmwordlemain.gatsbyjs.io/',
     },
   },
 ];
