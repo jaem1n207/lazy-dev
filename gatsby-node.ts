@@ -122,6 +122,7 @@ export const createPages: GatsbyNode['createPages'] = async ({ graphql, actions,
         component: blogPostTemplate,
         context: {
           slug: slug,
+          id: post.node.id,
         },
         slices: {
           bio: `bio--${post.node.frontmatter?.authorId}`,
