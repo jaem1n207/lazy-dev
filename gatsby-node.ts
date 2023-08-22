@@ -11,7 +11,9 @@ export const sourceNodes: GatsbyNode['sourceNodes'] = ({
   const authors = [
     {
       authorId: 'jaemin',
-      name: 'Jaemin Lee',
+      email: 'roy.jm.lee@gmail.com',
+      name: '이재민',
+      githubName: 'jaem1n207',
       summary: '웹 프론트 개발자',
       github: 'https://github.com/jaem1n207',
     },
