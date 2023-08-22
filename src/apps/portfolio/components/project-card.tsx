@@ -1,13 +1,13 @@
 import React, { useEffect } from 'react';
 
 import { motion } from 'framer-motion';
-import { Tilt } from 'react-tilt';
 
-import { fadeIn } from '../../../utils/motion';
+import { useParentRef } from 'Apps/common/parent-ref-context/utils';
+import { fadeIn } from 'Utils/motion';
 
 interface Tag {
   name: string;
-  color: string;
+  colorClass: string;
 }
 
 interface ProjectCardProps {
@@ -39,35 +39,37 @@ const githubSvg = (
   </svg>
 );
 
-const ProjectCard = ({ index, name, description, tags, image, projectUrl }: ProjectCardProps) => {
-  useEffect(() => {
-    const updateCursor = ({ x, y }: { x: number; y: number }) => {
-      document.documentElement.style.setProperty('--x', x + '');
-      document.documentElement.style.setProperty('--y', y + '');
-    };
+const ProjectCard = React.forwardRef<HTMLDivElement, ProjectCardProps>(
+  ({ index, name, description, tags, image, projectUrl }, ref) => {
+    const parentRef = useParentRef();
 
-    document.addEventListener('pointermove', updateCursor);
+    useEffect(() => {
+      const parentEl = parentRef?.current;
 
-    return () => {
-      document.removeEventListener('pointermove', updateCursor);
-    };
-  }, []);
+      if (!parentEl) return;
 
-  return (
-    <motion.div
-      className="project-card"
-      variants={fadeIn({ direction: 'up', type: 'spring', delay: index * 0.5, duration: 0.75 })}
-    >
-      <Tilt
-        options={{
-          max: 15,
-          scale: 1,
-          speed: 450,
-        }}
-        className="w-full bg-zinc-800 p-24pxr rounded-2xl foldable:w-360pxr"
+      const updateCursor = ({ x, y }: { x: number; y: number }) => {
+        parentEl.style.setProperty('--x', x + '');
+        parentEl.style.setProperty('--y', y + '');
+      };
+
+      parentEl.addEventListener('pointermove', updateCursor);
+
+      return () => {
+        parentEl.removeEventListener('pointermove', updateCursor);
+      };
+    }, [parentRef]);
+
+    return (
+      <motion.div
+        className="relative"
+        initial="hidden"
+        animate="show"
+        exit="hidden"
+        variants={fadeIn({ direction: 'up', type: 'spring', delay: index * 0.3, duration: 0.75 })}
       >
-        <div className="transition-colors">
-          <div className="w-full reltaive h-320pxr">
+        <div className="w-full bg-zinc-800 p-24pxr rounded-2xl foldable:w-full project-card">
+          <div className="relative w-full h-320pxr">
             {/* <img className="object-cover w-full h-full rounded-2xl" src={image} alt="project" /> */}
 
             <div className="absolute flex justify-end inset-0pxr m-12pxr">
@@ -79,9 +81,11 @@ const ProjectCard = ({ index, name, description, tags, image, projectUrl }: Proj
             </div>
           </div>
         </div>
-      </Tilt>
-    </motion.div>
-  );
-};
+      </motion.div>
+    );
+  }
+);
+
+ProjectCard.displayName = 'ProjectCard';
 
 export default ProjectCard;
