@@ -13,7 +13,7 @@ const Nav: FC<SliceComponentProps<{}, { title: string }>> = ({ sliceContext }) =
       <div className="flex items-center justify-between mx-auto font-bold max-w-7xl text-bg-inner">
         <Link
           to={ROUTES.HOME}
-          className="focus-primary m-0pxr text-40pxr foldable:text-32pxr"
+          className="rounded-sm focus-primary m-0pxr text-32pxr foldable:text-24pxr"
           aria-label="Blog Home"
         >
           {sliceContext.title}
@@ -21,7 +21,7 @@ const Nav: FC<SliceComponentProps<{}, { title: string }>> = ({ sliceContext }) =
         <div className="flex items-center gap-16pxr">
           <Link
             to={ROUTES.PORTFOLIO}
-            className="focus-primary m-0pxr text-24pxr foldable:text-20pxr"
+            className="rounded-sm focus-primary m-0pxr text-28pxr foldable:text-20pxr"
             aria-label="Portfolio"
           >
             Portfolio

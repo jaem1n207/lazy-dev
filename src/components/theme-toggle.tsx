@@ -87,7 +87,7 @@ const ThemeToggle = () => {
     <NoneActiveWrapper>
       <button
         onClick={toggleTheme}
-        className="relative w-36pxr h-36pxr foldable:w-24pxr foldable:h-24pxr"
+        className="relative rounded-[50%] w-36pxr h-36pxr foldable:w-24pxr foldable:h-24pxr focus-primary"
         aria-label={`Activate ${isDarkMode ? 'light' : 'dark'} mode`}
         title={`Activate ${isDarkMode ? 'light' : 'dark'} mode`}
       >

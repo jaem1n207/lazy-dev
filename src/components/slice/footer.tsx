@@ -7,11 +7,11 @@ const Footer = () => {
     <ContentSpacer as="footer" className="pb-32pxr pt-28pxr">
       <div className="flex mx-auto max-w-7xl">
         @ {new Date().getFullYear()}, Built with&nbsp;
-        <UnderlineLink external url="https://www.gatsbyjs.com">
+        <UnderlineLink external url="https://www.gatsbyjs.com" className="rounded-sm focus-primary">
           Gatsby
         </UnderlineLink>
         <div className="ml-auto">
-          <UnderlineLink external url="/rss.xml">
+          <UnderlineLink external url="/rss.xml" className="rounded-sm focus-primary">
             rss
           </UnderlineLink>
         </div>
