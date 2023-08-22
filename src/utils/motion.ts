@@ -1,3 +1,5 @@
+import type { Variants } from 'framer-motion';
+
 type Direction = 'left' | 'right' | 'up' | 'down';
 type Type = 'tween' | 'spring' | 'just' | 'keyframes' | 'inertia' | 'decay' | 'none';
 
@@ -8,7 +10,7 @@ interface FadeIn {
   duration: number;
 }
 
-export const fadeIn = ({ direction, type, delay, duration }: FadeIn) => {
+export const fadeIn = ({ direction, type, delay, duration }: FadeIn): Variants => {
   return {
     hidden: {
       x: direction === 'left' ? 100 : direction === 'right' ? -100 : 0,
