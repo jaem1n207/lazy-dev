@@ -1,8 +1,7 @@
 import React from 'react';
 
-import { Tilt } from 'react-tilt';
-
 import ParentRefContainer from 'Apps/common/parent-ref-context/components/parent-ref-container';
+import AboutCard from 'Apps/portfolio/components/about-card';
 import ProjectCard from 'Apps/portfolio/components/project-card';
 
 const fakeProjectCards: Omit<React.ComponentProps<typeof ProjectCard>, 'index'>[] = [
@@ -89,16 +88,7 @@ const portfolio = () => {
     <div className="select-none max-w-[1200px] mx-auto px-36pxr desktop:px-24pxr foldable:px-20pxr foldable:pt-36pxr">
       <h3 className="font-bold text-36pxr foldable:text-32pxr mb-24pxr">About</h3>
       <div className="max-w-[700px] w-full mx-auto pt-16pxr">
-        <Tilt
-          options={{
-            max: 15,
-            scale: 1,
-            speed: 450,
-          }}
-          className="h-full transition-colors aspect-video rounded-2xl about-card-bg-gradient p-32pxr border-slate-700 border-2pxr"
-        >
-          hello
-        </Tilt>
+        <AboutCard />
       </div>
       <h3 className="font-bold text-36pxr foldable:text-32pxr my-24pxr">Projects</h3>
       <ParentRefContainer className="grid grid-cols-2 gap-24pxr foldable:grid-cols-1">
