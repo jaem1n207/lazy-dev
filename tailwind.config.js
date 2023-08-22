@@ -101,6 +101,7 @@ module.exports = {
 
         /* contents */
         primary: 'var(--color-primary)',
+        violet: 'var(--color-violet)',
         'text-primary': 'var(--color-text-primary)',
         'text-secondary': 'var(--color-text-secondary)',
         'text-inner': 'var(--color-text-inner)',
