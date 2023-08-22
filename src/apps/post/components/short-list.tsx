@@ -17,7 +17,7 @@ const ShortList = ({ shorts }: ShortListProps) => {
         <h2 className="font-bold text-24pxr foldable:text-20pxr mb-16pxr">Shorts</h2>
         <ul className="flex flex-wrap gap-8pxr">
           {shorts.map((short) => (
-            <li key={short.node.fields?.slug}>
+            <li key={short.node.fields?.slug} className="rounded-lg focus-primary">
               <Link to={ROUTES.BLOG_POST.toUrl(short.node.fields?.slug!)}>
                 <div className="w-full overflow-hidden h-180pxr mb-16pxr desktop:h-160pxr foldable:h-180pxr">
                   <GatsbyImage

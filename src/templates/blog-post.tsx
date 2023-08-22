@@ -7,7 +7,6 @@ import { ContentSpacer, Grid, H1 } from 'Components/common';
 import TableOfContents from 'Components/post/table-of-contents';
 import Seo from 'Components/seo';
 import { FlowerCircleIcon } from 'Components/svg/svg-icon';
-import { useWindowSize } from 'Hooks/use-window-size';
 import * as ScrollManager from 'Libs/scroll';
 import Markdown from 'Styles/markdown';
 import { rhythm } from 'Styles/typography';
@@ -15,11 +14,6 @@ import { rhythm } from 'Styles/typography';
 const BlogPost = ({ data }: PageProps<Queries.BlogPostBySlugQuery>) => {
   const { frontmatter, html, timeToRead, tableOfContents } = data.markdownRemark!;
   const { title, date, category, summary } = frontmatter!;
-
-  const { width } = useWindowSize();
-
-  // layout shift를 방지합니다.
-  const isTableOfContentsVisible = width ? width > 1024 : false;
 
   useEffect(() => {
     ScrollManager.init();
@@ -32,11 +26,9 @@ const BlogPost = ({ data }: PageProps<Queries.BlogPostBySlugQuery>) => {
   return (
     <ContentSpacer>
       <Grid>
-        {isTableOfContentsVisible && (
-          <div css={tw`col-span-4 col-start-12 desktop:visually-hide`}>
-            <TableOfContents toc={tableOfContents} />
-          </div>
-        )}
+        <div css={tw`col-span-4 col-start-12 desktop:visually-hide`}>
+          <TableOfContents toc={tableOfContents} />
+        </div>
         <div css={tw`col-span-8 col-start-3 desktop:(col-span-full col-start-1)`}>
           <header>
             <div
