@@ -2,43 +2,6 @@
 @tailwind components;
 @tailwind utilities;
 
-.project-card:hover {
-  --active: 1;
-}
-
-.project-card:after {
-  content: '';
-  position: absolute;
-  inset: 0;
-  background: radial-gradient(
-    circle at calc(var(--x) * 1px) calc(var(--y) * 1px),
-    hsl(0 0% 100% / 0.15),
-    transparent 15vmin
-  );
-  background-attachment: fixed;
-  opacity: var(--active, 0);
-  transition: opacity 0.2s;
-  pointer-events: none;
-}
-
-.project-card:before {
-  content: '';
-  position: absolute;
-  inset: 0;
-  background: radial-gradient(
-      circle at calc(var(--x) * 1px) calc(var(--y) * 1px),
-      hsl(0 0% 100% / 0.5),
-      transparent 15vmin
-    ),
-    transparent;
-  background-attachment: fixed;
-  pointer-events: none;
-  mask: linear-gradient(white, white) 50% 0 / 100% 4px no-repeat,
-    linear-gradient(white, white) 50% 100% / 100% 4px no-repeat,
-    linear-gradient(white, white) 0 50% / 4px 100% no-repeat,
-    linear-gradient(white, white) 100% 50% / 4px 100% no-repeat;
-}
-
 .hide-cursor {
   @apply cursor-none;
 }
@@ -95,36 +58,6 @@
     --color-cyan-50: #bbdef2;
 
     --color-primary: var(--color-blue-500);
-
-    /* contents */
-    --color-text-primary: var(--color-black-850);
-    --color-text-secondary: var(--color-white);
-    --color-text-inner: var(--color-white);
-    --color-bg-primary: var(--color-white);
-    --color-bg-secondary: var(--color-gray-100);
-    --color-bg-inner: var(--color-black);
-    --color-bg-divider: rgba(0, 0, 0, 0.15);
-    --color-border-primary: var(--color-slate-200);
-    --color-border-secondary: var(--color-slate-700);
-    --color-all-custom-gray: var(--color-slate-500);
-    --color-bg-tag: var(--color-gray-100);
-
-    /* markdown */
-    --color-paragraph-text: var(--color-black-750);
-    --color-border-highlight: var(--color-black-900);
-    --color-th-highlight: var(--color-gray-100);
-    --color-blockquote: var(--color-gray-900);
-    --color-pre-bg: var(--color-gray-100);
-    --color-pre-border: var(--color-gray-300);
-    --color-token-keyword: #d73a49;
-    --color-token-property: #6f42c1;
-    --color-token-operator: #005cc5;
-    --color-token-function: #e36209;
-    --color-token-punctuation: #000;
-    --color-token-string: #22863a;
-    --color-code-highlight-bg: rgba(0, 0, 0, 0.05);
-    --color-code-highlight-border: rgba(0, 0, 0, 0.2);
-    --color-text-strong: var(--color-zinc-900);
   }
 
   /* 브라우저에서 번역을 통해 다른 클래스가 추가되는 경우에 대비하여 `dark` 클래스가 있을 때 다른 클래스가 있는지 여부에 관계없이 적용되도록 함 */
@@ -223,6 +156,51 @@
     transition: all 200ms ease-out !important;
     will-change: transform;
   }
+}
+
+.about-card-bg-gradient {
+  background: radial-gradient(
+    75.53% 100.65% at 50% 145.96%,
+    #36a3ff80 0,
+    rgba(87, 205, 255, 0) 100%
+  );
+}
+
+.project-card:before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(
+      circle at calc(var(--x) * 1px) calc(var(--y) * 1px),
+      #36a3ff80,
+      transparent 15vmin
+    ),
+    transparent;
+  background-attachment: fixed;
+  pointer-events: none;
+  mask: linear-gradient(white, white) 50% 0 / 100% 4px no-repeat,
+    linear-gradient(white, white) 50% 100% / 100% 4px no-repeat,
+    linear-gradient(white, white) 0 50% / 4px 100% no-repeat,
+    linear-gradient(white, white) 100% 50% / 4px 100% no-repeat;
+}
+
+.project-card:after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(
+    circle at calc(var(--x) * 1px) calc(var(--y) * 1px),
+    #36a3ff26,
+    transparent 15vmin
+  );
+  background-attachment: fixed;
+  opacity: var(--active, 0);
+  transition: opacity 0.2s;
+  pointer-events: none;
+}
+
+.project-card:hover {
+  --active: 1;
 }
 
 input:-webkit-autofill,
