@@ -98,6 +98,11 @@ module.exports = {
             group: 'external',
             position: 'after',
           },
+          {
+            pattern: 'Utils',
+            group: 'external',
+            position: 'after',
+          },
         ],
         pathGroupsExcludedImportTypes: ['react'],
         alphabetize: {
@@ -136,6 +141,7 @@ module.exports = {
           ['Templates', './src/templates'],
           ['Types', './src/types'],
           ['Apps', './src/apps'],
+          ['Utils', './src/utils'],
         ],
         extensions: ['.ts', '.tsx', '.js', '.jsx', '.json'],
       },

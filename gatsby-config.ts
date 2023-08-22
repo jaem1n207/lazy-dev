@@ -131,6 +131,7 @@ const devPlugins: GatsbyConfig['plugins'] = [
         Templates: 'src/templates',
         Types: 'src/types',
         Apps: 'src/apps',
+        Utils: 'src/utils',
       },
       extensions: ['ts', 'tsx', 'js'],
     },
