@@ -1,8 +1,10 @@
 import React, { useEffect } from 'react';
 
 import { motion } from 'framer-motion';
+import { StaticImage } from 'gatsby-plugin-image';
 
 import { useParentRef } from 'Apps/common/parent-ref-context/utils';
+import { Typography } from 'Components/common';
 import { fadeIn } from 'Utils/motion';
 
 interface Tag {
@@ -15,7 +17,7 @@ interface ProjectCardProps {
   name: string;
   description: string;
   tags: Tag[];
-  image: string;
+  staticImageEl: ReturnType<typeof StaticImage>;
   projectUrl: {
     github?: string;
     live?: string;
@@ -40,7 +42,7 @@ const githubSvg = (
 );
 
 const ProjectCard = React.forwardRef<HTMLDivElement, ProjectCardProps>(
-  ({ index, name, description, tags, image, projectUrl }, ref) => {
+  ({ index, name, description, tags, staticImageEl, projectUrl }, ref) => {
     const parentRef = useParentRef();
 
     useEffect(() => {
@@ -68,17 +70,65 @@ const ProjectCard = React.forwardRef<HTMLDivElement, ProjectCardProps>(
         exit="hidden"
         variants={fadeIn({ direction: 'up', type: 'spring', delay: index * 0.3, duration: 0.75 })}
       >
-        <div className="w-full bg-zinc-800 p-24pxr rounded-2xl foldable:w-full project-card">
-          <div className="relative w-full h-320pxr">
-            {/* <img className="object-cover w-full h-full rounded-2xl" src={image} alt="project" /> */}
+        <div className="w-full border-2pxr bg-bg-secondary p-24pxr rounded-2xl foldable:w-full project-card border-slate-700">
+          <div className="relative w-full h-250pxr">
+            <div className="w-full h-full">{staticImageEl}</div>
 
-            <div className="absolute flex justify-end inset-0pxr m-12pxr">
-              <div className="flex items-center justify-center rounded-full w-40pxr h-40pxr bg-slate-700">
-                <a href={projectUrl.github} target="_blank" rel="noreferrer">
-                  {githubSvg}
-                </a>
+            {(projectUrl.live || projectUrl.github) && (
+              <div
+                className={`absolute flex inset-0pxr m-12pxr ${
+                  projectUrl.live && projectUrl.github ? 'justify-between' : 'justify-end'
+                }`}
+              >
+                {projectUrl.live && (
+                  <div className="flex items-center justify-center rounded-full w-40pxr h-40pxr bg-bg-primary">
+                    <a
+                      href={projectUrl.live}
+                      target="_blank"
+                      rel="noreferrer"
+                      className="rounded-full focus-primary"
+                    >
+                      <StaticImage
+                        alt="project-thumbnail"
+                        src="../../../images/icons/eye.svg"
+                        width={28}
+                        height={28}
+                        placeholder="blurred"
+                        layout="fixed"
+                      />
+                    </a>
+                  </div>
+                )}
+                {projectUrl.github && (
+                  <div className="flex items-center justify-center rounded-full w-40pxr h-40pxr bg-bg-primary">
+                    <a
+                      href={projectUrl.github}
+                      target="_blank"
+                      rel="noreferrer"
+                      className="rounded-full focus-primary"
+                    >
+                      {githubSvg}
+                    </a>
+                  </div>
+                )}
               </div>
-            </div>
+            )}
+          </div>
+          <div className="mt-20pxr">
+            <Typography as="h3" className="font-bold text-text-primary text-24pxr">
+              {name}
+            </Typography>
+            <Typography as="p" className="text-text-secondary text-16pxr mt-8pxr">
+              {description}
+            </Typography>
+          </div>
+
+          <div className="flex flex-wrap mt-20pxr gap-8pxr">
+            {tags.map((tag) => (
+              <Typography as="p" className={`text-14pxr ${tag.colorClass}`} key={tag.name}>
+                #{tag.name}
+              </Typography>
+            ))}
           </div>
         </div>
       </motion.div>
