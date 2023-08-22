@@ -1,5 +1,8 @@
 import React from 'react';
 
+import { Tilt } from 'react-tilt';
+
+import ParentRefContainer from 'Apps/common/parent-ref-context/components/parent-ref-container';
 import ProjectCard from 'Apps/portfolio/components/project-card';
 
 const fakeProjectCards: Omit<React.ComponentProps<typeof ProjectCard>, 'index'>[] = [
@@ -9,11 +12,11 @@ const fakeProjectCards: Omit<React.ComponentProps<typeof ProjectCard>, 'index'>[
     tags: [
       {
         name: 'React',
-        color: 'text-blue-400',
+        colorClass: 'text-blue-400',
       },
       {
         name: 'TypeScript',
-        color: 'text-green-400',
+        colorClass: 'text-green-400',
       },
     ],
     image: 'https://picsum.photos/seed/picsum/300',
@@ -28,11 +31,11 @@ const fakeProjectCards: Omit<React.ComponentProps<typeof ProjectCard>, 'index'>[
     tags: [
       {
         name: 'React',
-        color: 'text-blue-400',
+        colorClass: 'text-blue-400',
       },
       {
         name: 'TypeScript',
-        color: 'text-green-400',
+        colorClass: 'text-green-400',
       },
     ],
     image: 'https://picsum.photos/seed/picsum/300',
@@ -47,11 +50,11 @@ const fakeProjectCards: Omit<React.ComponentProps<typeof ProjectCard>, 'index'>[
     tags: [
       {
         name: 'React',
-        color: 'text-blue-400',
+        colorClass: 'text-blue-400',
       },
       {
         name: 'TypeScript',
-        color: 'text-green-400',
+        colorClass: 'text-green-400',
       },
     ],
     image: 'https://picsum.photos/seed/picsum/300',
@@ -66,11 +69,11 @@ const fakeProjectCards: Omit<React.ComponentProps<typeof ProjectCard>, 'index'>[
     tags: [
       {
         name: 'React',
-        color: 'text-blue-400',
+        colorClass: 'text-blue-400',
       },
       {
         name: 'TypeScript',
-        color: 'text-green-400',
+        colorClass: 'text-green-400',
       },
     ],
     image: 'https://picsum.photos/seed/picsum/300',
@@ -83,13 +86,26 @@ const fakeProjectCards: Omit<React.ComponentProps<typeof ProjectCard>, 'index'>[
 
 const portfolio = () => {
   return (
-    <div className="max-w-[1500px] mx-auto px-36pxr desktop:px-24pxr foldable:px-20pxr foldable:pt-36pxr">
-      <h1 className="font-bold text-36pxr foldable:text-32pxr mb-24pxr">Portfolio</h1>
-      <div className="grid grid-cols-2 gap-24pxr foldable:grid-cols-1">
+    <div className="select-none max-w-[1200px] mx-auto px-36pxr desktop:px-24pxr foldable:px-20pxr foldable:pt-36pxr">
+      <h3 className="font-bold text-36pxr foldable:text-32pxr mb-24pxr">About</h3>
+      <div className="max-w-[700px] w-full mx-auto pt-16pxr">
+        <Tilt
+          options={{
+            max: 15,
+            scale: 1,
+            speed: 450,
+          }}
+          className="h-full transition-colors aspect-video rounded-2xl about-card-bg-gradient p-32pxr border-slate-700 border-2pxr"
+        >
+          hello
+        </Tilt>
+      </div>
+      <h3 className="font-bold text-36pxr foldable:text-32pxr my-24pxr">Projects</h3>
+      <ParentRefContainer className="grid grid-cols-2 gap-24pxr foldable:grid-cols-1">
         {fakeProjectCards.map((project, index) => (
           <ProjectCard key={project.name} index={index} {...project} />
         ))}
-      </div>
+      </ParentRefContainer>
     </div>
   );
 };
