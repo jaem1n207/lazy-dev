@@ -56,13 +56,6 @@ const corePlugins: GatsbyConfig['plugins'] = [
       fastHash: true,
     },
   },
-  {
-    resolve: 'gatsby-source-filesystem',
-    options: {
-      path: `${__dirname}/src/data`,
-      name: 'data',
-    },
-  },
   'gatsby-transformer-json',
   {
     resolve: `gatsby-plugin-gatsby-cloud`,
@@ -121,14 +114,11 @@ const devPlugins: GatsbyConfig['plugins'] = [
     resolve: 'gatsby-plugin-alias-imports',
     options: {
       alias: {
-        Components: 'src/components',
         Hooks: 'src/hooks',
-        Libs: 'src/libs',
         Images: 'src/images',
         Pages: 'src/pages',
         Styles: 'src/styles',
         Layout: 'src/layout',
-        Templates: 'src/templates',
         Types: 'src/types',
         Apps: 'src/apps',
         Utils: 'src/utils',
@@ -139,7 +129,7 @@ const devPlugins: GatsbyConfig['plugins'] = [
   {
     resolve: 'gatsby-plugin-typography',
     options: {
-      pathToConfigModule: 'src/styles/typography',
+      pathToConfigModule: 'src/apps/post/styles/typography.ts',
     },
   },
   {

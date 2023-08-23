@@ -3,7 +3,8 @@ import React from 'react';
 import { GatsbyImage, StaticImage } from 'gatsby-plugin-image';
 import { Tilt } from 'react-tilt';
 
-import { Typography, UnderlineLink } from 'Components/common';
+import UnderlineLink from 'Apps/common/a/components/underlineLink';
+import { Typography } from 'Apps/common/typography';
 
 import { useBio } from '../hooks/useBio';
 
@@ -89,7 +90,7 @@ const AboutCard = () => {
         <UnderlineLink
           external
           url={bio.author?.github!}
-          className="flex items-center justify-center font-bold gap-8pxr rounded-sm !text-text-primary shadow-none"
+          className="flex items-center justify-center font-bold gap-8pxr rounded-sm !text-text-primary !shadow-none"
         >
           <StaticImage
             alt="github"

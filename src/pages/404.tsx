@@ -5,7 +5,7 @@ import { motion } from 'framer-motion';
 import { graphql, HeadFC, navigate, PageProps } from 'gatsby';
 import { StaticImage } from 'gatsby-plugin-image';
 
-import Seo from 'Components/seo';
+import Seo from 'Apps/common/seo/seo';
 import { ROUTES } from 'Types/enum';
 
 const NotFoundPage: FC<PageProps<Queries.NotFoundQuery>> = () => {

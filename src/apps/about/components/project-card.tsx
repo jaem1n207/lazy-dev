@@ -4,7 +4,7 @@ import { motion } from 'framer-motion';
 import { StaticImage } from 'gatsby-plugin-image';
 
 import { useParentRef } from 'Apps/common/parent-ref-context/utils';
-import { Typography } from 'Components/common';
+import { Typography } from 'Apps/common/typography';
 import { fadeIn } from 'Utils/motion';
 
 interface Tag {

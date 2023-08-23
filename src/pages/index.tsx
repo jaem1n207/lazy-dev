@@ -2,10 +2,10 @@ import React, { FC } from 'react';
 
 import { graphql, HeadFC, HeadProps, PageProps } from 'gatsby';
 
+import Seo from 'Apps/common/seo/seo';
 import PostList from 'Apps/post/components/post-list';
 import ShortList from 'Apps/post/components/short-list';
 import TagList from 'Apps/tag/components/tag-list';
-import Seo from 'Components/seo';
 
 // const useUpdateQueryStringValueWithoutNavigation = (queryKey: string, queryValue: string) => {
 //   useEffect(() => {

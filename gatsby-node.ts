@@ -46,7 +46,7 @@ export const createPages: GatsbyNode['createPages'] = async ({ graphql, actions,
 
   createSlice({
     id: 'nav',
-    component: resolve('./src/components/slice/nav.tsx'),
+    component: resolve('./src/apps/slice/nav.tsx'),
     context: {
       title: headerResults.data?.site?.siteMetadata?.title,
     },
@@ -54,10 +54,10 @@ export const createPages: GatsbyNode['createPages'] = async ({ graphql, actions,
 
   createSlice({
     id: 'footer',
-    component: resolve('./src/components/slice/footer.tsx'),
+    component: resolve('./src/apps/slice/footer.tsx'),
   });
 
-  const authorBio = resolve('./src/components/bio.tsx');
+  const authorBio = resolve('./src/apps/slice/bio.tsx');
 
   const authorResults = await graphql<Queries.Query>(`
     query allAuthors {
@@ -89,7 +89,7 @@ export const createPages: GatsbyNode['createPages'] = async ({ graphql, actions,
     });
   }
 
-  const blogPostTemplate = resolve('./src/templates/blog-post.tsx');
+  const blogPostTemplate = resolve('./src/apps/post/templates/blog-post.tsx');
 
   const blogResult = await graphql<Queries.Query>(`
     query allMarkdownRemark {

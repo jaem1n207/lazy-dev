@@ -54,17 +54,7 @@ module.exports = {
             position: 'before',
           },
           {
-            pattern: 'Components',
-            group: 'external',
-            position: 'after',
-          },
-          {
             pattern: 'Hooks',
-            group: 'external',
-            position: 'after',
-          },
-          {
-            pattern: 'Libs',
             group: 'external',
             position: 'after',
           },
@@ -131,9 +121,7 @@ module.exports = {
       },
       alias: {
         map: [
-          ['Components', './src/components'],
           ['Hooks', './src/hooks'],
-          ['Libs', './src/libs'],
           ['Images', './src/images'],
           ['Pages', './src/pages'],
           ['Styles', './src/styles'],

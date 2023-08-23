@@ -31,7 +31,7 @@
     "lint:fix": "eslint --fix --ext .js,.jsx,.ts,.tsx .",
     "prepare": "husky install",
     "commit": "git-cz",
-    "post": "node ./src/libs/post.js",
+    "post": "node ./src/utils/post.js",
     "env": "cp env.example .env.production && cp env.example .env.development"
   },
   "lint-staged": {
@@ -79,7 +79,6 @@
     "gatsby-transformer-sharp": "^5.10.0",
     "gray-matter": "^4.0.3",
     "inquirer": "8.0.1",
-    "match-sorter": "^6.3.1",
     "prismjs": "^1.29.0",
     "query-string": "^8.1.0",
     "react": "^18.2.0",

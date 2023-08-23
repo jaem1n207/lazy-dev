@@ -3,7 +3,7 @@ import React from 'react';
 import { Link } from 'gatsby';
 import { GatsbyImage } from 'gatsby-plugin-image';
 
-import { H4 } from 'Components/common';
+import { H4 } from 'Apps/common/typography';
 import { ROUTES } from 'Types/enum';
 
 interface ShortListProps {
