@@ -5,7 +5,7 @@ import { StaticImage } from 'gatsby-plugin-image';
 
 import { useParentRef } from 'Apps/common/parent-ref-context/utils';
 import { Typography } from 'Apps/common/typography';
-import { fadeIn } from 'Utils/motion';
+import { animateVariant, fadeIn } from 'Utils/motion';
 
 interface Tag {
   name: string;
@@ -71,12 +71,11 @@ const ProjectCard = ({
   return (
     <motion.div
       className="relative"
-      initial="hidden"
-      animate="show"
-      exit="hidden"
-      variants={fadeIn({ direction: 'up', type: 'spring', delay: index * 0.3, duration: 0.75 })}
+      initial={animateVariant.hidden}
+      animate={animateVariant.show}
+      variants={fadeIn({ direction: 'down', type: 'spring', delay: index * 0.2 })}
     >
-      <div className="w-full border-2pxr bg-bg-secondary p-24pxr rounded-2xl foldable:w-full project-card border-slate-700">
+      <div className="w-full h-full border-2pxr bg-bg-secondary p-24pxr rounded-2xl foldable:w-full project-card border-slate-700">
         <div className="relative w-full h-250pxr">
           <div className="w-full h-full">{staticImageEl}</div>
 

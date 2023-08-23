@@ -3,7 +3,7 @@ import React from 'react';
 import { GatsbyImage, StaticImage } from 'gatsby-plugin-image';
 import { Tilt } from 'react-tilt';
 
-import UnderlineLink from 'Apps/common/a/components/underlineLink';
+import { UnstyledLink } from 'Apps/common/a';
 import { Typography } from 'Apps/common/typography';
 
 import { useBio } from '../hooks/useBio';
@@ -87,7 +87,7 @@ const AboutCard = () => {
           <Typography className="select-all">{bio.author?.email}</Typography>
         </div>
         <div className="opacity-50 border-r-1pxr border-slate-500" />
-        <UnderlineLink
+        <UnstyledLink
           external
           url={bio.author?.github!}
           className="flex items-center justify-center font-bold gap-8pxr rounded-sm !text-text-primary !shadow-none"
@@ -101,7 +101,7 @@ const AboutCard = () => {
             layout="fixed"
           />
           <Typography className="leading-6">GitHub</Typography>
-        </UnderlineLink>
+        </UnstyledLink>
       </div>
     </Tilt>
   );
