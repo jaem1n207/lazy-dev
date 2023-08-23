@@ -2,97 +2,73 @@ import React from 'react';
 
 import type { GatsbySSR } from 'gatsby';
 
-import { wrapPageElement as wrap } from './gatsby-browser';
+import Layout from './src/layout/layout';
+import Root from './src/root';
 
-/**
- * Gatsby의 서버 측 렌더링(SSR)은 window 또는 document 개체에 액세스할 수 없으므로
- * 클라이언트 측에서만 custom-cursor 로직을 조건부로 적용
- */
-export const wrapPageElement: GatsbySSR['wrapPageElement'] = wrap;
+export const wrapPageElement: GatsbySSR['wrapPageElement'] = ({ element }) => {
+  return (
+    <Root>
+      <Layout>{element}</Layout>
+    </Root>
+  );
+};
 
 export const onRenderBody: GatsbySSR['onRenderBody'] = ({
   setHtmlAttributes,
-  setHeadComponents,
+  setBodyAttributes,
+  setPreBodyComponents,
 }) => {
+  setBodyAttributes({
+    className: 'min-h-screen antialiased tracking-tight text-text-primary bg-bg-primary transition',
+  });
   setHtmlAttributes({
     lang: 'en',
   });
-  setHeadComponents([
-    <link
-      key="preconnect-google-fonts"
-      rel="preconnect"
-      href="https://fonts.gstatic.com"
-      crossOrigin="anonymous"
-    />,
-    <link
-      key="preload-notosanskr-regular"
-      rel="preload"
-      as="font"
-      type="font/woff2"
-      href="/fonts/NotoSansKr-Regular.woff2"
-      crossOrigin="anonymous"
-    />,
-    <link
-      key="preload-notosanskr-bold"
-      rel="preload"
-      as="font"
-      type="font/woff2"
-      href="/fonts/NotoSansKr-Bold.woff2"
-      crossOrigin="anonymous"
-    />,
-    <style key="local-fonts" type="text/css">
-      {`
-      @font-face {
-        font-family: 'Noto Sans KR';
-        font-weight: 400;
-        src: url('/fonts/NotoSansKr-Regular.woff2') format('woff2');
-        font-display: swap;
-      }
-      @font-face {
-        font-family: 'Noto Sans KR';
-        font-weight: 700;
-        src: url('/fonts/NotoSansKr-Bold.woff2') format('woff2');
-        font-display: swap;
-      }
-    `}
-    </style>,
+  setPreBodyComponents([
     <script
-      key="darkmode"
+      key="theme-hydration"
       dangerouslySetInnerHTML={{
-        /**
-         * IIFE 내부에 논리를 추가하여 전역 범위를 오염시키지 않고
-         * localStorage에 데이터 설정과 검색을 동일한
-         * try-catch 블록 내에서 처리하여 오류 처리를 단순화
-         */
-        __html: `(function() {
-          function setTheme(theme) {
-            window.__theme = theme;
-            if (theme === 'dark') {
-              document.documentElement.className = 'dark';
-            } else if (theme === 'light') {
-              document.documentElement.className = '';
-            } else {
-              document.documentElement.className = darkQuery.matches ? 'dark' : '';
+        __html: `
+          (function () {
+            function setTheme(newTheme) {
+              window.__theme = newTheme;
+              if (newTheme === 'dark') {
+                document.documentElement.classList.add('dark');
+              } else if (newTheme === 'light') {
+                document.documentElement.classList.remove('dark');
+              }
             }
-          };
-          window.__setPreferredTheme = function(theme) {
+          
+            var preferredTheme;
             try {
-              localStorage.setItem('color-theme', theme);
-              setTheme(theme);
+              preferredTheme = localStorage.getItem('theme');
             } catch (e) {}
-          };
-          let preferredTheme;
-          try {
-            preferredTheme = localStorage.getItem('color-theme');
-            let darkQuery = window.matchMedia('(prefers-color-scheme: dark)');
+          
+            window.__setPreferredTheme = function (newTheme) {
+              preferredTheme = newTheme;
+              setTheme(newTheme);
+              try {
+                localStorage.setItem('theme', newTheme);
+                setTheme(newTheme);
+              } catch (e) {}
+            };
+          
+            var initialTheme = preferredTheme || 'system';
+            var darkQuery = window.matchMedia('(prefers-color-scheme: dark)');
+          
+            if (initialTheme === 'system') {
+              initialTheme = darkQuery.matches ? 'dark' : 'light';
+            }
+            setTheme(initialTheme);
+          
             darkQuery.addEventListener('change', function (e) {
-              if (preferredTheme === 'auto') {
+              if (preferredTheme === 'system') {
                 setTheme(e.matches ? 'dark' : 'light');
               }
+              setTheme(darkQuery.matches ? 'dark' : 'light');
             });
-            setTheme(preferredTheme || (darkQuery.matches ? 'dark' : 'light'));
-          } catch (e) {}
-        })();`,
+          })();
+        `,
       }}
     />,
   ]);

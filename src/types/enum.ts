@@ -3,7 +3,7 @@ export const CATEGORY_TYPE = {
 };
 
 export const QUERY_PARAM = {
-  KEYWORDS: 'q',
+  KEYWORDS: 's',
 };
 
 export const ROUTES = {
@@ -14,6 +14,7 @@ export const ROUTES = {
   BLOG_CATEGORY: {
     toUrl: (category: string) => `${ROUTES.HOME}?category=${category}`,
   },
+  ABOUT: '/about',
 };
 
 export const ELEMENT_CLASS = {

@@ -5,7 +5,7 @@ dotenv.config({
   path: `.env.${process.env.NODE_ENV}`,
 });
 
-const siteMetadata: GatsbyConfig['siteMetadata'] = {
+const siteMetadata: GatsbyConfig['siteMetadata'] = Object.freeze({
   title: 'Lazy Dev',
   description: '웹 프론트 개발에 대한 이야기를 다룹니다.',
   siteUrl: 'https://lazyDev.gatsbyjs.io',
@@ -19,7 +19,7 @@ const siteMetadata: GatsbyConfig['siteMetadata'] = {
   },
   favicon: '/images/favicon.png',
   postTitle: 'All',
-};
+});
 
 const analyserPlugins: GatsbyConfig['plugins'] = [
   {
@@ -56,6 +56,7 @@ const corePlugins: GatsbyConfig['plugins'] = [
       fastHash: true,
     },
   },
+  'gatsby-transformer-json',
   {
     resolve: `gatsby-plugin-gatsby-cloud`,
     options: {
@@ -113,15 +114,14 @@ const devPlugins: GatsbyConfig['plugins'] = [
     resolve: 'gatsby-plugin-alias-imports',
     options: {
       alias: {
-        Components: 'src/components',
         Hooks: 'src/hooks',
-        Libs: 'src/libs',
         Images: 'src/images',
         Pages: 'src/pages',
         Styles: 'src/styles',
         Layout: 'src/layout',
-        Templates: 'src/templates',
         Types: 'src/types',
+        Apps: 'src/apps',
+        Utils: 'src/utils',
       },
       extensions: ['ts', 'tsx', 'js'],
     },
@@ -129,7 +129,7 @@ const devPlugins: GatsbyConfig['plugins'] = [
   {
     resolve: 'gatsby-plugin-typography',
     options: {
-      pathToConfigModule: 'src/styles/typography',
+      pathToConfigModule: 'src/apps/post/styles/typography.ts',
     },
   },
   {
@@ -211,7 +211,6 @@ const searchPlugins: GatsbyConfig['plugins'] = [
             title
             description
             siteUrl
-            site_url: siteUrl
           }
         }
       }`,
@@ -323,7 +322,7 @@ const pwaPlugins: GatsbyConfig['plugins'] = [
 
 const config: GatsbyConfig = {
   flags: {
-    DEV_SSR: false,
+    DEV_SSR: true,
   },
   graphqlTypegen: true,
   siteMetadata,

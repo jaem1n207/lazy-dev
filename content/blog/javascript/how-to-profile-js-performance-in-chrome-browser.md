@@ -3,9 +3,11 @@ title: Chrome 브라우저에서 JavaScript 성능을 프로파일링 하는 방
 date: "2023-04-10 02:52:11"
 category: javascript
 tags:
-  - performance
-  - chrome
-draft: false
+  - Debug
+  - Performance
+keywords:
+  - 디버깅
+  - 최적화
 authorId: jaemin
 thumbnail: ../thumbnails/javascript.jpg
 summary: Chrome 브라우저에서 performance 탭을 이용해서 웹 애플리케이션의 성능 병목 현상을 식별하고 해결하는 방법을 알아봅니다.

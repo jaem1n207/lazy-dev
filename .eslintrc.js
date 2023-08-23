@@ -54,17 +54,7 @@ module.exports = {
             position: 'before',
           },
           {
-            pattern: 'Components',
-            group: 'external',
-            position: 'after',
-          },
-          {
             pattern: 'Hooks',
-            group: 'external',
-            position: 'after',
-          },
-          {
-            pattern: 'Libs',
             group: 'external',
             position: 'after',
           },
@@ -90,6 +80,16 @@ module.exports = {
           },
           {
             pattern: 'Types',
+            group: 'external',
+            position: 'after',
+          },
+          {
+            pattern: 'Apps',
+            group: 'external',
+            position: 'after',
+          },
+          {
+            pattern: 'Utils',
             group: 'external',
             position: 'after',
           },
@@ -121,18 +121,32 @@ module.exports = {
       },
       alias: {
         map: [
-          ['Components', './src/components'],
           ['Hooks', './src/hooks'],
-          ['Libs', './src/libs'],
           ['Images', './src/images'],
           ['Pages', './src/pages'],
           ['Styles', './src/styles'],
           ['Layout', './src/layout'],
           ['Templates', './src/templates'],
           ['Types', './src/types'],
+          ['Apps', './src/apps'],
+          ['Utils', './src/utils'],
         ],
         extensions: ['.ts', '.tsx', '.js', '.jsx', '.json'],
       },
     },
   },
+  overrides: [
+    {
+      files: ['*.ts', '*.tsx'],
+      processor: '@graphql-eslint/graphql',
+    },
+    {
+      files: ['*.graphql'],
+      parser: '@graphql-eslint/eslint-plugin',
+      plugins: ['@graphql-eslint'],
+      rules: {
+        '@graphql-eslint/known-type-names': OFF,
+      },
+    },
+  ],
 };

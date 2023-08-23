@@ -15,9 +15,12 @@ module.exports = {
   },
   darkMode: 'class',
   content: [
+    './gatsby-ssr.tsx',
     './src/pages/**/*.{js,jsx,ts,tsx}',
     './src/layout/**/*.{js,jsx,ts,tsx}',
     './src/components/**/*.{js,jsx,ts,tsx}',
+    './src/apps/**/*.{js,jsx,ts,tsx}',
+    './src/templates/**/*.{js,jsx,ts,tsx}',
   ],
   theme: {
     data: {
@@ -49,6 +52,11 @@ module.exports = {
       mobile: { max: '360px' },
     },
     extend: {
+      gridTemplateColumns: {
+        'main-three-large': '15fr 60fr 25fr',
+        'main-three-small': '2fr 5fr 3fr',
+        'main-two': '66fr 34fr',
+      },
       spacing: {
         '10vw': '10vw',
       },
@@ -93,6 +101,7 @@ module.exports = {
 
         /* contents */
         primary: 'var(--color-primary)',
+        violet: 'var(--color-violet)',
         'text-primary': 'var(--color-text-primary)',
         'text-secondary': 'var(--color-text-secondary)',
         'text-inner': 'var(--color-text-inner)',
@@ -109,9 +118,6 @@ module.exports = {
         'paragraph-text': 'var(--color-paragraph-text)',
         'border-highlight': 'var(--color-border-highlight)',
         'gradient-cyan': 'var(--color-cyan-50)',
-      },
-      fontFamily: {
-        'noto-sans-kr': ['Noto Sans KR', ...defaultTheme.fontFamily.sans],
       },
       boxShadow: {
         'text-underline': '0 1px 0 0 currentColor',
@@ -182,6 +188,7 @@ module.exports = {
     require('./src/plugins/scrollbar-hide'),
     require('./src/plugins/visually-hide'),
     require('./src/plugins/drag-none'),
+    require('@tailwindcss/line-clamp'),
     require('@tailwindcss/typography'),
   ],
 };
