@@ -6,8 +6,8 @@ type Type = 'tween' | 'spring' | 'just' | 'keyframes' | 'inertia' | 'decay' | 'n
 interface FadeIn {
   direction: Direction;
   type: Type;
-  delay: number;
-  duration: number;
+  delay?: number;
+  duration?: number;
 }
 
 export const fadeIn = ({ direction, type, delay, duration }: FadeIn): Variants => {
