@@ -3,17 +3,15 @@ import React, { useCallback, useEffect, useMemo } from 'react';
 import { window } from 'browser-monads-ts';
 import tw from 'twin.macro';
 
+import { Typography } from 'Apps/common/typography';
 import { useScrollEvent } from 'Hooks/use-scroll-event';
 import { addClass, getElement, getElements, removeClass } from 'Utils/dom';
 import * as EventManager from 'Utils/event-manager';
+import * as ScrollManager from 'Utils/scroll';
 
 interface TableOfContentsProps {
   toc: Queries.MarkdownRemark['tableOfContents'];
 }
-
-const TOCWrapper = tw.div`fixed px-12pxr py-4pxr bg-transparent border-l-2pxr border-all-custom-gray z-10 max-h-[70vh] max-w-[20vw] overflow-auto`;
-
-const TOCContent = tw.div`text-16pxr text-all-custom-gray font-bold border-spacing-24pxr tablet:border-spacing-28pxr tracking-normal tablet:tracking-tighter [a.active]:(text-[110%] text-primary transition-all)`;
 
 const TableOfContents = ({ toc }: TableOfContentsProps) => {
   const THRESHOLD = useMemo(() => window.innerHeight / 2, []);
@@ -71,18 +69,13 @@ const TableOfContents = ({ toc }: TableOfContentsProps) => {
 
       const { header, link } = headerElement;
 
-      addClass(link, 'focus-primary');
-
       link.addEventListener('click', (e: Event) => {
         e.preventDefault();
 
         const { top } = header.getBoundingClientRect();
         const elementTop = top + window.scrollY;
 
-        window.scrollTo({
-          top: elementTop - 50,
-          behavior: 'smooth',
-        });
+        ScrollManager.go(elementTop - 50);
       });
 
       return () => {
@@ -94,9 +87,17 @@ const TableOfContents = ({ toc }: TableOfContentsProps) => {
   if (!toc) return null;
 
   return (
-    <TOCWrapper>
-      <TOCContent dangerouslySetInnerHTML={{ __html: toc }} />
-    </TOCWrapper>
+    <div
+      css={tw`fixed px-12pxr py-4pxr bg-transparent z-10 max-h-[70vh] max-w-[20vw] overflow-auto`}
+    >
+      <Typography as="h3" css={tw`font-bold text-18pxr text-all-custom-gray mb-12pxr`}>
+        ON THIS PAGE
+      </Typography>
+      <div
+        css={tw`text-13pxr text-all-custom-gray font-bold border-spacing-24pxr pl-12pxr tablet:border-spacing-28pxr tracking-normal tablet:tracking-tighter [a.active]:(text-primary transition-all)`}
+        dangerouslySetInnerHTML={{ __html: toc }}
+      />
+    </div>
   );
 };
 
