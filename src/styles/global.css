@@ -73,7 +73,7 @@
     --color-text-secondary: var(--color-zinc-900);
     --color-text-inner: var(--color-black);
     --color-text-violet: var(--color-violet);
-    --color-bg-primary: var(--color-zinc-900);
+    --color-bg-primary: var(--color-black-850);
     --color-bg-secondary: var(--color-gray-800);
     --color-bg-inner: var(--color-white);
     --color-bg-divider: rgba(255, 255, 255, 0.15);
@@ -119,11 +119,6 @@
     fill: theme(colors.primary);
   }
 
-  ::selection {
-    background-color: theme(colors.primary);
-    color: #fff;
-  }
-
   @keyframes gradientMovement {
     0% {
       background-position: 0% 50%;
@@ -141,7 +136,7 @@
       90deg,
       #f2056f 0.11%,
       #d6cbf6 25.06%,
-      #7b8fdd 50%,
+      var(--color-violet) 50%,
       var(--color-blue-300) 74.8%,
       var(--color-blue-500) 99.76%
     );

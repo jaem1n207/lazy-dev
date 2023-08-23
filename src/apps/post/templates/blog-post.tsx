@@ -1,22 +1,22 @@
 import React, { useEffect } from 'react';
 
-import { graphql, HeadProps, Link, PageProps, Slice } from 'gatsby';
-import { GatsbyImage } from 'gatsby-plugin-image';
+import { motion } from 'framer-motion';
+import { graphql, HeadProps, PageProps, Slice } from 'gatsby';
 import tw from 'twin.macro';
 
-import { FlowerCircleIcon } from 'Apps/common/icon/components/svg-icon';
-import { ContentSpacer, Grid } from 'Apps/common/layout';
+import { FlowerCircleIcon, TagSvg } from 'Apps/common/icon/components/svg-icon';
+import { ContentSpacer, Grid, Spacer } from 'Apps/common/layout';
 import Seo from 'Apps/common/seo/seo';
-import { H1 } from 'Apps/common/typography';
-import { ROUTES } from 'Types/enum';
+import { H1, H2 } from 'Apps/common/typography';
+import { animateVariant, textVariant } from 'Utils/motion';
 import * as ScrollManager from 'Utils/scroll';
 
+import PostCard from '../components/post-card';
 import TableOfContents from '../components/table-of-contents';
 import Markdown from '../styles/markdown';
 import { rhythm } from '../styles/typography';
 
 const BlogPost = ({ data }: PageProps<Queries.BlogPostBySlugQuery>) => {
-  console.log('🚀 ~ file: blog-post.tsx:17 ~ BlogPost ~ data:', data);
   const { frontmatter, html, timeToRead, tableOfContents } = data.post!;
   const relatedPosts = data.relatedPosts.edges;
   const { title, date, category, summary } = frontmatter!;
@@ -31,7 +31,6 @@ const BlogPost = ({ data }: PageProps<Queries.BlogPostBySlugQuery>) => {
 
   return (
     <ContentSpacer>
-      ghello
       <Grid>
         <div css={tw`col-span-4 col-start-12 desktop:visually-hide`}>
           <TableOfContents toc={tableOfContents} />
@@ -39,16 +38,25 @@ const BlogPost = ({ data }: PageProps<Queries.BlogPostBySlugQuery>) => {
 
         <div css={tw`col-span-8 col-start-3 desktop:(col-span-full col-start-1)`}>
           <header>
-            <div
-              css={tw`flex items-center font-bold text-all-custom-gray text-16pxr gap-8pxr pb-4pxr`}
-            >
+            <H1 className="font-bold">{title}</H1>
+            <div className="flex items-center font-bold text-all-custom-gray text-16pxr gap-8pxr mt-8pxr">
               <time dateTime={date!}>{date}</time>
               <span css={tw`h-16pxr w-1pxr bg-all-custom-gray`} />
               <span>{category}</span>
               <span css={tw`h-16pxr w-1pxr bg-all-custom-gray`} />
               <span>{timeToRead} min read</span>
             </div>
-            <H1 className="font-bold">{title}</H1>
+            <div className="flex items-center gap-8pxr mt-8pxr text-all-custom-gray">
+              <TagSvg size={18} />
+              {frontmatter?.tags?.map((tag) => (
+                <div
+                  key={tag}
+                  className="font-bold rounded-full border-2pxr text-14pxr px-6pxr py-3pxr border-all-custom-gray"
+                >
+                  {tag}
+                </div>
+              ))}
+            </div>
           </header>
 
           <section>
@@ -70,37 +78,35 @@ const BlogPost = ({ data }: PageProps<Queries.BlogPostBySlugQuery>) => {
             rhythm={rhythm}
           />
 
-          <div
-            css={tw`w-full h-1pxr my-64pxr box-decoration-slice bg-gradient-to-r from-primary to-gradient-cyan tablet:my-48pxr`}
-          />
+          <Spacer size="xl" />
 
-          <div className="flex flex-col items-center mb-64pxr tablet:mb-48pxr">
-            <h2 className="font-bold text-24pxr tablet:text-20pxr mb-16pxr">Related Posts</h2>
-            <div className="grid grid-cols-2 gap-24pxr tablet:grid-cols-1">
-              {relatedPosts?.map((post) => (
-                <article key={post.node.fields?.slug} className="rounded-lg focus-primary mb-24pxr">
-                  <Link to={ROUTES.BLOG_POST.toUrl(post.node.fields?.slug!)}>
-                    <div className="w-full overflow-hidden h-300pxr mb-16pxr desktop:h-200pxr tablet:h-180pxr foldable:h-200pxr">
-                      <GatsbyImage
-                        image={post.node.frontmatter?.thumbnail?.childImageSharp?.gatsbyImageData!}
-                        alt={post.node.frontmatter?.title!}
-                        className="w-full h-full rounded-lg"
-                      />
-                    </div>
-                    <h3 className="font-bold text-24pxr foldable:text-20pxr mb-8pxr">
-                      {post.node.frontmatter?.title}
-                    </h3>
-                    <time
-                      dateTime={post.node.frontmatter?.date!}
-                      className="text-18pxr foldable:text-16pxr"
-                    >
-                      {post.node.frontmatter?.date}
-                    </time>
-                  </Link>
-                </article>
-              ))}
-            </div>
+          <div className="flex flex-col mb-64pxr tablet:mb-48pxr">
+            <H2 className="font-bold mb-32pxr tablet:mb-28pxr foldable:mb-24pxr">연관 콘텐츠</H2>
+            <motion.div
+              initial={animateVariant.hidden}
+              whileInView={animateVariant.show}
+              variants={textVariant()}
+              viewport={{ once: true }}
+            >
+              {/* empty related posts */}
+              {relatedPosts?.length === 0 ? (
+                /* like callout ui */
+                <div className="flex flex-col items-center justify-center w-full rounded-lg h-200pxr bg-bg-secondary">
+                  <p className="font-bold text-20pxr foldable:text-18pxr text-text-primary">
+                    연관된 콘텐츠가 없어요.
+                  </p>
+                </div>
+              ) : (
+                <div className="grid grid-cols-2 gap-24pxr tablet:grid-cols-1">
+                  {relatedPosts?.map((post) => (
+                    <PostCard key={post.node.fields?.slug} post={post} />
+                  ))}
+                </div>
+              )}
+            </motion.div>
           </div>
+
+          <Spacer size="sm" />
 
           <Slice alias="bio" />
         </div>
@@ -158,7 +164,8 @@ export const query = graphql`
         frontmatter: { tags: { in: $tags } }
         fields: { slug: { ne: $slug } }
       }
-      limit: 3
+      sort: { frontmatter: { date: DESC } }
+      limit: 4
     ) {
       edges {
         node {
