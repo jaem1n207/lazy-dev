@@ -26,7 +26,9 @@ const ShortList = ({ shorts }: ShortListProps) => {
                     className="w-full h-full rounded-lg"
                   />
                 </div>
-                <H4 className="mb-8pxr">{short.node.frontmatter?.title}</H4>
+                <H4 as="h3" className="mb-8pxr">
+                  {short.node.frontmatter?.title}
+                </H4>
                 <time
                   dateTime={short.node.frontmatter?.date!}
                   className="text-18pxr foldable:text-16pxr"

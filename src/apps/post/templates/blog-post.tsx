@@ -43,7 +43,7 @@ const BlogPost = ({ data }: PageProps<Queries.BlogPostBySlugQuery>) => {
               <span css={tw`h-16pxr w-1pxr bg-all-custom-gray`} />
               <span>{timeToRead} min read</span>
             </div>
-            <H1 css={tw`font-bold leading-snug tablet:text-32pxr`}>{title}</H1>
+            <H1 className="font-bold">{title}</H1>
           </header>
 
           <section>
