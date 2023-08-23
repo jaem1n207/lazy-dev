@@ -8,28 +8,28 @@ export const animateVariant = {
   show: 'show',
 } as const;
 
+interface DurationOptions {
+  duration?: number;
+}
 interface Orchestration {
   delay?: number;
 }
 
-interface TransformDirection {
+interface CustomAnimationOptions extends Orchestration, DurationOptions {
+  type?: AnimationOptions<any>['type'];
+  ease?: EasingDefinition;
   direction?: 'left' | 'right' | 'up' | 'down';
 }
-
-interface CustomAnimationOptions extends TransformDirection, Orchestration {
-  type?: AnimationOptions<any>['type'];
-  duration?: number;
-  ease?: EasingDefinition;
-}
+interface TimingAnimationOptions extends Orchestration, DurationOptions {}
 
 type ReturnVariants = {
   [key in keyof typeof animateVariant]: Variant;
 };
 
 type FadeIn = (options?: CustomAnimationOptions) => ReturnVariants;
-type TextVariant = (options?: Orchestration) => ReturnVariants;
+type TextVariant = (options?: TimingAnimationOptions) => ReturnVariants;
 type SlideIn = (options?: CustomAnimationOptions) => ReturnVariants;
-type ZoomIn = (options?: { duration?: number; delay?: number }) => ReturnVariants;
+type ZoomIn = (options?: TimingAnimationOptions) => ReturnVariants;
 
 export const fadeIn: FadeIn = (options = {}) => {
   const { direction = 'left', type = 'spring', delay, duration, ease = 'easeOut' } = options;
@@ -55,7 +55,7 @@ export const fadeIn: FadeIn = (options = {}) => {
 };
 
 export const textVariant: TextVariant = (options = {}) => {
-  const { delay } = options;
+  const { delay, duration = 1.25 } = options;
 
   return {
     hidden: {
@@ -68,7 +68,7 @@ export const textVariant: TextVariant = (options = {}) => {
       transition: {
         type: 'spring',
         delay: delay,
-        duration: 1.25,
+        duration: duration,
       },
     },
   };
