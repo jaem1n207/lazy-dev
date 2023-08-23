@@ -1,12 +1,14 @@
 import React, { useEffect } from 'react';
 
-import { graphql, HeadProps, PageProps, Slice } from 'gatsby';
+import { graphql, HeadProps, Link, PageProps, Slice } from 'gatsby';
+import { GatsbyImage } from 'gatsby-plugin-image';
 import tw from 'twin.macro';
 
 import { FlowerCircleIcon } from 'Apps/common/icon/components/svg-icon';
 import { ContentSpacer, Grid } from 'Apps/common/layout';
 import Seo from 'Apps/common/seo/seo';
 import { H1 } from 'Apps/common/typography';
+import { ROUTES } from 'Types/enum';
 import * as ScrollManager from 'Utils/scroll';
 
 import TableOfContents from '../components/table-of-contents';
@@ -14,7 +16,9 @@ import Markdown from '../styles/markdown';
 import { rhythm } from '../styles/typography';
 
 const BlogPost = ({ data }: PageProps<Queries.BlogPostBySlugQuery>) => {
-  const { frontmatter, html, timeToRead, tableOfContents } = data.markdownRemark!;
+  console.log('🚀 ~ file: blog-post.tsx:17 ~ BlogPost ~ data:', data);
+  const { frontmatter, html, timeToRead, tableOfContents } = data.post!;
+  const relatedPosts = data.relatedPosts.edges;
   const { title, date, category, summary } = frontmatter!;
 
   useEffect(() => {
@@ -27,6 +31,7 @@ const BlogPost = ({ data }: PageProps<Queries.BlogPostBySlugQuery>) => {
 
   return (
     <ContentSpacer>
+      ghello
       <Grid>
         <div css={tw`col-span-4 col-start-12 desktop:visually-hide`}>
           <TableOfContents toc={tableOfContents} />
@@ -69,6 +74,34 @@ const BlogPost = ({ data }: PageProps<Queries.BlogPostBySlugQuery>) => {
             css={tw`w-full h-1pxr my-64pxr box-decoration-slice bg-gradient-to-r from-primary to-gradient-cyan tablet:my-48pxr`}
           />
 
+          <div className="flex flex-col items-center mb-64pxr tablet:mb-48pxr">
+            <h2 className="font-bold text-24pxr tablet:text-20pxr mb-16pxr">Related Posts</h2>
+            <div className="grid grid-cols-2 gap-24pxr tablet:grid-cols-1">
+              {relatedPosts?.map((post) => (
+                <article key={post.node.fields?.slug} className="rounded-lg focus-primary mb-24pxr">
+                  <Link to={ROUTES.BLOG_POST.toUrl(post.node.fields?.slug!)}>
+                    <div className="w-full overflow-hidden h-300pxr mb-16pxr desktop:h-200pxr tablet:h-180pxr foldable:h-200pxr">
+                      <GatsbyImage
+                        image={post.node.frontmatter?.thumbnail?.childImageSharp?.gatsbyImageData!}
+                        alt={post.node.frontmatter?.title!}
+                        className="w-full h-full rounded-lg"
+                      />
+                    </div>
+                    <h3 className="font-bold text-24pxr foldable:text-20pxr mb-8pxr">
+                      {post.node.frontmatter?.title}
+                    </h3>
+                    <time
+                      dateTime={post.node.frontmatter?.date!}
+                      className="text-18pxr foldable:text-16pxr"
+                    >
+                      {post.node.frontmatter?.date}
+                    </time>
+                  </Link>
+                </article>
+              ))}
+            </div>
+          </div>
+
           <Slice alias="bio" />
         </div>
       </Grid>
@@ -77,7 +110,7 @@ const BlogPost = ({ data }: PageProps<Queries.BlogPostBySlugQuery>) => {
 };
 
 export const Head = ({
-  data: { markdownRemark: post, site },
+  data: { post, site },
   location,
 }: HeadProps<Queries.BlogPostBySlugQuery>) => {
   const siteUrl = site?.siteMetadata?.siteUrl;
@@ -93,25 +126,13 @@ export const Head = ({
 };
 
 export const query = graphql`
-  query BlogPostBySlug($slug: String!) {
+  query BlogPostBySlug($slug: String!, $tags: [String]!) {
     site {
       siteMetadata {
-        author {
-          name
-          summary
-        }
-        description
-        lang
-        favicon
-        postTitle
         siteUrl
-        social {
-          github
-        }
-        title
       }
     }
-    markdownRemark(fields: { slug: { eq: $slug } }) {
+    post: markdownRemark(fields: { slug: { eq: $slug } }) {
       id
       html
       timeToRead
@@ -120,11 +141,40 @@ export const query = graphql`
         category
         title
         summary
-        date(formatString: "MMMM Do, YY")
+        date(formatString: "YYYY.MM.DD")
+        tags
         thumbnail {
           childImageSharp {
             fixed(width: 800) {
               src
+            }
+          }
+        }
+      }
+    }
+    relatedPosts: allMarkdownRemark(
+      filter: {
+        fileAbsolutePath: { regex: "/(content|blog)/" }
+        frontmatter: { tags: { in: $tags } }
+        fields: { slug: { ne: $slug } }
+      }
+      limit: 3
+    ) {
+      edges {
+        node {
+          fields {
+            slug
+          }
+          timeToRead
+          frontmatter {
+            title
+            tags
+            date(formatString: "YYYY.MM.DD")
+            summary
+            thumbnail {
+              childImageSharp {
+                gatsbyImageData(height: 300, placeholder: BLURRED)
+              }
             }
           }
         }

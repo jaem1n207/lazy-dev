@@ -102,6 +102,7 @@ export const createPages: GatsbyNode['createPages'] = async ({ graphql, actions,
             id
             frontmatter {
               authorId
+              tags
             }
           }
         }
@@ -124,6 +125,7 @@ export const createPages: GatsbyNode['createPages'] = async ({ graphql, actions,
         component: blogPostTemplate,
         context: {
           slug: slug,
+          tags: post.node.frontmatter?.tags,
           id: post.node.id,
         },
         slices: {
