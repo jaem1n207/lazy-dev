@@ -75,7 +75,7 @@ const ProjectCard = ({
       animate={animateVariant.show}
       variants={fadeIn({ direction: 'down', type: 'spring', delay: index * 0.2 })}
     >
-      <div className="w-full h-full border-2pxr bg-bg-secondary p-24pxr rounded-2xl foldable:w-full project-card border-slate-700">
+      <div className="w-full h-full border-2pxr bg-bg-secondary p-24pxr rounded-2xl foldable:w-full project-card border-slate-700 tablet:p-16pxr foldable:p-12pxr">
         <div className="relative w-full h-250pxr">
           <div className="w-full h-full">{staticImageEl}</div>
 
@@ -85,8 +85,20 @@ const ProjectCard = ({
                 projectUrl.live && projectUrl.github ? 'justify-between' : 'justify-end'
               }`}
             >
+              {projectUrl.github && (
+                <div className="flex items-center justify-center rounded-full w-40pxr h-40pxr bg-bg-inner">
+                  <a
+                    href={projectUrl.github}
+                    target="_blank"
+                    rel="noreferrer"
+                    className="rounded-full focus-primary"
+                  >
+                    {githubSvg}
+                  </a>
+                </div>
+              )}
               {projectUrl.live && (
-                <div className="flex items-center justify-center rounded-full w-40pxr h-40pxr bg-bg-primary">
+                <div className="flex items-center justify-center rounded-full w-40pxr h-40pxr bg-bg-inner">
                   <a
                     href={projectUrl.live}
                     target="_blank"
@@ -95,24 +107,12 @@ const ProjectCard = ({
                   >
                     <StaticImage
                       alt="project-thumbnail"
-                      src="../../../images/icons/eye.svg"
+                      src="../../../images/icons/arrow-up-right.svg"
                       width={28}
                       height={28}
                       placeholder="blurred"
                       layout="fixed"
                     />
-                  </a>
-                </div>
-              )}
-              {projectUrl.github && (
-                <div className="flex items-center justify-center rounded-full w-40pxr h-40pxr bg-bg-primary">
-                  <a
-                    href={projectUrl.github}
-                    target="_blank"
-                    rel="noreferrer"
-                    className="rounded-full focus-primary"
-                  >
-                    {githubSvg}
                   </a>
                 </div>
               )}

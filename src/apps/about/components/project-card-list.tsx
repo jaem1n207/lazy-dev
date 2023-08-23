@@ -25,7 +25,7 @@ const projects: Omit<React.ComponentProps<typeof ProjectCard>, 'index'>[] = [
     tags: [
       {
         name: 'React',
-        colorClass: '!text-blue-400',
+        colorClass: '!text-primary',
       },
       {
         name: 'TypeScript',
@@ -36,10 +36,8 @@ const projects: Omit<React.ComponentProps<typeof ProjectCard>, 'index'>[] = [
       <StaticImage
         alt="project-thumbnail"
         src={`${IMAGE_FOLDER_PATH}/skills/react.svg`}
-        width={500}
-        height={250}
+        className="w-full h-250pxr"
         placeholder="blurred"
-        layout="fixed"
       />
     ),
     projectUrl: {
@@ -53,7 +51,7 @@ const projects: Omit<React.ComponentProps<typeof ProjectCard>, 'index'>[] = [
     tags: [
       {
         name: 'React',
-        colorClass: '!text-blue-400',
+        colorClass: '!text-primary',
       },
       {
         name: 'TypeScript',
@@ -64,10 +62,8 @@ const projects: Omit<React.ComponentProps<typeof ProjectCard>, 'index'>[] = [
       <StaticImage
         alt="project-thumbnail"
         src={`${IMAGE_FOLDER_PATH}/skills/react.svg`}
-        width={500}
-        height={250}
+        className="w-full h-250pxr"
         placeholder="blurred"
-        layout="fixed"
       />
     ),
     projectUrl: {
@@ -82,7 +78,7 @@ const projects: Omit<React.ComponentProps<typeof ProjectCard>, 'index'>[] = [
     tags: [
       {
         name: 'React',
-        colorClass: '!text-blue-400',
+        colorClass: '!text-primary',
       },
       {
         name: 'TypeScript',
@@ -93,10 +89,8 @@ const projects: Omit<React.ComponentProps<typeof ProjectCard>, 'index'>[] = [
       <StaticImage
         alt="project-thumbnail"
         src={`${IMAGE_FOLDER_PATH}/skills/react.svg`}
-        width={500}
-        height={250}
+        className="w-full h-250pxr"
         placeholder="blurred"
-        layout="fixed"
       />
     ),
     projectUrl: {
@@ -109,7 +103,7 @@ const projects: Omit<React.ComponentProps<typeof ProjectCard>, 'index'>[] = [
     tags: [
       {
         name: 'React',
-        colorClass: '!text-blue-400',
+        colorClass: '!text-primary',
       },
       {
         name: 'TypeScript',
@@ -120,10 +114,8 @@ const projects: Omit<React.ComponentProps<typeof ProjectCard>, 'index'>[] = [
       <StaticImage
         alt="project-thumbnail"
         src={`${IMAGE_FOLDER_PATH}/skills/react.svg`}
-        width={500}
-        height={250}
+        className="w-full h-250pxr"
         placeholder="blurred"
-        layout="fixed"
       />
     ),
     projectUrl: {
