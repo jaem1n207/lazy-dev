@@ -44,7 +44,6 @@
     "@emotion/react": "^11.11.0",
     "@emotion/styled": "^11.11.0",
     "@fontsource/fira-mono": "^4.5.10",
-    "@heroicons/react": "^2.0.17",
     "@mdx-js/react": "^2.1.5",
     "@reach/checkbox": "^0.18.0",
     "@tailwindcss/typography": "^0.5.9",
