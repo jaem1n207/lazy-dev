@@ -20,11 +20,11 @@ const Nav: FC<SliceComponentProps<{}, { title: string }>> = ({ sliceContext }) =
         </Link>
         <div className="flex items-center gap-16pxr">
           <Link
-            to={ROUTES.PORTFOLIO}
+            to={ROUTES.ABOUT}
             className="rounded-sm focus-primary m-0pxr text-28pxr foldable:text-20pxr"
-            aria-label="Portfolio"
+            aria-label="About"
           >
-            Portfolio
+            About
           </Link>
           <ThemeToggle />
         </div>

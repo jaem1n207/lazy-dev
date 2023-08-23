@@ -3,10 +3,22 @@ import React from 'react';
 import { StaticImage } from 'gatsby-plugin-image';
 
 import ParentRefContainer from 'Apps/common/parent-ref-context/components/parent-ref-container';
-import AboutCard from 'Apps/portfolio/components/about-card';
-import ProjectCard from 'Apps/portfolio/components/project-card';
 
-const fakeProjectCards: Omit<React.ComponentProps<typeof ProjectCard>, 'index'>[] = [
+import ProjectCard from './project-card';
+
+const ProjectCardList = () => {
+  return (
+    <ParentRefContainer className="grid grid-cols-2 gap-24pxr foldable:grid-cols-1">
+      {projects.map((project, index) => (
+        <ProjectCard key={project.name} index={index} {...project} />
+      ))}
+    </ParentRefContainer>
+  );
+};
+
+const IMAGE_FOLDER_PATH = '../../../images';
+
+const projects: Omit<React.ComponentProps<typeof ProjectCard>, 'index'>[] = [
   {
     name: 'Synchronize Tab Scrolling',
     description: '여러 탭의 스크롤 위치를 동기화할 수 있는 크롬 확장 프로그램',
@@ -23,7 +35,7 @@ const fakeProjectCards: Omit<React.ComponentProps<typeof ProjectCard>, 'index'>[
     staticImageEl: (
       <StaticImage
         alt="project-thumbnail"
-        src="../images/skills/react.svg"
+        src={`${IMAGE_FOLDER_PATH}/skills/react.svg`}
         width={500}
         height={250}
         placeholder="blurred"
@@ -51,7 +63,7 @@ const fakeProjectCards: Omit<React.ComponentProps<typeof ProjectCard>, 'index'>[
     staticImageEl: (
       <StaticImage
         alt="project-thumbnail"
-        src="../images/skills/react.svg"
+        src={`${IMAGE_FOLDER_PATH}/skills/react.svg`}
         width={500}
         height={250}
         placeholder="blurred"
@@ -80,7 +92,7 @@ const fakeProjectCards: Omit<React.ComponentProps<typeof ProjectCard>, 'index'>[
     staticImageEl: (
       <StaticImage
         alt="project-thumbnail"
-        src="../images/skills/react.svg"
+        src={`${IMAGE_FOLDER_PATH}/skills/react.svg`}
         width={500}
         height={250}
         placeholder="blurred"
@@ -107,7 +119,7 @@ const fakeProjectCards: Omit<React.ComponentProps<typeof ProjectCard>, 'index'>[
     staticImageEl: (
       <StaticImage
         alt="project-thumbnail"
-        src="../images/skills/react.svg"
+        src={`${IMAGE_FOLDER_PATH}/skills/react.svg`}
         width={500}
         height={250}
         placeholder="blurred"
@@ -121,21 +133,4 @@ const fakeProjectCards: Omit<React.ComponentProps<typeof ProjectCard>, 'index'>[
   },
 ];
 
-const portfolio = () => {
-  return (
-    <div className="select-none max-w-[1200px] mx-auto px-36pxr desktop:px-24pxr foldable:px-20pxr foldable:pt-36pxr">
-      <h3 className="font-bold text-36pxr foldable:text-32pxr mb-24pxr">About</h3>
-      <div className="max-w-[700px] w-full mx-auto pt-16pxr">
-        <AboutCard />
-      </div>
-      <h3 className="font-bold text-36pxr foldable:text-32pxr my-24pxr">Projects</h3>
-      <ParentRefContainer className="grid grid-cols-2 gap-24pxr foldable:grid-cols-1">
-        {fakeProjectCards.map((project, index) => (
-          <ProjectCard key={project.name} index={index} {...project} />
-        ))}
-      </ParentRefContainer>
-    </div>
-  );
-};
-
-export default portfolio;
+export default ProjectCardList;

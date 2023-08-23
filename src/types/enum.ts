@@ -14,7 +14,7 @@ export const ROUTES = {
   BLOG_CATEGORY: {
     toUrl: (category: string) => `${ROUTES.HOME}?category=${category}`,
   },
-  PORTFOLIO: '/portfolio',
+  ABOUT: '/about',
 };
 
 export const ELEMENT_CLASS = {
