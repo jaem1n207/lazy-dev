@@ -10,7 +10,7 @@ interface EventManagerProps {
 
 export const toFit = (
   cb: () => void,
-  { dismissCondition = () => false, triggerCondition = () => true }: EventManagerProps
+  { dismissCondition = () => false, triggerCondition = () => true }: EventManagerProps,
 ) => {
   if (!cb) throw Error('Callback is required');
 

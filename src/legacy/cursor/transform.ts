@@ -26,15 +26,15 @@ export const movingElementsTransform = () => {
       -MAX_TRANSFORM_VALUE,
       Math.min(
         MAX_TRANSFORM_VALUE,
-        ((mouseX - left - width / 2) / (width / 2)) * MAX_TRANSFORM_VALUE
-      )
+        ((mouseX - left - width / 2) / (width / 2)) * MAX_TRANSFORM_VALUE,
+      ),
     );
     const ty = Math.max(
       -MAX_TRANSFORM_VALUE,
       Math.min(
         MAX_TRANSFORM_VALUE,
-        ((mouseY - top - height / 2) / (height / 2)) * MAX_TRANSFORM_VALUE
-      )
+        ((mouseY - top - height / 2) / (height / 2)) * MAX_TRANSFORM_VALUE,
+      ),
     );
     element.style.transform = `matrix(1, 0, 0, 1, ${tx * TRANSFORM_INCREMENT * 2}, ${
       ty * TRANSFORM_INCREMENT * 2

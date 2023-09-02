@@ -49,7 +49,7 @@ const Title = ({
         fontSize[size],
         titleColors[variant],
         className,
-        'transition-colors duration-500'
+        'transition-colors duration-500',
       )}
     >
       {children}
@@ -91,7 +91,7 @@ const Typography = ({
         textColorClassName,
         className,
         prose && 'prose prose-light dark:prose-dark',
-        'transition-colors duration-500'
+        'transition-colors duration-500',
       )}
     >
       {children}

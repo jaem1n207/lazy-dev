@@ -322,7 +322,10 @@ const pwaPlugins: GatsbyConfig['plugins'] = [
 
 const config: GatsbyConfig = {
   flags: {
+    PRESERVE_FILE_DOWNLOAD_CACHE: false,
     DEV_SSR: true,
+    FAST_DEV: true,
+    PARALLEL_SOURCING: true,
   },
   graphqlTypegen: true,
   siteMetadata,

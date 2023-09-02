@@ -108,8 +108,8 @@ const ProjectCard = ({
                     <StaticImage
                       alt="project-thumbnail"
                       src="../../../images/icons/arrow-up-right.svg"
-                      width={28}
-                      height={28}
+                      width={24}
+                      height={24}
                       placeholder="blurred"
                       layout="fixed"
                     />

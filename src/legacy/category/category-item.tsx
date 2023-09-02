@@ -26,7 +26,7 @@ const CategoryItem = ({
     'shadow-sm focus-primary bg-bg-tag border-1pxr border-border-secondary',
     {
       'mr-12pxr': title === CATEGORY_TYPE.ALL,
-    }
+    },
   );
 
   const handleClick = useCallback(() => {

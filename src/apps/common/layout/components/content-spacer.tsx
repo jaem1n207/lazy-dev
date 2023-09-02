@@ -17,7 +17,7 @@ const ContentSpacer = forwardRef<HTMLElement, ContentSpacerProps>(
         'mx-10vw': !compact,
         'mx-auto': compact,
       },
-      className
+      className,
     );
 
     return (
@@ -25,7 +25,7 @@ const ContentSpacer = forwardRef<HTMLElement, ContentSpacerProps>(
         {children}
       </Component>
     );
-  }
+  },
 );
 
 ContentSpacer.displayName = 'ContentSpacer';

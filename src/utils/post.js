@@ -52,7 +52,7 @@ const getCategory = async (targetDir) => {
         return data.category;
       })
       .filter((category) => !!category)
-      .map((category) => category.trim().toLowerCase())
+      .map((category) => category.trim().toLowerCase()),
   );
 };
 

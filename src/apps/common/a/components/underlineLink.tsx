@@ -15,7 +15,7 @@ interface UnderlineLinkProps extends LinkLikeComponentProps {}
 const UnderlineLink = memo(
   forwardRef<HTMLAnchorElement, UnderlineLinkProps>(function UnderlineLink(
     { children, ...props },
-    ref
+    ref,
   ) {
     const { url, external, className: customClassName, ...restProps } = props;
 
@@ -31,13 +31,13 @@ const UnderlineLink = memo(
         ref={ref}
         className={classNames(
           `text-primary shadow-text-underline hover:shadow-none transition-shadow focus-primary`,
-          customClassName
+          customClassName,
         )}
       >
         {children}
       </a>
     );
-  })
+  }),
 );
 
 export default UnderlineLink;

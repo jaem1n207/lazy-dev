@@ -15,7 +15,7 @@ export const useBio = () => {
           gatsbyImageData(placeholder: BLURRED, layout: FIXED, width: 200, height: 200)
         }
       }
-    `
+    `,
   );
 
   return {

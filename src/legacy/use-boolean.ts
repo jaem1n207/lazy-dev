@@ -6,7 +6,7 @@ type ReturnType = [
     on: () => void;
     off: () => void;
     toggle: () => void;
-  }
+  },
 ];
 
 export const useBoolean = (flag: boolean): ReturnType => {
@@ -15,7 +15,7 @@ export const useBoolean = (flag: boolean): ReturnType => {
     (newFlag: boolean) => {
       setState(newFlag);
     },
-    [setState]
+    [setState],
   );
   return [
     state,

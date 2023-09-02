@@ -18,7 +18,7 @@ const Grid = forwardRef<HTMLElement, GridProps>(
       {
         [`grid-row-gap-${rowGap}`]: rowGap,
       },
-      className
+      className,
     );
 
     const motionProps: MotionProps = animated
@@ -36,7 +36,7 @@ const Grid = forwardRef<HTMLElement, GridProps>(
         </Component>
       </motion.div>
     );
-  }
+  },
 );
 
 Grid.displayName = 'Grid';

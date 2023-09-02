@@ -27,7 +27,7 @@ const CategoryFilter = ({
   const categoryListRef = React.useRef<HTMLUListElement>(null);
   const sortedCategories = useMemo(
     () => [...categories].sort((a, b) => b.totalCount - a.totalCount),
-    [categories]
+    [categories],
   );
 
   const scrollToCenter = useCallback(
@@ -49,7 +49,7 @@ const CategoryFilter = ({
 
       categoryListRef.current.scroll({ left: targetScollX, top: 0, behavior: 'smooth' });
     },
-    [categoryListRef]
+    [categoryListRef],
   );
 
   return (

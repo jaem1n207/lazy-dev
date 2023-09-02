@@ -15,7 +15,7 @@ interface UnstyledLinkProps extends LinkLikeComponentProps {}
 const UnstyledLink = memo(
   forwardRef<HTMLAnchorElement, UnstyledLinkProps>(function UnstyledLink(
     { children, ...props },
-    ref
+    ref,
   ) {
     const { url, external, className: customClassName, ...restProps } = props;
 
@@ -34,7 +34,7 @@ const UnstyledLink = memo(
         {children}
       </a>
     );
-  })
+  }),
 );
 
 export default UnstyledLink;

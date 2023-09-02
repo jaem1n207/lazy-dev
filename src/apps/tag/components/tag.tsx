@@ -28,7 +28,7 @@ const Tag = ({ tag, checked, onChange, onKeyUp, disabled }: TagProps) => {
           'text-text-inner bg-bg-inner': checked,
           'focus-primary opacity-100': !disabled,
           'opacity-25': disabled,
-        }
+        },
       )}
       disabled={disabled}
       tabIndex={disabled ? -1 : 0}

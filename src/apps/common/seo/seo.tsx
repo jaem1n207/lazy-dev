@@ -70,7 +70,7 @@ const useSiteMetadata = () => {
           }
         }
       }
-    `
+    `,
   );
 
   if (!site?.siteMetadata) {

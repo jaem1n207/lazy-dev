@@ -27,7 +27,7 @@ export const sourceNodes: GatsbyNode['sourceNodes'] = ({
         type: `Author`,
         contentDigest: createContentDigest(author),
       },
-    })
+    }),
   );
 };
 
