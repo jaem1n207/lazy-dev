@@ -58,6 +58,14 @@ const projects: Omit<React.ComponentProps<typeof ProjectCard>, 'index'>[] = [
         name: 'TypeScript',
         colorClass: '!text-blue-400',
       },
+      {
+        name: 'Prisma',
+        colorClass: '!text-purple-400',
+      },
+      {
+        name: 'Socket.io',
+        colorClass: '!text-yellow-400',
+      },
     ],
     staticImageEl: (
       <StaticImage
