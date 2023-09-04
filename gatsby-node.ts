@@ -89,6 +89,42 @@ export const createPages: GatsbyNode['createPages'] = async ({ graphql, actions,
     });
   }
 
+  const tagTemplate = resolve('./src/apps/tag/templates/tag.tsx');
+
+  const tagResults = await graphql<Queries.allTagsQuery>(`
+    query allTags {
+      allTags: allMarkdownRemark(sort: { frontmatter: { tags: ASC } }) {
+        group(field: { frontmatter: { tags: SELECT } }) {
+          fieldValue
+          edges {
+            node {
+              id
+            }
+          }
+        }
+      }
+    }
+  `);
+
+  if (tagResults.errors) {
+    reporter.panicOnBuild('There was an error loading your tags', tagResults.errors);
+  }
+
+  const tags = tagResults.data?.allTags.group ?? [];
+
+  if (tags.length > 0) {
+    tags.forEach((tag) => {
+      createPage({
+        path: `/tags/${tag.fieldValue}`,
+        component: tagTemplate,
+        context: {
+          tag: tag.fieldValue,
+          ids: tag.edges.map((edge) => edge.node.id),
+        },
+      });
+    });
+  }
+
   const blogPostTemplate = resolve('./src/apps/post/templates/blog-post.tsx');
 
   const blogResult = await graphql<Queries.Query>(`
