@@ -9,12 +9,12 @@ import Seo from 'Apps/common/seo/seo';
 
 const About = () => {
   return (
-    <div className="select-none max-w-[1200px] mx-auto px-36pxr desktop:px-24pxr foldable:px-20pxr foldable:pt-36pxr">
-      <div className="max-w-[1200px] mx-auto pt-48pxr gap-48pxr flex items-center desktop:flex-col">
+    <div className="mx-auto max-w-[1200px] select-none px-36pxr desktop:px-24pxr foldable:px-20pxr foldable:pt-36pxr">
+      <div className="mx-auto flex max-w-[1200px] items-center gap-48pxr pt-48pxr desktop:flex-col">
         <Introduction />
         <AboutCard />
       </div>
-      <h3 className="font-bold text-36pxr foldable:text-32pxr my-24pxr">개인 프로젝트</h3>
+      <h3 className="my-24pxr text-36pxr font-bold foldable:text-32pxr">개인 프로젝트</h3>
       <ProjectCardList />
     </div>
   );

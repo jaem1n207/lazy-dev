@@ -55,7 +55,7 @@ const CategoryFilter = ({
   return (
     <Nav>
       <ContentSpacer>
-        <div className="flex items-center mx-auto rounded-lg border-border-primary border-1pxr bg-bg-secondary max-w-7xl px-24pxr py-12pxr foldable:py-8pxr foldable:px-16pxr">
+        <div className="mx-auto flex max-w-7xl items-center rounded-lg border-1pxr border-border-primary bg-bg-secondary px-24pxr py-12pxr foldable:py-8pxr foldable:px-16pxr">
           <CategoryItem
             title={CATEGORY_TYPE.ALL}
             selectedCategory={category}
@@ -63,10 +63,10 @@ const CategoryFilter = ({
             scrollToCenter={scrollToCenter}
             ACTIVE_ID={ACTIVE_ID}
           />
-          <div className="w-1pxr h-32pxr mx-8pxr -translate-x-[50%] bg-bg-divider" />
+          <div className="mx-8pxr h-32pxr w-1pxr -translate-x-[50%] bg-bg-divider" />
           <ul
             ref={categoryListRef}
-            className="flex w-full overflow-x-auto scroll-smooth gap-10pxr scrollbar-hide p-12pxr"
+            className="flex w-full gap-10pxr overflow-x-auto scroll-smooth p-12pxr scrollbar-hide"
           >
             {sortedCategories.map((categoryInfo) => {
               const { fieldValue } = categoryInfo;

@@ -36,7 +36,7 @@ const projects: Omit<React.ComponentProps<typeof ProjectCard>, 'index'>[] = [
       <StaticImage
         alt="project-thumbnail"
         src={`${IMAGE_FOLDER_PATH}/react-profile.jpg`}
-        className="w-full h-250pxr"
+        className="h-250pxr w-full"
         placeholder="blurred"
       />
     ),
@@ -71,7 +71,7 @@ const projects: Omit<React.ComponentProps<typeof ProjectCard>, 'index'>[] = [
       <StaticImage
         alt="project-thumbnail"
         src={`${IMAGE_FOLDER_PATH}/react-profile.jpg`}
-        className="w-full h-250pxr"
+        className="h-250pxr w-full"
         placeholder="blurred"
       />
     ),
@@ -96,7 +96,7 @@ const projects: Omit<React.ComponentProps<typeof ProjectCard>, 'index'>[] = [
       <StaticImage
         alt="project-thumbnail"
         src={`${IMAGE_FOLDER_PATH}/react-profile.jpg`}
-        className="w-full h-250pxr"
+        className="h-250pxr w-full"
         placeholder="blurred"
       />
     ),
@@ -123,7 +123,7 @@ const projects: Omit<React.ComponentProps<typeof ProjectCard>, 'index'>[] = [
       <StaticImage
         alt="project-thumbnail"
         src={`${IMAGE_FOLDER_PATH}/react-profile.jpg`}
-        className="w-full h-250pxr"
+        className="h-250pxr w-full"
         placeholder="blurred"
       />
     ),
@@ -148,7 +148,7 @@ const projects: Omit<React.ComponentProps<typeof ProjectCard>, 'index'>[] = [
       <StaticImage
         alt="project-thumbnail"
         src={`${IMAGE_FOLDER_PATH}/react-profile.jpg`}
-        className="w-full h-250pxr"
+        className="h-250pxr w-full"
         placeholder="blurred"
       />
     ),

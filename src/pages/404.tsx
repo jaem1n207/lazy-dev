@@ -15,7 +15,7 @@ const NotFoundPage: FC<PageProps<Queries.NotFoundQuery>> = () => {
   };
 
   return (
-    <div className="flex flex-col items-center justify-center select-none">
+    <div className="flex select-none flex-col items-center justify-center">
       <motion.div
         className="mb-16pxr p-12pxr"
         initial={animateVariant.hidden}
@@ -25,7 +25,7 @@ const NotFoundPage: FC<PageProps<Queries.NotFoundQuery>> = () => {
         <StaticImage src="../images/not-found.png" alt="bunny" placeholder="blurred" width={480} />
       </motion.div>
       <motion.h1
-        className="font-bold text-text-primary text-36pxr mb-12pxr"
+        className="mb-12pxr text-36pxr font-bold text-text-primary"
         initial={animateVariant.hidden}
         animate={animateVariant.show}
         variants={textVariant({ delay: 0.2 })}
@@ -33,7 +33,7 @@ const NotFoundPage: FC<PageProps<Queries.NotFoundQuery>> = () => {
         앗! 죄송해요.
       </motion.h1>
       <motion.p
-        className="text-center text-text-primary text-18pxr mb-16pxr"
+        className="mb-16pxr text-center text-18pxr text-text-primary"
         initial={animateVariant.hidden}
         animate={animateVariant.show}
         variants={textVariant({ delay: 0.4 })}
@@ -48,9 +48,9 @@ const NotFoundPage: FC<PageProps<Queries.NotFoundQuery>> = () => {
       >
         <button
           onClick={goHome}
-          className="inline-flex items-center font-medium rounded-md text-text-secondary text-16pxr bg-primary px-16pxr py-8pxr focus-primary"
+          className="focus-primary inline-flex items-center rounded-md bg-primary px-16pxr py-8pxr text-16pxr font-medium text-text-secondary"
         >
-          <GoHome className="w-20pxr h-20pxr mr-8pxr" />
+          <GoHome className="mr-8pxr h-20pxr w-20pxr" />
           블로그 홈으로 돌아갈게요.
         </button>
       </motion.div>

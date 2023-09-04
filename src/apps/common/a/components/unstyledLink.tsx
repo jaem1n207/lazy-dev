@@ -29,7 +29,7 @@ const UnstyledLink = memo(
         {...restProps}
         href={url}
         ref={ref}
-        className={classNames(`text-primary focus-primary`, customClassName)}
+        className={classNames(`focus-primary text-primary`, customClassName)}
       >
         {children}
       </a>

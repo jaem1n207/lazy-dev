@@ -40,13 +40,13 @@ const Introduction = () => {
   }, [currentKeywordIndex]);
 
   return (
-    <div className="flex-1 h-full max-w-full desktop:min-w-[80vw]">
+    <div className="h-full max-w-full flex-1 desktop:min-w-[80vw]">
       <Typography
         as="div"
-        className="h-full font-semibold tracking-tight my-8pxr text-36pxr tablet:text-30pxr"
+        className="my-8pxr h-full text-36pxr font-semibold tracking-tight tablet:text-30pxr"
       >
         저는
-        <div className="relative w-full overflow-hidden font-bold h-56pxr">
+        <div className="relative h-56pxr w-full overflow-hidden font-bold">
           {keywords.map((keyword, index) => (
             <motion.span
               key={keyword}
@@ -62,7 +62,7 @@ const Introduction = () => {
                 y: { duration: 1, ease: 'easeOut' },
                 opacity: { duration: 1, ease: 'easeOut' },
               }}
-              className="absolute w-full h-full"
+              className="absolute h-full w-full"
             >
               {keyword}
             </motion.span>

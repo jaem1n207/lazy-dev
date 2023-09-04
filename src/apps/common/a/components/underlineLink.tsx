@@ -30,7 +30,7 @@ const UnderlineLink = memo(
         href={url}
         ref={ref}
         className={classNames(
-          `text-primary shadow-text-underline hover:shadow-none transition-shadow focus-primary`,
+          `focus-primary text-primary shadow-text-underline transition-shadow hover:shadow-none`,
           customClassName,
         )}
       >

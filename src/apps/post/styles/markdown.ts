@@ -2,7 +2,7 @@ import styled from '@emotion/styled';
 
 import typography from './typography';
 
-const Markdown = styled.article<{ rhythm: typeof typography['rhythm'] }>`
+const Markdown = styled.article<{ rhythm: (typeof typography)['rhythm'] }>`
   & > * {
     margin-top: 1px;
     margin-bottom: 1px;
