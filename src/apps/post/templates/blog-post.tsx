@@ -1,13 +1,14 @@
 import React, { useEffect } from 'react';
 
 import { motion } from 'framer-motion';
-import { graphql, HeadProps, PageProps, Slice } from 'gatsby';
+import { graphql, HeadProps, Link, PageProps, Slice } from 'gatsby';
 import tw from 'twin.macro';
 
 import { FlowerCircleIcon, TagSvg } from 'Apps/common/icon/components/svg-icon';
 import { ContentSpacer, Grid, Spacer } from 'Apps/common/layout';
 import Seo from 'Apps/common/seo/seo';
 import { H1, H2 } from 'Apps/common/typography';
+import { ROUTES } from 'Types/enum';
 import { animateVariant, textVariant } from 'Utils/motion';
 import * as ScrollManager from 'Utils/scroll';
 
@@ -49,12 +50,13 @@ const BlogPost = ({ data }: PageProps<Queries.BlogPostBySlugQuery>) => {
             <div className="flex items-center gap-8pxr mt-8pxr text-all-custom-gray">
               <TagSvg size={18} />
               {frontmatter?.tags?.map((tag) => (
-                <div
+                <Link
                   key={tag}
+                  to={ROUTES.TAG.toUrl(tag!)}
                   className="font-bold rounded-full border-2pxr text-14pxr px-6pxr py-3pxr border-all-custom-gray"
                 >
                   {tag}
-                </div>
+                </Link>
               ))}
             </div>
           </header>

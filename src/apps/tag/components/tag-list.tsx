@@ -1,8 +1,11 @@
 import React from 'react';
 
+import { Link } from 'gatsby';
+
+import { ROUTES } from 'Types/enum';
+
 interface TagListProps {
   tags: Queries.HomeQuery['tags']['group'];
-  // toggleTag: (tag: string) => void;
 }
 
 const TagList = ({ tags }: TagListProps) => {
@@ -13,13 +16,12 @@ const TagList = ({ tags }: TagListProps) => {
         <ul className="flex flex-wrap gap-8pxr">
           {tags.map((tag) => (
             <li key={tag.fieldValue}>
-              <button
-                type="button"
+              <Link
+                to={ROUTES.TAG.toUrl(tag.fieldValue!)}
                 className="font-bold text-18pxr foldable:text-16pxr"
-                // onClick={() => toggleTag(tag.fieldValue)}
               >
                 {tag.fieldValue} ({tag.totalCount})
-              </button>
+              </Link>
             </li>
           ))}
         </ul>
