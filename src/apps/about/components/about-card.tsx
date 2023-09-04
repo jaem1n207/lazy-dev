@@ -68,7 +68,7 @@ const AboutCard = () => {
       </div>
 
       <div className="flex flex-col justify-center flex-1">
-        <div className="flex items-center justify-center w-4/5 mx-auto font-extrabold tracking-tight text-transparent -mt-24pxr gap-8pxr gradient-text">
+        <div className="flex items-center justify-center w-full mx-auto font-extrabold tracking-tight text-transparent -mt-24pxr gap-8pxr gradient-text">
           <p className="text-40pxr tablet:text-[4vw]">Front-end</p>
           <p className="text-48pxr tablet:text-[6vw]">web Developer</p>
         </div>
