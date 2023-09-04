@@ -10,7 +10,6 @@ import Seo from 'Apps/common/seo/seo';
 const About = () => {
   return (
     <div className="select-none max-w-[1200px] mx-auto px-36pxr desktop:px-24pxr foldable:px-20pxr foldable:pt-36pxr">
-      <h3 className="font-bold text-36pxr foldable:text-32pxr mb-24pxr">이재민</h3>
       <div className="max-w-[1200px] mx-auto pt-48pxr gap-48pxr flex items-center desktop:flex-col">
         <Introduction />
         <AboutCard />
