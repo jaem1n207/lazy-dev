@@ -34,7 +34,7 @@ const SunIcon = ({ className }: { className?: string }) => (
 const MoonIcon = ({ className }: { className?: string }) => (
   <svg
     xmlns="http://www.w3.org/2000/svg"
-    className={classNames('icon icon-tabler icon-tabler-moon-filled w-full h-full', className)}
+    className={classNames('icon icon-tabler icon-tabler-moon-filled h-full w-full', className)}
     viewBox="0 0 24 24"
     strokeWidth="1.5"
     stroke="#2e3039"
@@ -87,7 +87,7 @@ const ThemeToggle = () => {
     <NoneActiveWrapper>
       <button
         onClick={toggleTheme}
-        className="relative rounded-[50%] w-36pxr h-36pxr foldable:w-24pxr foldable:h-24pxr focus-primary"
+        className="focus-primary relative h-36pxr w-36pxr rounded-[50%] foldable:h-24pxr foldable:w-24pxr"
         aria-label={`Activate ${isDarkMode ? 'light' : 'dark'} mode`}
         title={`Activate ${isDarkMode ? 'light' : 'dark'} mode`}
       >

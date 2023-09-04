@@ -75,35 +75,35 @@ const ProjectCard = ({
       animate={animateVariant.show}
       variants={fadeIn({ direction: 'down', type: 'spring', delay: index * 0.2 })}
     >
-      <div className="w-full h-full border-2pxr bg-bg-secondary p-24pxr rounded-2xl foldable:w-full project-card border-slate-700 tablet:p-16pxr foldable:p-12pxr">
-        <div className="relative w-full h-250pxr">
-          <div className="w-full h-full">{staticImageEl}</div>
+      <div className="project-card h-full w-full rounded-2xl border-2pxr border-slate-700 bg-bg-secondary p-24pxr tablet:p-16pxr foldable:w-full foldable:p-12pxr">
+        <div className="relative h-250pxr w-full">
+          <div className="h-full w-full">{staticImageEl}</div>
 
           {(projectUrl.live || projectUrl.github) && (
             <div
-              className={`absolute flex inset-0pxr m-12pxr ${
+              className={`absolute inset-0pxr m-12pxr flex ${
                 projectUrl.live && projectUrl.github ? 'justify-between' : 'justify-end'
               }`}
             >
               {projectUrl.github && (
-                <div className="flex items-center justify-center rounded-full w-40pxr h-40pxr bg-bg-inner">
+                <div className="flex h-40pxr w-40pxr items-center justify-center rounded-full bg-bg-inner">
                   <a
                     href={projectUrl.github}
                     target="_blank"
                     rel="noreferrer"
-                    className="rounded-full focus-primary"
+                    className="focus-primary rounded-full"
                   >
                     {githubSvg}
                   </a>
                 </div>
               )}
               {projectUrl.live && (
-                <div className="flex items-center justify-center rounded-full w-40pxr h-40pxr bg-bg-inner">
+                <div className="flex h-40pxr w-40pxr items-center justify-center rounded-full bg-bg-inner">
                   <a
                     href={projectUrl.live}
                     target="_blank"
                     rel="noreferrer"
-                    className="rounded-full focus-primary"
+                    className="focus-primary rounded-full"
                   >
                     <StaticImage
                       alt="project-thumbnail"
@@ -120,15 +120,15 @@ const ProjectCard = ({
           )}
         </div>
         <div className="mt-20pxr">
-          <Typography as="h3" className="font-bold text-text-primary text-24pxr">
+          <Typography as="h3" className="text-24pxr font-bold text-text-primary">
             {name}
           </Typography>
-          <Typography as="p" className="text-text-secondary text-16pxr mt-8pxr">
+          <Typography as="p" className="mt-8pxr text-16pxr text-text-secondary">
             {description}
           </Typography>
         </div>
 
-        <div className="flex flex-wrap mt-20pxr gap-8pxr">
+        <div className="mt-20pxr flex flex-wrap gap-8pxr">
           {tags.map((tag) => (
             <Typography as="p" className={`text-14pxr ${tag.colorClass}`} key={tag.name}>
               #{tag.name}

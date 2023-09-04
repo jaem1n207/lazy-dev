@@ -49,29 +49,27 @@ const Seo = ({ description, title, thumbnail, pathname: propsPathname, children 
 };
 
 const useSiteMetadata = () => {
-  const { site } = useStaticQuery<Queries.SiteMetaDataQuery>(
-    graphql`
-      query SiteMetaData {
-        site {
-          siteMetadata {
-            author {
-              name
-              summary
-            }
-            description
-            lang
-            favicon
-            postTitle
-            siteUrl
-            social {
-              github
-            }
-            title
+  const { site } = useStaticQuery<Queries.SiteMetaDataQuery>(graphql`
+    query SiteMetaData {
+      site {
+        siteMetadata {
+          author {
+            name
+            summary
           }
+          description
+          lang
+          favicon
+          postTitle
+          siteUrl
+          social {
+            github
+          }
+          title
         }
       }
-    `,
-  );
+    }
+  `);
 
   if (!site?.siteMetadata) {
     console.error('site.siteMetadata is undefined');

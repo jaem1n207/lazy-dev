@@ -8,7 +8,7 @@ import ProjectCard from './project-card';
 
 const ProjectCardList = () => {
   return (
-    <ParentRefContainer className="grid grid-cols-2 gap-24pxr foldable:grid-cols-1">
+    <ParentRefContainer className="grid grid-cols-3 gap-24pxr foldable:grid-cols-1">
       {projects.map((project, index) => (
         <ProjectCard key={project.name} index={index} {...project} />
       ))}
@@ -16,7 +16,7 @@ const ProjectCardList = () => {
   );
 };
 
-const IMAGE_FOLDER_PATH = '../../../images';
+const IMAGE_FOLDER_PATH = '../../../../content/blog/thumbnails';
 
 const projects: Omit<React.ComponentProps<typeof ProjectCard>, 'index'>[] = [
   {
@@ -25,18 +25,18 @@ const projects: Omit<React.ComponentProps<typeof ProjectCard>, 'index'>[] = [
     tags: [
       {
         name: 'React',
-        colorClass: '!text-primary',
+        colorClass: '!text-green-400',
       },
       {
         name: 'TypeScript',
-        colorClass: '!text-green-400',
+        colorClass: '!text-blue-400',
       },
     ],
     staticImageEl: (
       <StaticImage
         alt="project-thumbnail"
-        src={`${IMAGE_FOLDER_PATH}/skills/react.svg`}
-        className="w-full h-250pxr"
+        src={`${IMAGE_FOLDER_PATH}/react-profile.jpg`}
+        className="h-250pxr w-full"
         placeholder="blurred"
       />
     ),
@@ -46,23 +46,57 @@ const projects: Omit<React.ComponentProps<typeof ProjectCard>, 'index'>[] = [
     },
   },
   {
-    name: 'Tech Blog',
-    description: '프론트엔드 웹 개발자를 위한 기술 블로그',
+    name: 'Party Cinema',
+    description:
+      '온라인에서 친구들과 함께 동영상을 시청하고, 채팅하고 즐겁게 놀 수 있는 공간입니다.',
     tags: [
       {
-        name: 'React',
-        colorClass: '!text-primary',
+        name: 'Next.js',
+        colorClass: '!text-text-primary',
       },
       {
         name: 'TypeScript',
-        colorClass: '!text-green-400',
+        colorClass: '!text-blue-400',
+      },
+      {
+        name: 'Prisma',
+        colorClass: '!text-purple-400',
+      },
+      {
+        name: 'Socket.io',
+        colorClass: '!text-yellow-400',
       },
     ],
     staticImageEl: (
       <StaticImage
         alt="project-thumbnail"
-        src={`${IMAGE_FOLDER_PATH}/skills/react.svg`}
-        className="w-full h-250pxr"
+        src={`${IMAGE_FOLDER_PATH}/react-profile.jpg`}
+        className="h-250pxr w-full"
+        placeholder="blurred"
+      />
+    ),
+    projectUrl: {
+      github: 'https://github.com/jaem1n207/party-cinema/tree/main',
+    },
+  },
+  {
+    name: 'Tech Blog',
+    description: '프론트엔드 웹 개발자를 위한 기술 블로그',
+    tags: [
+      {
+        name: 'Gatsby',
+        colorClass: '!text-violet',
+      },
+      {
+        name: 'TypeScript',
+        colorClass: '!text-blue-400',
+      },
+    ],
+    staticImageEl: (
+      <StaticImage
+        alt="project-thumbnail"
+        src={`${IMAGE_FOLDER_PATH}/react-profile.jpg`}
+        className="h-250pxr w-full"
         placeholder="blurred"
       />
     ),
@@ -78,18 +112,18 @@ const projects: Omit<React.ComponentProps<typeof ProjectCard>, 'index'>[] = [
     tags: [
       {
         name: 'React',
-        colorClass: '!text-primary',
+        colorClass: '!text-green-400',
       },
       {
         name: 'TypeScript',
-        colorClass: '!text-green-400',
+        colorClass: '!text-blue-400',
       },
     ],
     staticImageEl: (
       <StaticImage
         alt="project-thumbnail"
-        src={`${IMAGE_FOLDER_PATH}/skills/react.svg`}
-        className="w-full h-250pxr"
+        src={`${IMAGE_FOLDER_PATH}/react-profile.jpg`}
+        className="h-250pxr w-full"
         placeholder="blurred"
       />
     ),
@@ -103,18 +137,18 @@ const projects: Omit<React.ComponentProps<typeof ProjectCard>, 'index'>[] = [
     tags: [
       {
         name: 'React',
-        colorClass: '!text-primary',
+        colorClass: '!text-green-400',
       },
       {
         name: 'TypeScript',
-        colorClass: '!text-green-400',
+        colorClass: '!text-blue-400',
       },
     ],
     staticImageEl: (
       <StaticImage
         alt="project-thumbnail"
-        src={`${IMAGE_FOLDER_PATH}/skills/react.svg`}
-        className="w-full h-250pxr"
+        src={`${IMAGE_FOLDER_PATH}/react-profile.jpg`}
+        className="h-250pxr w-full"
         placeholder="blurred"
       />
     ),

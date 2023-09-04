@@ -22,10 +22,10 @@ const Tag = ({ tag, checked, onChange, onKeyUp, disabled }: TagProps) => {
       onChange={onChange}
       onKeyUp={onKeyUp}
       className={classNames(
-        `inline-block relative mb-16pxr mr-16pxr select-none h-auto w-auto rounded-full px-24pxr py-12pxr transition tablet:px-16pxr tablet:py-8pxr tablet:text-16pxr outline-none ${ELEMENT_CLASS.MOVING_ELEMENT} border-1pxr border-border-secondary`,
+        `relative mb-16pxr mr-16pxr inline-block h-auto w-auto select-none rounded-full px-24pxr py-12pxr outline-none transition tablet:px-16pxr tablet:py-8pxr tablet:text-16pxr ${ELEMENT_CLASS.MOVING_ELEMENT} border-1pxr border-border-secondary`,
         {
-          'text-text-primary bg-bg-tag': !checked,
-          'text-text-inner bg-bg-inner': checked,
+          'bg-bg-tag text-text-primary': !checked,
+          'bg-bg-inner text-text-inner': checked,
           'focus-primary opacity-100': !disabled,
           'opacity-25': disabled,
         },

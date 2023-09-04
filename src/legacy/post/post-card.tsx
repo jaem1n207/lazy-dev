@@ -46,14 +46,14 @@ const PostCard = ({
     <article className="relative w-full select-none drag-none">
       <Link
         to={ROUTES.BLOG_POST.toUrl(slug)}
-        className={`relative block w-full group peer focus:outline-none ${ELEMENT_CLASS.MOVING_ELEMENT}`}
+        className={`group peer relative block w-full focus:outline-none ${ELEMENT_CLASS.MOVING_ELEMENT}`}
       >
         <NoneActiveWrapper>
           <GatsbyImage
             image={image}
             alt={title ?? 'post thumbnail'}
             loading="lazy"
-            className="object-cover object-center w-full transition rounded-lg focus-primary"
+            className="focus-primary w-full rounded-lg object-cover object-center transition"
           />
         </NoneActiveWrapper>
         <H5 as="div" className="mt-32pxr" variant="secondary">
@@ -62,7 +62,7 @@ const PostCard = ({
         <H3 as="div" className="mt-16pxr">
           {title}
         </H3>
-        <H6 variant="secondary" as="div" className="truncate mt-8pxr">
+        <H6 variant="secondary" as="div" className="mt-8pxr truncate">
           {summary}
         </H6>
       </Link>

@@ -41,25 +41,25 @@ const HeroPostCard = ({ post }: HeroPostCardProps) => {
 
   return (
     <div className="w-full px-0pxr desktop:px-32pxr">
-      <div className="bg-transparent rounded-lg">
+      <div className="rounded-lg bg-transparent">
         <div className="mx-0pxr tablet:-mx-32pxr">
           <ContentSpacer>
             <Grid
               as="article"
-              className={`bg-bg-secondary rounded-lg pt-56pxr pb-48pxr desktop:pt-36pxr desktop:pb-24pxr group foldable:px-16pxr hero-section ${ELEMENT_CLASS.MOVING_ELEMENT}`}
+              className={`hero-section group rounded-lg bg-bg-secondary pt-56pxr pb-48pxr desktop:pt-36pxr desktop:pb-24pxr foldable:px-16pxr ${ELEMENT_CLASS.MOVING_ELEMENT}`}
             >
-              <div className="flex flex-col justify-between col-span-5 col-start-2 desktop:col-span-full">
+              <div className="col-span-5 col-start-2 flex flex-col justify-between desktop:col-span-full">
                 <NoneActiveWrapper>
                   <Link
                     aria-label={`Read more about ${post.title}`}
                     to={ROUTES.BLOG_POST.toUrl(post.slug)}
-                    className="absolute z-10 rounded-lg focus-primary inset-0pxr left-0pxr right-0pxr mobile:left-0pxr mobile:right-0pxr foldable:-left-16pxr foldable:-right-16pxr tablet:-left-48pxr tablet:-right-48pxr desktop:-left-96pxr desktop:-right-96pxr"
+                    className="focus-primary absolute inset-0pxr left-0pxr right-0pxr z-10 rounded-lg desktop:-left-96pxr desktop:-right-96pxr tablet:-left-48pxr tablet:-right-48pxr foldable:-left-16pxr foldable:-right-16pxr mobile:left-0pxr mobile:right-0pxr"
                   />
                 </NoneActiveWrapper>
 
                 <div>
                   <H5 as="h2">추천 글</H5>
-                  <H2 as="h3" className="mt-40pxr tablet:mt-32pxr text-text-primary">
+                  <H2 as="h3" className="mt-40pxr text-text-primary tablet:mt-32pxr">
                     {post.title}
                   </H2>
                   <H4 as="div" variant="secondary" className="mt-24pxr">
@@ -68,10 +68,10 @@ const HeroPostCard = ({ post }: HeroPostCardProps) => {
                 </div>
 
                 <div className="mt-24pxr desktop:mt-32pxr">
-                  <div className="relative w-24pxr h-24pxr desktop:w-32pxr desktop:h-32pxr">
-                    <div className="absolute w-full h-full transition-all duration-300 ease-in-out border-2 rounded-full border-primary group-hover:border-transparent group-hover:animate-arrow">
+                  <div className="relative h-24pxr w-24pxr desktop:h-32pxr desktop:w-32pxr">
+                    <div className="border-2 group-hover:animate-arrow absolute h-full w-full rounded-full border-primary transition-all duration-300 ease-in-out group-hover:border-transparent">
                       <svg
-                        className="absolute w-full h-full text-text-primary group-hover:text-primary"
+                        className="absolute h-full w-full text-text-primary group-hover:text-primary"
                         viewBox="0 0 24 24"
                         fill="none"
                         xmlns="http://www.w3.org/2000/svg"
@@ -96,12 +96,12 @@ const HeroPostCard = ({ post }: HeroPostCardProps) => {
                 </div>
               </div>
 
-              <div className="relative col-span-4 col-start-8 mt-40pxr tablet:mt-32pxr desktop:col-span-full">
+              <div className="relative col-span-4 col-start-8 mt-40pxr desktop:col-span-full tablet:mt-32pxr">
                 <GatsbyImage
                   image={image}
                   alt={post.title ?? 'post thumbnail'}
                   loading="lazy"
-                  className="object-cover object-center w-full transition rounded-lg"
+                  className="w-full rounded-lg object-cover object-center transition"
                 />
               </div>
             </Grid>

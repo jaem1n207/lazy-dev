@@ -14,6 +14,9 @@ export const ROUTES = {
   BLOG_CATEGORY: {
     toUrl: (category: string) => `${ROUTES.HOME}?category=${category}`,
   },
+  TAG: {
+    toUrl: (tag: string) => `${ROUTES.HOME}tags/${tag}`,
+  },
   ABOUT: '/about',
 };
 

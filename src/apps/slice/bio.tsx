@@ -14,7 +14,7 @@ const Bio = ({ data }: SliceComponentProps<Queries.BioByAuthorIdQuery>) => {
     <div className="flex">
       {avatar && (
         <GatsbyImage
-          className="rounded-full mr-12pxr min-w-72pxr"
+          className="min-w-72pxr mr-12pxr rounded-full"
           image={avatar}
           alt={author?.name || ''}
         />
@@ -27,7 +27,7 @@ const Bio = ({ data }: SliceComponentProps<Queries.BioByAuthorIdQuery>) => {
         <UnstyledLink
           external
           url={author?.github || ''}
-          className="rounded-sm text-16pxr focus-primary"
+          className="focus-primary rounded-sm text-16pxr"
         >
           GitHub
         </UnstyledLink>

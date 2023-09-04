@@ -32,7 +32,7 @@ const IndexPage: FC<PageProps<Queries.HomeQuery>> = ({ data }) => {
 
   return (
     <main>
-      <div className="grid relative mx-auto max-w-[1500px] grid-cols-main-three-large desktop:grid-cols-main-three-small tablet:grid-cols-main-two foldable:flex foldable:flex-col foldable:items-center">
+      <div className="relative mx-auto grid max-w-[1500px] grid-cols-main-three-large desktop:grid-cols-main-three-small tablet:grid-cols-main-two foldable:flex foldable:flex-col foldable:items-center">
         <TagList tags={tags} />
         <PostList posts={posts} />
         <ShortList shorts={shorts} />

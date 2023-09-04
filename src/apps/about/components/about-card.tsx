@@ -18,24 +18,24 @@ const AboutCard = () => {
         scale: 1,
         speed: 450,
       }}
-      className="flex flex-col content-between h-full transition-colors aspect-video rounded-2xl about-card-bg-gradient p-32pxr border-slate-700 border-2pxr foldable:p-16pxr"
+      className="about-card-bg-gradient flex aspect-video h-full flex-col content-between rounded-2xl border-2pxr border-slate-700 p-32pxr transition-colors foldable:p-16pxr"
     >
       <div className="flex items-center gap-8pxr">
         <GatsbyImage
-          className="object-cover rounded-full !w-40pxr !h-40pxr foldable:!w-28pxr foldable:!h-28pxr"
+          className="!h-40pxr !w-40pxr rounded-full object-cover foldable:!h-28pxr foldable:!w-28pxr"
           image={bio.profileImage?.gatsbyImageData!}
           alt="profile"
         />
 
         <div className="flex-1 overflow-hidden">
-          <Typography as="p" className="font-bold leading-6 truncate text-20pxr tablet:text-16pxr">
+          <Typography as="p" className="truncate text-20pxr font-bold leading-6 tablet:text-16pxr">
             {bio.author?.name}
           </Typography>
           <Typography
             as="p"
             prose={false}
             textColorClassName="text-primary"
-            className="font-bold truncate text-14pxr tablet:text-12pxr before:content-['@']"
+            className="truncate text-14pxr font-bold before:content-['@'] tablet:text-12pxr"
           >
             {bio.author?.githubName}
           </Typography>
@@ -67,15 +67,15 @@ const AboutCard = () => {
         />
       </div>
 
-      <div className="flex flex-col justify-center flex-1">
-        <div className="flex items-center justify-center w-4/5 mx-auto font-extrabold tracking-tight text-transparent -mt-24pxr gap-8pxr gradient-text">
+      <div className="flex flex-1 flex-col justify-center">
+        <div className="gradient-text mx-auto -mt-24pxr flex w-full items-center justify-center gap-8pxr font-extrabold tracking-tight text-transparent">
           <p className="text-40pxr tablet:text-[4vw]">Front-end</p>
           <p className="text-48pxr tablet:text-[6vw]">web Developer</p>
         </div>
       </div>
 
-      <div className="flex justify-center font-bold gap-20pxr text-12pxr text-slate-400">
-        <div className="flex items-center font-bold gap-8pxr">
+      <div className="flex justify-center gap-20pxr text-12pxr font-bold text-slate-400">
+        <div className="flex items-center gap-8pxr font-bold">
           <StaticImage
             alt="email"
             src="../../../images/icons/gmail.svg"
@@ -86,11 +86,11 @@ const AboutCard = () => {
           />
           <Typography className="select-all">{bio.author?.email}</Typography>
         </div>
-        <div className="opacity-50 border-r-1pxr border-slate-500" />
+        <div className="border-r-1pxr border-slate-500 opacity-50" />
         <UnstyledLink
           external
           url={bio.author?.github!}
-          className="flex items-center justify-center font-bold gap-8pxr rounded-sm !text-text-primary !shadow-none"
+          className="flex items-center justify-center gap-8pxr rounded-sm font-bold !text-text-primary !shadow-none"
         >
           <StaticImage
             alt="github"

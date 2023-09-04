@@ -12,19 +12,24 @@
 
 @layer utilities {
   .focus-primary {
-    @apply focus:outline-none focus-within:outline-none ring-primary ring-offset-4 ring-offset-white transition duration-300 focus-within:ring-2 focus-within:ring-primary hover:ring-2 hover:ring-primary focus:ring-2 focus:ring-primary disabled:ring-0 group-hover:ring-2 group-hover:ring-primary group-focus:ring-2 group-focus:ring-primary dark:ring-offset-gray-900;
+    @apply ring-primary ring-offset-4 ring-offset-white transition duration-300 focus-within:outline-none focus-within:ring-2 focus-within:ring-primary hover:ring-2 hover:ring-primary focus:outline-none focus:ring-2 focus:ring-primary disabled:ring-0 group-hover:ring-2 group-hover:ring-primary group-focus:ring-2 group-focus:ring-primary dark:ring-offset-gray-900;
   }
 }
 
 @layer components {
   .aside-scroll {
-    @apply top-40pxr sticky overflow-y-auto h-[calc(100vh-124px)] foldable:relative foldable:h-auto foldable:top-0pxr;
+    @apply sticky top-40pxr h-[calc(100vh-124px)] overflow-y-auto foldable:relative foldable:top-0pxr foldable:h-auto;
   }
 }
 
 @layer base {
   body {
-    font-family: Pretendard Variable, Apple SD Gothic Neo, Segoe UI, sans-serif, Apple Color Emoji,
+    font-family:
+      Pretendard Variable,
+      Apple SD Gothic Neo,
+      Segoe UI,
+      sans-serif,
+      Apple Color Emoji,
       Segoe UI Emoji;
   }
 
@@ -176,10 +181,12 @@
     transparent;
   background-attachment: fixed;
   pointer-events: none;
-  mask: linear-gradient(white, white) 50% 0 / 100% 4px no-repeat,
+  mask:
+    linear-gradient(white, white) 50% 0 / 100% 4px no-repeat,
     linear-gradient(white, white) 50% 100% / 100% 4px no-repeat,
     linear-gradient(white, white) 0 50% / 4px 100% no-repeat,
     linear-gradient(white, white) 100% 50% / 4px 100% no-repeat;
+  border-radius: calc(1rem - 4px);
 }
 
 .project-card:after {
