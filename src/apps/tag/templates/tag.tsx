@@ -52,7 +52,7 @@ export const Head = ({
     ids: string[];
   }
 >) => {
-  return <Seo title={pageContext.tag} pathname={location.pathname} />;
+  return <Seo title={`${pageContext.tag} posts`} pathname={location.pathname} />;
 };
 
 export const query = graphql`
