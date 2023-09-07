@@ -5,7 +5,8 @@ import { HeadFC, HeadProps } from 'gatsby';
 import AboutCard from 'Apps/about/components/about-card';
 import Introduction from 'Apps/about/components/introduction';
 import ProjectCardList from 'Apps/about/components/project-card-list';
-import Seo from 'Apps/common/seo/seo';
+// import Seo from 'Apps/common/seo/seo';
+import SEOWrapper from 'Apps/common/seo/test-seo';
 
 const About = () => {
   return (
@@ -21,7 +22,15 @@ const About = () => {
 };
 
 export const Head: HeadFC = ({ location }: HeadProps) => (
-  <Seo title="About" pathname={location.pathname} />
+  <SEOWrapper
+    metadata={{
+      title: 'About',
+      openGraph: {
+        url: location.pathname,
+      },
+    }}
+  />
+  // title="About" pathname={location.pathname} />
 );
 
 export default About;

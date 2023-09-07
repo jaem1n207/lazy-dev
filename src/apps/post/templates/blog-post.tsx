@@ -6,7 +6,8 @@ import tw from 'twin.macro';
 
 import { FlowerCircleIcon, TagSvg } from 'Apps/common/icon/components/svg-icon';
 import { ContentSpacer, Grid, Spacer } from 'Apps/common/layout';
-import Seo from 'Apps/common/seo/seo';
+// import Seo from 'Apps/common/seo/seo';
+import SEOWrapper from 'Apps/common/seo/test-seo';
 import { H1, H2 } from 'Apps/common/typography';
 import { ROUTES } from 'Types/enum';
 import { animateVariant, textVariant } from 'Utils/motion';
@@ -124,11 +125,18 @@ export const Head = ({
   const siteUrl = site?.siteMetadata?.siteUrl;
 
   return (
-    <Seo
-      title={post?.frontmatter?.title ?? 'Blog Post'}
-      description={post?.frontmatter?.summary ?? 'Post Summary'}
-      pathname={location.pathname}
-      thumbnail={`${siteUrl}${post?.frontmatter?.thumbnail?.childImageSharp?.fixed?.src}`}
+    <SEOWrapper
+      metadata={{
+        title: post?.frontmatter?.title,
+        description: post?.frontmatter?.summary,
+        openGraph: {
+          url: `${siteUrl}${location.pathname}`,
+        },
+      }}
+      // title={post?.frontmatter?.title ?? 'Blog Post'}
+      // description={post?.frontmatter?.summary ?? 'Post Summary'}
+      // pathname={location.pathname}
+      // thumbnail={`${siteUrl}${post?.frontmatter?.thumbnail?.childImageSharp?.fixed?.src}`}
     />
   );
 };

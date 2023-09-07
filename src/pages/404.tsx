@@ -5,7 +5,8 @@ import { graphql, HeadFC, navigate, PageProps } from 'gatsby';
 import { StaticImage } from 'gatsby-plugin-image';
 
 import { GoHome } from 'Apps/common/icon/components/svg-icon';
-import Seo from 'Apps/common/seo/seo';
+// import Seo from 'Apps/common/seo/seo';
+import SEOWrapper from 'Apps/common/seo/test-seo';
 import { ROUTES } from 'Types/enum';
 import { animateVariant, textVariant } from 'Utils/motion';
 
@@ -60,7 +61,13 @@ const NotFoundPage: FC<PageProps<Queries.NotFoundQuery>> = () => {
 
 export default NotFoundPage;
 
-export const Head: HeadFC = () => <Seo title="404: Not Found" />;
+export const Head: HeadFC = () => (
+  <SEOWrapper
+    metadata={{
+      title: '404: Not Found',
+    }}
+  />
+);
 
 export const pageQuery = graphql`
   query NotFound {

@@ -3,7 +3,8 @@ import React from 'react';
 import { motion } from 'framer-motion';
 import { HeadProps, PageProps, graphql } from 'gatsby';
 
-import Seo from 'Apps/common/seo/seo';
+// import Seo from 'Apps/common/seo/seo';
+import SEOWrapper from 'Apps/common/seo/test-seo';
 import { Typography } from 'Apps/common/typography';
 import PostCard from 'Apps/post/components/post-card';
 import { animateVariant, textVariant } from 'Utils/motion';
@@ -50,7 +51,17 @@ export const Head = ({
     ids: string[];
   }
 >) => {
-  return <Seo title={`${pageContext.tag} posts`} pathname={location.pathname} />;
+  return (
+    <SEOWrapper
+      metadata={{
+        title: `${pageContext.tag} posts`,
+        openGraph: {
+          url: location.pathname,
+        },
+      }}
+    />
+  );
+  // title={`${pageContext.tag} posts`} pathname={location.pathname} />;
 };
 
 export const query = graphql`

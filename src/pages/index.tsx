@@ -2,7 +2,8 @@ import React, { FC } from 'react';
 
 import { graphql, HeadFC, HeadProps, PageProps } from 'gatsby';
 
-import Seo from 'Apps/common/seo/seo';
+// import Seo from 'Apps/common/seo/seo';
+import SEOWrapper from 'Apps/common/seo/test-seo';
 import PostList from 'Apps/post/components/post-list';
 import ShortList from 'Apps/post/components/short-list';
 import TagList from 'Apps/tag/components/tag-list';
@@ -44,7 +45,15 @@ const IndexPage: FC<PageProps<Queries.HomeQuery>> = ({ data }) => {
 export default IndexPage;
 
 export const Head: HeadFC = ({ location }: HeadProps) => (
-  <Seo title="Lazy Dev" pathname={location.pathname} />
+  <SEOWrapper
+    metadata={{
+      title: 'Lazy Dev',
+      openGraph: {
+        url: location.pathname,
+      },
+    }}
+  />
+  // title="Lazy Dev" pathname={location.pathname} />
 );
 
 export const pageQuery = graphql`
