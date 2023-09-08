@@ -117,29 +117,22 @@ const BlogPost = ({ data }: PageProps<Queries.BlogPostBySlugQuery>) => {
   );
 };
 
-export const Head = ({
-  data: { post, site },
-  location,
-}: HeadProps<Queries.BlogPostBySlugQuery>) => {
-  const siteUrl = site?.siteMetadata?.siteUrl;
-
+export const Head = ({ data: { post }, location }: HeadProps<Queries.BlogPostBySlugQuery>) => {
   return (
     <Seo
       title={post?.frontmatter?.title ?? 'Blog Post'}
       description={post?.frontmatter?.summary ?? 'Post Summary'}
-      pathname={location.pathname}
-      thumbnail={`${siteUrl}${post?.frontmatter?.thumbnail?.childImageSharp?.fixed?.src}`}
+      openGraph={{
+        type: 'article',
+        url: location.pathname,
+        image: post?.frontmatter?.thumbnail?.childImageSharp?.fixed?.src,
+      }}
     />
   );
 };
 
 export const query = graphql`
   query BlogPostBySlug($slug: String!, $tags: [String]!) {
-    site {
-      siteMetadata {
-        siteUrl
-      }
-    }
     post: markdownRemark(fields: { slug: { eq: $slug } }) {
       id
       html

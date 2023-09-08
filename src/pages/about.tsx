@@ -21,7 +21,13 @@ const About = () => {
 };
 
 export const Head: HeadFC = ({ location }: HeadProps) => (
-  <Seo title="About" pathname={location.pathname} />
+  <Seo
+    title="About Lazy Dev"
+    openGraph={{
+      type: 'website',
+      url: location.pathname,
+    }}
+  />
 );
 
 export default About;

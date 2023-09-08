@@ -22,7 +22,7 @@ export const onRenderBody: GatsbySSR['onRenderBody'] = ({
     className: 'min-h-screen antialiased tracking-tight text-text-primary bg-bg-primary transition',
   });
   setHtmlAttributes({
-    lang: 'en',
+    lang: 'ko',
   });
   setPreBodyComponents([
     <script

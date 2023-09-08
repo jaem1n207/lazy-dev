@@ -50,7 +50,15 @@ export const Head = ({
     ids: string[];
   }
 >) => {
-  return <Seo title={`${pageContext.tag} posts`} pathname={location.pathname} />;
+  return (
+    <Seo
+      title={`${pageContext.tag} posts`}
+      openGraph={{
+        type: 'website',
+        url: location.pathname,
+      }}
+    />
+  );
 };
 
 export const query = graphql`

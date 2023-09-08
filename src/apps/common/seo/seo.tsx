@@ -2,46 +2,52 @@ import React, { ReactNode } from 'react';
 
 import { useStaticQuery, graphql } from 'gatsby';
 
-interface SeoProps extends Pick<Queries.SiteSiteMetadata, 'title'> {
-  description?: Queries.Maybe<string>;
-  thumbnail?: Queries.Maybe<string>;
-  pathname?: string;
+interface SeoProps {
+  title?: string | null;
+  description?: string | null;
   children?: ReactNode;
+  openGraph?: {
+    type?: 'website' | 'article';
+    url?: string;
+    image?: string | null;
+  } | null;
 }
 
-const Seo = ({ description, title, thumbnail, pathname: propsPathname, children }: SeoProps) => {
+const Seo = ({ description, title, openGraph, children }: SeoProps) => {
   const site = useSiteMetadata();
 
   const seo = {
     title: title || site?.title!,
     description: description || site?.description!,
-    image: thumbnail || undefined,
-    url: `${site?.siteUrl}${propsPathname || ''}`,
-    author: site?.author!.name || '',
+    author: site?.author!.name || null,
+    openGraph: {
+      type: openGraph?.type || 'website',
+      url: `${site?.siteUrl}${openGraph?.url}` || null,
+      image: `${site?.siteUrl}${openGraph?.image || site?.favicon}` || null,
+    },
   };
 
   return (
     <>
       {/* HTML Meta Tags */}
-      <title>{site?.title ? `${title} | ${site.title}` : title}</title>
+      <title>{seo.title}</title>
       <meta name="description" content={seo.description} />
       <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
       {/* Facebook Meta Tags */}
-      <meta property="og:url" content={seo.url} />
-      <meta property="og:type" content="website" />
+      {seo.openGraph.url && <meta property="og:url" content={seo.openGraph.url} />}
+      <meta property="og:type" content={seo.openGraph.type} />
       <meta property="og:title" content={seo.title} />
       <meta property="og:description" content={seo.description} />
-      <meta property="og:image" content={seo.image} />
-      <meta property="og:site_name" content={seo.title} />
+      <meta property="og:image" content={seo.openGraph.image || ''} />
       <meta property="og:locale" content="ko_KR" />
 
       {/* Twitter Meta Tags */}
       <meta name="twitter:card" content="summary_large_image" />
       <meta name="twitter:title" content={seo.title} />
       <meta name="twitter:description" content={seo.description} />
-      <meta name="twitter:image" content={seo.image} />
-      <meta name="twitter:creator" content={seo.author} />
+      <meta name="twitter:image" content={seo.openGraph.image || ''} />
+      <meta name="twitter:creator" content={seo?.author || ''} />
 
       {children}
     </>

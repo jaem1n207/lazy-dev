@@ -44,7 +44,13 @@ const IndexPage: FC<PageProps<Queries.HomeQuery>> = ({ data }) => {
 export default IndexPage;
 
 export const Head: HeadFC = ({ location }: HeadProps) => (
-  <Seo title="Lazy Dev" pathname={location.pathname} />
+  <Seo
+    openGraph={{
+      type: 'website',
+      url: location.pathname,
+      image: '/images/favicon.png',
+    }}
+  />
 );
 
 export const pageQuery = graphql`
