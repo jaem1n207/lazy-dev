@@ -138,7 +138,6 @@ console.log(isEmptyUsingForIn(obj)); // false
 ```tsx
 const prototypeObj = {
   inheritedProp1: 'value1',
-  inheritedProp2: 'value2',
 };
 const obj = Object.create(prototypeObj);
 
@@ -154,7 +153,7 @@ const isEmptyUsingForInWithHasOwnProperty = <T extends Record<string, unknown>>(
 
 console.log(isEmptyUsingForInWithHasOwnProperty({})); // true
 console.log(isEmptyUsingForInWithHasOwnProperty({ a: 1 })); // false
-console.log(isEmptyUsingForInWithHasOwnProperty(obj)); // false
+console.log(isEmptyUsingForInWithHasOwnProperty(obj)); // true
 ```
 
 프로토타입 체인에서 속성을 제외하기 위해서 `hasOwnProperty` 검사가 필요하므로 약간 복잡해 보일 수
@@ -203,11 +202,11 @@ for (let i = 0; i < 100_000; i++) {
 작은 객체에서 사용하면 좋습니다. `for...in` 루프는 큰 객체의 경우 선택사항이 될 수 있습니다.
 
 이런 측면에선 어느 게 더 빠른가에 대해서는 중요하지 않습니다. 벤치마크를 통해 볼 수 있듯 속도에 있어
-성능 차이가 크지 않습니다. 그리고 Donald Knuth가 말했듯이
-`약 97%의 경우 작은 효율성은 잊어야 하며 성급한 최적화는 모든 악의 근원`입니다. 여기에 최적화를 위해
-시간을 쏟아부어도 얻는 효과는 크지 않다는 것이죠. 중요한 것은 필요한 코드를 최적화 해야 하는
-것입니다. 데이터 모델을 잘 설계했다면 데이터 모델로 인해 문제가 발생할 가능성은 거의 없습니다.
-문제를 발견하면 코드를 프로파일링하고 원인을 찾고 그때 최적화해도 됩니다.
+성능 차이가 크지 않습니다. 여기에 최적화를 위해 시간을 쏟아부어도 얻는 효과는 크지 않다는 것이죠.
+그리고 Donald Knuth가 말했듯이
+`약 97%의 경우 작은 효율성은 잊어야 하며 성급한 최적화는 모든 악의 근원`입니다. 중요한 것은 필요한
+코드를 최적화 해야 하는 것입니다. 데이터 모델을 잘 설계했다면 데이터 모델로 인해 문제가 발생할
+가능성은 거의 없습니다. 문제를 발견하면 코드를 프로파일링하고 원인을 찾고 그때 최적화해도 됩니다.
 
 ## 참고
 
