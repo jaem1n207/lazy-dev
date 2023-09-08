@@ -72,27 +72,6 @@ const isEmptyString = (value) => {
 };
 
 /**
- * @name validateCapitalLetter
- * @description Validate that the input does not contain capital letters
- *
- * @example
- * validateCapitalLetter('hello') // true
- * validateCapitalLetter('Hello') // '태그에는 대문자를 사용할 수 없어요'
- *
- * @param {string} input
- * @returns {boolean|string} If the input contains capital letters, return a string. Otherwise, return true.
- */
-const validateCapitalLetter = (input) => {
-  const capitalLetterRegex = /[A-Z]/;
-  const hasCapitalLetter = capitalLetterRegex.test(input);
-  if (hasCapitalLetter) {
-    return '태그에는 대문자를 사용할 수 없어요';
-  }
-
-  return true;
-};
-
-/**
  * @name validateSpecialSymbol
  * @description Validate that the input does not contain special symbols
  *
@@ -192,11 +171,6 @@ const getContentsInquirer = async () => {
           return true;
         }
 
-        const isCapitalLetter = validateCapitalLetter(input);
-        if (isCapitalLetter !== true) {
-          return isCapitalLetter;
-        }
-
         const isSpecialSymbol = validateSpecialSymbol(input);
         if (isSpecialSymbol !== true) {
           return isSpecialSymbol;
@@ -215,11 +189,6 @@ const getContentsInquirer = async () => {
       validate: (input) => {
         if (isEmptyString(input)) {
           return true;
-        }
-
-        const isCapitalLetter = validateCapitalLetter(input);
-        if (isCapitalLetter !== true) {
-          return isCapitalLetter;
         }
 
         const isSpecialSymbol = validateSpecialSymbol(input);
