@@ -130,6 +130,10 @@ const Markdown = styled.article<{ rhythm: (typeof typography)['rhythm'] }>`
     color: var(--color-paragraph-text);
   }
 
+  blockquote > p:first-of-type {
+    margin: 0;
+  }
+
   p {
     font-size: 1.05rem;
     color: var(--color-paragraph-text);

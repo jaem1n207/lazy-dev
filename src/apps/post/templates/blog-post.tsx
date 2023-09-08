@@ -120,8 +120,8 @@ const BlogPost = ({ data }: PageProps<Queries.BlogPostBySlugQuery>) => {
 export const Head = ({ data: { post }, location }: HeadProps<Queries.BlogPostBySlugQuery>) => {
   return (
     <Seo
-      title={post?.frontmatter?.title ?? 'Blog Post'}
-      description={post?.frontmatter?.summary ?? 'Post Summary'}
+      title={`${post?.frontmatter?.title} | Lazy Dev`}
+      description={post?.frontmatter?.summary}
       openGraph={{
         type: 'article',
         url: location.pathname,
