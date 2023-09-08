@@ -168,10 +168,11 @@ const Markdown = styled.article<{ rhythm: (typeof typography)['rhythm'] }>`
     color: var(--color-text-primary);
     background-color: var(--color-pre-bg);
     text-align: left;
-    white-space: pre;
+    white-space: pre-wrap;
     word-spacing: normal;
     word-break: normal;
     word-wrap: normal;
+    overflow-x: auto;
 
     -moz-tab-size: 2;
     -o-tab-size: 2;

@@ -31,7 +31,7 @@ const BlogPost = ({ data }: PageProps<Queries.BlogPostBySlugQuery>) => {
   }, []);
 
   return (
-    <ContentSpacer>
+    <ContentSpacer className="foldable:mx-16pxr">
       <Grid>
         <div css={tw`col-span-4 col-start-12 desktop:visually-hide`}>
           <TableOfContents toc={tableOfContents} />

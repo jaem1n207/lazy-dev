@@ -5,4 +5,4 @@
 
 npx lint-staged
 
-# . "$(dirname "$0")/../git-hooks/pre-image-optimize.sh"
+. "$(dirname "$0")/../git-hooks/pre-image-optimize.sh"

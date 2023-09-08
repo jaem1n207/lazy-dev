@@ -62,7 +62,7 @@ export const pageQuery = graphql`
       }
     }
     posts: allMarkdownRemark(
-      filter: { fileAbsolutePath: { regex: "/(content|blog)/" }, timeToRead: { gte: 5 } }
+      filter: { fileAbsolutePath: { regex: "/(content|blog)/" }, timeToRead: { gte: 3 } }
       sort: { frontmatter: { date: DESC } }
     ) {
       edges {
@@ -86,7 +86,7 @@ export const pageQuery = graphql`
       }
     }
     shorts: allMarkdownRemark(
-      filter: { fileAbsolutePath: { regex: "/(content|blog)/" }, timeToRead: { lte: 4 } }
+      filter: { fileAbsolutePath: { regex: "/(content|blog)/" }, timeToRead: { lte: 2 } }
       sort: { frontmatter: { date: DESC } }
     ) {
       edges {
