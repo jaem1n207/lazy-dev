@@ -150,10 +150,10 @@ const Markdown = styled.article<{ rhythm: (typeof typography)['rhythm'] }>`
 
   blockquote {
     border-left: 0.25rem solid var(--color-blockquote);
-    padding-left: 8px;
+    padding-left: 1.5rem;
     margin: 12px 0;
     * {
-      color: var(--color-blockquote);
+      color: var(--color-paragraph-blockquote);
     }
   }
 
