@@ -119,7 +119,7 @@
     --color-bg-tag: var(--color-gray-700);
 
     /* markdown */
-    --color-paragraph-text: var(--color-gray-350);
+    --color-paragraph-text: var(--color-gray-200);
     --color-border-highlight: var(--color-gray-700);
     --color-th-highlight: var(--color-black-900);
     --color-blockquote: var(--color-gray-500);
