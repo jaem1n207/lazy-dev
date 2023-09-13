@@ -62,7 +62,7 @@ const BlogPost = ({ data }: PageProps<Queries.BlogPostBySlugQuery>) => {
           </header>
 
           <section>
-            <div className="relative mt-56pxr mb-32pxr h-1pxr w-full bg-gradient-to-r from-primary to-gradient-cyan box-decoration-slice">
+            <div className="relative mb-32pxr mt-56pxr h-1pxr w-full bg-gradient-to-r from-primary to-gradient-cyan box-decoration-slice">
               <div className="absolute -top-24pxr left-[calc(50%-2.25rem)] flex justify-center bg-bg-primary px-12pxr">
                 <FlowerCircleIcon className="bg-bg-primary fill-primary" size={48} />
               </div>
