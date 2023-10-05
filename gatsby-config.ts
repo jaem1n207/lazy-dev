@@ -57,56 +57,56 @@ const corePlugins: GatsbyConfig['plugins'] = [
     },
   },
   'gatsby-transformer-json',
-  {
-    resolve: `gatsby-plugin-gatsby-cloud`,
-    options: {
-      headers: {
-        '/*.css': ['Cache-Control: public, max-age=31536000, immutable'],
-        '/images/*': ['Cache-Control: public, max-age=0, must-revalidate'],
-        '/static/*': ['Cache-Control: public, max-age=0, must-revalidate'],
-        '/fonts/*': ['Cache-Control: public, max-age=0, must-revalidate'],
-        '/page-data/*': ['Cache-Control: public, max-age=0, must-revalidate'],
-        '/app-data.json': ['Cache-Control: public, max-age=0, must-revalidate'],
-        '/sw.js': ['Cache-Control: public, max-age=0, must-revalidate'],
-        '/**/*.html': ['Cache-Control: public, max-age=0, must-revalidate'],
-        '/sitemap-*.xml': ['Cache-Control: public, max-age=0, must-revalidate'],
-        '/rss.xml': ['Cache-Control: public, max-age=0, must-revalidate'],
-      }, // 헤더를 추가하는 옵션입니다. `Link` 헤더는 아래 기준으로 변환됩니다
-      /**
-       * @see: https://cheatsheetseries.owasp.org/cheatsheets/HTTP_Strict_Transport_Security_Cheat_Sheet.html
-       * @see: https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Content-Security-Policy
-       * @see: https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Permissions-Policy
-       * @see: https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Referrer-Policy
-       * @see: https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/X-Content-Type-Options
-       * @see: https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/X-Frame-Options
-       * @see: https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Strict-Transport-Security
-       * @see: https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Feature-Policy
-       * @see: https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Expect-CT
-       * @see: https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Content-Security-Policy/report-to
-       * @see: https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Content-Security-Policy/require-sri-for
-       * @see: https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Content-Security-Policy/sandbox
-       * @see: https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Content-Security-Policy/upgrade-insecure-requests
-       *
-       * @see: https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Permissions-Policy/geolocation
-       * @see: https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Permissions-Policy/microphone
-       * @see: https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Permissions-Policy/camera
-       * @see: https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Permissions-Policy/payment
-       */
-      allPageHeaders: [
-        'Strict-Transport-Security: max-age=31536000; includeSubDomains; preload',
-        'X-Content-Type-Options: nosniff',
-        'X-Frame-Options: SAMEORIGIN',
-        'Referrer-Policy: no-referrer-when-downgrade',
-        "Content-Security-Policy: default-src https: data: 'unsafe-inline' 'unsafe-eval'",
-        'Permissions-Policy: geolocation=(), microphone=(), camera=(), payment=()',
-      ], // 모든 페이지의 헤더를 추가하는 옵션. `Link` 헤더는 아래 기준으로 변환됩니다.
-      mergeSecurityHeaders: true, // 기본적인 보안 헤더를 해제할지 여부
-      mergeLinkHeaders: true, // 기본적인 Gatsby.js 헤더를 해제할지 여부
-      mergeCachingHeaders: true, // 기본 캐싱 헤더를 해제할지 여부
-      transformHeaders: (headers: any) => headers, // 각 경로(예: 헤더)에서 헤더를 조작하기 위한 선택적 변환 함수
-      generateMatchPathRewrites: true, // 클라이언트 전용 경로에 대한 리디렉션 규칙 자동 작성을 해제할지 여부
-    },
-  },
+  // {
+  //   resolve: `gatsby-plugin-gatsby-cloud`,
+  //   options: {
+  //     headers: {
+  //       '/*.css': ['Cache-Control: public, max-age=31536000, immutable'],
+  //       '/images/*': ['Cache-Control: public, max-age=0, must-revalidate'],
+  //       '/static/*': ['Cache-Control: public, max-age=0, must-revalidate'],
+  //       '/fonts/*': ['Cache-Control: public, max-age=0, must-revalidate'],
+  //       '/page-data/*': ['Cache-Control: public, max-age=0, must-revalidate'],
+  //       '/app-data.json': ['Cache-Control: public, max-age=0, must-revalidate'],
+  //       '/sw.js': ['Cache-Control: public, max-age=0, must-revalidate'],
+  //       '/**/*.html': ['Cache-Control: public, max-age=0, must-revalidate'],
+  //       '/sitemap-*.xml': ['Cache-Control: public, max-age=0, must-revalidate'],
+  //       '/rss.xml': ['Cache-Control: public, max-age=0, must-revalidate'],
+  //     }, // 헤더를 추가하는 옵션입니다. `Link` 헤더는 아래 기준으로 변환됩니다
+  //     /**
+  //      * @see: https://cheatsheetseries.owasp.org/cheatsheets/HTTP_Strict_Transport_Security_Cheat_Sheet.html
+  //      * @see: https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Content-Security-Policy
+  //      * @see: https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Permissions-Policy
+  //      * @see: https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Referrer-Policy
+  //      * @see: https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/X-Content-Type-Options
+  //      * @see: https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/X-Frame-Options
+  //      * @see: https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Strict-Transport-Security
+  //      * @see: https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Feature-Policy
+  //      * @see: https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Expect-CT
+  //      * @see: https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Content-Security-Policy/report-to
+  //      * @see: https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Content-Security-Policy/require-sri-for
+  //      * @see: https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Content-Security-Policy/sandbox
+  //      * @see: https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Content-Security-Policy/upgrade-insecure-requests
+  //      *
+  //      * @see: https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Permissions-Policy/geolocation
+  //      * @see: https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Permissions-Policy/microphone
+  //      * @see: https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Permissions-Policy/camera
+  //      * @see: https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Permissions-Policy/payment
+  //      */
+  //     allPageHeaders: [
+  //       'Strict-Transport-Security: max-age=31536000; includeSubDomains; preload',
+  //       'X-Content-Type-Options: nosniff',
+  //       'X-Frame-Options: SAMEORIGIN',
+  //       'Referrer-Policy: no-referrer-when-downgrade',
+  //       "Content-Security-Policy: default-src https: data: 'unsafe-inline' 'unsafe-eval'",
+  //       'Permissions-Policy: geolocation=(), microphone=(), camera=(), payment=()',
+  //     ], // 모든 페이지의 헤더를 추가하는 옵션. `Link` 헤더는 아래 기준으로 변환됩니다.
+  //     mergeSecurityHeaders: true, // 기본적인 보안 헤더를 해제할지 여부
+  //     mergeLinkHeaders: true, // 기본적인 Gatsby.js 헤더를 해제할지 여부
+  //     mergeCachingHeaders: true, // 기본 캐싱 헤더를 해제할지 여부
+  //     transformHeaders: (headers: any) => headers, // 각 경로(예: 헤더)에서 헤더를 조작하기 위한 선택적 변환 함수
+  //     generateMatchPathRewrites: true, // 클라이언트 전용 경로에 대한 리디렉션 규칙 자동 작성을 해제할지 여부
+  //   },
+  // },
 ];
 
 const devPlugins: GatsbyConfig['plugins'] = [
