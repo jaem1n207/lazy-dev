@@ -2,4 +2,4 @@
 package.json
 yarn.lock
 public
-src/legacy
+_legacy

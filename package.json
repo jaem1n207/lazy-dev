@@ -10,7 +10,7 @@
   "bugs": {
     "url": "https://github.com/jaem1n207/lazy-dev/issues"
   },
-  "homepage": "https://lazydev.gatsbyjs.io",
+  "homepage": "https://lazy-dev.netlify.app",
   "license": "MIT",
   "repository": {
     "type": "git",

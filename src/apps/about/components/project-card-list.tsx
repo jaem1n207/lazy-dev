@@ -102,7 +102,7 @@ const projects: Omit<React.ComponentProps<typeof ProjectCard>, 'index'>[] = [
     ),
     projectUrl: {
       github: 'https://github.com/jaem1n207/lazy-dev/tree/main',
-      live: 'https://lazydev.gatsbyjs.io/',
+      live: 'https://lazy-dev.netlify.app/',
     },
   },
   {

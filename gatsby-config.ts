@@ -10,7 +10,7 @@ dotenv.config({
 const siteMetadata: GatsbyConfig['siteMetadata'] = Object.freeze({
   title: 'Lazy Dev',
   description: '웹 프론트 개발에 대한 이야기를 다룹니다.',
-  siteUrl: 'https://lazyDev.gatsbyjs.io',
+  siteUrl: 'https://lazy-dev.netlify.app',
   author: {
     name: 'Jaemin Lee',
     summary: '웹 프론트 개발자',
