@@ -188,7 +188,6 @@ module.exports = {
     require('./src/plugins/scrollbar-hide'),
     require('./src/plugins/visually-hide'),
     require('./src/plugins/drag-none'),
-    require('@tailwindcss/line-clamp'),
     require('@tailwindcss/typography'),
   ],
 };
