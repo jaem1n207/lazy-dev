@@ -1,6 +1,6 @@
 import React, { FC } from 'react';
 
-import { Link, SliceComponentProps } from 'gatsby';
+import { Link, SliceComponentProps, graphql, useStaticQuery } from 'gatsby';
 
 import ContentSpacer from 'Apps/common/layout/components/content-spacer';
 import { ROUTES } from 'Types/enum';
@@ -8,9 +8,36 @@ import { ROUTES } from 'Types/enum';
 import ThemeToggle from '../theme-toggle';
 
 const Nav: FC<SliceComponentProps<{}, { title: string }>> = ({ sliceContext }) => {
+  // tags: allMarkdownRemark(sort: { frontmatter: { tags: ASC } }) {
+  //   group(field: { frontmatter: { tags: SELECT } }) {
+  //     fieldValue
+  //     totalCount
+  //   }
+  // }
+
+  const tags = useStaticQuery<Queries.NavQuery>(graphql`
+    query Nav {
+      tags: allMarkdownRemark(sort: { fields: frontmatter___tags, order: ASC }) {
+        group(field: frontmatter___tags) {
+          fieldValue
+          totalCount
+        }
+      }
+    }
+  `).tags.group;
+
+  const handleSearchKeyword = (keyword: string) => {
+    window.open(
+      `https://www.google.com/search?q=site:lazydev.gatsbyjs.io+${encodeURIComponent(keyword)}`,
+      '_blank',
+      'noopener noreferrer',
+    );
+  };
+
   return (
     <ContentSpacer as="nav" className="py-32pxr foldable:py-24pxr">
       <div className="mx-auto flex max-w-7xl items-center justify-between font-bold text-bg-inner">
+        <button onClick={() => handleSearchKeyword('javascript 객체 복사')}>search!</button>
         <Link
           to={ROUTES.HOME}
           className="focus-primary m-0pxr rounded-sm text-32pxr foldable:text-24pxr"
