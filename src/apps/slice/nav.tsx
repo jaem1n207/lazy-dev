@@ -2,6 +2,7 @@ import React, { FC } from 'react';
 
 import { Link, SliceComponentProps, graphql, useStaticQuery } from 'gatsby';
 
+import { Modal } from 'Apps/common/dialog';
 import ContentSpacer from 'Apps/common/layout/components/content-spacer';
 import { ROUTES } from 'Types/enum';
 
@@ -34,10 +35,14 @@ const Nav: FC<SliceComponentProps<{}, { title: string }>> = ({ sliceContext }) =
     );
   };
 
+  const [isOpen, setIsOpen] = React.useState(false);
+
   return (
     <ContentSpacer as="nav" className="py-32pxr foldable:py-24pxr">
       <div className="mx-auto flex max-w-7xl items-center justify-between font-bold text-bg-inner">
-        <button onClick={() => handleSearchKeyword('javascript 객체 복사')}>search!</button>
+        {/* <button onClick={() => handleSearchKeyword('javascript 객체 복사')}>search!</button> */}
+        <button onClick={() => setIsOpen(true)}>search!</button>
+        <Modal isOpen={isOpen} setIsOpen={setIsOpen} />
         <Link
           to={ROUTES.HOME}
           className="focus-primary m-0pxr rounded-sm text-32pxr foldable:text-24pxr"

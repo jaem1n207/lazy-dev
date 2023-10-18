@@ -26,24 +26,6 @@ module.exports = {
     data: {
       active: 'ui~="active"',
     },
-    fontSize: {
-      ...range(12, 96).reduce((acc, px) => {
-        acc[`${px}pxr`] = pxToRem(px);
-        return acc;
-      }, {}),
-    },
-    spacing: {
-      ...range(0, 400).reduce((acc, px) => {
-        acc[`${px}pxr`] = pxToRem(px);
-        return acc;
-      }, {}),
-    },
-    borderWidth: {
-      ...range(0, 10).reduce((acc, px) => {
-        acc[`${px}pxr`] = pxToRem(px);
-        return acc;
-      }, {}),
-    },
     screens: {
       display: { max: '1440px' },
       desktop: { max: '1024px' },
@@ -52,13 +34,29 @@ module.exports = {
       mobile: { max: '360px' },
     },
     extend: {
+      fontSize: {
+        ...range(12, 96).reduce((acc, px) => {
+          acc[`${px}pxr`] = pxToRem(px);
+          return acc;
+        }, {}),
+      },
+      spacing: {
+        ...range(0, 400).reduce((acc, px) => {
+          acc[`${px}pxr`] = pxToRem(px);
+          return acc;
+        }, {}),
+        '10vw': '10vw',
+      },
+      borderWidth: {
+        ...range(0, 10).reduce((acc, px) => {
+          acc[`${px}pxr`] = pxToRem(px);
+          return acc;
+        }, {}),
+      },
       gridTemplateColumns: {
         'main-three-large': '15fr 60fr 25fr',
         'main-three-small': '2fr 5fr 3fr',
         'main-two': '66fr 34fr',
-      },
-      spacing: {
-        '10vw': '10vw',
       },
       colors: {
         transparent: 'transparent',
