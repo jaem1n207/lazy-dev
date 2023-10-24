@@ -1,10 +1,19 @@
 const defaultTheme = require('tailwindcss/defaultTheme');
 
-const pxToRem = (px) => `${px / 16}rem`;
+const pxToRem = (px) => {
+  return `${px / 16}rem`;
+};
 
-const range = (start, end) => {
-  const length = end - start + 1;
-  return Array.from({ length }, (_, i) => start + i);
+const range = (start, end, step = 1) => {
+  const length = (end - start) / step + 1;
+  return Array.from({ length }, (_, i) => start + i * step);
+};
+
+const applyRange = (start, end, step = 1) => {
+  return range(start, end, step).reduce((acc, px) => {
+    acc[`${px}pxr`] = pxToRem(px);
+    return acc;
+  }, {});
 };
 
 /** @type {import('tailwindcss').Config} */
@@ -35,23 +44,14 @@ module.exports = {
     },
     extend: {
       fontSize: {
-        ...range(12, 96).reduce((acc, px) => {
-          acc[`${px}pxr`] = pxToRem(px);
-          return acc;
-        }, {}),
+        ...applyRange(12, 96, 1),
       },
       spacing: {
-        ...range(0, 400).reduce((acc, px) => {
-          acc[`${px}pxr`] = pxToRem(px);
-          return acc;
-        }, {}),
+        ...applyRange(0, 400, 1),
         '10vw': '10vw',
       },
       borderWidth: {
-        ...range(0, 10).reduce((acc, px) => {
-          acc[`${px}pxr`] = pxToRem(px);
-          return acc;
-        }, {}),
+        ...applyRange(0, 10, 1),
       },
       gridTemplateColumns: {
         'main-three-large': '15fr 60fr 25fr',
