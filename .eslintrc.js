@@ -42,7 +42,7 @@ module.exports = {
     'no-console': OFF,
     'react-hooks/rules-of-hooks': ERROR,
     'react-hooks/exhaustive-deps': ERROR,
-    'prettier/prettier': ERROR,
+    'prettier/prettier': OFF,
     'import/order': [
       ERROR,
       {
