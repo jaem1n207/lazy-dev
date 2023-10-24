@@ -9,17 +9,10 @@ import { ROUTES } from 'Types/enum';
 import ThemeToggle from '../theme-toggle';
 
 const Nav: FC<SliceComponentProps<{}, { title: string }>> = ({ sliceContext }) => {
-  // tags: allMarkdownRemark(sort: { frontmatter: { tags: ASC } }) {
-  //   group(field: { frontmatter: { tags: SELECT } }) {
-  //     fieldValue
-  //     totalCount
-  //   }
-  // }
-
   const tags = useStaticQuery<Queries.NavQuery>(graphql`
     query Nav {
-      tags: allMarkdownRemark(sort: { fields: frontmatter___tags, order: ASC }) {
-        group(field: frontmatter___tags) {
+      tags: allMarkdownRemark(sort: { frontmatter: { tags: ASC } }) {
+        group(field: { frontmatter: { tags: SELECT } }) {
           fieldValue
           totalCount
         }
@@ -36,13 +29,26 @@ const Nav: FC<SliceComponentProps<{}, { title: string }>> = ({ sliceContext }) =
   };
 
   const [isOpen, setIsOpen] = React.useState(false);
+  const [searchKeyword, setSearchKeyword] = React.useState('');
 
   return (
     <ContentSpacer as="nav" className="py-32pxr foldable:py-24pxr">
       <div className="mx-auto flex max-w-7xl items-center justify-between font-bold text-bg-inner">
-        {/* <button onClick={() => handleSearchKeyword('javascript 객체 복사')}>search!</button> */}
         <button onClick={() => setIsOpen(true)}>search!</button>
-        <Modal isOpen={isOpen} setIsOpen={setIsOpen} />
+        <Modal isOpen={isOpen} setIsOpen={setIsOpen}>
+          {tags.map((tag) => (
+            <Link
+              key={tag.fieldValue}
+              to={`/tags/${tag.fieldValue}`}
+              className="focus-primary m-0pxr rounded-sm text-28pxr foldable:text-20pxr"
+              aria-label={`Tag: ${tag.fieldValue}`}
+            >
+              {tag.fieldValue} ({tag.totalCount})
+            </Link>
+          ))}
+          <input value={searchKeyword} onChange={(e) => setSearchKeyword(e.target.value)} />
+          <button onClick={() => handleSearchKeyword(searchKeyword)}>search!</button>
+        </Modal>
         <Link
           to={ROUTES.HOME}
           className="focus-primary m-0pxr rounded-sm text-32pxr foldable:text-24pxr"
