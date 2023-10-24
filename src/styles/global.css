@@ -36,6 +36,7 @@
 
   abbr[title] {
     cursor: pointer;
+    border-bottom: 0;
   }
 
   :root {
