@@ -26,7 +26,7 @@ export const onRenderBody: GatsbySSR['onRenderBody'] = ({
   });
   setPreBodyComponents([
     <script
-      key="theme-hydration"
+      key="gatsby-ssr-inline-script"
       dangerouslySetInnerHTML={{
         __html: `
           (function () {
@@ -67,6 +67,11 @@ export const onRenderBody: GatsbySSR['onRenderBody'] = ({
               }
               setTheme(darkQuery.matches ? 'dark' : 'light');
             });
+
+            // 플랫폼별로 콘텐츠를 표시하기 위해 브라우저가 Mac인지 여부를 감지합니다. 
+            // 예로 검색창에 표시되는 키보드 단축키를 들 수 있습니다.
+            const isMac = window.navigator.platform.includes('Mac');
+            document.documentElement.classList.add(isMac ? 'platform-mac' : 'platform-win');
           })();
         `,
       }}

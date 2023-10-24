@@ -15,6 +15,15 @@
 }
 
 @layer base {
+  /* 특정 플랫폼에 따라 콘텐츠를 숨깁니다. */
+  html.platform-mac [data-platform='win'] {
+    display: none;
+  }
+
+  html.platform-win [data-platform='mac'] {
+    display: none;
+  }
+
   body {
     font-family:
       Pretendard Variable,
@@ -23,6 +32,10 @@
       sans-serif,
       Apple Color Emoji,
       Segoe UI Emoji;
+  }
+
+  abbr[title] {
+    cursor: pointer;
   }
 
   :root {
