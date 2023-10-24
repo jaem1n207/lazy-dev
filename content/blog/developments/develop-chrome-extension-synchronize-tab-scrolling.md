@@ -441,5 +441,5 @@ const Popup = () => {
 ```
 
 나머지 정보들은
-[developer.chrome: how-to-support-multiple-languages](https://developer.chrome.com/docs/extensions/reference/i18n/#how-to-support-multiple-languages) 에서
-자세히 확인하실 수 있습니다.
+[developer.chrome: how-to-support-multiple-languages](https://developer.chrome.com/docs/extensions/reference/i18n/#how-to-support-multiple-languages)
+에서 자세히 확인하실 수 있습니다.
