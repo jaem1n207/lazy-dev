@@ -53,6 +53,12 @@ module.exports = {
       borderWidth: {
         ...applyRange(0, 10, 1),
       },
+      minHeight: {
+        ...applyRange(320, 900, 80),
+      },
+      maxHeight: {
+        ...applyRange(320, 880, 80),
+      },
       gridTemplateColumns: {
         'main-three-large': '15fr 60fr 25fr',
         'main-three-small': '2fr 5fr 3fr',
