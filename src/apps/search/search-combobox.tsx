@@ -8,6 +8,8 @@ import { Link, graphql, useStaticQuery } from 'gatsby';
 import { useAutoScroller } from 'Hooks/use-auto-scroller';
 import { ROUTES } from 'Types/enum';
 
+import ParticlePlayground from './test';
+
 const handleSearchKeyword = (searchKeyword: string) => {
   window.open(
     // FIXME: 추후 https://lazy-dev.netlify.app 에서 검색하도록 수정 필요
@@ -188,7 +190,8 @@ interface SearchBarProps {
 
 const SearchBar: React.FC<SearchBarProps> = ({ searchTerm, onChange, onKeyDown, showTagIcon }) => {
   return (
-    <div className="flex items-center">
+    <div className="relative flex items-center">
+      <ParticlePlayground />
       <span className="p-2">{showTagIcon ? <TagSvg /> : <SearchSvg />}</span>
       <input
         type="text"

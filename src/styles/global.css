@@ -15,6 +15,39 @@
 }
 
 @layer base {
+  .particle-pen {
+    position: absolute;
+    width: 100%;
+    height: 40px;
+    aspect-ratio: 1;
+    bottom: 100%;
+    left: 0%;
+    -webkit-mask: radial-gradient(white, transparent 65%);
+    z-index: 10;
+    opacity: 1;
+    transition: opacity 0.25s;
+  }
+
+  .particle {
+    aspect-ratio: 1;
+    position: absolute !important;
+    top: calc(var(--y) * 1%);
+    left: calc(var(--x) * 1%);
+    opacity: var(--alpha, 1);
+    animation: float-out calc(var(--duration, 1) * 1s) calc(var(--delay) * -1s) infinite linear;
+    transform-origin: var(--origin-x, 1000%) var(--origin-y, 1000%);
+  }
+
+  .particle:nth-of-type(even) {
+    animation-direction: reverse;
+  }
+
+  @keyframes float-out {
+    to {
+      rotate: 360deg;
+    }
+  }
+
   /* 특정 플랫폼에 따라 콘텐츠를 숨깁니다. */
   html.platform-mac [data-platform='win'] {
     display: none;
