@@ -2,6 +2,7 @@ import React, { FC, startTransition, useCallback } from 'react';
 
 import { Link, SliceComponentProps } from 'gatsby';
 
+import ParticleComponent from 'Apps/common/animation/particles';
 import ContentSpacer from 'Apps/common/layout/components/content-spacer';
 import ComboBoxModal from 'Apps/search/search-combobox';
 import { ROUTES } from 'Types/enum';
@@ -45,8 +46,13 @@ const Nav: FC<SliceComponentProps<{}, { title: string }>> = ({ sliceContext }) =
           <button
             aria-label="Search"
             onClick={onOpenSearch}
-            className="focus-primary flex h-48pxr w-288pxr items-center gap-4pxr rounded-lg border border-bg-secondary px-8pxr text-14pxr shadow-md transition hover:border-primary foldable:hidden"
+            className="focus-primary relative flex h-48pxr w-288pxr items-center gap-4pxr rounded-lg border border-bg-secondary px-8pxr text-14pxr shadow-md transition hover:border-primary foldable:hidden"
           >
+            <ParticleComponent
+              parentElementWidth={280}
+              svgClassName="GOOGLE_LOGO"
+              animationName="diagonalSlideFromTopParticle"
+            />
             <SearchSvg />
             <span className="text-bg-inner/50 ml-12pxr flex-auto text-left">포스트 검색...</span>
             <kbd className="font-sans font-semibold text-all-custom-gray">

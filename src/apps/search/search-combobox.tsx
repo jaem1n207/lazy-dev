@@ -5,10 +5,9 @@ import { AnimatePresence, motion } from 'framer-motion';
 import Fuse from 'fuse.js';
 import { Link, graphql, useStaticQuery } from 'gatsby';
 
+import ParticleComponent from 'Apps/common/animation/particles';
 import { useAutoScroller } from 'Hooks/use-auto-scroller';
 import { ROUTES } from 'Types/enum';
-
-import ParticlePlayground from './test';
 
 const handleSearchKeyword = (searchKeyword: string) => {
   window.open(
@@ -190,9 +189,15 @@ interface SearchBarProps {
 
 const SearchBar: React.FC<SearchBarProps> = ({ searchTerm, onChange, onKeyDown, showTagIcon }) => {
   return (
-    <div className="relative flex items-center">
-      <ParticlePlayground />
-      <span className="p-2">{showTagIcon ? <TagSvg /> : <SearchSvg />}</span>
+    <div className="flex items-center">
+      <span className="relative p-2">
+        {showTagIcon ? <TagSvg /> : <SearchSvg />}{' '}
+        <ParticleComponent
+          parentElementWidth={40}
+          svgClassName="GOOGLE_LOGO"
+          animationName="diagonalSlideFromTopParticle"
+        />
+      </span>
       <input
         type="text"
         value={searchTerm}
