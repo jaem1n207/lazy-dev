@@ -3,12 +3,11 @@ import React, { useState, useMemo, useDeferredValue, useRef } from 'react';
 import { Dialog } from '@headlessui/react';
 import { AnimatePresence, motion } from 'framer-motion';
 import Fuse from 'fuse.js';
-import { Link, graphql, useStaticQuery } from 'gatsby';
+import { Link, graphql, navigate, useStaticQuery } from 'gatsby';
 
+import ParticleComponent from 'Apps/common/animation/particles';
 import { useAutoScroller } from 'Hooks/use-auto-scroller';
 import { ROUTES } from 'Types/enum';
-
-import ParticlePlayground from './test';
 
 const handleSearchKeyword = (searchKeyword: string) => {
   window.open(
@@ -118,21 +117,21 @@ const ComboBoxModal: React.FC<ComboBoxModalProps> = ({ isOpen, onOpen, onClose }
       case 'ArrowDown':
         event.preventDefault();
         if (selectedIndex < filteredTags.length) {
-          // Prevent going beyond the last item
+          // 마지막 아이템을 넘어가는 것을 방지
           setSelectedIndex((prevIndex) => prevIndex + 1);
         }
         break;
       case 'ArrowUp':
         event.preventDefault();
         if (selectedIndex > 0) {
-          // Prevent going above the first item
+          // 첫 번째 아이템 위로 넘어가는 것을 방지
           setSelectedIndex((prevIndex) => prevIndex - 1);
         }
         break;
       case 'Enter':
         handleCloseModal();
         if (selectedIndex > 0) {
-          window.location.href = ROUTES.TAG.toUrl(filteredTags[selectedIndex - 1].fieldValue!);
+          navigate(ROUTES.TAG.toUrl(filteredTags[selectedIndex - 1].fieldValue!));
         } else if (selectedIndex === 0) {
           handleSearchKeyword(searchTerm);
         }
@@ -148,7 +147,7 @@ const ComboBoxModal: React.FC<ComboBoxModalProps> = ({ isOpen, onOpen, onClose }
         <AnimatePresence>
           {isOpen && (
             <motion.div
-              className="mx-auto max-h-800pxr min-h-320pxr w-full max-w-md rounded-lg bg-white p-6"
+              className="mx-auto max-h-800pxr min-h-320pxr w-full max-w-md rounded-lg bg-bg-secondary p-6"
               initial={{
                 opacity: 0,
                 scale: 0.75,
@@ -190,9 +189,15 @@ interface SearchBarProps {
 
 const SearchBar: React.FC<SearchBarProps> = ({ searchTerm, onChange, onKeyDown, showTagIcon }) => {
   return (
-    <div className="relative flex items-center">
-      <ParticlePlayground />
-      <span className="p-2">{showTagIcon ? <TagSvg /> : <SearchSvg />}</span>
+    <div className="flex items-center">
+      <span className="relative p-2">
+        {showTagIcon ? <TagSvg /> : <SearchSvg />}{' '}
+        <ParticleComponent
+          parentElementWidth={40}
+          svgClassName="MUISIC"
+          animationName="diagonalSlideFromTopParticle"
+        />
+      </span>
       <input
         type="text"
         value={searchTerm}
