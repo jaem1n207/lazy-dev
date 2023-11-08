@@ -11,8 +11,9 @@ import { ROUTES } from 'Types/enum';
 
 const handleSearchKeyword = (searchKeyword: string) => {
   window.open(
-    // FIXME: 추후 https://lazy-dev.netlify.app 에서 검색하도록 수정 필요
-    `https://www.google.com/search?q=site:lazydev.gatsbyjs.io+${encodeURIComponent(searchKeyword)}`,
+    `https://www.google.com/search?q=site:lazy-dev.netlify.app+${encodeURIComponent(
+      searchKeyword,
+    )}`,
     '_blank',
     'noopener noreferrer',
   );
@@ -93,16 +94,29 @@ const ComboBoxModal: React.FC<ComboBoxModalProps> = ({ isOpen, onOpen, onClose }
     resetData();
   };
 
-  const tags = useStaticQuery<Queries.NavQuery>(graphql`
-    query Nav {
-      tags: allMarkdownRemark(sort: { frontmatter: { tags: ASC } }) {
+  const searchData = useStaticQuery<Queries.SearchDataQuery>(graphql`
+    query SearchData {
+      allMarkdownRemark {
         group(field: { frontmatter: { tags: SELECT } }) {
           fieldValue
           totalCount
+          edges {
+            node {
+              fields {
+                slug
+              }
+              frontmatter {
+                title
+              }
+            }
+          }
         }
       }
     }
-  `).tags.group;
+  `).allMarkdownRemark.group;
+  console.log(JSON.stringify(searchData));
+
+  const tags = searchData.map((data) => data);
   const filteredTags = useMemo(() => {
     if (searchTerm.length > 0) {
       const fuse = new Fuse(tags, { keys: ['fieldValue'] });

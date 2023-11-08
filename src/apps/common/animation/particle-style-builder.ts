@@ -1,7 +1,5 @@
 import React from 'react';
 
-// import { randomNumber } from 'Utils/numbers';
-
 declare module 'react' {
   interface CSSProperties {
     '--x'?: number;
