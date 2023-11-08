@@ -90,9 +90,7 @@ const BlogPost = ({ data }: PageProps<Queries.BlogPostBySlugQuery>) => {
               variants={textVariant()}
               viewport={{ once: true }}
             >
-              {/* empty related posts */}
               {relatedPosts?.length === 0 ? (
-                /* like callout ui */
                 <div className="flex h-200pxr w-full flex-col items-center justify-center rounded-lg bg-bg-secondary">
                   <p className="text-20pxr font-bold text-text-primary foldable:text-18pxr">
                     연관된 콘텐츠가 없어요.
