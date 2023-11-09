@@ -1,17 +1,31 @@
-const defaultTheme = require('tailwindcss/defaultTheme');
+const is = (type, val) => ![, null].includes(val) && val.constructor === type;
+const initializeMappedArray = (n, mapFn = (_, i) => i) => Array(n).fill(null).map(mapFn);
 
 const pxToRem = (px) => {
   return `${px / 16}rem`;
 };
-
-const range = (start, end, step = 1) => {
-  const length = (end - start) / step + 1;
-  return Array.from({ length }, (_, i) => start + i * step);
-};
-
 const applyRange = (start, end, step = 1) => {
-  return range(start, end, step).reduce((acc, px) => {
-    acc[`${px}pxr`] = pxToRem(px);
+  if (!is(Number, start) || !is(Number, end) || !is(Number, step)) {
+    throw new TypeError(
+      `start, end, step 은 모두 숫자여야 해요. start: ${start}, end: ${end}, step: ${step}`,
+    );
+  } else if (step <= 0) {
+    throw new RangeError(`step은 0보다 커야 해요. step: ${step}`);
+  } else if (step > end - start) {
+    throw new RangeError(`step은 end - start 보다 작아야 해요. step: ${step}`);
+  } else if (start > end) {
+    throw new RangeError(`start는 end보다 작아야 해요. start: ${start}, end: ${end}`);
+  } else if ((end - start) % step !== 0) {
+    throw new RangeError(
+      `start, end, step은 서로 배수여야 해요. start: ${start}, end: ${end}, step: ${step}`,
+    );
+  }
+
+  return initializeMappedArray((end - start) / step + 1, (_, i) => {
+    const px = start + i * step;
+    return [`${px}pxr`, pxToRem(px)];
+  }).reduce((acc, [key, value]) => {
+    acc[key] = value;
     return acc;
   }, {});
 };
@@ -54,7 +68,7 @@ module.exports = {
         ...applyRange(0, 10, 1),
       },
       minHeight: {
-        ...applyRange(320, 900, 80),
+        ...applyRange(320, 880, 80),
       },
       maxHeight: {
         ...applyRange(320, 880, 80),
