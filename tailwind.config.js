@@ -1,10 +1,33 @@
-const defaultTheme = require('tailwindcss/defaultTheme');
+const is = (type, val) => ![, null].includes(val) && val.constructor === type;
+const initializeMappedArray = (n, mapFn = (_, i) => i) => Array(n).fill(null).map(mapFn);
 
-const pxToRem = (px) => `${px / 16}rem`;
+const pxToRem = (px) => {
+  return `${px / 16}rem`;
+};
+const applyRange = (start, end, step = 1) => {
+  if (!is(Number, start) || !is(Number, end) || !is(Number, step)) {
+    throw new TypeError(
+      `start, end, step 은 모두 숫자여야 해요. start: ${start}, end: ${end}, step: ${step}`,
+    );
+  } else if (step <= 0) {
+    throw new RangeError(`step은 0보다 커야 해요. step: ${step}`);
+  } else if (step > end - start) {
+    throw new RangeError(`step은 end - start 보다 작아야 해요. step: ${step}`);
+  } else if (start > end) {
+    throw new RangeError(`start는 end보다 작아야 해요. start: ${start}, end: ${end}`);
+  } else if ((end - start) % step !== 0) {
+    throw new RangeError(
+      `start, end, step은 서로 배수여야 해요. start: ${start}, end: ${end}, step: ${step}`,
+    );
+  }
 
-const range = (start, end) => {
-  const length = end - start + 1;
-  return Array.from({ length }, (_, i) => start + i);
+  return initializeMappedArray((end - start) / step + 1, (_, i) => {
+    const px = start + i * step;
+    return [`${px}pxr`, pxToRem(px)];
+  }).reduce((acc, [key, value]) => {
+    acc[key] = value;
+    return acc;
+  }, {});
 };
 
 /** @type {import('tailwindcss').Config} */
@@ -26,24 +49,6 @@ module.exports = {
     data: {
       active: 'ui~="active"',
     },
-    fontSize: {
-      ...range(12, 96).reduce((acc, px) => {
-        acc[`${px}pxr`] = pxToRem(px);
-        return acc;
-      }, {}),
-    },
-    spacing: {
-      ...range(0, 400).reduce((acc, px) => {
-        acc[`${px}pxr`] = pxToRem(px);
-        return acc;
-      }, {}),
-    },
-    borderWidth: {
-      ...range(0, 10).reduce((acc, px) => {
-        acc[`${px}pxr`] = pxToRem(px);
-        return acc;
-      }, {}),
-    },
     screens: {
       display: { max: '1440px' },
       desktop: { max: '1024px' },
@@ -52,13 +57,26 @@ module.exports = {
       mobile: { max: '360px' },
     },
     extend: {
+      fontSize: {
+        ...applyRange(12, 96, 1),
+      },
+      spacing: {
+        ...applyRange(0, 400, 1),
+        '10vw': '10vw',
+      },
+      borderWidth: {
+        ...applyRange(0, 10, 1),
+      },
+      minHeight: {
+        ...applyRange(320, 880, 80),
+      },
+      maxHeight: {
+        ...applyRange(320, 880, 80),
+      },
       gridTemplateColumns: {
         'main-three-large': '15fr 60fr 25fr',
         'main-three-small': '2fr 5fr 3fr',
         'main-two': '66fr 34fr',
-      },
-      spacing: {
-        '10vw': '10vw',
       },
       colors: {
         transparent: 'transparent',
@@ -189,5 +207,6 @@ module.exports = {
     require('./src/plugins/visually-hide'),
     require('./src/plugins/drag-none'),
     require('@tailwindcss/typography'),
+    'prettier-plugin-tailwindcss',
   ],
 };
