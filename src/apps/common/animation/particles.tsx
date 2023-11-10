@@ -1,5 +1,7 @@
 import React, { memo } from 'react';
 
+import ClientOnly from '../wrapper/client-only';
+
 import { DiagonalSlideFromTopParticle, RandomNumberGenerator } from './particle-style-builder';
 
 const particleAnimations = {
@@ -35,22 +37,24 @@ const ParticleComponent: React.FC<ParticleProps> = ({
   const particleLength = Math.round(parentElementWidth / 50) * 10;
 
   return (
-    <span className="particle-container">
-      {Array.from({ length: particleLength }).map((_, index) => {
-        const rng = new RandomNumberGenerator();
-        const ParticleAnimation = particleAnimations[animationName];
-        const particleAnimation = new ParticleAnimation(rng);
-        const particleStyle = particleAnimation.build();
+    <ClientOnly>
+      <span className="particle-container">
+        {Array.from({ length: particleLength }).map((_, index) => {
+          const rng = new RandomNumberGenerator();
+          const ParticleAnimation = particleAnimations[animationName];
+          const particleAnimation = new ParticleAnimation(rng);
+          const particleStyle = particleAnimation.build();
 
-        return (
-          <i
-            key={index}
-            className={`icon particle ${SVG_CLASSES[svgClassName]}`}
-            style={particleStyle}
-          />
-        );
-      })}
-    </span>
+          return (
+            <i
+              key={index}
+              className={`icon particle ${SVG_CLASSES[svgClassName]}`}
+              style={particleStyle}
+            />
+          );
+        })}
+      </span>
+    </ClientOnly>
   );
 };
 
