@@ -2,9 +2,8 @@ import React, { FC, startTransition, useCallback } from 'react';
 
 import { Link, SliceComponentProps } from 'gatsby';
 
-import ParticleComponent from 'Apps/common/animation/particles';
 import ContentSpacer from 'Apps/common/layout/components/content-spacer';
-import ComboBoxModal from 'Apps/search/search-combobox';
+import Flexsearch from 'Apps/experimental/search/flex-search';
 import { ROUTES } from 'Types/enum';
 
 import ThemeToggle from '../theme-toggle';
@@ -40,10 +39,11 @@ const Nav: FC<SliceComponentProps<{}, { title: string }>> = ({ sliceContext }) =
 
   return (
     <>
-      <ComboBoxModal isOpen={showSearch} onOpen={onOpenSearch} onClose={onCloseSearch} />
+      {/* <ComboBoxModal isOpen={showSearch} onOpen={onOpenSearch} onClose={onCloseSearch} /> */}
+      <Flexsearch />
       <ContentSpacer as="nav" className="py-32pxr foldable:py-24pxr">
         <div className="mx-auto flex max-w-7xl items-center justify-between font-bold text-bg-inner">
-          <button
+          {/* <button
             aria-label="Search"
             onClick={onOpenSearch}
             className="focus-primary relative flex h-48pxr w-288pxr items-center gap-4pxr rounded-lg border border-bg-secondary px-8pxr text-14pxr shadow-md transition hover:border-primary foldable:hidden"
@@ -74,7 +74,7 @@ const Nav: FC<SliceComponentProps<{}, { title: string }>> = ({ sliceContext }) =
                 K
               </kbd>
             </kbd>
-          </button>
+          </button> */}
           <Link
             to={ROUTES.HOME}
             className="focus-primary m-0pxr rounded-sm text-32pxr foldable:text-24pxr"

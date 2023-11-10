@@ -94,8 +94,8 @@ const ComboBoxModal: React.FC<ComboBoxModalProps> = ({ isOpen, onOpen, onClose }
     resetData();
   };
 
-  const searchData = useStaticQuery<Queries.SearchDataQuery>(graphql`
-    query SearchData {
+  const searchData = useStaticQuery<Queries.SearchData2Query>(graphql`
+    query SearchData2 {
       allMarkdownRemark {
         group(field: { frontmatter: { tags: SELECT } }) {
           fieldValue
