@@ -45,7 +45,7 @@ type Result = {
 };
 
 // 캐싱
-const indexes: [PageIndex, SectionIndex] = [];
+// const indexes: [PageIndex, SectionIndex] = [];
 
 const useFetchSearchData = async (): Promise<SearchData[]> => {
   const searchDataQuery = useStaticQuery<Queries.SearchDataQuery>(graphql`
@@ -113,7 +113,7 @@ const useLoadIndexesImpl = async () => {
 
   console.log(
     '🚀 ~ file: flex-search.tsx:75 ~ useLoadIndexesImpl ~ searchData:',
-    // JSON.stringify(searchData[0].content),
+    JSON.stringify(searchData[0].content),
   );
 };
 
