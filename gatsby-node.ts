@@ -1,4 +1,5 @@
-import { resolve } from 'path';
+import { writeFileSync } from 'fs';
+import path, { resolve } from 'path';
 
 import type { GatsbyNode } from 'gatsby';
 import { createFilePath } from 'gatsby-source-filesystem';
@@ -136,6 +137,11 @@ export const createPages: GatsbyNode['createPages'] = async ({ graphql, actions,
               slug
             }
             id
+            html
+            headings {
+              value
+              id
+            }
             frontmatter {
               authorId
               tags
@@ -152,24 +158,45 @@ export const createPages: GatsbyNode['createPages'] = async ({ graphql, actions,
 
   const posts = blogResult.data?.allMarkdownRemark.edges ?? [];
 
-  if (posts.length > 0) {
-    posts.forEach((post) => {
-      const slug = post.node.fields?.slug ?? '';
-
-      createPage({
-        path: slug,
-        component: blogPostTemplate,
-        context: {
-          slug: slug,
-          tags: post.node.frontmatter?.tags,
-          id: post.node.id,
-        },
-        slices: {
-          bio: `bio--${post.node.frontmatter?.authorId}`,
-        },
-      });
-    });
+  if (!posts.length) {
+    reporter.warn('There are no posts!');
+    return;
   }
+
+  posts.forEach((post) => {
+    const slug = post.node.fields?.slug ?? '';
+
+    createPage({
+      path: slug,
+      component: blogPostTemplate,
+      context: {
+        slug: slug,
+        tags: post.node.frontmatter?.tags,
+        id: post.node.id,
+      },
+      slices: {
+        bio: `bio--${post.node.frontmatter?.authorId}`,
+      },
+    });
+  });
+
+  const indexes = blogResult.data?.allMarkdownRemark.edges.map((edge) => {
+    const { node } = edge;
+    const route = `https://lazy-dev.netlify.app${node.fields?.slug}`;
+    const title = node.frontmatter?.title;
+    const data: Record<string, string> = {};
+
+    node.headings?.forEach((heading) => {
+      const contentBody = node.html;
+      const key = `${encodeURIComponent(heading?.id ?? '')}#${heading?.value ?? ''}`;
+      Object.assign(data, { [key]: contentBody });
+    });
+
+    return { route, title, data };
+  });
+
+  const indexPath = path.resolve(__dirname, 'src', 'searchIndexes.json');
+  writeFileSync(indexPath, JSON.stringify(indexes, null, 2));
 };
 
 export const onCreateNode: GatsbyNode['onCreateNode'] = ({ node, getNode, actions }) => {
