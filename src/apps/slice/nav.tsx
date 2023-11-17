@@ -3,6 +3,7 @@ import React, { FC, startTransition, useCallback } from 'react';
 import { Link, SliceComponentProps } from 'gatsby';
 
 import ContentSpacer from 'Apps/common/layout/components/content-spacer';
+import Search from 'Apps/experimental/search/search';
 import { ROUTES } from 'Types/enum';
 
 import ThemeToggle from '../theme-toggle';
@@ -41,6 +42,7 @@ const Nav: FC<SliceComponentProps<{}, { title: string }>> = ({ sliceContext }) =
       {/* <ComboBoxModal isOpen={showSearch} onOpen={onOpenSearch} onClose={onCloseSearch} /> */}
       <ContentSpacer as="nav" className="py-32pxr foldable:py-24pxr">
         <div className="mx-auto flex max-w-7xl items-center justify-between font-bold text-bg-inner">
+          <Search />
           {/* <button
             aria-label="Search"
             onClick={onOpenSearch}

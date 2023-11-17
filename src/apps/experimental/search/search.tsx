@@ -1,18 +1,11 @@
 import React from 'react';
 
-interface SearchProps {
-  value: string;
-  onChange: (value: string) => void;
-}
+import SearchResults from './search-result';
 
-const Search = ({ value, onChange: onChangeProps }: SearchProps) => {
-  const onChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    onChangeProps(e.target.value);
-  };
-
+const Search = () => {
   return (
     <div>
-      <input value={value} onChange={onChange} />
+      <SearchResults />
     </div>
   );
 };
