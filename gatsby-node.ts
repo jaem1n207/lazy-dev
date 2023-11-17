@@ -4,6 +4,10 @@ import path, { resolve } from 'path';
 import type { GatsbyNode } from 'gatsby';
 import { createFilePath } from 'gatsby-source-filesystem';
 
+import type { SearchData } from 'Types/types';
+
+import { extractContentByHeading } from './htmlParser';
+
 export const sourceNodes: GatsbyNode['sourceNodes'] = ({
   actions: { createNode },
   createContentDigest,
@@ -145,6 +149,7 @@ export const createPages: GatsbyNode['createPages'] = async ({ graphql, actions,
             frontmatter {
               authorId
               tags
+              title
             }
           }
         }
@@ -180,22 +185,17 @@ export const createPages: GatsbyNode['createPages'] = async ({ graphql, actions,
     });
   });
 
-  const indexes = blogResult.data?.allMarkdownRemark.edges.map((edge) => {
+  const indexes: SearchData = {};
+  blogResult.data?.allMarkdownRemark.edges.map((edge) => {
     const { node } = edge;
-    const route = `https://lazy-dev.netlify.app${node.fields?.slug}`;
-    const title = node.frontmatter?.title;
-    const data: Record<string, string> = {};
+    const title = node.frontmatter?.title!;
+    const route = node.fields?.slug!;
 
-    node.headings?.forEach((heading) => {
-      const contentBody = node.html;
-      const key = `${encodeURIComponent(heading?.id ?? '')}#${heading?.value ?? ''}`;
-      Object.assign(data, { [key]: contentBody });
-    });
-
-    return { route, title, data };
+    const contentByHeading = extractContentByHeading(node.html!);
+    indexes[route] = { title, data: contentByHeading };
   });
 
-  const indexPath = path.resolve(__dirname, 'src', 'searchIndexes.json');
+  const indexPath = path.resolve(__dirname, 'src', 'apps', 'search', 'lazy-dev-data.json');
   writeFileSync(indexPath, JSON.stringify(indexes, null, 2));
 };
 
