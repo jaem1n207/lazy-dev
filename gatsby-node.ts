@@ -186,7 +186,7 @@ export const createPages: GatsbyNode['createPages'] = async ({ graphql, actions,
   });
 
   const indexes: SearchData = {};
-  blogResult.data?.allMarkdownRemark.edges.map((edge) => {
+  posts.map((edge) => {
     const { node } = edge;
     const title = node.frontmatter?.title!;
     const route = node.fields?.slug!;

@@ -3,7 +3,7 @@ import { Element, load } from 'cheerio';
 import type { StructuredData } from 'Types/types';
 
 /**
- * 전달받은 마크다운 콘텐츠 구조를 반영한 구조화된 데이터를 추출합니다.
+ * 전달받은 마크다운 콘텐츠 구조를 검색에 유용한 구조화된 데이터로 추출합니다.
  */
 export function extractContentByHeading(html: string): StructuredData {
   const $ = load(html);
@@ -11,39 +11,39 @@ export function extractContentByHeading(html: string): StructuredData {
 
   $('img, pre, input').remove();
 
-  const bodyContent: string[] = [];
-  let reachedHeading = false;
+  let isReferenceSection = false;
 
-  // 첫 번째 heading 태그를 만날 때까지 body의 내용을 bodyContent에 추가합니다.
-  const processNode = (elem: Element) => {
-    if (!reachedHeading && !$(elem).is('h1, h2, h3, h4, h5, h6')) {
-      bodyContent.push($(elem).text());
-    } else {
-      reachedHeading = true;
-    }
-  };
-
-  $('body')
-    .children()
-    .each((_, elem) => processNode(elem));
-
-  // bodyContent에 추가된 내용을 contentByHeading의 첫 번째 값으로 추가합니다.
-  contentByHeading[''] = bodyContent.join(' ').trim();
-
-  $('h1, h2, h3, h4, h5, h6').each((_, element) => {
-    const heading = $(element);
+  // heading element의 콘텐츠를 다음 heading element를 만날 때까지 추출합니다.
+  const processContent = (element: Element) => {
     let content = '';
+    let nextElem = $(element).next();
 
-    let nextElem = heading.next();
-    // 다음 element가 존재하고 heading 태그가 아닐 때까지 텍스트를 추가합니다.
     while (nextElem.length && !nextElem.is('h1, h2, h3, h4, h5, h6')) {
       content += nextElem.text() + ' ';
       nextElem = nextElem.next();
     }
 
+    return content.trim();
+  };
+
+  $('h1, h2, h3, h4, h5, h6').each((i, element) => {
+    const heading = $(element);
+    const headingText = heading.text();
     const headingId = heading.attr('id');
+
+    if (headingText.includes('참고')) {
+      isReferenceSection = true;
+      return; // '참고' 문자열이 포함된 heading element는 건너뜁니다.
+    }
+
+    if (isReferenceSection) {
+      isReferenceSection = false;
+      return;
+    }
+
     if (headingId) {
-      contentByHeading[`${encodeURIComponent(headingId)}#${headingId}`] = content.trim();
+      const key = i === 0 ? '' : `${encodeURIComponent(headingId)}#${headingId}`;
+      contentByHeading[key] = processContent(element);
     }
   });
 
