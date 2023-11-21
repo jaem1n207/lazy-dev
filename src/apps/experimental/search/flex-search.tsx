@@ -1,11 +1,11 @@
 import React, { useState } from 'react';
 
 import FlexSearch from 'flexsearch';
-import { Link } from 'gatsby';
 
 import type { SearchData } from 'Types/types';
 
 import HighlightMatches from './highlight-matches';
+import Search from './search';
 import type { PageIndex, Result, SearchResult, SectionIndex } from './types';
 
 // 추후에 추가될 영문 지원을 위해 locale을 인자로 받아서 처리하도록
@@ -211,42 +211,13 @@ const Flexsearch = () => {
   };
 
   return (
-    <div>
-      <input
-        className="sm:text-sm sm:leading-6 block w-full rounded-md border-0 py-1.5 pl-7 pr-20 text-gray-900 ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600"
-        type="text"
-        value={searchQuery}
-        onChange={(e) => onChange(e.target.value)}
-        placeholder="검색..."
-      />
-
-      <div>
-        {error ? (
-          /* FIXME: 404 페이지와 함께 github issue 링크 설정하기 */
-          <>에러가 발생했어요 여기로 에러를 제보해주세요!</>
-        ) : loading ? (
-          <>데이터를 불러오는 중이에요...</>
-        ) : results.length === 0 ? (
-          <>
-            <strong>{searchQuery}</strong>에 대한 검색결과가 없어요
-            <br />
-            {/* FIXME: 글감 요청 issue 템플릿 만들어두고 링크 설정하기 */}
-            {searchQuery}에 대한 내용이 궁금하다면 <strong>글감 요청</strong>에 남겨주세요!
-          </>
-        ) : (
-          results.map((result) => {
-            return (
-              <Link key={result.id} to={result.route}>
-                <div className="mb-16pxr">
-                  {result.prefix}
-                  {result.children}
-                </div>
-              </Link>
-            );
-          })
-        )}
-      </div>
-    </div>
+    <Search
+      value={searchQuery}
+      onChange={onChange}
+      loading={loading}
+      error={error}
+      results={results}
+    />
   );
 };
 
