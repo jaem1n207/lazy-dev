@@ -2,18 +2,6 @@ import type { ReactNode } from 'react';
 
 import FlexSearch from 'flexsearch';
 
-export type SectionIndex = FlexSearch.Document<
-  {
-    id: string;
-    url: string;
-    title: string;
-    pageId: string;
-    content: string;
-    display?: string;
-  },
-  ['title', 'content', 'url', 'display']
->;
-
 export type PageIndex = FlexSearch.Document<
   {
     id: number;
@@ -21,6 +9,17 @@ export type PageIndex = FlexSearch.Document<
     content: string;
   },
   ['title']
+>;
+
+export type SectionIndex = FlexSearch.Document<
+  {
+    id: string;
+    title: string;
+    content: string;
+    url: string;
+    pageId: string;
+  },
+  ['title', 'content', 'url']
 >;
 
 export type Result = {
@@ -32,8 +31,8 @@ export type Result = {
 };
 
 export type SearchResult = {
-  children: ReactNode;
-  id: string;
-  prefix?: ReactNode;
   route: string;
+  prefix?: ReactNode;
+  id: string;
+  children: ReactNode;
 };

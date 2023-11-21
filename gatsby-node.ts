@@ -195,7 +195,9 @@ export const createPages: GatsbyNode['createPages'] = async ({ graphql, actions,
     indexes[route] = { title, data: contentByHeading };
   });
 
-  writeFileSync('public/lazy-dev-data.json', JSON.stringify(indexes, null, 2));
+  // 마크다운의 frontmatter.locale에 따라서 분기 처리 지원 예정
+  const localeKey = 'ko';
+  writeFileSync(`public/lazy-dev-data-${localeKey}.json`, JSON.stringify(indexes, null, 2));
 };
 
 export const onCreateNode: GatsbyNode['onCreateNode'] = ({ node, getNode, actions }) => {
