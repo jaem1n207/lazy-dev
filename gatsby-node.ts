@@ -1,12 +1,12 @@
 import { writeFileSync } from 'fs';
-import path, { resolve } from 'path';
+import { resolve } from 'path';
 
 import type { GatsbyNode } from 'gatsby';
 import { createFilePath } from 'gatsby-source-filesystem';
 
 import type { SearchData } from 'Types/types';
 
-import { extractContentByHeading } from './htmlParser';
+import { extractContentByHeading } from './html-parser';
 
 export const sourceNodes: GatsbyNode['sourceNodes'] = ({
   actions: { createNode },
@@ -195,8 +195,7 @@ export const createPages: GatsbyNode['createPages'] = async ({ graphql, actions,
     indexes[route] = { title, data: contentByHeading };
   });
 
-  const indexPath = path.resolve(__dirname, 'src', 'apps', 'search', 'lazy-dev-data.json');
-  writeFileSync(indexPath, JSON.stringify(indexes, null, 2));
+  writeFileSync('public/lazy-dev-data.json', JSON.stringify(indexes, null, 2));
 };
 
 export const onCreateNode: GatsbyNode['onCreateNode'] = ({ node, getNode, actions }) => {
