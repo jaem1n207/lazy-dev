@@ -6,7 +6,7 @@ import { Tilt } from 'react-tilt';
 import Anchor from 'Apps/common/a/anchor';
 import { Typography } from 'Apps/common/typography';
 
-import { useBio } from '../hooks/useBio';
+import { useBio } from '../hooks/use-bio';
 
 const AboutCard = () => {
   const bio = useBio();
