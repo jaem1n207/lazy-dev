@@ -3,7 +3,7 @@ import React from 'react';
 import { graphql, SliceComponentProps } from 'gatsby';
 import { GatsbyImage, getImage } from 'gatsby-plugin-image';
 
-import { UnstyledLink } from 'Apps/common/a';
+import Anchor from 'Apps/common/a/anchor';
 
 const Bio = ({ data }: SliceComponentProps<Queries.BioByAuthorIdQuery>) => {
   const { author, imageSharp } = data;
@@ -24,13 +24,9 @@ const Bio = ({ data }: SliceComponentProps<Queries.BioByAuthorIdQuery>) => {
           Written by <strong className="text-16pxr text-text-primary">{author?.name}</strong>
         </h4>
         <p className="text-15pxr">{author?.summary}</p>
-        <UnstyledLink
-          external
-          url={author?.github || ''}
-          className="focus-primary rounded-sm text-16pxr"
-        >
+        <Anchor external url={author?.github || ''} className="focus-primary rounded-sm text-16pxr">
           GitHub
-        </UnstyledLink>
+        </Anchor>
       </div>
     </div>
   );

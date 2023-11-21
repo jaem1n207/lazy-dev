@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { UnstyledLink } from 'Apps/common/a';
+import Anchor from 'Apps/common/a/anchor';
 import ContentSpacer from 'Apps/common/layout/components/content-spacer';
 
 const Footer = () => {
@@ -8,13 +8,13 @@ const Footer = () => {
     <ContentSpacer as="footer" className="pb-32pxr pt-28pxr">
       <div className="mx-auto flex max-w-7xl">
         @ {new Date().getFullYear()}, Built with&nbsp;
-        <UnstyledLink external url="https://www.gatsbyjs.com" className="focus-primary rounded-sm">
+        <Anchor external url="https://www.gatsbyjs.com" className="rounded-sm">
           Gatsby
-        </UnstyledLink>
+        </Anchor>
         <div className="ml-auto">
-          <UnstyledLink external url="/rss.xml" className="focus-primary rounded-sm">
+          <Anchor external url="/rss.xml" className="rounded-sm">
             rss
-          </UnstyledLink>
+          </Anchor>
         </div>
       </div>
     </ContentSpacer>
