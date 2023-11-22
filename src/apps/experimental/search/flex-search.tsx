@@ -30,7 +30,7 @@ const loadIndexes = (locale: string): Promise<void> => {
 
 const loadIndexesImpl = async (locale: string) => {
   // 서버측에서 직렬화한 데이터를 가져옵니다.
-  const searchData = await fetch(`lazy-dev-data-${locale}.json`).then<SearchData>((res) =>
+  const searchData = await fetch(`/lazy-dev-data-${locale}.json`).then<SearchData>((res) =>
     res.json(),
   );
 
