@@ -1,4 +1,3 @@
-
 import type { GatsbySSR } from 'gatsby';
 
 export { wrapPageElement } from './gatsby-shared';
@@ -15,6 +14,7 @@ export const onRenderBody: GatsbySSR['onRenderBody'] = ({
     lang: 'ko',
   });
   setPreBodyComponents([
+    // @ts-ignore
     <script
       key="gatsby-ssr-inline-script"
       dangerouslySetInnerHTML={{
