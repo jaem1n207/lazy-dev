@@ -1,13 +1,7 @@
-import * as dotenv from 'dotenv';
 import type { GatsbyConfig } from 'gatsby';
-// eslint-disable-next-line import/default
-import netlifyAdapter from 'gatsby-adapter-netlify';
+import { default as netlifyAdapter } from 'gatsby-adapter-netlify';
 
-dotenv.config({
-  path: `.env.${process.env.NODE_ENV}`,
-});
-
-const siteMetadata: GatsbyConfig['siteMetadata'] = Object.freeze({
+const siteMetadata = Object.freeze({
   title: 'Lazy Dev',
   description: '웹 프론트 개발에 대한 이야기를 다룹니다.',
   siteUrl: 'https://lazy-dev.netlify.app',
@@ -79,15 +73,8 @@ const devPlugins: GatsbyConfig['plugins'] = [
     },
   },
   {
-    resolve: 'gatsby-plugin-typography',
-    options: {
-      pathToConfigModule: 'src/apps/post/styles/typography.ts',
-    },
-  },
-  {
     resolve: 'gatsby-plugin-typescript',
   },
-  'gatsby-plugin-emotion',
   {
     resolve: 'gatsby-plugin-postcss',
     options: {
@@ -177,9 +164,9 @@ const searchPlugins: GatsbyConfig['plugins'] = [
           }) => {
             return allMarkdownRemark.nodes.map((node: any) => {
               return Object.assign({}, node.frontmatter, {
-                description: node.frontmatter.summary,
+                description: node.excerpt,
                 date: node.frontmatter.date,
-                url: site.siteMetadata.siteUrl + node.fields.slug,
+                url: encodeURI(site.siteMetadata.siteUrl + node.fields.slug),
                 guid: site.siteMetadata.siteUrl + node.fields.slug,
                 custom_elements: [{ 'content:encoded': node.html }],
               });
@@ -188,6 +175,7 @@ const searchPlugins: GatsbyConfig['plugins'] = [
           query: `{
             allMarkdownRemark(sort: {frontmatter: {date: DESC}}) {
               nodes {
+                excerpt
                 html
                 fields {
                   slug
@@ -195,7 +183,6 @@ const searchPlugins: GatsbyConfig['plugins'] = [
                 frontmatter {
                   title
                   date
-                  summary
                 }
               }
             }
@@ -212,13 +199,12 @@ const pwaPlugins: GatsbyConfig['plugins'] = [
   {
     resolve: 'gatsby-plugin-manifest',
     options: {
-      name: 'Lazy Dev',
-      short_name: 'Lazy Dev',
-      description: '웹 프론트 개발에 대한 이야기를 다룹니다.',
+      name: siteMetadata.title,
+      short_name: siteMetadata.title,
+      description: siteMetadata.description,
       start_url: '/',
-      scope: '/',
-      background_color: '#1C1C1E',
       theme_color: '#86bff2',
+      background_color: '#1C1C1E',
       // This will impact how browsers show your PWA/website
       // https://css-tricks.com/meta-theme-color-and-trickery/
       display: `standalone`,
@@ -233,6 +219,7 @@ const pwaPlugins: GatsbyConfig['plugins'] = [
 ];
 
 const config: GatsbyConfig = {
+  jsxRuntime: 'automatic',
   flags: {
     PRESERVE_FILE_DOWNLOAD_CACHE: false,
     DEV_SSR: true,

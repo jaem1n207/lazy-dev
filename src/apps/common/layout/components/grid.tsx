@@ -1,4 +1,5 @@
-import React, { ElementType, forwardRef, HTMLAttributes } from 'react';
+import { ElementType, forwardRef, HTMLAttributes } from 'react';
+import * as React from 'react';
 
 import classNames from 'classnames';
 import { motion, MotionProps } from 'framer-motion';

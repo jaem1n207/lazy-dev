@@ -1,38 +1,41 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 
 import FlexSearch from 'flexsearch';
-import { Link } from 'gatsby';
+
+import type { SearchData } from 'Types/types';
 
 import HighlightMatches from './highlight-matches';
-// FIXME: 빌드할 때 만들어 둔 json 파일을 필요할 때 가져오도록 수정하는 건 어떨까 생각 중...
-import searchData from './lazy-dev-data.json';
+import Search from './search';
 import type { PageIndex, Result, SearchResult, SectionIndex } from './types';
 
-// FIXME: index 데이터 캐싱 => 컨텍스트에 담아 재사용하도록 해야하나 고민 중...
+// 추후에 추가될 영문 지원을 위해 locale을 인자로 받아서 처리하도록
+const locale = 'ko';
+
 const indexes: {
   [locale: string]: [PageIndex, SectionIndex];
 } = {};
 
+// index 로드하는 promise를 캐싱하기 위한 map
 const loadIndexesPromises = new Map<string, Promise<void>>();
-const loadIndexes = (): Promise<void> => {
-  const key = '@ko';
+const loadIndexes = (locale: string): Promise<void> => {
+  const key = `@${locale}`;
   if (loadIndexesPromises.has(key)) {
     return loadIndexesPromises.get(key)!;
   }
-  const promise = loadIndexesImpl();
+  const promise = loadIndexesImpl(locale);
   loadIndexesPromises.set(key, promise);
 
   return promise;
 };
 
-const loadIndexesImpl = async () => {
-  // const searchData = (await import('./lazy-dev-data.json')) as unknown as SearchData;
+const loadIndexesImpl = async (locale: string) => {
+  // 서버측에서 직렬화한 데이터를 가져옵니다.
+  const searchData = await fetch(`/lazy-dev-data-${locale}.json`).then<SearchData>((res) =>
+    res.json(),
+  );
 
   const pageIndex: PageIndex = new FlexSearch.Document({
-    // FIXME: 문서에선 인코더 함수로 한글 문자열 나눠서 색인화할 수 있는 걸로 보여지나, 영어가 망가지는 문제가 있음.
-    // 뭔가 적절히 수정해서 사용할 수 있을 것 같긴 한데, 일단은 주석 처리하고 나중에 필요할 때 다시 생각해보기로
-    // Korean Word Break https://github.com/nextapps-de/flexsearch#cjk-word-break-chinese-japanese-korean
-    encode: (str) => str.replace(/[\x20-\x7F]/g, '').split(''),
+    // 문서에선 인코더 함수로 한글 문자열 지원을 하는 것으로 파악되지만, 잘 동작하지 않습니다 https://github.com/nextapps-de/flexsearch#cjk-word-break-chinese-japanese-korean
     cache: 100,
     tokenize: 'full',
     document: {
@@ -54,7 +57,7 @@ const loadIndexesImpl = async () => {
       id: 'id',
       index: 'content',
       tag: 'pageId',
-      store: ['title', 'content', 'url', 'display'],
+      store: ['title', 'content', 'url'],
     },
     context: {
       resolution: 9,
@@ -94,7 +97,6 @@ const loadIndexesImpl = async () => {
         });
       }
 
-      // Add the page itself.
       pageContent += ` ${title} ${content}`;
     }
 
@@ -105,19 +107,19 @@ const loadIndexesImpl = async () => {
     });
   }
 
-  indexes['ko'] = [pageIndex, sectionIndex];
+  indexes[locale] = [pageIndex, sectionIndex];
 };
 
 const Flexsearch = () => {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(false);
-  const [search, setSearch] = useState('');
+  const [searchQuery, setSearchQuery] = useState('');
   const [results, setResults] = useState<SearchResult[]>([]);
 
   const doSearch = (search: string) => {
-    if (!search || !indexes) return;
+    if (!search) return;
 
-    const [pageIndex, sectionIndex] = indexes['ko'];
+    const [pageIndex, sectionIndex] = indexes[locale];
 
     const pageResults =
       pageIndex.search<true>(search, 5, {
@@ -140,18 +142,12 @@ const Flexsearch = () => {
         })[0]?.result || [];
 
       let isFirstItemOfPage = true;
-      const occurred: Record<string, boolean> = {};
 
       for (let j = 0; j < sectionResults.length; j++) {
         const { doc } = sectionResults[j];
-        const isMatchingTitle = doc.display !== undefined;
-        if (isMatchingTitle) {
-          pageTitleMatches[i]++;
-        }
         const { url, title } = doc;
-        const content = doc.display || doc.content;
-        if (occurred[url + '@' + content]) continue;
-        occurred[url + '@' + content] = true;
+        const content = doc.content;
+
         results.push({
           _page_rk: i,
           _section_rk: j,
@@ -195,28 +191,15 @@ const Flexsearch = () => {
     );
   };
 
-  const preload = async (active: boolean) => {
-    if (active && !indexes['ko']) {
-      setLoading(true);
-      try {
-        await loadIndexes();
-      } catch (e) {
-        setError(true);
-      }
-      setLoading(false);
-    }
-  };
-
   const onChange = async (value: string) => {
-    setSearch(value);
+    setSearchQuery(value);
 
-    if (loading) {
-      return;
-    }
-    if (!indexes['ko']) {
+    if (loading) return;
+
+    if (!indexes[locale]) {
       setLoading(true);
       try {
-        await loadIndexes();
+        await loadIndexes(locale);
       } catch (error) {
         console.log(error);
         setError(true);
@@ -228,33 +211,13 @@ const Flexsearch = () => {
   };
 
   return (
-    <div>
-      <input
-        className="sm:text-sm sm:leading-6 block w-full rounded-md border-0 py-1.5 pl-7 pr-20 text-gray-900 ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600"
-        type="text"
-        value={search}
-        onChange={(e) => onChange(e.target.value)}
-        placeholder="검색..."
-      />
-
-      <div>
-        {loading && 'Loading...'}
-        {error && 'Error'}
-      </div>
-
-      <div>
-        {results.map((result) => {
-          return (
-            <Link key={result.id} to={result.route}>
-              <div className="mb-16pxr">
-                {result.prefix}
-                {result.children}
-              </div>
-            </Link>
-          );
-        })}
-      </div>
-    </div>
+    <Search
+      value={searchQuery}
+      onChange={onChange}
+      loading={loading}
+      error={error}
+      results={results}
+    />
   );
 };
 

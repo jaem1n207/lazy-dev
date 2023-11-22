@@ -1,12 +1,10 @@
-import React from 'react';
-
 import { GatsbyImage, StaticImage } from 'gatsby-plugin-image';
 import { Tilt } from 'react-tilt';
 
-import { UnstyledLink } from 'Apps/common/a';
+import Anchor from 'Apps/common/a/anchor';
 import { Typography } from 'Apps/common/typography';
 
-import { useBio } from '../hooks/useBio';
+import { useBio } from '../hooks/use-bio';
 
 const AboutCard = () => {
   const bio = useBio();
@@ -87,9 +85,9 @@ const AboutCard = () => {
           <Typography className="select-all">{bio.author?.email}</Typography>
         </div>
         <div className="border-r-1pxr border-slate-500 opacity-50" />
-        <UnstyledLink
+        <Anchor
           external
-          url={bio.author?.github!}
+          href={bio.author?.github!}
           className="flex items-center justify-center gap-8pxr rounded-sm font-bold !text-text-primary !shadow-none"
         >
           <StaticImage
@@ -101,7 +99,7 @@ const AboutCard = () => {
             layout="fixed"
           />
           <Typography className="leading-6">GitHub</Typography>
-        </UnstyledLink>
+        </Anchor>
       </div>
     </Tilt>
   );

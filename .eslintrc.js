@@ -23,7 +23,6 @@ module.exports = {
   globals: {
     graphql: true,
     Queries: true,
-    __dirname: true,
     /* ESLint에게 `Theme`가 전역 유형이며 정의되지 않은 것으로 간주되어서는 안된다는 것을 알리도록 함 */
     Theme: 'readonly',
   },
@@ -32,6 +31,7 @@ module.exports = {
     'plugin:import/recommended',
     'plugin:import/typescript',
     'plugin:react/recommended',
+    'plugin:react/jsx-runtime',
     'plugin:react-hooks/recommended',
     'plugin:jsx-a11y/recommended',
     'plugin:prettier/recommended',
@@ -39,6 +39,8 @@ module.exports = {
   ignorePatterns: ['node_modules', '**/build/*', 'public', '.eslintrc.js', '*.js'],
   parser: '@typescript-eslint/parser',
   rules: {
+    'react/jsx-uses-react': OFF,
+    'react/react-in-jsx-scope': OFF,
     'no-console': OFF,
     'react-hooks/rules-of-hooks': ERROR,
     'react-hooks/exhaustive-deps': ERROR,
@@ -108,7 +110,6 @@ module.exports = {
       WARN,
       { vars: 'all', varsIgnorePattern: '^_', args: 'after-used', argsIgnorePattern: '^_' },
     ],
-    'react/no-unknown-property': [ERROR, { ignore: ['css'] }],
   },
   settings: {
     react: {

@@ -1,4 +1,5 @@
-import React, { ElementType, HTMLAttributes, forwardRef } from 'react';
+import { ElementType, HTMLAttributes, forwardRef } from 'react';
+import * as React from 'react';
 
 import classNames from 'classnames';
 

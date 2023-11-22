@@ -1,19 +1,19 @@
-import React from 'react';
+import { Children, HTMLAttributes, ReactNode, cloneElement, isValidElement } from 'react';
 
 import classNames from 'classnames';
 
 import { ELEMENT_CLASS } from 'Types/enum';
 
 interface NoneActiveWrapperProps {
-  children: React.ReactNode;
+  children: ReactNode;
 }
 
 const NoneActiveWrapper = ({ children }: NoneActiveWrapperProps) => {
-  const wrappedChildren = React.Children.map(children, (child) => {
-    if (React.isValidElement(child)) {
+  const wrappedChildren = Children.map(children, (child) => {
+    if (isValidElement(child)) {
       const newClassName = classNames(child.props.className, ELEMENT_CLASS.NONE_ACTIVE);
       // @ts-ignore
-      return React.cloneElement<React.HTMLAttributes<HTMLElement>>(child, {
+      return cloneElement<HTMLAttributes<HTMLElement>>(child, {
         className: newClassName,
       });
     }

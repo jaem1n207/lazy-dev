@@ -1,4 +1,5 @@
-import React, { Fragment, useRef } from 'react';
+import { Fragment, useRef } from 'react';
+import * as React from 'react';
 
 import { Menu } from '@headlessui/react';
 import { Link, graphql, useStaticQuery } from 'gatsby';

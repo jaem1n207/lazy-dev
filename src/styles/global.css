@@ -135,7 +135,7 @@
     --color-bg-tag: var(--color-gray-100);
 
     /* markdown */
-    --color-paragraph-text: var(--color-black-750);
+    /* --color-paragraph-text: var(--color-black-750);
     --color-border-highlight: var(--color-black-900);
     --color-th-highlight: var(--color-gray-100);
     --color-blockquote: var(--color-gray-300);
@@ -150,7 +150,7 @@
     --color-token-string: #22863a;
     --color-code-highlight-bg: rgba(0, 0, 0, 0.05);
     --color-code-highlight-border: rgba(0, 0, 0, 0.2);
-    --color-text-strong: var(--color-zinc-900);
+    --color-text-strong: var(--color-zinc-900); */
   }
 
   /* 브라우저에서 번역을 통해 다른 클래스가 추가되는 경우에 대비하여 `dark` 클래스가 있을 때 다른 클래스가 있는지 여부에 관계없이 적용되도록 함 */
@@ -175,7 +175,7 @@
     --color-bg-tag: var(--color-gray-700);
 
     /* markdown */
-    --color-paragraph-text: var(--color-gray-200);
+    /* --color-paragraph-text: var(--color-gray-200);
     --color-border-highlight: var(--color-gray-700);
     --color-th-highlight: var(--color-black-900);
     --color-blockquote: var(--color-gray-500);
@@ -190,7 +190,7 @@
     --color-token-string: #7ec699;
     --color-code-highlight-bg: #2a2828;
     --color-code-highlight-border: #3e3c3c;
-    --color-text-strong: var(--color-white);
+    --color-text-strong: var(--color-white); */
   }
 
   abbr[title] {

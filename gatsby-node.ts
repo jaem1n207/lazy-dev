@@ -1,12 +1,12 @@
 import { writeFileSync } from 'fs';
-import path, { resolve } from 'path';
+import { resolve } from 'path';
 
 import type { GatsbyNode } from 'gatsby';
 import { createFilePath } from 'gatsby-source-filesystem';
 
 import type { SearchData } from 'Types/types';
 
-import { extractContentByHeading } from './htmlParser';
+import { extractContentByHeading } from './html-parser';
 
 export const sourceNodes: GatsbyNode['sourceNodes'] = ({
   actions: { createNode },
@@ -186,7 +186,7 @@ export const createPages: GatsbyNode['createPages'] = async ({ graphql, actions,
   });
 
   const indexes: SearchData = {};
-  blogResult.data?.allMarkdownRemark.edges.map((edge) => {
+  posts.map((edge) => {
     const { node } = edge;
     const title = node.frontmatter?.title!;
     const route = node.fields?.slug!;
@@ -195,8 +195,9 @@ export const createPages: GatsbyNode['createPages'] = async ({ graphql, actions,
     indexes[route] = { title, data: contentByHeading };
   });
 
-  const indexPath = path.resolve(__dirname, 'src', 'apps', 'search', 'lazy-dev-data.json');
-  writeFileSync(indexPath, JSON.stringify(indexes, null, 2));
+  // 마크다운의 frontmatter.locale에 따라서 분기 처리 지원 예정
+  const localeKey = 'ko';
+  writeFileSync(`public/lazy-dev-data-${localeKey}.json`, JSON.stringify(indexes, null, 2));
 };
 
 export const onCreateNode: GatsbyNode['onCreateNode'] = ({ node, getNode, actions }) => {

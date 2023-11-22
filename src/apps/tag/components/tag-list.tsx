@@ -1,5 +1,3 @@
-import React from 'react';
-
 import { Link } from 'gatsby';
 
 import { ROUTES } from 'Types/enum';

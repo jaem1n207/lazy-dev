@@ -1,4 +1,4 @@
-import React, { FC } from 'react';
+import { FC } from 'react';
 
 import { graphql, HeadFC, HeadProps, PageProps } from 'gatsby';
 

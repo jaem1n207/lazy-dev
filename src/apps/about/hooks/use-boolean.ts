@@ -17,6 +17,7 @@ export const useBoolean = (flag: boolean): ReturnType => {
     },
     [setState],
   );
+
   return [
     state,
     {

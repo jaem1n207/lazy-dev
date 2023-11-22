@@ -1,5 +1,3 @@
-import React, { FC, startTransition, useCallback } from 'react';
-
 import { Link, SliceComponentProps } from 'gatsby';
 
 import ContentSpacer from 'Apps/common/layout/components/content-spacer';
@@ -26,23 +24,11 @@ const SearchSvg = () => (
   </svg>
 );
 
-const Nav: FC<SliceComponentProps<{}, { title: string }>> = ({ sliceContext }) => {
-  const [showSearch, setShowSearch] = React.useState(false);
-  const onOpenSearch = useCallback(() => {
-    startTransition(() => {
-      setShowSearch(true);
-    });
-  }, []);
-  const onCloseSearch = useCallback(() => {
-    setShowSearch(false);
-  }, []);
-
+const Nav = ({ sliceContext }: SliceComponentProps<{}, { title: string }>) => {
   return (
     <>
-      {/* <ComboBoxModal isOpen={showSearch} onOpen={onOpenSearch} onClose={onCloseSearch} /> */}
       <ContentSpacer as="nav" className="py-32pxr foldable:py-24pxr">
         <div className="mx-auto flex max-w-7xl items-center justify-between font-bold text-bg-inner">
-          {/* <Search /> */}
           <Flexsearch />
           {/* <button
             aria-label="Search"

@@ -3,20 +3,9 @@ import '@fontsource/fira-mono';
 import './src/styles/global.css';
 import 'prismjs/themes/prism-tomorrow.css';
 
-import React from 'react';
-
 import type { GatsbyBrowser } from 'gatsby';
 
-import Layout from './src/layout/layout';
-import Root from './src/root';
-
-export const wrapPageElement: GatsbyBrowser['wrapPageElement'] = ({ element }) => {
-  return (
-    <Root>
-      <Layout>{element}</Layout>
-    </Root>
-  );
-};
+export { wrapPageElement } from './gatsby-shared';
 
 // export const onClientEntry: GatsbyBrowser['onClientEntry'] = () => {
 //   const isTouchDevice =

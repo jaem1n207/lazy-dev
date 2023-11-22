@@ -131,11 +131,6 @@ module.exports = {
         'border-secondary': 'var(--color-border-secondary)',
         'all-custom-gray': 'var(--color-all-custom-gray)',
         'bg-tag': 'var(--color-bg-tag)',
-
-        /* markdown */
-        'paragraph-text': 'var(--color-paragraph-text)',
-        'border-highlight': 'var(--color-border-highlight)',
-        'gradient-cyan': 'var(--color-cyan-50)',
       },
       boxShadow: {
         'text-underline': '0 1px 0 0 currentColor',
