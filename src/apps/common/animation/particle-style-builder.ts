@@ -1,4 +1,4 @@
-import React from 'react';
+import type { CSSProperties } from 'react';
 
 declare module 'react' {
   interface CSSProperties {
@@ -16,7 +16,7 @@ interface IRandomNumberGenerator {
 }
 
 interface IParticleStyle {
-  getStyles(): React.CSSProperties;
+  getStyles(): CSSProperties;
 }
 
 const halfChance = () => Math.random() < 0.5;
@@ -28,11 +28,11 @@ export class RandomNumberGenerator implements IRandomNumberGenerator {
 }
 
 class BaseParticleStyle implements IParticleStyle {
-  protected styles: React.CSSProperties = {};
+  protected styles: CSSProperties = {};
 
   constructor(protected rng: IRandomNumberGenerator) {}
 
-  getStyles(): React.CSSProperties {
+  getStyles(): CSSProperties {
     return this.styles;
   }
 }
@@ -68,7 +68,7 @@ class ParticleStyleBuilder extends BaseParticleStyle {
     return this;
   }
 
-  build(): React.CSSProperties {
+  build(): CSSProperties {
     return this.styles;
   }
 }

@@ -1,5 +1,3 @@
-import React from 'react';
-
 import Anchor from 'Apps/common/a/anchor';
 import ContentSpacer from 'Apps/common/layout/components/content-spacer';
 

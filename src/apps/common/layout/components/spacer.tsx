@@ -1,5 +1,3 @@
-import React from 'react';
-
 const spacerSizes = {
   xs: 'h-32pxr tablet:h-24pxr',
   sm: 'h-48pxr tablet:h-40pxr',

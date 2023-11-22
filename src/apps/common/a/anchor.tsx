@@ -1,5 +1,5 @@
 /* eslint-disable react/prop-types */
-import React, { HTMLProps, ReactNode, forwardRef, memo } from 'react';
+import { HTMLProps, ReactNode, forwardRef, memo } from 'react';
 
 import classNames from 'classnames';
 

@@ -1,4 +1,4 @@
-import React from 'react';
+import { useEffect } from 'react';
 
 import { Dialog } from '@headlessui/react';
 import { motion, AnimatePresence } from 'framer-motion';
@@ -12,7 +12,7 @@ interface SearchProps {
 }
 
 const usePostSearchKeyboardEvents = ({ isOpen, onOpen, onClose }: SearchProps) => {
-  React.useEffect(() => {
+  useEffect(() => {
     const handleKeyDown = (event: KeyboardEvent) => {
       if (event.key === 'k' && (event.metaKey || event.ctrlKey)) {
         event.preventDefault();

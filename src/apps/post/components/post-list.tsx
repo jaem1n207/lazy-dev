@@ -1,5 +1,3 @@
-import React from 'react';
-
 import PostCard from './post-card';
 
 interface PostListProps {

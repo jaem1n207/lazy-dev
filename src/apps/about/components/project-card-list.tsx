@@ -1,4 +1,4 @@
-import React from 'react';
+import type { ComponentProps } from 'react';
 
 import { StaticImage } from 'gatsby-plugin-image';
 
@@ -18,7 +18,7 @@ const ProjectCardList = () => {
 
 const IMAGE_FOLDER_PATH = '../../../../content/blog/thumbnails';
 
-const projects: Omit<React.ComponentProps<typeof ProjectCard>, 'index'>[] = [
+const projects: Omit<ComponentProps<typeof ProjectCard>, 'index'>[] = [
   {
     name: 'Synchronize Tab Scrolling',
     description: '여러 탭의 스크롤 위치를 동기화할 수 있는 크롬 확장 프로그램',

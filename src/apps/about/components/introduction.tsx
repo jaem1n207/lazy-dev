@@ -1,4 +1,4 @@
-import * as React from 'react';
+import { useEffect } from 'react';
 
 import { motion } from 'framer-motion';
 
@@ -17,7 +17,7 @@ const keywords: string[] = [
 const Introduction = () => {
   const [currentKeywordIndex, generateRandomIndex] = useNonRepeatingRandomIndex(keywords.length);
 
-  React.useEffect(() => {
+  useEffect(() => {
     const intervalId = setInterval(() => {
       generateRandomIndex();
     }, 3_000);

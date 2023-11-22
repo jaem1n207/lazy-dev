@@ -1,5 +1,3 @@
-import React from 'react';
-
 import { motion } from 'framer-motion';
 import { Link } from 'gatsby';
 import { GatsbyImage } from 'gatsby-plugin-image';

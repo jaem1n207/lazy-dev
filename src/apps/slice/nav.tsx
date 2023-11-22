@@ -1,5 +1,3 @@
-import React, { FC } from 'react';
-
 import { Link, SliceComponentProps } from 'gatsby';
 
 import ContentSpacer from 'Apps/common/layout/components/content-spacer';
@@ -26,7 +24,7 @@ const SearchSvg = () => (
   </svg>
 );
 
-const Nav: FC<SliceComponentProps<{}, { title: string }>> = ({ sliceContext }) => {
+const Nav = ({ sliceContext }: SliceComponentProps<{}, { title: string }>) => {
   return (
     <>
       <ContentSpacer as="nav" className="py-32pxr foldable:py-24pxr">

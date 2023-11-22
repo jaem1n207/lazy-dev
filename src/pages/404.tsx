@@ -1,5 +1,3 @@
-import React, { FC } from 'react';
-
 import { motion } from 'framer-motion';
 import { graphql, HeadFC, navigate, PageProps } from 'gatsby';
 import { StaticImage } from 'gatsby-plugin-image';
@@ -9,7 +7,7 @@ import Seo from 'Apps/common/seo/seo';
 import { ROUTES } from 'Types/enum';
 import { animateVariant, textVariant } from 'Utils/motion';
 
-const NotFoundPage: FC<PageProps<Queries.NotFoundQuery>> = () => {
+const NotFoundPage = (_props: PageProps<Queries.NotFoundQuery>) => {
   const goHome = () => {
     navigate(ROUTES.HOME);
   };

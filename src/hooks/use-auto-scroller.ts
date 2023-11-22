@@ -1,7 +1,7 @@
-import React, { useEffect } from 'react';
+import { RefObject, useEffect } from 'react';
 
 interface UseAutoScrollerProps {
-  containerRef: React.RefObject<HTMLElement>;
+  containerRef: RefObject<HTMLElement>;
   selectedIndex: number;
   itemCount: number;
   separatorCount?: number;

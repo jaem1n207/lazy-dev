@@ -1,5 +1,3 @@
-import React from 'react';
-
 import { HeadFC, HeadProps } from 'gatsby';
 
 import AboutCard from 'Apps/about/components/about-card';

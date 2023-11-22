@@ -1,4 +1,4 @@
-import React, { memo } from 'react';
+import { memo } from 'react';
 
 import ClientOnly from '../wrapper/client-only';
 
@@ -29,11 +29,11 @@ interface ParticleProps {
   animationName: keyof typeof particleAnimations;
 }
 
-const ParticleComponent: React.FC<ParticleProps> = ({
+const ParticleComponent = ({
   parentElementWidth = 50,
   svgClassName,
   animationName,
-}) => {
+}: ParticleProps) => {
   const particleLength = Math.round(parentElementWidth / 50) * 10;
 
   return (
