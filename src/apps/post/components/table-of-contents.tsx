@@ -1,12 +1,12 @@
-import React, { useCallback, useEffect, useMemo } from 'react';
+import { useCallback, useEffect, useMemo } from 'react';
 
 import { window } from 'browser-monads-ts';
-import tw from 'twin.macro';
 
 import { Typography } from 'Apps/common/typography';
 import { useScrollEvent } from 'Hooks/use-scroll-event';
 import { addClass, getElement, getElements, removeClass } from 'Utils/dom';
 import * as EventManager from 'Utils/event-manager';
+import 'twin.macro';
 import * as ScrollManager from 'Utils/scroll';
 
 interface TableOfContentsProps {
@@ -17,7 +17,8 @@ const TableOfContents = ({ toc }: TableOfContentsProps) => {
   const THRESHOLD = useMemo(() => window.innerHeight / 2, []);
 
   const getHeaderElements = useCallback(() => {
-    const headers = getElements('h1[id], h2[id], h3[id], h4[id], h5[id], h6[id]');
+    const headers = Array.from(getElements('h1[id], h2[id], h3[id], h4[id], h5[id], h6[id]'));
+
     const headerElements = headers.map((header) => {
       const id = header.getAttribute('id');
       if (!id) return null;
@@ -87,14 +88,12 @@ const TableOfContents = ({ toc }: TableOfContentsProps) => {
   if (!toc) return null;
 
   return (
-    <div
-      css={tw`fixed px-12pxr py-4pxr bg-transparent z-10 max-h-[70vh] max-w-[20vw] overflow-auto`}
-    >
-      <Typography as="h3" css={tw`font-bold text-18pxr text-all-custom-gray mb-12pxr`}>
+    <div className="fixed z-10 max-h-[70vh] max-w-[20vw] overflow-auto bg-transparent px-12pxr py-4pxr">
+      <Typography as="h3" className="mb-12pxr text-18pxr font-bold text-all-custom-gray">
         ON THIS PAGE
       </Typography>
       <div
-        css={tw`text-13pxr text-all-custom-gray font-bold border-spacing-24pxr pl-12pxr tablet:border-spacing-28pxr tracking-normal tablet:tracking-tighter [a.active]:(text-primary transition-all)`}
+        className="[a.active]:text-primary [a.active]:transition-all border-spacing-24pxr pl-12pxr text-13pxr font-bold tracking-normal text-all-custom-gray tablet:border-spacing-28pxr tablet:tracking-tighter"
         dangerouslySetInnerHTML={{ __html: toc }}
       />
     </div>

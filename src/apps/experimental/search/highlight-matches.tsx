@@ -1,10 +1,9 @@
-import React from 'react';
-
 interface HighlightMatchesProps {
   match: string;
   value?: string;
 }
 
+// eslint-disable-next-line unused-imports/no-unused-vars
 const HighlightMatches = ({ match, value }: HighlightMatchesProps) => {
   if (!value) return null;
 
