@@ -2,12 +2,14 @@ import { motion } from 'framer-motion';
 import { graphql, HeadFC, navigate, PageProps } from 'gatsby';
 import { StaticImage } from 'gatsby-plugin-image';
 
-import { GoHome } from 'Apps/common/icon/components/svg-icon';
+import Anchor from 'Apps/common/a/anchor';
+import { LoginIcon } from 'Apps/common/icon/components';
 import Seo from 'Apps/common/seo/seo';
 import { ROUTES } from 'Types/enum';
+import { getGithubIssueUrl } from 'Utils/git';
 import { animateVariant, textVariant } from 'Utils/motion';
 
-const NotFoundPage = (_props: PageProps<Queries.NotFoundQuery>) => {
+const NotFoundPage = (props: PageProps<Queries.NotFoundQuery>) => {
   const goHome = () => {
     navigate(ROUTES.HOME);
   };
@@ -43,14 +45,27 @@ const NotFoundPage = (_props: PageProps<Queries.NotFoundQuery>) => {
         initial={animateVariant.hidden}
         animate={animateVariant.show}
         variants={textVariant({ delay: 0.6 })}
+        className="flex items-center gap-2 foldable:flex-col"
       >
         <button
           onClick={goHome}
           className="focus-primary inline-flex items-center rounded-md bg-primary px-16pxr py-8pxr text-16pxr font-medium text-text-secondary"
         >
-          <GoHome className="mr-8pxr h-20pxr w-20pxr" />
+          <LoginIcon className="mr-8pxr h-20pxr w-20pxr" />
           블로그 홈으로 돌아갈게요.
         </button>
+        <Anchor
+          className="focus-primary rounded-md bg-primary px-16pxr py-8pxr text-16pxr font-medium text-text-secondary"
+          href={getGithubIssueUrl({
+            title: `깨져있던 \`${encodeURIComponent(
+              props.location.pathname,
+            )}\` 경로를 발견했어요. 확인해주세요!`,
+            labels: 'bug',
+          })}
+          external
+        >
+          해당 문제를 여기에 알려주세요!
+        </Anchor>
       </motion.div>
     </div>
   );
