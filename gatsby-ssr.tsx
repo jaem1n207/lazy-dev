@@ -1,17 +1,7 @@
-import React from 'react';
 
 import type { GatsbySSR } from 'gatsby';
 
-import Layout from './src/layout/layout';
-import Root from './src/root';
-
-export const wrapPageElement: GatsbySSR['wrapPageElement'] = ({ element }) => {
-  return (
-    <Root>
-      <Layout>{element}</Layout>
-    </Root>
-  );
-};
+export { wrapPageElement } from './gatsby-shared';
 
 export const onRenderBody: GatsbySSR['onRenderBody'] = ({
   setHtmlAttributes,
