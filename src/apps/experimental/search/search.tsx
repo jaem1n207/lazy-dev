@@ -36,17 +36,16 @@ const Search = ({ value, onChange: _onChange, loading, error, results }: SearchP
       {renderResults && (
         <div>
           {error ? (
-            /* FIXME: 404 페이지와 함께 github issue 링크 설정하기 */
-            <>에러가 발생했어요 여기로 에러를 제보해주세요!</>
+            <span>검색할 데이터를 가져오지 못했어요</span>
           ) : loading ? (
-            <>데이터를 불러오는 중이에요...</>
+            <span>데이터를 불러오는 중이에요...</span>
           ) : results.length === 0 ? (
-            <>
+            <span>
               <strong>{value}</strong>에 대한 검색결과가 없어요
               <br />
-              {/* FIXME: 글감 요청 issue 템플릿 만들어두고 링크 설정하기 */}
+              {/* FIXME: 글감 요청 issue 템플릿(https://github.com/jaem1n207/lazy-dev/discussions/62) 링크 설정하기 */}
               {value}에 대한 내용이 궁금하다면 <strong>글감 요청</strong>에 남겨주세요!
-            </>
+            </span>
           ) : (
             results.map((result) => {
               return (
