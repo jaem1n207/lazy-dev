@@ -11,7 +11,6 @@ const anchorVariantClassName: Record<AnchorVariant, string> = {
 };
 
 interface LinkLikeComponentProps extends HTMLProps<HTMLAnchorElement> {
-  url?: string;
   children?: ReactNode;
   external?: boolean;
   download?: string | boolean;
@@ -22,7 +21,7 @@ interface AnchorProps extends LinkLikeComponentProps {}
 
 const Anchor = memo(
   forwardRef<HTMLAnchorElement, AnchorProps>(function Anchor({ children, ...props }, ref) {
-    const { url, external, className: customClassName, variant, ...restProps } = props;
+    const { href, external, className: customClassName, variant, ...restProps } = props;
 
     const externalAttributes = {
       ...(external && { target: '_blank', rel: 'noopener noreferrer' }),
@@ -32,7 +31,7 @@ const Anchor = memo(
       <a
         {...externalAttributes}
         {...restProps}
-        href={url}
+        href={href}
         ref={ref}
         className={classNames(anchorVariantClassName[variant ?? 'default'], customClassName)}
       >

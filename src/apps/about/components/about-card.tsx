@@ -87,7 +87,7 @@ const AboutCard = () => {
         <div className="border-r-1pxr border-slate-500 opacity-50" />
         <Anchor
           external
-          url={bio.author?.github!}
+          href={bio.author?.github!}
           className="flex items-center justify-center gap-8pxr rounded-sm font-bold !text-text-primary !shadow-none"
         >
           <StaticImage

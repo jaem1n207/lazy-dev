@@ -27,7 +27,7 @@ const ShortCard = ({ short }: ShortCardProps) => {
             />
           </div>
           <div className="flex flex-col gap-8pxr p-8pxr">
-            <h3 className="text-20pxr font-bold leading-7 tablet:text-18pxr tablet:leading-6 foldable:text-16pxr foldable:leading-5">
+            <h3 className="line-clamp-2 text-20pxr font-bold leading-7 tablet:text-18pxr tablet:leading-6 foldable:text-16pxr foldable:leading-5">
               {title}
             </h3>
           </div>

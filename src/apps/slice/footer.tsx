@@ -6,11 +6,11 @@ const Footer = () => {
     <ContentSpacer as="footer" className="pb-32pxr pt-28pxr">
       <div className="mx-auto flex max-w-7xl">
         @ {new Date().getFullYear()}, Built with&nbsp;
-        <Anchor external url="https://www.gatsbyjs.com" className="rounded-sm">
+        <Anchor external href="https://www.gatsbyjs.com" className="rounded-sm">
           Gatsby
         </Anchor>
         <div className="ml-auto">
-          <Anchor external url="/rss.xml" className="rounded-sm">
+          <Anchor external href="/rss.xml" className="rounded-sm">
             rss
           </Anchor>
         </div>

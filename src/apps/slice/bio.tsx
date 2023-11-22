@@ -22,7 +22,11 @@ const Bio = ({ data }: SliceComponentProps<Queries.BioByAuthorIdQuery>) => {
           Written by <strong className="text-16pxr text-text-primary">{author?.name}</strong>
         </h4>
         <p className="text-15pxr">{author?.summary}</p>
-        <Anchor external url={author?.github || ''} className="focus-primary rounded-sm text-16pxr">
+        <Anchor
+          external
+          href={author?.github || ''}
+          className="focus-primary rounded-sm text-16pxr"
+        >
           GitHub
         </Anchor>
       </div>
