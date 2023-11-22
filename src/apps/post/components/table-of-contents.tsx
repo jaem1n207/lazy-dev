@@ -93,7 +93,7 @@ const TableOfContents = ({ toc }: TableOfContentsProps) => {
         ON THIS PAGE
       </Typography>
       <div
-        className="[a.active]:text-primary [a.active]:transition-all border-spacing-24pxr pl-12pxr text-13pxr font-bold tracking-normal text-all-custom-gray tablet:border-spacing-28pxr tablet:tracking-tighter"
+        className="toc-wrapper border-spacing-24pxr pl-12pxr text-13pxr font-bold tracking-normal text-all-custom-gray tablet:border-spacing-28pxr tablet:tracking-tighter"
         dangerouslySetInnerHTML={{ __html: toc }}
       />
     </div>

@@ -2,24 +2,34 @@ code[class*='language-'],
 pre[class*='language-'] {
   font-family: 'Fira Mono', Consolas, 'Liberation Mono', Menlo, monospace;
   font-size: 0.9rem;
-  color: var(--color-text-primary);
-  background-color: var(--color-pre-bg);
-  text-align: left;
-  white-space: pre-wrap;
-  word-spacing: normal;
-  word-break: normal;
-  word-wrap: normal;
-  overflow-x: auto;
+}
 
-  -moz-tab-size: 2;
-  -o-tab-size: 2;
-  tab-size: 2;
+.toc-wrapper,
+li {
+  margin: 0.5rem 0;
+}
 
-  -webkit-hyphens: none;
-  -moz-hyphens: none;
-  -ms-hyphens: none;
-  hyphens: none;
+.toc-wrapper,
+li > a {
+  padding-left: 8px;
 
-  -ms-overflow-style: none;
-  overflow: -moz-scrollbars-none;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.toc-wrapper,
+p > a {
+  padding-left: 2px;
+
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+a.active {
+  color: var(--color-primary);
+  transition-property: color;
+  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+  transition-duration: 200ms;
 }
