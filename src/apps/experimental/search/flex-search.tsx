@@ -1,5 +1,6 @@
 import { useState } from 'react';
 
+import { Command } from 'cmdk';
 import FlexSearch from 'flexsearch';
 
 import type { SearchData } from 'Types/types';
@@ -152,7 +153,7 @@ const Flexsearch = () => {
           _page_rk: i,
           _section_rk: j,
           route: url,
-          prefix: isFirstItemOfPage && <div>{result.doc.title}</div>,
+          prefix: isFirstItemOfPage && <Command.Group heading={result.doc.title} />,
           children: (
             <>
               <div>
