@@ -17,53 +17,9 @@ export const onRenderBody: GatsbySSR['onRenderBody'] = ({
     // @ts-ignore
     <script
       key="gatsby-ssr-inline-script"
+      id="gatsby-ssr-inline-script"
       dangerouslySetInnerHTML={{
-        __html: `
-          (function () {
-            function setTheme(newTheme) {
-              window.__theme = newTheme;
-              if (newTheme === 'dark') {
-                document.documentElement.classList.add('dark');
-              } else if (newTheme === 'light') {
-                document.documentElement.classList.remove('dark');
-              }
-            }
-          
-            var preferredTheme;
-            try {
-              preferredTheme = localStorage.getItem('theme');
-            } catch (e) {}
-          
-            window.__setPreferredTheme = function (newTheme) {
-              preferredTheme = newTheme;
-              setTheme(newTheme);
-              try {
-                localStorage.setItem('theme', newTheme);
-                setTheme(newTheme);
-              } catch (e) {}
-            };
-          
-            var initialTheme = preferredTheme || 'system';
-            var darkQuery = window.matchMedia('(prefers-color-scheme: dark)');
-          
-            if (initialTheme === 'system') {
-              initialTheme = darkQuery.matches ? 'dark' : 'light';
-            }
-            setTheme(initialTheme);
-          
-            darkQuery.addEventListener('change', function (e) {
-              if (preferredTheme === 'system') {
-                setTheme(e.matches ? 'dark' : 'light');
-              }
-              setTheme(darkQuery.matches ? 'dark' : 'light');
-            });
-
-            // 플랫폼별로 콘텐츠를 표시하기 위해 브라우저가 Mac인지 여부를 감지합니다. 
-            // 예로 검색창에 표시되는 키보드 단축키를 들 수 있습니다.
-            const isMac = window.navigator.platform.includes('Mac');
-            document.documentElement.classList.add(isMac ? 'platform-mac' : 'platform-win');
-          })();
-        `,
+        __html: String(process.env.LAZY_DEV_PRE_BODY_SCRIPT),
       }}
     />,
   ]);

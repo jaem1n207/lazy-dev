@@ -1,6 +1,7 @@
 import { writeFileSync } from 'fs';
 import { resolve } from 'path';
 
+import esbuild from 'esbuild';
 import type { GatsbyNode } from 'gatsby';
 import { createFilePath } from 'gatsby-source-filesystem';
 
@@ -226,4 +227,59 @@ export const onCreateNode: GatsbyNode['onCreateNode'] = ({ node, getNode, action
       });
     }
   }
+};
+
+const generatePreBodyScript = `
+  function setTheme(newTheme) {
+    window.__theme = newTheme;
+    if (newTheme === 'dark') {
+      document.documentElement.classList.add('dark');
+    } else if (newTheme === 'light') {
+      document.documentElement.classList.remove('dark');
+    }
+  }
+
+  let preferredTheme;
+  try {
+    preferredTheme = localStorage.getItem('theme');
+  } catch (e) {}
+
+  window.__setPreferredTheme = function (newTheme) {
+    preferredTheme = newTheme;
+    setTheme(newTheme);
+    try {
+      localStorage.setItem('theme', newTheme);
+      setTheme(newTheme);
+    } catch (e) {}
+  };
+
+  let initialTheme = preferredTheme || 'system';
+  let darkQuery = window.matchMedia('(prefers-color-scheme: dark)');
+
+  if (initialTheme === 'system') {
+    initialTheme = darkQuery.matches ? 'dark' : 'light';
+  }
+  setTheme(initialTheme);
+
+  // 플랫폼별로 콘텐츠를 표시하기 위해 브라우저가 Mac인지 여부를 감지합니다.
+  // 예로 검색창에 표시되는 키보드 단축키를 들 수 있습니다.
+  const isMac = window.navigator.platform.includes('Mac');
+  document.documentElement.classList.add(isMac ? 'platform-mac' : 'platform-win');
+`;
+export const onCreateWebpackConfig: GatsbyNode['onCreateWebpackConfig'] = ({
+  actions,
+  plugins,
+}) => {
+  const preBodyScript = esbuild.transformSync(generatePreBodyScript, {
+    minify: true,
+    format: 'iife',
+  }).code;
+
+  actions.setWebpackConfig({
+    plugins: [
+      plugins.define({
+        'process.env.LAZY_DEV_PRE_BODY_SCRIPT': JSON.stringify(preBodyScript),
+      }),
+    ],
+  });
 };
