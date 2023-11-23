@@ -68,7 +68,7 @@ module.exports = {
         ...applyRange(0, 10, 1),
       },
       minHeight: {
-        ...applyRange(320, 880, 80),
+        ...applyRange(80, 880, 80),
       },
       maxHeight: {
         ...applyRange(320, 880, 80),
