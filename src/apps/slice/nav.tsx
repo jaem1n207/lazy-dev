@@ -29,7 +29,6 @@ const Nav = ({ sliceContext }: SliceComponentProps<{}, { title: string }>) => {
     <>
       <ContentSpacer as="nav" className="py-32pxr foldable:py-24pxr">
         <div className="mx-auto flex max-w-7xl items-center justify-between font-bold text-bg-inner">
-          <Flexsearch />
           {/* <button
             aria-label="Search"
             onClick={onOpenSearch}
@@ -77,6 +76,7 @@ const Nav = ({ sliceContext }: SliceComponentProps<{}, { title: string }>) => {
             >
               About
             </Link>
+            <Flexsearch />
             <ThemeToggle />
           </div>
         </div>

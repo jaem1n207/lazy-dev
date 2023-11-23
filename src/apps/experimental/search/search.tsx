@@ -1,6 +1,7 @@
-import { Fragment, useRef } from 'react';
+import { ChangeEvent, Fragment } from 'react';
 
-import { Command } from 'cmdk';
+import { Transition } from '@headlessui/react';
+import { Link } from 'gatsby';
 
 import { useBoolean } from 'Apps/about/hooks/use-boolean';
 import ClientOnly from 'Apps/common/wrapper/client-only';
@@ -19,63 +20,70 @@ const Search = ({ value, onChange: _onChange, loading, error, results }: SearchP
   const [show, { on: onShow, off: onHide }] = useBoolean(false);
   const renderResults = Boolean(value) && show;
 
-  const onChange = (newValue: string) => {
-    _onChange(newValue);
+  const onChange = (e: ChangeEvent<HTMLInputElement>) => {
+    _onChange(e.target.value);
     value ? onShow() : onHide();
   };
 
-  const inputRef = useRef<HTMLInputElement>(null);
-  const listRef = useRef<HTMLDivElement>(null);
+  const icon = (
+    <ClientOnly>
+      <Transition
+        show={!show || Boolean(value)}
+        as={Fragment}
+        enter="transition-opacity"
+        enterFrom="opacity-0"
+        enterTo="opacity-100"
+        leave="transition-opacity"
+        leaveFrom="opacity-100"
+        leaveTo="opacity-0"
+      >
+        <kbd className="border-gray-100/20 pointer-events-none absolute right-1 my-6pxr flex h-24pxr select-none items-center gap-1 rounded border bg-bg-secondary px-6pxr text-all-custom-gray">
+          {value ? (
+            'ESC'
+          ) : (
+            <>
+              <abbr
+                data-platform="mac"
+                title="Command"
+                className="inline-flex h-20pxr w-20pxr items-center justify-center rounded-md bg-bg-secondary p-4pxr text-all-custom-gray no-underline"
+              >
+                ⌘
+              </abbr>
+              <abbr
+                data-platform="win"
+                title="Command"
+                className="inline-flex h-20pxr w-20pxr items-center justify-center rounded-md bg-bg-secondary p-4pxr text-all-custom-gray no-underline"
+              >
+                Ctrl
+              </abbr>{' '}
+              <kbd>K</kbd>
+            </>
+          )}
+        </kbd>
+      </Transition>
+    </ClientOnly>
+  );
 
   return (
     <ClientOnly>
-      <div className="relative">
-        <Command value={value} onValueChange={onChange}>
-          <Command.Input ref={inputRef} autoFocus placeholder="Search" />
-          <hr className="visible relative left-0 my-12pxr block h-1pxr w-full border-0 border-none bg-all-custom-gray" />
-          {renderResults && (
-            <Command.List ref={listRef}>
-              <Command.Empty>
-                <span>
-                  <strong>{value}</strong>에 대한 검색결과가 없어요
-                  <br />
-                  {value}에 대한 내용이 궁금하다면 <strong>글감 요청</strong>에 남겨주세요!
-                </span>
-              </Command.Empty>
-              <Command.Loading>
-                <span>데이터를 불러오는 중이에요...</span>
-              </Command.Loading>
-              {results.map((result) => {
-                const { id, route, prefix, children } = result;
+      <div className="relative flex items-center">
+        <input
+          className="block w-full appearance-none rounded-lg bg-gray-50/10 px-12pxr py-8pxr text-sm -outline-offset-2 transition-colors tablet:text-base"
+          value={value}
+          onChange={onChange}
+          placeholder="검색..."
+        />
+        {icon}
+      </div>
 
-                return (
-                  <Fragment key={id}>
-                    {prefix}
-                    <Command.Item
-                      id={id}
-                      onClick={() => {
-                        inputRef.current?.blur();
-                        onChange(route);
-                      }}
-                    >
-                      {children}
-                    </Command.Item>
-                  </Fragment>
-                );
-              })}
-            </Command.List>
-          )}
-        </Command>
-        {/* <input
-        className="sm:text-sm sm:leading-6 block w-full rounded-md border-0 py-1.5 pl-7 pr-20 text-gray-900 ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600"
-        type="text"
-        value={value}
-        onChange={onChange}
-        placeholder="검색..."
-      />
-
-      {renderResults && (
-        <div>
+      <Transition
+        show={renderResults}
+        as={Transition.Child}
+        leave="transition-opacity duration-100"
+        leaveFrom="opacity-100"
+        leaveTo="opacity-0"
+      >
+        <ul className="absolute right-0 top-full z-20 max-h-400pxr w-screen max-w-lg overflow-auto overscroll-contain rounded-xl border border-border-primary bg-bg-primary py-10pxr shadow-xl">
           {error ? (
             <span>검색할 데이터를 가져오지 못했어요</span>
           ) : loading ? (
@@ -87,20 +95,21 @@ const Search = ({ value, onChange: _onChange, loading, error, results }: SearchP
               {value}에 대한 내용이 궁금하다면 <strong>글감 요청</strong>에 남겨주세요!
             </span>
           ) : (
-            results.map((result) => {
+            results.map(({ children, id, route, prefix }) => {
               return (
-                <Link key={result.id} to={result.route}>
-                  <div className="mb-16pxr">
-                    {result.prefix}
-                    {result.children}
-                  </div>
-                </Link>
+                <Fragment key={id}>
+                  {prefix}
+                  <li className="mx-8pxr list-none break-words rounded-md">
+                    <Link to={route} className="block scroll-m-1 px-10pxr py-8pxr">
+                      {children}
+                    </Link>
+                  </li>
+                </Fragment>
               );
             })
           )}
-        </div>
-      )} */}
-      </div>
+        </ul>
+      </Transition>
     </ClientOnly>
   );
 };

@@ -1,8 +1,8 @@
 import { useState } from 'react';
 
-import { Command } from 'cmdk';
 import FlexSearch from 'flexsearch';
 
+import { Typography } from 'Apps/common/typography';
 import type { SearchData } from 'Types/types';
 
 import HighlightMatches from './highlight-matches';
@@ -153,16 +153,20 @@ const Flexsearch = () => {
           _page_rk: i,
           _section_rk: j,
           route: url,
-          prefix: isFirstItemOfPage && <Command.Group heading={result.doc.title} />,
+          prefix: isFirstItemOfPage && (
+            <div className="border-white/20 mx-10pxr mb-8pxr mt-24pxr select-none border-b px-4pxr pb-6pxr text-14pxr font-semibold uppercase first:mt-0">
+              {result.doc.title}
+            </div>
+          ),
           children: (
             <>
-              <div>
+              <div className="font-semibold text-black dark:text-white">
                 <HighlightMatches match={search} value={title} />
               </div>
               {content && (
-                <div>
+                <Typography as="div" prose={false} className="mt-4pxr text-14pxr leading-snug">
                   <HighlightMatches match={search} value={content} />
-                </div>
+                </Typography>
               )}
             </>
           ),
