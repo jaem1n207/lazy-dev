@@ -5,6 +5,7 @@ import { Link } from 'gatsby';
 
 import { useBoolean } from 'Apps/about/hooks/use-boolean';
 import Anchor from 'Apps/common/a/anchor';
+import Kbd from 'Apps/common/kbd/kbd';
 import { DiscussionIds, getGithubDiscussionUrl } from 'Utils/git';
 
 import type { SearchResult } from './types';
@@ -37,29 +38,15 @@ const Search = ({ value, onChange: _onChange, loading, error, results }: SearchP
       leaveFrom="opacity-100"
       leaveTo="opacity-0"
     >
-      <kbd className="border-gray-100/20 pointer-events-none absolute right-1 my-6pxr flex h-24pxr select-none items-center gap-1 rounded border bg-bg-secondary px-6pxr text-all-custom-gray">
+      <div className="absolute right-1">
         {value ? (
-          'ESC'
+          <Kbd className={{ wrapper: 'bg-zinc-300 dark:bg-neutral-800' }}>ESC</Kbd>
         ) : (
-          <>
-            <abbr
-              data-platform="mac"
-              title="Command"
-              className="inline-flex h-20pxr w-20pxr items-center justify-center rounded-md bg-bg-secondary p-4pxr text-all-custom-gray no-underline"
-            >
-              ⌘
-            </abbr>
-            <abbr
-              data-platform="win"
-              title="Command"
-              className="inline-flex h-20pxr w-20pxr items-center justify-center rounded-md bg-bg-secondary p-4pxr text-all-custom-gray no-underline"
-            >
-              Ctrl
-            </abbr>{' '}
-            <kbd>K</kbd>
-          </>
+          <Kbd keys="command" className={{ wrapper: 'bg-zinc-300 dark:bg-neutral-800' }}>
+            K
+          </Kbd>
         )}
-      </kbd>
+      </div>
     </Transition>
   );
 
@@ -67,7 +54,7 @@ const Search = ({ value, onChange: _onChange, loading, error, results }: SearchP
     <div className="relative w-256pxr foldable:w-auto">
       <div className="relative flex items-center">
         <input
-          className="block w-full appearance-none rounded-lg bg-gray-50/10 px-12pxr py-8pxr text-sm -outline-offset-2 transition-colors tablet:text-base"
+          className="block w-full appearance-none rounded-lg bg-gray-200 px-12pxr py-8pxr text-sm -outline-offset-2 transition-colors dark:bg-gray-50/10 tablet:text-base"
           value={value}
           onChange={onChange}
           placeholder="주제, 내용 검색"
@@ -93,7 +80,7 @@ const Search = ({ value, onChange: _onChange, loading, error, results }: SearchP
               <br />
               {value}에 대한 내용이 궁금하다면{' '}
               <Anchor
-                className="focus-primary rounded-md bg-primary px-16pxr py-8pxr text-16pxr font-medium text-text-secondary"
+                className="focus-primary rounded-md bg-gray-600 px-2pxr py-4pxr text-14pxr text-text-secondary dark:bg-gray-200"
                 href={getGithubDiscussionUrl({
                   discussionId: DiscussionIds.TopicIdea,
                 })}
