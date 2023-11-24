@@ -50,7 +50,7 @@ const Highlight = ({ rect, visible, ...props }: HighlightProps) => {
     <span
       ref={ref}
       className={classNames(
-        'absolute rounded-md bg-gray-100 duration-150 ease-linear dark:bg-gray-800',
+        'absolute rounded-md bg-gray-100 duration-100 ease-linear dark:bg-gray-800',
         {
           'opacity-0': !visible,
           'opacity-100': visible,

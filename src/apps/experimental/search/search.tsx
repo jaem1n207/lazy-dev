@@ -1,4 +1,4 @@
-import { ChangeEvent, FocusEvent, Fragment, useRef } from 'react';
+import { ChangeEvent, FocusEvent, Fragment, MouseEvent, useRef } from 'react';
 
 import { Transition } from '@headlessui/react';
 import { Link } from 'gatsby';
@@ -36,11 +36,17 @@ const Search = ({ value, onChange: _onChange, loading, error, results }: SearchP
   const [showResults, { on: onShowResults, off: onHideResults }] = useBoolean(false);
   const renderResults = Boolean(value) && showResults;
 
+  const hoverHandler = (e: MouseEvent<HTMLAnchorElement>) => {
+    if (!isSearchItem(e.target as HTMLAnchorElement)) return;
+
+    (e.target as HTMLAnchorElement).focus();
+  };
+
   const focusHandler = (e: FocusEvent<HTMLAnchorElement>) => {
     if (!isSearchItem(e.target as HTMLAnchorElement)) return;
 
     setRect(e, () => ulRef.current);
-    if (!showHighlight) onShowHighlight();
+    onShowHighlight();
   };
 
   const blurHandler = () => {
@@ -113,7 +119,7 @@ const Search = ({ value, onChange: _onChange, loading, error, results }: SearchP
         >
           <ul
             ref={ulRef}
-            className="absolute right-0 top-full z-20 mt-8pxr max-h-400pxr w-screen max-w-lg overflow-auto overscroll-contain scroll-auto rounded-xl border border-border-primary bg-bg-primary py-10pxr shadow-xl"
+            className="absolute right-0 top-full z-20 mt-8pxr max-h-400pxr w-screen max-w-lg overflow-auto overscroll-contain scroll-smooth rounded-xl border border-border-primary bg-bg-primary py-10pxr shadow-xl"
           >
             <Highlight rect={rect} visible={showHighlight} />
             {error ? (
@@ -145,8 +151,8 @@ const Search = ({ value, onChange: _onChange, loading, error, results }: SearchP
                       <Link
                         to={route}
                         className="relative block scroll-m-1 px-10pxr py-8pxr transition-colors focus-visible:text-primary focus-visible:outline-none"
-                        onClick={finishSearch}
-                        onKeyDown={(e) => e.key === 'Enter' && finishSearch()}
+                        onSelect={finishSearch}
+                        onMouseOver={hoverHandler}
                         onFocus={focusHandler}
                         onBlur={blurHandler}
                         data-search-anchor-item
