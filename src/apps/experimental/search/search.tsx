@@ -61,10 +61,20 @@ const Search = ({ value, onChange: _onChange, loading, error, results }: SearchP
 
   return (
     <div className="relative w-256pxr foldable:w-auto">
+      {renderResults && (
+        <div
+          className="fixed inset-0 z-10 cursor-pointer"
+          onClick={finishSearch}
+          onKeyDown={finishSearch}
+          role="button"
+          tabIndex={-1}
+        />
+      )}
+
       <div className="relative flex items-center">
         <input
           ref={inputRef}
-          className="block w-full appearance-none rounded-lg bg-gray-200 px-12pxr py-8pxr text-sm -outline-offset-2 transition-colors dark:bg-gray-50/10 tablet:text-base"
+          className="z-20 block w-full appearance-none rounded-lg bg-gray-200 px-12pxr py-8pxr text-sm -outline-offset-2 transition-colors dark:bg-gray-50/10 tablet:text-base"
           value={value}
           onChange={onChange}
           placeholder="주제, 내용 검색"
