@@ -35,13 +35,14 @@ export const getGithubIssueUrl = ({
   return url;
 };
 
-const DiscussionIds = {
-  topicIdea: 62,
+export const DiscussionIds = {
+  TopicIdea: 62,
 } as const;
+type UnionDiscussionIds = (typeof DiscussionIds)[keyof typeof DiscussionIds];
 
 type GithubDiscussionUrlProps = {
   repository?: string;
-  discussionId: keyof typeof DiscussionIds;
+  discussionId: UnionDiscussionIds;
 };
 
 export const getGithubDiscussionUrl = ({

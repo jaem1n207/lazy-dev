@@ -5,8 +5,7 @@ import { Link } from 'gatsby';
 
 import { useBoolean } from 'Apps/about/hooks/use-boolean';
 import Anchor from 'Apps/common/a/anchor';
-import ClientOnly from 'Apps/common/wrapper/client-only';
-import { getGithubDiscussionUrl } from 'Utils/git';
+import { DiscussionIds, getGithubDiscussionUrl } from 'Utils/git';
 
 import type { SearchResult } from './types';
 
@@ -28,103 +27,99 @@ const Search = ({ value, onChange: _onChange, loading, error, results }: SearchP
   };
 
   const icon = (
-    <ClientOnly>
-      <Transition
-        show={!show || Boolean(value)}
-        as={Fragment}
-        enter="transition-opacity"
-        enterFrom="opacity-0"
-        enterTo="opacity-100"
-        leave="transition-opacity"
-        leaveFrom="opacity-100"
-        leaveTo="opacity-0"
-      >
-        <kbd className="border-gray-100/20 pointer-events-none absolute right-1 my-6pxr flex h-24pxr select-none items-center gap-1 rounded border bg-bg-secondary px-6pxr text-all-custom-gray">
-          {value ? (
-            'ESC'
-          ) : (
-            <>
-              <abbr
-                data-platform="mac"
-                title="Command"
-                className="inline-flex h-20pxr w-20pxr items-center justify-center rounded-md bg-bg-secondary p-4pxr text-all-custom-gray no-underline"
-              >
-                ⌘
-              </abbr>
-              <abbr
-                data-platform="win"
-                title="Command"
-                className="inline-flex h-20pxr w-20pxr items-center justify-center rounded-md bg-bg-secondary p-4pxr text-all-custom-gray no-underline"
-              >
-                Ctrl
-              </abbr>{' '}
-              <kbd>K</kbd>
-            </>
-          )}
-        </kbd>
-      </Transition>
-    </ClientOnly>
+    <Transition
+      show={!show || Boolean(value)}
+      as={Fragment}
+      enter="transition-opacity"
+      enterFrom="opacity-0"
+      enterTo="opacity-100"
+      leave="transition-opacity"
+      leaveFrom="opacity-100"
+      leaveTo="opacity-0"
+    >
+      <kbd className="border-gray-100/20 pointer-events-none absolute right-1 my-6pxr flex h-24pxr select-none items-center gap-1 rounded border bg-bg-secondary px-6pxr text-all-custom-gray">
+        {value ? (
+          'ESC'
+        ) : (
+          <>
+            <abbr
+              data-platform="mac"
+              title="Command"
+              className="inline-flex h-20pxr w-20pxr items-center justify-center rounded-md bg-bg-secondary p-4pxr text-all-custom-gray no-underline"
+            >
+              ⌘
+            </abbr>
+            <abbr
+              data-platform="win"
+              title="Command"
+              className="inline-flex h-20pxr w-20pxr items-center justify-center rounded-md bg-bg-secondary p-4pxr text-all-custom-gray no-underline"
+            >
+              Ctrl
+            </abbr>{' '}
+            <kbd>K</kbd>
+          </>
+        )}
+      </kbd>
+    </Transition>
   );
 
   return (
-    <ClientOnly>
-      <div className="relative tablet:w-64">
-        <div className="relative flex items-center">
-          <input
-            className="block w-full appearance-none rounded-lg bg-gray-50/10 px-12pxr py-8pxr text-sm -outline-offset-2 transition-colors tablet:text-base"
-            value={value}
-            onChange={onChange}
-            placeholder="검색..."
-          />
-          {icon}
-        </div>
-
-        <Transition
-          show={renderResults}
-          as={Transition.Child}
-          leave="transition-opacity duration-100"
-          leaveFrom="opacity-100"
-          leaveTo="opacity-0"
-        >
-          <ul className="absolute right-0 top-full z-20 mt-8pxr max-h-400pxr w-screen max-w-lg overflow-auto overscroll-contain rounded-xl border border-border-primary bg-bg-primary py-10pxr shadow-xl">
-            {error ? (
-              <span>검색할 데이터를 가져오지 못했어요</span>
-            ) : loading ? (
-              <span>데이터를 불러오는 중이에요...</span>
-            ) : results.length === 0 ? (
-              <span>
-                <strong>{value}</strong>에 대한 검색결과가 없어요
-                <br />
-                {value}에 대한 내용이 궁금하다면{' '}
-                <Anchor
-                  className="focus-primary rounded-md bg-primary px-16pxr py-8pxr text-16pxr font-medium text-text-secondary"
-                  href={getGithubDiscussionUrl({
-                    discussionId: 'topicIdea',
-                  })}
-                  external
-                >
-                  여기
-                </Anchor>
-                에 남겨주세요!
-              </span>
-            ) : (
-              results.map(({ children, id, route, prefix }) => {
-                return (
-                  <Fragment key={id}>
-                    {prefix}
-                    <li className="mx-8pxr list-none break-words rounded-md">
-                      <Link to={route} className="block scroll-m-1 px-10pxr py-8pxr">
-                        {children}
-                      </Link>
-                    </li>
-                  </Fragment>
-                );
-              })
-            )}
-          </ul>
-        </Transition>
+    <div className="relative tablet:w-64">
+      <div className="relative flex items-center">
+        <input
+          className="block w-full appearance-none rounded-lg bg-gray-50/10 px-12pxr py-8pxr text-sm -outline-offset-2 transition-colors tablet:text-base"
+          value={value}
+          onChange={onChange}
+          placeholder="주제, 내용 검색"
+        />
+        {icon}
       </div>
-    </ClientOnly>
+
+      <Transition
+        show={renderResults}
+        as={Transition.Child}
+        leave="transition-opacity duration-100"
+        leaveFrom="opacity-100"
+        leaveTo="opacity-0"
+      >
+        <ul className="absolute right-0 top-full z-20 mt-8pxr max-h-400pxr w-screen max-w-lg overflow-auto overscroll-contain rounded-xl border border-border-primary bg-bg-primary py-10pxr shadow-xl">
+          {error ? (
+            <span>검색할 데이터를 가져오지 못했어요</span>
+          ) : loading ? (
+            <span>검색할 데이터를 불러오는 중이에요...</span>
+          ) : results.length === 0 ? (
+            <span>
+              <strong>{value}</strong>에 대한 검색결과가 없어요
+              <br />
+              {value}에 대한 내용이 궁금하다면{' '}
+              <Anchor
+                className="focus-primary rounded-md bg-primary px-16pxr py-8pxr text-16pxr font-medium text-text-secondary"
+                href={getGithubDiscussionUrl({
+                  discussionId: DiscussionIds.TopicIdea,
+                })}
+                external
+              >
+                여기
+              </Anchor>
+              에 남겨주세요!
+            </span>
+          ) : (
+            results.map(({ children, id, route, prefix }) => {
+              return (
+                <Fragment key={id}>
+                  {prefix}
+                  <li className="mx-8pxr list-none break-words rounded-md">
+                    <Link to={route} className="block scroll-m-1 px-10pxr py-8pxr">
+                      {children}
+                    </Link>
+                  </li>
+                </Fragment>
+              );
+            })
+          )}
+        </ul>
+      </Transition>
+    </div>
   );
 };
 
