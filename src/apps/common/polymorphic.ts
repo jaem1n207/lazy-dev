@@ -3,6 +3,7 @@ import type {
   ComponentPropsWithoutRef,
   ElementType,
   JSXElementConstructor,
+  ReactNode,
 } from 'react';
 
 type ExtendedProps<_ExtendedProps = unknown, OverrideProps = unknown> = OverrideProps &
@@ -26,9 +27,10 @@ export type PolymorphicComponentProps<E extends ElementType, P = unknown> = Inhe
   ref?: PolymorphicRef<E>;
 };
 
-export type PolymorphicComponent<T extends ElementType, P = unknown> = PolymorphicComponentProps<
-  T,
+export type PolymorphicComponent<E extends ElementType, P = unknown> = PolymorphicComponentProps<
+  E,
   P
 > & {
+  <T extends ElementType = E>(props: PolymorphicComponentProps<T, P>): ReactNode | null;
   displayName?: string;
 };
