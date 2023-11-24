@@ -64,7 +64,7 @@ const Search = ({ value, onChange: _onChange, loading, error, results }: SearchP
   );
 
   return (
-    <div className="relative tablet:w-64">
+    <div className="relative w-256pxr foldable:w-auto">
       <div className="relative flex items-center">
         <input
           className="block w-full appearance-none rounded-lg bg-gray-50/10 px-12pxr py-8pxr text-sm -outline-offset-2 transition-colors tablet:text-base"
