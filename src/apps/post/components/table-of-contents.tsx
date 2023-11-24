@@ -88,7 +88,7 @@ const TableOfContents = ({ toc }: TableOfContentsProps) => {
   if (!toc) return null;
 
   return (
-    <div className="fixed z-10 max-h-[70vh] max-w-[20vw] overflow-auto bg-transparent px-12pxr py-4pxr">
+    <div className="fixed max-h-[70vh] max-w-[20vw] overflow-auto bg-transparent px-12pxr py-4pxr">
       <Typography as="h3" className="mb-12pxr text-18pxr font-bold text-all-custom-gray">
         ON THIS PAGE
       </Typography>
