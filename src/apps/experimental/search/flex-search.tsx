@@ -160,7 +160,7 @@ const Flexsearch = () => {
           ),
           children: (
             <>
-              <div className="font-semibold text-black dark:text-white">
+              <div className="font-semibold">
                 <HighlightMatches match={search} value={title} />
               </div>
               {content && (

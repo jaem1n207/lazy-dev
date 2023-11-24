@@ -1,4 +1,4 @@
-import { ChangeEvent, Fragment } from 'react';
+import { ChangeEvent, Fragment, useRef } from 'react';
 
 import { Transition } from '@headlessui/react';
 import { Link } from 'gatsby';
@@ -19,12 +19,21 @@ interface SearchProps {
 }
 
 const Search = ({ value, onChange: _onChange, loading, error, results }: SearchProps) => {
+  const inputRef = useRef<HTMLInputElement>(null);
+
   const [show, { on: onShow, off: onHide }] = useBoolean(false);
   const renderResults = Boolean(value) && show;
 
   const onChange = (e: ChangeEvent<HTMLInputElement>) => {
-    _onChange(e.target.value);
+    const { value } = e.target;
+    _onChange(value);
     value ? onShow() : onHide();
+  };
+
+  const finishSearch = () => {
+    inputRef.current?.blur();
+    _onChange('');
+    onHide();
   };
 
   const icon = (
@@ -54,6 +63,7 @@ const Search = ({ value, onChange: _onChange, loading, error, results }: SearchP
     <div className="relative w-256pxr foldable:w-auto">
       <div className="relative flex items-center">
         <input
+          ref={inputRef}
           className="block w-full appearance-none rounded-lg bg-gray-200 px-12pxr py-8pxr text-sm -outline-offset-2 transition-colors dark:bg-gray-50/10 tablet:text-base"
           value={value}
           onChange={onChange}
@@ -95,8 +105,12 @@ const Search = ({ value, onChange: _onChange, loading, error, results }: SearchP
               return (
                 <Fragment key={id}>
                   {prefix}
-                  <li className="mx-8pxr list-none break-words rounded-md">
-                    <Link to={route} className="block scroll-m-1 px-10pxr py-8pxr">
+                  <li className="mx-8pxr list-none break-words rounded-md text-black dark:text-white">
+                    <Link
+                      to={route}
+                      className="block scroll-m-1 px-10pxr py-8pxr"
+                      onClick={finishSearch}
+                    >
                       {children}
                     </Link>
                   </li>
