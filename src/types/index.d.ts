@@ -1,8 +1,23 @@
 declare global {
   type Theme = 'dark' | 'light' | undefined;
+
+  type Platform = {
+    isMac: boolean;
+    isWin: boolean;
+    isLinux: boolean;
+    isMobile: boolean;
+    isTablet: boolean;
+    isTouch: boolean;
+  };
+
   interface Window {
-    __theme: Theme;
-    __setPreferredTheme: (theme: Theme) => void;
+    __LAZY_DEV_DATA__: {
+      theme: {
+        mode: Theme;
+        setPreferredTheme: (theme: Theme) => void;
+      };
+      platform: Platform;
+    };
   }
 }
 

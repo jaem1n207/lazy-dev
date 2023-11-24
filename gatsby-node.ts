@@ -230,8 +230,16 @@ export const onCreateNode: GatsbyNode['onCreateNode'] = ({ node, getNode, action
 };
 
 const generatePreBodyScript = `
+  window.__LAZY_DEV_DATA__ = {
+    theme: {
+      mode: undefined,
+      setPreferredTheme: undefined,
+    },
+    platform: undefined,
+  };
+
   function setTheme(newTheme) {
-    window.__theme = newTheme;
+    window.__LAZY_DEV_DATA__.theme.mode = newTheme;
     if (newTheme === 'dark') {
       document.documentElement.classList.add('dark');
     } else if (newTheme === 'light') {
@@ -244,7 +252,7 @@ const generatePreBodyScript = `
     preferredTheme = localStorage.getItem('theme');
   } catch (e) {}
 
-  window.__setPreferredTheme = function (newTheme) {
+  window.__LAZY_DEV_DATA__.theme.setPreferredTheme = (newTheme) => {
     preferredTheme = newTheme;
     setTheme(newTheme);
     try {
@@ -265,6 +273,20 @@ const generatePreBodyScript = `
   // 예로 검색창에 표시되는 키보드 단축키를 들 수 있습니다.
   const isMac = window.navigator.platform.includes('Mac');
   document.documentElement.classList.add(isMac ? 'platform-mac' : 'platform-win');
+  
+  const isWin = window.navigator.platform.includes('Win');
+  const isLinux = window.navigator.platform.includes('Linux');
+  const isMobile = window.navigator.platform.includes('iPhone') || window.navigator.platform.includes('Android');
+  const isTablet = window.navigator.platform.includes('iPad') || window.navigator.platform.includes('Android');
+  const isTouch = 'ontouchstart' in window || navigator.maxTouchPoints > 0 || navigator.msMaxTouchPoints > 0;
+  window.__LAZY_DEV_DATA__.platform = {
+    isMac,
+    isWin,
+    isLinux,
+    isMobile,
+    isTablet,
+    isTouch,
+  };
 `;
 export const onCreateWebpackConfig: GatsbyNode['onCreateWebpackConfig'] = ({
   actions,
