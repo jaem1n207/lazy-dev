@@ -154,7 +154,7 @@ const Flexsearch = () => {
           _section_rk: j,
           route: url,
           prefix: isFirstItemOfPage && (
-            <div className="border-white/20 mx-10pxr mb-8pxr mt-24pxr select-none border-b px-4pxr pb-6pxr text-14pxr font-semibold uppercase first:mt-0">
+            <div className="border-white/20 mx-10pxr mb-8pxr mt-24pxr select-none border-b px-4pxr pb-6pxr text-14pxr font-semibold uppercase first-of-type:mt-0">
               {result.doc.title}
             </div>
           ),
@@ -164,7 +164,11 @@ const Flexsearch = () => {
                 <HighlightMatches match={search} value={title} />
               </div>
               {content && (
-                <Typography as="div" prose={false} className="mt-4pxr text-14pxr leading-snug">
+                <Typography
+                  as="div"
+                  prose={false}
+                  className="mt-4pxr text-14pxr leading-snug text-gray-600 dark:text-gray-400"
+                >
                   <HighlightMatches match={search} value={content} />
                 </Typography>
               )}
