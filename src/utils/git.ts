@@ -1,4 +1,4 @@
-const DEFAULT_REPOSITORY = 'https://github.com/jaem1n207/lazy-dev';
+const defaultRepository = 'https://github.com/jaem1n207/lazy-dev';
 
 type ReturnGitUrlParse = {
   protocol: string;
@@ -23,7 +23,7 @@ type GithubIssueUrlProps = {
 };
 
 export const getGithubIssueUrl = ({
-  repository = DEFAULT_REPOSITORY,
+  repository = defaultRepository,
   title,
   labels,
 }: GithubIssueUrlProps) => {
@@ -46,7 +46,7 @@ type GithubDiscussionUrlProps = {
 };
 
 export const getGithubDiscussionUrl = ({
-  repository = DEFAULT_REPOSITORY,
+  repository = defaultRepository,
   discussionId,
 }: GithubDiscussionUrlProps) => {
   const { protocol, owner, resource, name } = githubUrlParse(repository);
