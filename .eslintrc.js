@@ -144,6 +144,12 @@ module.exports = {
   },
   overrides: [
     {
+      files: ['*.ts'],
+      rules: {
+        'no-undef': 'off',
+      },
+    },
+    {
       files: ['*.ts', '*.tsx'],
       processor: '@graphql-eslint/graphql',
     },
