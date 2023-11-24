@@ -32,8 +32,7 @@ const AboutCard = () => {
           <Typography
             as="p"
             prose={false}
-            textColorClassName="text-primary"
-            className="truncate text-14pxr font-bold before:content-['@'] tablet:text-12pxr"
+            className="truncate text-14pxr font-bold text-primary before:content-['@'] tablet:text-12pxr"
           >
             {bio.author?.githubName}
           </Typography>

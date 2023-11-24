@@ -1,17 +1,27 @@
-import { ElementType, HTMLAttributes, forwardRef } from 'react';
 import * as React from 'react';
 
 import classNames from 'classnames';
 
-interface ContentSpacerProps extends HTMLAttributes<HTMLElement> {
-  as?: ElementType;
-  className?: string;
-  children: React.ReactNode;
-  compact?: boolean;
-}
+import { PolymorphicComponent, PolymorphicComponentProps, PolymorphicRef } from '../../polymorphic';
 
-const ContentSpacer = forwardRef<HTMLElement, ContentSpacerProps>(
-  ({ as: Component = 'div', className, children, compact = false, ...rest }, ref) => {
+type _ContentSpacerProps = {
+  compact?: boolean;
+};
+
+type ContentSpacerProps<T extends React.ElementType> = PolymorphicComponentProps<
+  T,
+  _ContentSpacerProps
+>;
+
+type ContentSpacerComponent = PolymorphicComponent<'div', _ContentSpacerProps>;
+
+const ContentSpacer: ContentSpacerComponent = React.forwardRef(
+  <T extends React.ElementType = 'div'>(
+    { as, compact = false, className, ...props }: ContentSpacerProps<T>,
+    ref: PolymorphicRef<T>['ref'],
+  ) => {
+    const Component = as ?? 'div';
+
     const classes = classNames(
       'relative',
       {
@@ -21,11 +31,7 @@ const ContentSpacer = forwardRef<HTMLElement, ContentSpacerProps>(
       className,
     );
 
-    return (
-      <Component ref={ref} className={classes} {...rest}>
-        {children}
-      </Component>
-    );
+    return <Component ref={ref} className={classes} {...props} />;
   },
 );
 
