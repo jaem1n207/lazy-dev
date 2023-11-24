@@ -55,7 +55,7 @@ const ThemeToggle = () => {
   const isDarkMode = theme === 'dark';
 
   const toggleTheme = () => {
-    window.__setPreferredTheme(isDarkMode ? 'light' : 'dark');
+    window.__LAZY_DEV_DATA__.theme.setPreferredTheme(isDarkMode ? 'light' : 'dark');
     setTheme((prev) => (prev === 'dark' ? 'light' : 'dark'));
   };
 
@@ -67,10 +67,10 @@ const ThemeToggle = () => {
 
     const handleThemeChange = (e: MediaQueryListEvent) => {
       if (e.matches) {
-        window.__setPreferredTheme('dark');
+        window.__LAZY_DEV_DATA__.theme.setPreferredTheme('dark');
         setTheme('dark');
       } else {
-        window.__setPreferredTheme('light');
+        window.__LAZY_DEV_DATA__.theme.setPreferredTheme('light');
         setTheme('light');
       }
     };
