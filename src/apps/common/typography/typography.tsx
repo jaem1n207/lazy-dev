@@ -38,15 +38,7 @@ const Title = <T extends React.ElementType = 'h1'>({
   const Component = as ?? size;
 
   return (
-    <Component
-      className={classNames(
-        fontSize[size],
-        titleColors[variant],
-        'transition-colors duration-500',
-        className,
-      )}
-      {...props}
-    >
+    <Component className={classNames(fontSize[size], titleColors[variant], className)} {...props}>
       {children}
     </Component>
   );
