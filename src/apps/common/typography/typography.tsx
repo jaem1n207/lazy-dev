@@ -78,7 +78,7 @@ const Typography: TypographyComponent = React.forwardRef(
       <Component
         ref={ref}
         className={classNames(
-          prose ? 'prose' : 'text-base',
+          prose ? 'prose' : 'text-base text-text-primary',
           className,
           'transition-colors duration-500',
         )}
