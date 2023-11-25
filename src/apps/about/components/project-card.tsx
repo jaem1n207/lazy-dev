@@ -1,9 +1,6 @@
-import { useEffect } from 'react';
-
 import { motion } from 'framer-motion';
 import { StaticImage } from 'gatsby-plugin-image';
 
-import { useParentRef } from 'Apps/common/parent-ref-context/utils';
 import { Typography } from 'Apps/common/typography';
 import { animateVariant, fadeIn } from 'Utils/motion';
 
@@ -49,25 +46,6 @@ const ProjectCard = ({
   staticImageEl,
   projectUrl,
 }: ProjectCardProps) => {
-  const parentRef = useParentRef();
-
-  useEffect(() => {
-    const parentEl = parentRef?.current;
-
-    if (!parentEl) return;
-
-    const updateCursor = ({ x, y }: { x: number; y: number }) => {
-      parentEl.style.setProperty('--x', x + '');
-      parentEl.style.setProperty('--y', y + '');
-    };
-
-    parentEl.addEventListener('pointermove', updateCursor);
-
-    return () => {
-      parentEl.removeEventListener('pointermove', updateCursor);
-    };
-  }, [parentRef]);
-
   return (
     <motion.div
       className="relative"
@@ -120,17 +98,17 @@ const ProjectCard = ({
           )}
         </div>
         <div className="mt-20pxr">
-          <Typography as="h3" className="text-24pxr font-bold text-text-primary">
+          <Typography as="h3" prose className="text-24pxr font-bold text-text-primary">
             {name}
           </Typography>
-          <Typography as="p" className="mt-8pxr text-16pxr text-text-secondary">
+          <Typography as="p" prose className="mt-8pxr text-16pxr text-text-primary">
             {description}
           </Typography>
         </div>
 
         <div className="mt-20pxr flex flex-wrap gap-8pxr">
           {tags.map((tag) => (
-            <Typography as="p" className={`text-14pxr ${tag.colorClass}`} key={tag.name}>
+            <Typography as="p" prose className={`text-14pxr ${tag.colorClass}`} key={tag.name}>
               #{tag.name}
             </Typography>
           ))}
@@ -139,7 +117,5 @@ const ProjectCard = ({
     </motion.div>
   );
 };
-
-ProjectCard.displayName = 'ProjectCard';
 
 export default ProjectCard;
