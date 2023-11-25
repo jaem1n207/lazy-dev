@@ -1,14 +1,16 @@
 declare global {
   type Theme = 'dark' | 'light' | undefined;
 
-  type Platform = {
-    isMac: boolean;
-    isWin: boolean;
-    isLinux: boolean;
+  interface DetectDevice {
+    isMacOs: boolean;
     isMobile: boolean;
     isTablet: boolean;
+    isDesktop: boolean;
+    isSmartTV: boolean;
+    isWearable: boolean;
+    isEmbedded: boolean;
     isTouch: boolean;
-  };
+  }
 
   interface Window {
     __LAZY_DEV_DATA__: {
@@ -16,7 +18,7 @@ declare global {
         mode: Theme;
         setPreferredTheme: (theme: Theme) => void;
       };
-      platform: Platform;
+      detectDevice: DetectDevice;
     };
   }
 }

@@ -28,7 +28,7 @@ const Kbd: KbdComponent = forwardRef(
   ) => {
     const Component = as ?? 'kbd';
 
-    const keyMap = window.__LAZY_DEV_DATA__.platform.isMac ? kbdKeyMapMac : kbdKeyMapWinLinux;
+    const keyMap = window.__LAZY_DEV_DATA__.detectDevice.isMacOs ? kbdKeyMapMac : kbdKeyMapWinLinux;
 
     const keyContents = useMemo(() => {
       const keysToRender = typeof keys === 'string' ? [keys] : Array.isArray(keys) ? keys : [];

@@ -1,6 +1,8 @@
+// FIXME: 키보드 입력에 따라 focus 되는 항목이 변경되어야 함 (GlobalListener & Hotkey 구현되면 ㄱ), search fallback UI 구현(CLS 지표 개선)
 import { ChangeEvent, FocusEvent, Fragment, MouseEvent, useRef } from 'react';
 
 import { Transition } from '@headlessui/react';
+import { window } from 'browser-monads-ts';
 import { Link } from 'gatsby';
 
 import { useBoolean } from 'Apps/about/hooks/use-boolean';
@@ -27,6 +29,10 @@ const isSearchItem = (el?: HTMLElement) => {
 };
 
 const Search = ({ value, onChange: _onChange, loading, error, results }: SearchProps) => {
+  const displayKbd =
+    !window.__LAZY_DEV_DATA__.detectDevice.isTouch &&
+    window.__LAZY_DEV_DATA__.detectDevice.isDesktop;
+
   const inputRef = useRef<HTMLInputElement>(null);
 
   const ulRef = useRef<HTMLUListElement>(null);
@@ -60,6 +66,7 @@ const Search = ({ value, onChange: _onChange, loading, error, results }: SearchP
   };
 
   const finishSearch = () => {
+    console.log('hello');
     inputRef.current?.blur();
     ulRef.current?.scrollTo(0, 0);
     _onChange('');
@@ -83,31 +90,33 @@ const Search = ({ value, onChange: _onChange, loading, error, results }: SearchP
         <div className="relative flex items-center">
           <input
             ref={inputRef}
-            className="z-20 block w-full appearance-none rounded-lg bg-gray-200 px-12pxr py-8pxr text-sm -outline-offset-2 transition-colors dark:bg-gray-50/10 tablet:text-base"
+            className="z-20 block w-full appearance-none rounded-lg bg-gray-200 px-12pxr py-8pxr text-sm -outline-offset-2 transition-colors placeholder-shown:line-clamp-1 dark:bg-gray-50/10 tablet:text-base"
             value={value}
             onChange={onChange}
             placeholder="주제, 내용 검색"
           />
-          <Transition
-            show={!showResults || Boolean(value)}
-            as={Fragment}
-            enter="transition-opacity"
-            enterFrom="opacity-0"
-            enterTo="opacity-100"
-            leave="transition-opacity"
-            leaveFrom="opacity-100"
-            leaveTo="opacity-0"
-          >
-            <div className="absolute right-1">
-              {value ? (
-                <Kbd className={{ wrapper: 'bg-zinc-300 dark:bg-neutral-800' }}>ESC</Kbd>
-              ) : (
-                <Kbd keys="command" className={{ wrapper: 'bg-zinc-300 dark:bg-neutral-800' }}>
-                  K
-                </Kbd>
-              )}
-            </div>
-          </Transition>
+          {displayKbd && (
+            <Transition
+              show={!showResults || Boolean(value)}
+              as={Fragment}
+              enter="transition-opacity"
+              enterFrom="opacity-0"
+              enterTo="opacity-100"
+              leave="transition-opacity"
+              leaveFrom="opacity-100"
+              leaveTo="opacity-0"
+            >
+              <div className="absolute right-1">
+                {value ? (
+                  <Kbd className={{ wrapper: 'bg-zinc-300 dark:bg-neutral-800' }}>ESC</Kbd>
+                ) : (
+                  <Kbd keys="command" className={{ wrapper: 'bg-zinc-300 dark:bg-neutral-800' }}>
+                    K
+                  </Kbd>
+                )}
+              </div>
+            </Transition>
+          )}
         </div>
 
         <Transition
@@ -151,7 +160,7 @@ const Search = ({ value, onChange: _onChange, loading, error, results }: SearchP
                       <Link
                         to={route}
                         className="relative block scroll-m-1 px-10pxr py-8pxr transition-colors focus-visible:text-primary focus-visible:outline-none"
-                        onSelect={finishSearch}
+                        onClick={finishSearch}
                         onMouseOver={hoverHandler}
                         onFocus={focusHandler}
                         onBlur={blurHandler}

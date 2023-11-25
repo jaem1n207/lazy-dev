@@ -235,7 +235,7 @@ const generatePreBodyScript = `
       mode: undefined,
       setPreferredTheme: undefined,
     },
-    platform: undefined,
+    detectDevice: {},
   };
 
   function setTheme(newTheme) {
@@ -271,20 +271,31 @@ const generatePreBodyScript = `
 
   // 플랫폼별로 콘텐츠를 표시하기 위해 브라우저가 Mac인지 여부를 감지합니다.
   // 예로 검색창에 표시되는 키보드 단축키를 들 수 있습니다.
-  const isMac = window.navigator.platform.includes('Mac');
-  document.documentElement.classList.add(isMac ? 'platform-mac' : 'platform-win');
-  
-  const isWin = window.navigator.platform.includes('Win');
-  const isLinux = window.navigator.platform.includes('Linux');
-  const isMobile = window.navigator.platform.includes('iPhone') || window.navigator.platform.includes('Android');
-  const isTablet = window.navigator.platform.includes('iPad') || window.navigator.platform.includes('Android');
-  const isTouch = 'ontouchstart' in window || navigator.maxTouchPoints > 0 || navigator.msMaxTouchPoints > 0;
-  window.__LAZY_DEV_DATA__.platform = {
-    isMac,
-    isWin,
-    isLinux,
+  const isMacOs = window.navigator.platform.includes('Mac');
+  document.documentElement.classList.add(isMacOs ? 'platform-mac' : 'platform-win');
+
+  const userAgent = window.navigator.userAgent;
+
+  const isMobile = /Mobi|Android/i.test(userAgent);
+  const isTablet = /Tablet|iPad/i.test(userAgent);
+  const isDesktop = !isMobile && !isTablet;
+  const isSmartTV =
+    /SmartTV|SMART-TV|Internet.TV|NetCast|NETTV|AppleTV|boxee|Kylo|Roku|DLNADOC|CE-HTML/i.test(
+      userAgent,
+    );
+  const isWearable = /Wearable|Watch/i.test(userAgent);
+  const isEmbedded = /Raspbian|Ubuntu|ARM/i.test(userAgent);
+  const isTouch =
+    'ontouchstart' in window || navigator.maxTouchPoints > 0 || navigator.msMaxTouchPoints > 0;
+
+  window.__LAZY_DEV_DATA__.detectDevice = {
+    isMacOs,
     isMobile,
     isTablet,
+    isDesktop,
+    isSmartTV,
+    isWearable,
+    isEmbedded,
     isTouch,
   };
 `;
