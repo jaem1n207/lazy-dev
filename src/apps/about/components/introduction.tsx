@@ -35,7 +35,11 @@ const Introduction = () => {
       >
         저는
         <div className="relative h-56pxr w-full overflow-hidden font-bold">
-          <ClientOnly>
+          <ClientOnly
+            fallback={
+              <div className="relative h-56pxr w-full animate-pulse rounded-lg bg-gray-800" />
+            }
+          >
             {keywords.map((keyword, index) => (
               <motion.span
                 key={keyword}

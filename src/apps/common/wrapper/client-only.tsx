@@ -1,13 +1,18 @@
-import * as React from 'react';
+import { useState, type ReactNode, useEffect } from 'react';
 
-const ClientOnly = ({ children }: { children: React.ReactNode }) => {
-  const [hasMounted, setHasMounted] = React.useState(false);
+type ClineOnlyProps = {
+  children: ReactNode;
+  fallback?: ReactNode;
+};
 
-  React.useEffect(() => {
+const ClientOnly = ({ children, fallback }: ClineOnlyProps) => {
+  const [hasMounted, setHasMounted] = useState(false);
+
+  useEffect(() => {
     setHasMounted(true);
   }, []);
 
-  if (!hasMounted) return null;
+  if (!hasMounted) return <>{fallback}</>;
 
   return <>{children}</>;
 };
