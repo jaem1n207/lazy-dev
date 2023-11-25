@@ -3,6 +3,7 @@ import { useEffect } from 'react';
 import { motion } from 'framer-motion';
 
 import { Typography } from 'Apps/common/typography';
+import ClientOnly from 'Apps/common/wrapper/client-only';
 
 import { useNonRepeatingRandomIndex } from '../hooks/use-non-repeating-random-index';
 
@@ -29,27 +30,30 @@ const Introduction = () => {
     <div className="h-full max-w-full flex-1 desktop:min-w-[80vw]">
       <Typography
         as="div"
-        className="my-8pxr h-full text-36pxr font-semibold tracking-tight tablet:text-30pxr"
+        prose
+        className="my-8pxr h-full text-36pxr font-semibold tracking-tight text-text-primary tablet:text-30pxr"
       >
         저는
         <div className="relative h-56pxr w-full overflow-hidden font-bold">
-          {keywords.map((keyword, index) => (
-            <motion.span
-              key={keyword}
-              animate={{
-                translateY: (index - currentKeywordIndex) * 56 * 2,
-              }}
-              initial={{
-                translateY: (index - currentKeywordIndex) * 56 * 2,
-              }}
-              transition={{
-                translateY: { duration: 1, ease: 'linear' },
-              }}
-              className="absolute h-full w-full"
-            >
-              {keyword}
-            </motion.span>
-          ))}
+          <ClientOnly>
+            {keywords.map((keyword, index) => (
+              <motion.span
+                key={keyword}
+                animate={{
+                  translateY: (index - currentKeywordIndex) * 56 * 2,
+                }}
+                initial={{
+                  translateY: (index - currentKeywordIndex) * 56 * 2,
+                }}
+                transition={{
+                  translateY: { duration: 1, ease: 'linear' },
+                }}
+                className="absolute h-full w-full"
+              >
+                {keyword}
+              </motion.span>
+            ))}
+          </ClientOnly>
         </div>
         개발자입니다.
       </Typography>
