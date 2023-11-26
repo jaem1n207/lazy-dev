@@ -8,7 +8,6 @@ import { Link } from 'gatsby';
 import { useBoolean } from 'Apps/about/hooks/use-boolean';
 import Anchor from 'Apps/common/a/anchor';
 import Kbd from 'Apps/common/kbd/kbd';
-import KeyListener, { Keys } from 'Apps/common/key-listener/key-listener';
 import ClientOnly from 'Apps/common/wrapper/client-only';
 import { DiscussionIds, getGithubDiscussionUrl } from 'Utils/git';
 
@@ -112,7 +111,7 @@ const Search = ({ value, onChange: _onChange, loading, error, results }: SearchP
               <div className="absolute right-1">
                 {value ? (
                   <>
-                    <KeyListener targetRef={inputRef} keyCode={Keys.ESC} handler={finishSearch} />
+                    {/* <KeyListener targetRef={inputRef} keyCode={Keys.ESC} handler={finishSearch} /> */}
                     <Kbd className={{ wrapper: 'bg-zinc-300 dark:bg-neutral-800' }}>ESC</Kbd>
                   </>
                 ) : (

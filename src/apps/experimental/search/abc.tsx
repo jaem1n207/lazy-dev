@@ -1,6 +1,6 @@
 import { RefObject, useRef, useState } from 'react';
 
-import KeyListener, { Keys } from 'Apps/common/key-listener/key-listener';
+import HotKeyListener from 'Apps/common/hot-key-listener/hot-key-listener';
 
 const Abc = () => {
   const [count, setCount] = useState(0);
@@ -22,21 +22,31 @@ const Abc = () => {
 
   return (
     <div>
+      <HotKeyListener
+        hotkey={'Enter'}
+        handler={() => {
+          console.log('global event handler called');
+        }}
+      />
       <div ref={divRef} tabIndex={-1} className="h-40pxr w-full bg-gray-400">
-        <KeyListener targetRef={divRef} keyCode={[Keys.CTRL, Keys.K]} handler={handleIncrement} />
+        <HotKeyListener
+          targetRef={divRef}
+          hotkey={['Control', 'Shift', 'a']}
+          handler={handleIncrement}
+        />
         Hello World: {count}
       </div>
       <input ref={inputRef1} type="text" />
-      <KeyListener
+      <HotKeyListener
         targetRef={inputRef1}
-        keyCode={[Keys.CMD, Keys.K]}
+        hotkey={['Control', 'Shift', 'a']}
         handler={() => clearInput(inputRef1)}
       />
 
       <input ref={inputRef2} type="text" />
-      <KeyListener
+      <HotKeyListener
         targetRef={inputRef2}
-        keyCode={[Keys.CMD, Keys.K]}
+        hotkey={['a', 'k']}
         handler={() => clearInput(inputRef2)}
       />
     </div>
