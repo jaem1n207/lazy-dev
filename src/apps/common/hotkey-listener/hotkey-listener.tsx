@@ -31,7 +31,7 @@ type HotKeyListenerProps = {
   /**
    * 지정된 키 이벤트가 발생했을 때 호출될 콜백 함수입니다.
    */
-  handler: () => void;
+  handler: (e: KeyboardEvent) => void;
   /**
    * 이벤트 핸들러가 연결될 DOM 요소에 대한 참조입니다.
    *
@@ -44,6 +44,8 @@ type HotKeyListenerProps = {
    */
   targetRef?: RefObject<HTMLElement>;
 };
+
+const INPUTS = ['input', 'select', 'button', 'textarea'];
 
 const HotKeyListener = ({ hotkey, handler, targetRef }: HotKeyListenerProps) => {
   const hotkeys = useRef(
@@ -68,8 +70,12 @@ const HotKeyListener = ({ hotkey, handler, targetRef }: HotKeyListenerProps) => 
       const pressedKeys = Array.from(currentlyPressedKeys.current);
       const isMatch = pressedKeys.every((k) => hotkeys.current.has(k));
       if (isMatch) {
-        handler();
+        handler(e);
       }
+
+      // e.preventDefault();
+      // e.stopPropagation();
+      // return;
     };
 
     const handleKeyUp = (e: KeyboardEvent) => {
@@ -80,6 +86,10 @@ const HotKeyListener = ({ hotkey, handler, targetRef }: HotKeyListenerProps) => 
       }
       // 떼어진 키를 currentlyPressedKeys에서 제거합니다.
       currentlyPressedKeys.current.delete(key);
+
+      // e.preventDefault();
+      // e.stopPropagation();
+      // return;
     };
 
     const domNode = targetRef?.current ?? document;

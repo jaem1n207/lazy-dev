@@ -1,3 +1,4 @@
+/* HotkeyListener 실험용 컴포넌트 */
 import { RefObject, useRef, useState } from 'react';
 
 import HotkeyListener from 'Apps/common/hotkey-listener/hotkey-listener';
