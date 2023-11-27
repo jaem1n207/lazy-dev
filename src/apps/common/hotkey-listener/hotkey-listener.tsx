@@ -1,3 +1,10 @@
+/**
+ * 전달 받은 키 이벤트를 감지하여, 지정된 키가 눌렸을 때 콜백 함수를 호출하는 선언적 컴포넌트입니다.
+ *
+ * OS에 따라 다르게 동작하는 특수 키에 대한 처리 미흡, 입력 필드(input, textarea 등)에 대한 처리 미흡 등의 문제가 있습니다.
+ *
+ * 이러한 문제가 해결될 때까지 해당 컴포넌트 대신 잘 만들어진 `react-hotkeys-hook` 패키지를 사용하는 것을 권장합니다.
+ */
 import { RefObject, useEffect, useRef } from 'react';
 
 const Keys = {
@@ -45,7 +52,15 @@ type HotKeyListenerProps = {
   targetRef?: RefObject<HTMLElement>;
 };
 
-const INPUTS = ['input', 'select', 'button', 'textarea'];
+// const stopPropagation = (e: KeyboardEvent): void => {
+//   e.stopPropagation();
+//   e.preventDefault();
+//   e.stopImmediatePropagation();
+// };
+
+// const INPUTS = ['input', 'select', 'button', 'textarea'];
+
+// const specialKeys = ['ctrl', 'shift', 'alt', 'meta'];
 
 const HotKeyListener = ({ hotkey, handler, targetRef }: HotKeyListenerProps) => {
   const hotkeys = useRef(
@@ -72,10 +87,6 @@ const HotKeyListener = ({ hotkey, handler, targetRef }: HotKeyListenerProps) => 
       if (isMatch) {
         handler(e);
       }
-
-      // e.preventDefault();
-      // e.stopPropagation();
-      // return;
     };
 
     const handleKeyUp = (e: KeyboardEvent) => {
@@ -84,12 +95,8 @@ const HotKeyListener = ({ hotkey, handler, targetRef }: HotKeyListenerProps) => 
       if (key === 'meta') {
         key = navigator.platform.includes('Mac') ? 'meta' : 'control';
       }
-      // 떼어진 키를 currentlyPressedKeys에서 제거합니다.
-      currentlyPressedKeys.current.delete(key);
 
-      // e.preventDefault();
-      // e.stopPropagation();
-      // return;
+      currentlyPressedKeys.current.delete(key);
     };
 
     const domNode = targetRef?.current ?? document;

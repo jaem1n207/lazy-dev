@@ -159,10 +159,14 @@ const Flexsearch = () => {
           ),
           children: (
             <>
-              <div className="font-semibold">
+              <div className="text-base font-bold">
                 <HighlightMatches match={search} value={title} />
               </div>
-              {content && <HighlightMatches match={search} value={content} />}
+              {content && (
+                <div className="mt-4pxr text-sm leading-snug text-gray-600 dark:text-gray-400">
+                  <HighlightMatches match={search} value={content} />
+                </div>
+              )}
             </>
           ),
         });
