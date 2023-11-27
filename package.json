@@ -23,6 +23,8 @@
     "dev": "gatsby develop",
     "start": "gatsby develop",
     "build": "rm -rf public && rm -rf .cache && gatsby build",
+    "test": "jest",
+    "test:coverage": "jest --coverage",
     "serve": "gatsby serve",
     "clean": "gatsby clean",
     "typecheck": "tsc --noEmit",
@@ -88,9 +90,14 @@
     "twin.macro": "^3.4.0"
   },
   "devDependencies": {
+    "@babel/preset-react": "^7.23.3",
+    "@babel/preset-typescript": "^7.23.3",
     "@commitlint/cli": "^17.7.2",
     "@graphql-eslint/eslint-plugin": "^3.20.1",
+    "@testing-library/jest-dom": "^6.1.4",
+    "@testing-library/react": "^14.1.2",
     "@types/flexsearch": "^0.7.6",
+    "@types/jest": "^29.5.10",
     "@types/node": "^20.8.2",
     "@types/react": "^18.2.25",
     "@types/react-dom": "^18.2.10",
@@ -99,6 +106,8 @@
     "@typescript-eslint/eslint-plugin": "^6.7.4",
     "@typescript-eslint/parser": "^6.7.4",
     "autoprefixer": "^10.4.16",
+    "babel-jest": "^29.7.0",
+    "babel-preset-gatsby": "^3.12.1",
     "eslint": "^8.50.0",
     "eslint-config-prettier": "^9.0.0",
     "eslint-import-resolver-alias": "^1.1.2",
@@ -112,11 +121,15 @@
     "gatsby-plugin-postcss": "^6.12.0",
     "gatsby-plugin-webpack-bundle-analyser-v2": "^1.1.31",
     "husky": "^8.0.3",
+    "identity-obj-proxy": "^3.0.0",
+    "jest": "^29.7.0",
+    "jest-environment-jsdom": "^29.7.0",
     "lint-staged": "^14.0.1",
     "postcss": "^8.4.31",
     "prettier": "^3.0.3",
     "prettier-plugin-tailwindcss": "^0.5.6",
     "tailwindcss": "^3.3.3",
+    "ts-jest": "^29.1.1",
     "typescript": "^5.2.2"
   }
 }
