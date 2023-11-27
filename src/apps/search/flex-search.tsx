@@ -2,7 +2,6 @@ import { useState } from 'react';
 
 import FlexSearch from 'flexsearch';
 
-import { Typography } from 'Apps/common/typography';
 import type { SearchData } from 'Types/types';
 
 import HighlightMatches from './highlight-matches';
@@ -163,15 +162,7 @@ const Flexsearch = () => {
               <div className="font-semibold">
                 <HighlightMatches match={search} value={title} />
               </div>
-              {content && (
-                <Typography
-                  as="div"
-                  prose={false}
-                  className="mt-4pxr text-14pxr leading-snug text-gray-600 dark:text-gray-400"
-                >
-                  <HighlightMatches match={search} value={content} />
-                </Typography>
-              )}
+              {content && <HighlightMatches match={search} value={content} />}
             </>
           ),
         });
