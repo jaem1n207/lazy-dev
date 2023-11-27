@@ -9,12 +9,12 @@ import { useBoolean } from 'Apps/about/hooks/use-boolean';
 import Anchor from 'Apps/common/a/anchor';
 import Kbd from 'Apps/common/kbd/kbd';
 import ClientOnly from 'Apps/common/wrapper/client-only';
+import { useRect } from 'Hooks/use-rect';
 import { DiscussionIds, getGithubDiscussionUrl } from 'Utils/git';
 
 import Abc from './abc';
 import Highlight from './highlight';
 import type { SearchResult } from './types';
-import { useRect } from './use-rect';
 
 interface SearchProps {
   value: string;

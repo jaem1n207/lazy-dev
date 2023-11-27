@@ -39,15 +39,15 @@ const Abc = () => {
       <input ref={inputRef1} type="text" />
       <HotkeyListener
         targetRef={inputRef1}
-        hotkey={['Control', 'Shift', 'a']}
+        hotkey={['Meta', 'Shift', 'a']}
         handler={() => clearInput(inputRef1)}
       />
 
       <input ref={inputRef2} type="text" />
       <HotkeyListener
         targetRef={inputRef2}
-        hotkey={['a', 'k']}
-        handler={() => clearInput(inputRef2)}
+        hotkey={['Meta', 'a']}
+        handler={() => console.log('input2')}
       />
     </div>
   );

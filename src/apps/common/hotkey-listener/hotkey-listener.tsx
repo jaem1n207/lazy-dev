@@ -2,27 +2,19 @@ import { RefObject, useEffect, useRef } from 'react';
 
 const Keys = {
   Alt: 'Alt',
-
   Control: 'Control',
-
   Meta: 'Meta',
-
   Shift: 'Shift',
 
   Enter: 'Enter',
-
   Escape: 'Escape',
 
   ArrowDown: 'ArrowDown',
-
   ArrowLeft: 'ArrowLeft',
-
   ArrowRight: 'ArrowRight',
-
   ArrowUp: 'ArrowUp',
 
   A: 'a',
-
   K: 'k',
 } as const;
 type UnionKeys = (typeof Keys)[keyof typeof Keys];
@@ -61,20 +53,31 @@ const HotKeyListener = ({ hotkey, handler, targetRef }: HotKeyListenerProps) => 
 
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
-      const key = e.key.toLowerCase();
+      let key = e.key.toLowerCase();
+
+      if (key === 'meta') {
+        key = navigator.platform.includes('Mac') ? 'meta' : 'control';
+      }
+
       currentlyPressedKeys.current.add(key);
 
-      // 모든 키가 눌려있는지 확인합니다.
-      const isHotkeyPressed =
-        hotkeys.current.has(key) && currentlyPressedKeys.current.size === hotkeys.current.size;
+      if (hotkeys.current.size !== currentlyPressedKeys.current.size) {
+        return;
+      }
 
-      if (isHotkeyPressed) {
+      const pressedKeys = Array.from(currentlyPressedKeys.current);
+      const isMatch = pressedKeys.every((k) => hotkeys.current.has(k));
+      if (isMatch) {
         handler();
       }
     };
 
     const handleKeyUp = (e: KeyboardEvent) => {
-      const key = e.key.toLowerCase();
+      let key = e.key.toLowerCase();
+
+      if (key === 'meta') {
+        key = navigator.platform.includes('Mac') ? 'meta' : 'control';
+      }
       // 떼어진 키를 currentlyPressedKeys에서 제거합니다.
       currentlyPressedKeys.current.delete(key);
     };

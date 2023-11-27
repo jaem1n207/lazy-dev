@@ -4,7 +4,7 @@ import classNames from 'classnames';
 
 import { usePrevious } from 'Hooks/use-previous';
 
-import { type ReactiveDomReact, isUnplacedRect } from './use-rect';
+import { type ReactiveDomReact, isUnplacedRect } from '../../hooks/use-rect';
 
 type Props = {
   rect: ReactiveDomReact;

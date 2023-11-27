@@ -1,7 +1,7 @@
 import { Link, SliceComponentProps } from 'gatsby';
 
 import ContentSpacer from 'Apps/common/layout/components/content-spacer';
-import Flexsearch from 'Apps/experimental/search/flex-search';
+import Flexsearch from 'Apps/search/flex-search';
 import { ROUTES } from 'Types/enum';
 
 import ThemeToggle from '../theme-toggle';
