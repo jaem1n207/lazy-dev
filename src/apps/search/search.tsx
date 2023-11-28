@@ -46,7 +46,7 @@ const Search = ({ value, onChange: _onChange, loading, error, results }: SearchP
   const [showResults, { on: onShowResults, off: onHideResults }] = useBoolean(false);
   const renderResults = Boolean(value) && showResults;
 
-  const [preventHover, setPreventHover, preventHoverRef] = useCurrentState<boolean>(false);
+  const [preventHover, setPreventHover, preventHoverRef] = useCurrentState(false);
 
   const hoverHandler = (e: MouseEvent<HTMLAnchorElement>) => {
     if (preventHover) return;
@@ -66,43 +66,36 @@ const Search = ({ value, onChange: _onChange, loading, error, results }: SearchP
     onHideHighlight();
   };
 
-  const focusNextElement = (e: KeyboardEvent) => {
-    if (!ulRef.current) return;
-    e.preventDefault();
+  const focusTo = (child: HTMLAnchorElement) => {
+    if (!isSearchItem(child)) return;
+    setPreventHover(true);
+    /**
+     * 현재 이벤트 루프에서 발생하는 모든 동기적인 작업이 완료된 후(버블링 완료)에 호출되도록 합니다.
+     * 한글을 입력 처리와 child.focus()가 동시에 발생하면, 마지막 글자가 중복으로 입력되는 문제가 있기 때문입니다.
+     * @see https://github.com/jaem1n207/lazy-dev/issues/66
+     */
+    setTimeout(() => child.focus(), 0);
+  };
 
-    const focusTo = (child: HTMLAnchorElement) => {
-      if (!isSearchItem(child)) return;
-      setPreventHover(true);
-      child.focus();
-    };
+  const focusElement = (direction: 'next' | 'prev') => {
+    if (!ulRef.current) return;
 
     const children = Array.from(getElements<HTMLAnchorElement>('a', ulRef.current));
     if (children.length === 0) return;
 
     const index = children.findIndex((child) => child === document.activeElement);
 
-    if (index === -1 || index + 2 > children.length) return focusTo(children[0]);
-    focusTo(children[index + 1]);
+    if (direction === 'next') {
+      if (index === -1 || index + 2 > children.length) return focusTo(children[0]);
+      focusTo(children[index + 1]);
+    } else {
+      if (index === -1 || index - 1 < 0) return focusTo(children[children.length - 1]);
+      focusTo(children[index - 1]);
+    }
   };
 
-  const focusPrevElement = (e: KeyboardEvent) => {
-    if (!ulRef.current) return;
-    e.preventDefault();
-
-    const focusTo = (child: HTMLAnchorElement) => {
-      if (!isSearchItem(child)) return;
-      setPreventHover(true);
-      child.focus();
-    };
-
-    const children = Array.from(getElements<HTMLAnchorElement>('a', ulRef.current));
-    if (children.length === 0) return;
-
-    const index = children.findIndex((child) => child === document.activeElement);
-
-    if (index === -1 || index - 1 < 0) return focusTo(children[children.length - 1]);
-    focusTo(children[index - 1]);
-  };
+  const focusNextElement = () => focusElement('next');
+  const focusPrevElement = () => focusElement('prev');
 
   const onChange = (e: ChangeEvent<HTMLInputElement>) => {
     const { value } = e.target;
@@ -131,15 +124,16 @@ const Search = ({ value, onChange: _onChange, loading, error, results }: SearchP
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  useHotkeys(`${Key.Meta} + k`, (e) => {
-    e.preventDefault();
-    inputRef.current?.focus();
+  useHotkeys(`${Key.Meta} + k`, () => inputRef.current?.focus(), {
+    preventDefault: true,
   });
   useHotkeys(Key.ArrowDown, focusNextElement, {
+    preventDefault: true,
     enableOnFormTags: ['INPUT'],
     enabled: renderResults,
   });
   useHotkeys(Key.ArrowUp, focusPrevElement, {
+    preventDefault: true,
     enableOnFormTags: ['INPUT'],
     enabled: renderResults,
   });
