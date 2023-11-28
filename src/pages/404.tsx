@@ -3,7 +3,7 @@ import { graphql, HeadFC, navigate, PageProps } from 'gatsby';
 import { StaticImage } from 'gatsby-plugin-image';
 
 import Anchor from 'Apps/common/a/anchor';
-import { LoginIcon } from 'Apps/common/icon/components';
+import { LoginIcon } from 'Apps/common/icon/login-icon';
 import Seo from 'Apps/common/seo/seo';
 import { ROUTES } from 'Types/enum';
 import { getGithubIssueUrl } from 'Utils/git';

@@ -3,7 +3,8 @@ import { useEffect } from 'react';
 import { motion } from 'framer-motion';
 import { graphql, HeadProps, Link, PageProps, Slice } from 'gatsby';
 
-import { SeedingIcon, TagIcon } from 'Apps/common/icon/components';
+import { SeedingIcon } from 'Apps/common/icon/seeding-icon';
+import { TagIcon } from 'Apps/common/icon/tag-icon';
 import { ContentSpacer, Grid, Spacer } from 'Apps/common/layout';
 import Seo from 'Apps/common/seo/seo';
 import { H1, H2 } from 'Apps/common/typography';
@@ -47,7 +48,7 @@ const BlogPost = ({ data }: PageProps<Queries.BlogPostBySlugQuery>) => {
               <span>{timeToRead} min read</span>
             </div>
             <div className="mt-8pxr flex items-center gap-8pxr text-all-custom-gray">
-              <TagIcon size={18} />
+              <TagIcon className="h-18pxr w-18pxr" />
               {frontmatter?.tags?.map((tag) => (
                 <Link
                   key={tag}
@@ -63,7 +64,7 @@ const BlogPost = ({ data }: PageProps<Queries.BlogPostBySlugQuery>) => {
           <section>
             <div className="to-gradient-cyan relative mb-32pxr mt-56pxr h-1pxr w-full bg-gradient-to-r from-primary box-decoration-slice">
               <div className="absolute -top-24pxr left-[calc(50%-2.25rem)] mx-12pxr flex justify-center bg-bg-primary">
-                <SeedingIcon className="bg-bg-primary fill-primary transition" size={48} />
+                <SeedingIcon className="h-48pxr w-48pxr bg-bg-primary fill-primary transition" />
               </div>
             </div>
             <p className="text-16pxr font-semibold tablet:text-14pxr">{summary}</p>
