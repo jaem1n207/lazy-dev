@@ -1,15 +1,6 @@
 import { useCallback, useState } from 'react';
 
-type ReturnType = [
-  boolean,
-  {
-    on: () => void;
-    off: () => void;
-    toggle: () => void;
-  },
-];
-
-export const useBoolean = (flag: boolean): ReturnType => {
+export const useBoolean = (flag: boolean) => {
   const [state, setState] = useState(flag);
   const setFlag = useCallback(
     (newFlag: boolean) => {
@@ -17,6 +8,7 @@ export const useBoolean = (flag: boolean): ReturnType => {
     },
     [setState],
   );
+
   return [
     state,
     {
@@ -24,5 +16,5 @@ export const useBoolean = (flag: boolean): ReturnType => {
       off: () => setFlag(false),
       toggle: () => setFlag(!state),
     },
-  ];
+  ] as const;
 };

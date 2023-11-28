@@ -3,6 +3,7 @@ node_modules/
 public
 src/gatsby-types.d.ts
 .DS_Store
+yarn.lock
 
 .env.*
 !.env.example

@@ -1,24 +1,40 @@
-import React from 'react';
+import { useRef, type ComponentProps, useEffect } from 'react';
 
 import { StaticImage } from 'gatsby-plugin-image';
-
-import ParentRefContainer from 'Apps/common/parent-ref-context/components/parent-ref-container';
 
 import ProjectCard from './project-card';
 
 const ProjectCardList = () => {
+  const gridRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    const gridEl = gridRef.current;
+    if (!gridEl) return;
+
+    const updateCursor = ({ x, y }: { x: number; y: number }) => {
+      gridEl.style.setProperty('--x', x + '');
+      gridEl.style.setProperty('--y', y + '');
+    };
+
+    gridEl.addEventListener('pointermove', updateCursor);
+
+    return () => {
+      gridEl.removeEventListener('pointermove', updateCursor);
+    };
+  }, []);
+
   return (
-    <ParentRefContainer className="grid grid-cols-3 gap-24pxr foldable:grid-cols-1">
+    <div ref={gridRef} className="grid grid-cols-3 gap-24pxr foldable:grid-cols-1">
       {projects.map((project, index) => (
         <ProjectCard key={project.name} index={index} {...project} />
       ))}
-    </ParentRefContainer>
+    </div>
   );
 };
 
 const IMAGE_FOLDER_PATH = '../../../../content/blog/thumbnails';
 
-const projects: Omit<React.ComponentProps<typeof ProjectCard>, 'index'>[] = [
+const projects: Omit<ComponentProps<typeof ProjectCard>, 'index'>[] = [
   {
     name: 'Synchronize Tab Scrolling',
     description: '여러 탭의 스크롤 위치를 동기화할 수 있는 크롬 확장 프로그램',
@@ -154,7 +170,6 @@ const projects: Omit<React.ComponentProps<typeof ProjectCard>, 'index'>[] = [
     ),
     projectUrl: {
       github: 'https://github.com/jaem1n207/jm-wordle/tree/master',
-      live: 'https://jmwordlemain.gatsbyjs.io/',
     },
   },
 ];

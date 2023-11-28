@@ -1,5 +1,3 @@
-import React from 'react';
-
 import ShortCard from './short-card';
 
 interface ShortListProps {

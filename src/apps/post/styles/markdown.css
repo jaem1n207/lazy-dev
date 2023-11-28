@@ -1,0 +1,32 @@
+code[class*='language-'],
+pre[class*='language-'] {
+  font-family: 'Fira Mono', Consolas, 'Liberation Mono', Menlo, monospace;
+  font-size: 0.9rem;
+}
+
+div.toc-wrapper li {
+  margin: 0.5rem 0;
+}
+
+div.toc-wrapper a {
+  padding-left: 8px;
+
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+div.toc-wrapper a {
+  padding-left: 2px;
+
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+div.toc-wrapper a.active {
+  color: var(--color-primary);
+  transition-property: color;
+  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+  transition-duration: 200ms;
+}

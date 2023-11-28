@@ -1,10 +1,10 @@
-import React, { useEffect } from 'react';
+import { useEffect } from 'react';
 
 import { motion } from 'framer-motion';
 import { graphql, HeadProps, Link, PageProps, Slice } from 'gatsby';
-import tw from 'twin.macro';
 
-import { FlowerCircleIcon, TagSvg } from 'Apps/common/icon/components/svg-icon';
+import { SeedingIcon } from 'Apps/common/icon/seeding-icon';
+import { TagIcon } from 'Apps/common/icon/tag-icon';
 import { ContentSpacer, Grid, Spacer } from 'Apps/common/layout';
 import Seo from 'Apps/common/seo/seo';
 import { H1, H2 } from 'Apps/common/typography';
@@ -14,8 +14,8 @@ import * as ScrollManager from 'Utils/scroll';
 
 import PostCard from '../components/post-card';
 import TableOfContents from '../components/table-of-contents';
-import Markdown from '../styles/markdown';
-import { rhythm } from '../styles/typography';
+
+import '../styles/markdown.css';
 
 const BlogPost = ({ data }: PageProps<Queries.BlogPostBySlugQuery>) => {
   const { frontmatter, html, timeToRead, tableOfContents } = data.post!;
@@ -33,22 +33,22 @@ const BlogPost = ({ data }: PageProps<Queries.BlogPostBySlugQuery>) => {
   return (
     <ContentSpacer className="foldable:mx-16pxr">
       <Grid>
-        <div css={tw`col-span-4 col-start-12 desktop:visually-hide`}>
+        <div className="col-span-4 col-start-12 desktop:visually-hide">
           <TableOfContents toc={tableOfContents} />
         </div>
 
-        <div css={tw`col-span-8 col-start-3 desktop:(col-span-full col-start-1)`}>
+        <div className="col-span-8 col-start-3 desktop:col-span-full desktop:col-start-1">
           <header>
             <H1 className="font-bold">{title}</H1>
             <div className="mt-8pxr flex items-center gap-8pxr text-16pxr font-bold text-all-custom-gray">
               <time dateTime={date!}>{date}</time>
-              <span css={tw`h-16pxr w-1pxr bg-all-custom-gray`} />
+              <span className="h-16pxr w-1pxr bg-all-custom-gray" />
               <span>{category}</span>
-              <span css={tw`h-16pxr w-1pxr bg-all-custom-gray`} />
+              <span className="h-16pxr w-1pxr bg-all-custom-gray" />
               <span>{timeToRead} min read</span>
             </div>
             <div className="mt-8pxr flex items-center gap-8pxr text-all-custom-gray">
-              <TagSvg size={18} />
+              <TagIcon className="h-18pxr w-18pxr" />
               {frontmatter?.tags?.map((tag) => (
                 <Link
                   key={tag}
@@ -62,22 +62,20 @@ const BlogPost = ({ data }: PageProps<Queries.BlogPostBySlugQuery>) => {
           </header>
 
           <section>
-            <div className="relative mb-32pxr mt-56pxr h-1pxr w-full bg-gradient-to-r from-primary to-gradient-cyan box-decoration-slice">
-              <div className="absolute -top-24pxr left-[calc(50%-2.25rem)] flex justify-center bg-bg-primary px-12pxr">
-                <FlowerCircleIcon className="bg-bg-primary fill-primary" size={48} />
+            <div className="to-gradient-cyan relative mb-32pxr mt-56pxr h-1pxr w-full bg-gradient-to-r from-primary box-decoration-slice">
+              <div className="absolute -top-24pxr left-[calc(50%-2.25rem)] mx-12pxr flex justify-center bg-bg-primary">
+                <SeedingIcon className="h-48pxr w-48pxr bg-bg-primary fill-primary transition" />
               </div>
             </div>
             <p className="text-16pxr font-semibold tablet:text-14pxr">{summary}</p>
-            <div className="my-24pxr h-1pxr w-full bg-gradient-to-r from-primary to-gradient-cyan box-decoration-slice tablet:my-16pxr" />
+            <div className="to-gradient-cyan my-24pxr h-1pxr w-full bg-gradient-to-r from-primary box-decoration-slice tablet:my-16pxr" />
           </section>
 
-          <div css={tw`h-1pxr mb-20pxr tablet:mb-16pxr`} />
+          <div className="mb-20pxr h-1pxr tablet:mb-16pxr" />
 
-          <Markdown
-            key="body"
+          <article
+            className="prose max-w-none dark:prose-invert"
             dangerouslySetInnerHTML={{ __html: html! }}
-            itemProp="articleBody"
-            rhythm={rhythm}
           />
 
           <Spacer size="xl" />

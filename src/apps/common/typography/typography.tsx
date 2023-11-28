@@ -7,12 +7,7 @@ import * as React from 'react';
 
 import classNames from 'classnames';
 
-interface CommonProps {
-  as?: React.ElementType;
-  className?: string;
-  id?: string;
-  children: React.ReactNode;
-}
+import { PolymorphicComponent, PolymorphicComponentProps, PolymorphicRef } from '../polymorphic';
 
 const fontSize = {
   h1: 'leading-tight text-48pxr tablet:text-36pxr foldable:text-30pxr',
@@ -28,75 +23,63 @@ const titleColors = {
   secondary: 'text-gray-400 dark:text-slate-500',
 };
 
-interface TitleProps extends CommonProps {
+type TitleProps = {
   variant?: keyof typeof titleColors;
-}
+};
 
-const Title = ({
+const Title = <T extends React.ElementType = 'h1'>({
   as,
   size,
   variant = 'primary',
-  className,
-  id,
   children,
-}: TitleProps & { size: keyof typeof fontSize }) => {
+  className,
+  ...props
+}: PolymorphicComponentProps<T, TitleProps> & { size: keyof typeof fontSize }) => {
   const Component = as ?? size;
 
   return (
-    <Component
-      id={id}
-      className={classNames(
-        fontSize[size],
-        titleColors[variant],
-        className,
-        'transition-colors duration-500',
-      )}
-    >
+    <Component className={classNames(fontSize[size], titleColors[variant], className)} {...props}>
       {children}
     </Component>
   );
 };
 
-const H1 = (props: TitleProps) => <Title {...props} size="h1" />;
+const H1 = (props: PolymorphicComponentProps<'h1', TitleProps>) => <Title size="h1" {...props} />;
+const H2 = (props: PolymorphicComponentProps<'h2', TitleProps>) => <Title size="h2" {...props} />;
+const H3 = (props: PolymorphicComponentProps<'h3', TitleProps>) => <Title size="h3" {...props} />;
+const H4 = (props: PolymorphicComponentProps<'h4', TitleProps>) => <Title size="h4" {...props} />;
+const H5 = (props: PolymorphicComponentProps<'h5', TitleProps>) => <Title size="h5" {...props} />;
+const H6 = (props: PolymorphicComponentProps<'h6', TitleProps>) => <Title size="h6" {...props} />;
 
-const H2 = (props: TitleProps) => <Title {...props} size="h2" />;
-
-const H3 = (props: TitleProps) => <Title {...props} size="h3" />;
-
-const H4 = (props: TitleProps) => <Title {...props} size="h4" />;
-
-const H5 = (props: TitleProps) => <Title {...props} size="h5" />;
-
-const H6 = (props: TitleProps) => <Title {...props} size="h6" />;
-
-interface ParagraphProps extends CommonProps {
+type _TypographyProps = {
   prose?: boolean;
-  textColorClassName?: string;
-}
-
-const Typography = ({
-  as = 'p',
-  prose = true,
-  textColorClassName = 'text-text-primary',
-  className,
-  id,
-  children,
-}: React.PropsWithChildren<ParagraphProps>) => {
-  const Component = as;
-
-  return (
-    <Component
-      id={id}
-      className={classNames(
-        textColorClassName,
-        className,
-        prose && 'prose prose-light dark:prose-dark',
-        'transition-colors duration-500',
-      )}
-    >
-      {children}
-    </Component>
-  );
 };
+
+type TypographyProps<T extends React.ElementType> = PolymorphicComponentProps<T, _TypographyProps>;
+
+type TypographyComponent = PolymorphicComponent<'span', _TypographyProps>;
+
+const Typography: TypographyComponent = React.forwardRef(
+  <T extends React.ElementType = 'span'>(
+    { as, prose = false, className, ...props }: TypographyProps<T>,
+    ref: PolymorphicRef<T>['ref'],
+  ) => {
+    const Component = as ?? 'span';
+
+    return (
+      <Component
+        ref={ref}
+        className={classNames(
+          prose ? 'prose' : 'text-base text-text-primary',
+          className,
+          'transition-colors duration-500',
+        )}
+        {...props}
+      />
+    );
+  },
+);
+
+Typography.displayName = 'Typography';
 
 export { H1, H2, H3, H4, H5, H6, Typography };

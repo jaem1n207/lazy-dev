@@ -1,17 +1,6 @@
-import React from 'react';
-
 import type { GatsbySSR } from 'gatsby';
 
-import Layout from './src/layout/layout';
-import Root from './src/root';
-
-export const wrapPageElement: GatsbySSR['wrapPageElement'] = ({ element }) => {
-  return (
-    <Root>
-      <Layout>{element}</Layout>
-    </Root>
-  );
-};
+export { wrapPageElement } from './gatsby-shared';
 
 export const onRenderBody: GatsbySSR['onRenderBody'] = ({
   setHtmlAttributes,
@@ -25,50 +14,12 @@ export const onRenderBody: GatsbySSR['onRenderBody'] = ({
     lang: 'ko',
   });
   setPreBodyComponents([
+    // @ts-ignore
     <script
-      key="theme-hydration"
+      key="gatsby-ssr-inline-script"
+      id="gatsby-ssr-inline-script"
       dangerouslySetInnerHTML={{
-        __html: `
-          (function () {
-            function setTheme(newTheme) {
-              window.__theme = newTheme;
-              if (newTheme === 'dark') {
-                document.documentElement.classList.add('dark');
-              } else if (newTheme === 'light') {
-                document.documentElement.classList.remove('dark');
-              }
-            }
-          
-            var preferredTheme;
-            try {
-              preferredTheme = localStorage.getItem('theme');
-            } catch (e) {}
-          
-            window.__setPreferredTheme = function (newTheme) {
-              preferredTheme = newTheme;
-              setTheme(newTheme);
-              try {
-                localStorage.setItem('theme', newTheme);
-                setTheme(newTheme);
-              } catch (e) {}
-            };
-          
-            var initialTheme = preferredTheme || 'system';
-            var darkQuery = window.matchMedia('(prefers-color-scheme: dark)');
-          
-            if (initialTheme === 'system') {
-              initialTheme = darkQuery.matches ? 'dark' : 'light';
-            }
-            setTheme(initialTheme);
-          
-            darkQuery.addEventListener('change', function (e) {
-              if (preferredTheme === 'system') {
-                setTheme(e.matches ? 'dark' : 'light');
-              }
-              setTheme(darkQuery.matches ? 'dark' : 'light');
-            });
-          })();
-        `,
+        __html: String(process.env.LAZY_DEV_PRE_BODY_SCRIPT),
       }}
     />,
   ]);

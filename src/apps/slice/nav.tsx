@@ -1,35 +1,42 @@
-import React, { FC } from 'react';
-
 import { Link, SliceComponentProps } from 'gatsby';
 
 import ContentSpacer from 'Apps/common/layout/components/content-spacer';
+import Flexsearch from 'Apps/search/flex-search';
 import { ROUTES } from 'Types/enum';
 
 import ThemeToggle from '../theme-toggle';
 
-const Nav: FC<SliceComponentProps<{}, { title: string }>> = ({ sliceContext }) => {
+const Nav = ({ sliceContext }: SliceComponentProps<{}, { title: string }>) => {
   return (
-    <ContentSpacer as="nav" className="py-32pxr foldable:py-24pxr">
-      <div className="mx-auto flex max-w-7xl items-center justify-between font-bold text-bg-inner">
-        <Link
-          to={ROUTES.HOME}
-          className="focus-primary m-0pxr rounded-sm text-32pxr foldable:text-24pxr"
-          aria-label="Blog Home"
-        >
-          {sliceContext.title}
-        </Link>
-        <div className="flex items-center gap-16pxr">
+    <>
+      <ContentSpacer as="nav" className="py-32pxr foldable:py-24pxr">
+        <div className="mx-auto flex max-w-7xl items-center justify-between font-bold text-bg-inner">
+          {/* <ParticleComponent
+              parentElementWidth={280}
+              svgClassName="GOOGLE_LOGO"
+              animationName="diagonalSlideFromTopParticle"
+            /> */}
           <Link
-            to={ROUTES.ABOUT}
-            className="focus-primary m-0pxr rounded-sm text-28pxr foldable:text-20pxr"
-            aria-label="About"
+            to={ROUTES.HOME}
+            className="focus-primary m-0pxr rounded-sm text-32pxr foldable:text-24pxr"
+            aria-label="Blog Home"
           >
-            About
+            {sliceContext.title}
           </Link>
-          <ThemeToggle />
+          <div className="flex items-center gap-16pxr">
+            <Link
+              to={ROUTES.ABOUT}
+              className="focus-primary m-0pxr rounded-sm text-28pxr foldable:text-20pxr"
+              aria-label="About"
+            >
+              About
+            </Link>
+            <Flexsearch />
+            <ThemeToggle />
+          </div>
         </div>
-      </div>
-    </ContentSpacer>
+      </ContentSpacer>
+    </>
   );
 };
 

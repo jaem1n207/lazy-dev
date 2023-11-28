@@ -1,19 +1,11 @@
-import React from 'react';
-
-import { GlobalStyles as BaseStyles } from 'twin.macro';
+import type { ReactNode } from 'react';
 
 interface RootProps {
-  children: React.ReactNode;
+  children: ReactNode;
 }
 
 const Root = ({ children }: RootProps) => {
-  return (
-    <>
-      <BaseStyles />
-      {/* {typeof document !== 'undefined' ? createPortal(<CustomCursor />, document.body) : null} */}
-      {children}
-    </>
-  );
+  return <>{children}</>;
 };
 
 export default Root;

@@ -1,8 +1,11 @@
-import * as React from 'react';
+import { useEffect } from 'react';
 
 import { motion } from 'framer-motion';
 
 import { Typography } from 'Apps/common/typography';
+import ClientOnly from 'Apps/common/wrapper/client-only';
+
+import { useNonRepeatingRandomIndex } from '../hooks/use-non-repeating-random-index';
 
 const keywords: string[] = [
   '최적화 이전에 좋은 코드를 생각하는',
@@ -12,61 +15,49 @@ const keywords: string[] = [
   '다양한 실험을 하는',
 ];
 
-const getRandomIndex = (from: number, to: number): number => {
-  const index = Math.floor(Math.random() * from);
-  // 랜덤으로 선택된 인덱스가 현재 인덱스와 같다면 다시 랜덤으로 선택
-  return index === to ? getRandomIndex(from, to) : index;
-};
-
-const calculateOpacity = (index: number, currentIndex: number) => {
-  const distance = Math.abs(index - currentIndex);
-  return 1 - (distance * 0.9) / keywords.length;
-};
-
-const infiniteAnimationDuration = 3_000;
-
 const Introduction = () => {
-  const [currentKeywordIndex, setCurrentKeywordIndex] = React.useState(0);
+  const [currentKeywordIndex, generateRandomIndex] = useNonRepeatingRandomIndex(keywords.length);
 
-  React.useEffect(() => {
-    const timer = setInterval(() => {
-      const index = getRandomIndex(keywords.length, currentKeywordIndex);
-      setCurrentKeywordIndex(index);
-    }, infiniteAnimationDuration);
+  useEffect(() => {
+    const intervalId = setInterval(() => {
+      generateRandomIndex();
+    }, 3_000);
 
-    return () => {
-      clearInterval(timer);
-    };
-  }, [currentKeywordIndex]);
+    return () => clearInterval(intervalId);
+  }, [generateRandomIndex]);
 
   return (
     <div className="h-full max-w-full flex-1 desktop:min-w-[80vw]">
       <Typography
         as="div"
-        className="my-8pxr h-full text-36pxr font-semibold tracking-tight tablet:text-30pxr"
+        prose
+        className="my-8pxr h-full text-36pxr font-semibold tracking-tight text-text-primary tablet:text-30pxr"
       >
         저는
         <div className="relative h-56pxr w-full overflow-hidden font-bold">
-          {keywords.map((keyword, index) => (
-            <motion.span
-              key={keyword}
-              animate={{
-                y: (index - currentKeywordIndex) * 100,
-                opacity: calculateOpacity(index, currentKeywordIndex),
-              }}
-              initial={{
-                y: (index - currentKeywordIndex) * 100,
-                opacity: calculateOpacity(index, currentKeywordIndex),
-              }}
-              transition={{
-                y: { duration: 1, ease: 'easeOut' },
-                opacity: { duration: 1, ease: 'easeOut' },
-              }}
-              className="absolute h-full w-full"
-            >
-              {keyword}
-            </motion.span>
-          ))}
+          <ClientOnly
+            fallback={
+              <div className="relative h-56pxr w-full animate-pulse rounded-lg bg-gray-800" />
+            }
+          >
+            {keywords.map((keyword, index) => (
+              <motion.span
+                key={keyword}
+                animate={{
+                  translateY: (index - currentKeywordIndex) * 56 * 2,
+                }}
+                initial={{
+                  translateY: (index - currentKeywordIndex) * 56 * 2,
+                }}
+                transition={{
+                  translateY: { duration: 1, ease: 'linear' },
+                }}
+                className="absolute h-full w-full"
+              >
+                {keyword}
+              </motion.span>
+            ))}
+          </ClientOnly>
         </div>
         개발자입니다.
       </Typography>
