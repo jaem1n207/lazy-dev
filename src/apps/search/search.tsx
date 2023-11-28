@@ -149,7 +149,7 @@ const Search = ({ value, onChange: _onChange, loading, error, results }: SearchP
   });
 
   return (
-    <div className="relative w-256pxr foldable:w-auto">
+    <div className="relative w-256pxr tablet:hidden foldable:w-auto">
       {renderResults && (
         <div
           className="fixed inset-0 z-10 cursor-zoom-out"
@@ -170,14 +170,8 @@ const Search = ({ value, onChange: _onChange, loading, error, results }: SearchP
         />
         <ClientOnly>
           {displayKbd && (
-            <div className="absolute right-1">
-              {value ? (
-                <Kbd className={{ wrapper: 'bg-zinc-300 dark:bg-neutral-800' }}>ESC</Kbd>
-              ) : (
-                <Kbd keys="command" className={{ wrapper: 'bg-zinc-300 dark:bg-neutral-800' }}>
-                  K
-                </Kbd>
-              )}
+            <div className="absolute right-1 z-20 select-none">
+              {value ? <Kbd>ESC</Kbd> : <Kbd keys="command">K</Kbd>}
             </div>
           )}
         </ClientOnly>
