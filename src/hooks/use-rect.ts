@@ -1,19 +1,6 @@
 import { type MouseEvent, type FocusEvent, type MutableRefObject, useState } from 'react';
 
-/**
- * 주어진 요소의 상대적인 위치를 반환합니다.
- */
-export const getElementOffset = (element: HTMLElement | null) => {
-  if (!element)
-    return {
-      top: 0,
-      left: 0,
-    };
-
-  const { top, left } = element.getBoundingClientRect();
-
-  return { top, left };
-};
+import { getElementOffset } from 'Utils/dom';
 
 export interface ReactiveDomReact {
   top: number;

@@ -12,6 +12,7 @@ import Kbd from 'Apps/common/kbd/kbd';
 import ClientOnly from 'Apps/common/wrapper/client-only';
 import useCurrentState from 'Hooks/use-current-state';
 import { useRect } from 'Hooks/use-rect';
+import { getElements } from 'Utils/dom';
 import { DiscussionIds, getGithubDiscussionUrl, getGithubIssueUrl } from 'Utils/git';
 
 import Highlight from './highlight';
@@ -66,15 +67,16 @@ const Search = ({ value, onChange: _onChange, loading, error, results }: SearchP
   };
 
   const focusNextElement = (e: KeyboardEvent) => {
+    if (!ulRef.current) return;
     e.preventDefault();
 
-    const focusTo = (child?: HTMLElement) => {
+    const focusTo = (child: HTMLAnchorElement) => {
       if (!isSearchItem(child)) return;
       setPreventHover(true);
-      (child as HTMLAnchorElement).focus();
+      child.focus();
     };
 
-    const children = Array.from(ulRef.current?.querySelectorAll('a') ?? []);
+    const children = Array.from(getElements<HTMLAnchorElement>('a', ulRef.current));
     if (children.length === 0) return;
 
     const index = children.findIndex((child) => child === document.activeElement);
@@ -84,15 +86,16 @@ const Search = ({ value, onChange: _onChange, loading, error, results }: SearchP
   };
 
   const focusPrevElement = (e: KeyboardEvent) => {
+    if (!ulRef.current) return;
     e.preventDefault();
 
-    const focusTo = (child?: HTMLElement) => {
+    const focusTo = (child: HTMLAnchorElement) => {
       if (!isSearchItem(child)) return;
       setPreventHover(true);
-      (child as HTMLAnchorElement).focus();
+      child.focus();
     };
 
-    const children = Array.from(ulRef.current?.querySelectorAll('a') ?? []);
+    const children = Array.from(getElements<HTMLAnchorElement>('a', ulRef.current));
     if (children.length === 0) return;
 
     const index = children.findIndex((child) => child === document.activeElement);
