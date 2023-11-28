@@ -170,7 +170,6 @@ const projects: Omit<ComponentProps<typeof ProjectCard>, 'index'>[] = [
     ),
     projectUrl: {
       github: 'https://github.com/jaem1n207/jm-wordle/tree/master',
-      live: 'https://jmwordlemain.gatsbyjs.io/',
     },
   },
 ];

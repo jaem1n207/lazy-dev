@@ -2,6 +2,7 @@ import { GatsbyImage, StaticImage } from 'gatsby-plugin-image';
 import { Tilt } from 'react-tilt';
 
 import Anchor from 'Apps/common/a/anchor';
+import { GithubIcon } from 'Apps/common/icon/github-icon';
 import { Typography } from 'Apps/common/typography';
 
 import { useBio } from '../hooks/use-bio';
@@ -89,14 +90,7 @@ const AboutCard = () => {
           href={bio.author?.github!}
           className="flex items-center justify-center gap-8pxr rounded-sm font-bold !text-text-primary !shadow-none"
         >
-          <StaticImage
-            alt="github"
-            src="../../../images/icons/github-dark.svg"
-            width={24}
-            height={24}
-            placeholder="blurred"
-            layout="fixed"
-          />
+          <GithubIcon />
           <Typography className="leading-6">GitHub</Typography>
         </Anchor>
       </div>
