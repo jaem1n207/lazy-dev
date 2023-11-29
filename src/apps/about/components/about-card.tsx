@@ -3,6 +3,7 @@ import { Tilt } from 'react-tilt';
 
 import Anchor from 'Apps/common/a/anchor';
 import { GithubIcon } from 'Apps/common/icon/github-icon';
+import { GmailIcon } from 'Apps/common/icon/gmail-icon';
 import { Typography } from 'Apps/common/typography';
 
 import { useBio } from '../hooks/use-bio';
@@ -17,7 +18,7 @@ const AboutCard = () => {
         scale: 1,
         speed: 450,
       }}
-      className="about-card-bg-gradient flex aspect-video h-full flex-col content-between rounded-2xl border-2pxr border-slate-700 p-32pxr transition-colors foldable:p-16pxr"
+      className="about-card-bg-gradient flex aspect-video h-full flex-col content-between rounded-2xl border-2pxr border-slate-700 p-32pxr transition-colors foldable:w-full foldable:p-16pxr"
     >
       <div className="flex items-center gap-8pxr">
         <GatsbyImage
@@ -74,14 +75,7 @@ const AboutCard = () => {
 
       <div className="flex justify-center gap-20pxr text-12pxr font-bold text-slate-400">
         <div className="flex items-center gap-8pxr font-bold">
-          <StaticImage
-            alt="email"
-            src="../../../images/icons/gmail.svg"
-            width={24}
-            height={24}
-            placeholder="blurred"
-            layout="fixed"
-          />
+          <GmailIcon />
           <Typography className="select-all">{bio.author?.email}</Typography>
         </div>
         <div className="border-r-1pxr border-slate-500 opacity-50" />
@@ -91,7 +85,7 @@ const AboutCard = () => {
           className="flex items-center justify-center gap-8pxr rounded-sm font-bold !text-text-primary !shadow-none"
         >
           <GithubIcon />
-          <Typography className="leading-6">GitHub</Typography>
+          <Typography className="leading-6 mobile:hidden">GitHub</Typography>
         </Anchor>
       </div>
     </Tilt>

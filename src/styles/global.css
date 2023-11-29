@@ -124,7 +124,7 @@
     --color-bg-divider: rgba(0, 0, 0, 0.15);
     --color-border-primary: var(--color-slate-200);
     --color-border-secondary: var(--color-slate-700);
-    --color-all-custom-gray: var(--color-slate-500);
+    --color-all-custom-gray: var(--color-gray-500);
     --color-bg-tag: var(--color-gray-100);
 
     /* markdown */

@@ -30,3 +30,14 @@ div.toc-wrapper a.active {
   transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
   transition-duration: 200ms;
 }
+
+article pre[class*='language-'] {
+  overflow: auto;
+  width: 100%;
+}
+
+article :not(pre) > code[class*='language-'] {
+  display: inline-block;
+  white-space: normal;
+  word-break: break-all;
+}
