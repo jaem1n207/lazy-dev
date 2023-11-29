@@ -38,7 +38,7 @@ const BlogPost = ({ data }: PageProps<Queries.BlogPostBySlugQuery>) => {
         </div>
 
         <div className="col-span-8 col-start-3 desktop:col-span-full desktop:col-start-1">
-          <header>
+          <header className="mb-64pxr tablet:mb-48pxr">
             <H1 className="font-bold">{title}</H1>
             <div className="mt-8pxr flex items-center gap-8pxr text-16pxr font-bold text-all-custom-gray">
               <time dateTime={date!}>{date}</time>
@@ -59,19 +59,20 @@ const BlogPost = ({ data }: PageProps<Queries.BlogPostBySlugQuery>) => {
                 </Link>
               ))}
             </div>
-          </header>
 
-          <section>
-            <div className="to-gradient-cyan relative mb-32pxr mt-56pxr h-1pxr w-full bg-gradient-to-r from-primary box-decoration-slice">
+            {/* <div className="to-gradient-cyan relative mb-32pxr mt-56pxr h-1pxr w-full bg-gradient-to-r from-primary box-decoration-slice">
               <div className="absolute -top-24pxr left-[calc(50%-2.25rem)] mx-12pxr flex justify-center bg-bg-primary">
                 <SeedingIcon className="h-48pxr w-48pxr bg-bg-primary fill-primary transition" />
               </div>
+            </div> */}
+            <div className="mt-48pxr inline-grid w-full grid-cols-[2fr_auto_2fr] items-center gap-12pxr">
+              <hr className="border-t-[0.03125rem] border-primary" />
+              <SeedingIcon className="h-48pxr w-48pxr fill-primary stroke-neutral-700 dark:stroke-white" />
+              <hr className="border-t-[0.03125rem] border-primary" />
             </div>
             <p className="text-16pxr font-semibold tablet:text-14pxr">{summary}</p>
-            <div className="to-gradient-cyan my-24pxr h-1pxr w-full bg-gradient-to-r from-primary box-decoration-slice tablet:my-16pxr" />
-          </section>
-
-          <div className="mb-20pxr h-1pxr tablet:mb-16pxr" />
+            <hr className="my-24pxr border-t-[0.03125rem] border-primary tablet:my-16pxr" />
+          </header>
 
           <article
             className="prose max-w-none dark:prose-invert"
