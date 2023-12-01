@@ -138,7 +138,6 @@ const searchPlugins: GatsbyConfig['plugins'] = [
   {
     resolve: 'gatsby-plugin-robots-txt',
     options: {
-      host: siteMetadata.siteUrl,
       sitemap: `${siteMetadata.siteUrl}/sitemap-0.xml`,
       policy: [{ userAgent: '*', allow: '/' }],
     },

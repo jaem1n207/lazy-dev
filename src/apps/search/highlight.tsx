@@ -15,9 +15,8 @@ type Props = {
 
 type HighlightPosition = {
   width: number;
-  left: number;
   height: number;
-  top: number;
+  transform: string;
   transition: string;
 };
 
@@ -33,14 +32,17 @@ const Highlight = ({ rect, visible, ...props }: HighlightProps) => {
   const position = useMemo<HighlightPosition>(() => {
     const width = rect.width;
     const height = rect.height;
+    const left = rect.left + (rect.width - width) / 2;
+    const top = rect.elementTop + (rect.height - height) / 2;
 
     return {
       width,
       height,
-      left: rect.left + (rect.width - width) / 2,
-      top: rect.elementTop + (rect.height - height) / 2,
-      // 초기 좌표 값은 -1000 이므로 트랜지션을 주게 되면 첫 요소에 적용되는데 오래 걸리게 됩니다. 따라서 첫 요소에는 트랜지션을 주지 않습니다.
-      transition: isFirstVisible ? 'opacity' : 'opacity, width, left, top',
+      transform: `translate(${left}px, ${top}px)`,
+      // 초기 좌표 값은 translate(-1000px, -1000px) 입니다.
+      // 이때, 애니메이션을 적용하면 사용자에게 사이트가 느린 느낌을 줍니다.
+      // 따라서 첫 요소에는 바로 하이라이트가 적용될 수 있도록 애니메이션을 적용하지 않습니다.
+      transition: isFirstVisible ? 'opacity' : 'opacity, transform',
     };
     // `isFirstVisible` 을 의존성 배열에 넣지 않는 이유는, `isFirstVisible` 은 `rect` 가 변경될 때마다 변경되기 때문입니다.
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -50,18 +52,17 @@ const Highlight = ({ rect, visible, ...props }: HighlightProps) => {
     <span
       ref={ref}
       className={classNames(
-        'absolute rounded-md bg-gray-100 text-primary duration-100 ease-linear dark:bg-gray-800',
+        'absolute left-0pxr top-0pxr rounded-md bg-gray-100 text-primary duration-100 ease-linear will-change-transform dark:bg-gray-800',
         {
           'opacity-0': !visible,
           'opacity-100': visible,
         },
       )}
       style={{
-        width: position.width,
-        left: position.left,
-        height: position.height,
-        top: position.top,
         opacity: visible ? 0.8 : 0,
+        width: position.width,
+        height: position.height,
+        transform: position.transform,
         transitionProperty: position.transition,
       }}
       {...props}

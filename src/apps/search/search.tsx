@@ -1,4 +1,11 @@
-import { ChangeEvent, FocusEvent, Fragment, MouseEvent, useEffect, useRef } from 'react';
+import {
+  type ChangeEvent,
+  type FocusEvent,
+  Fragment,
+  type MouseEvent,
+  useEffect,
+  useRef,
+} from 'react';
 
 import { Transition } from '@headlessui/react';
 import { window } from 'browser-monads-ts';
@@ -180,7 +187,7 @@ const Search = ({ value, onChange: _onChange, loading, error, results }: SearchP
       >
         <ul
           ref={ulRef}
-          className="absolute right-0 top-full z-20 mt-8pxr max-h-400pxr w-screen max-w-lg overflow-auto overscroll-contain scroll-auto rounded-xl border border-border-primary bg-bg-primary py-10pxr shadow-xl"
+          className="absolute right-0 top-full z-20 mt-8pxr max-h-400pxr w-screen max-w-lg overflow-auto overscroll-contain scroll-smooth rounded-xl border border-border-primary bg-bg-primary py-10pxr shadow-xl"
         >
           {error ? (
             <div className="px-12pxr py-2pxr">
