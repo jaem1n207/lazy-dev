@@ -11,9 +11,25 @@ export function extractContentByHeading(html: string): StructuredData {
 
   $('img, pre, input').remove();
 
-  let isReferenceSection = false;
+  let isReferenceSection = false; // '참고' 섹션 여부
+  let hasFirstHeadingFound = false; // 첫 heading 요소 발견 여부
 
-  // heading element의 콘텐츠를 다음 heading element를 만날 때까지 추출합니다.
+  // 첫 heading 요소 이전의 콘텐츠를 처리합니다.
+  const processPreHeadingContent = () => {
+    let content = '';
+    const bodyChildren = $('body').children();
+    for (let i = 0; i < bodyChildren.length; i++) {
+      const child = bodyChildren[i];
+      if (!$(child).is('h1, h2, h3, h4, h5, h6')) {
+        content += $(child).text() + ' ';
+      } else {
+        break;
+      }
+    }
+    return content.trim();
+  };
+
+  // heading 요소의 콘텐츠를 다음 heading 요소를 만날 때까지 추출합니다.
   const processContent = (element: Element) => {
     let content = '';
     let nextElem = $(element).next();
@@ -26,6 +42,9 @@ export function extractContentByHeading(html: string): StructuredData {
     return content.trim();
   };
 
+  // 첫 heading 요소 이전의 콘텐츠를 처리합니다.
+  contentByHeading[''] = processPreHeadingContent();
+
   $('h1, h2, h3, h4, h5, h6').each((i, element) => {
     const heading = $(element);
     const headingText = heading.text();
@@ -33,7 +52,7 @@ export function extractContentByHeading(html: string): StructuredData {
 
     if (headingText.includes('참고')) {
       isReferenceSection = true;
-      return; // '참고' 문자열이 포함된 heading element는 건너뜁니다.
+      return; // '참고' 문자열이 포함된 heading 요소는 건너뜁니다.
     }
 
     if (isReferenceSection) {
@@ -41,8 +60,10 @@ export function extractContentByHeading(html: string): StructuredData {
       return;
     }
 
+    hasFirstHeadingFound = true;
+
     if (headingId) {
-      const key = i === 0 ? '' : `${encodeURIComponent(headingId)}#${headingId}`;
+      const key = `${encodeURIComponent(headingId)}#${headingId}`;
       contentByHeading[key] = processContent(element);
     }
   });
