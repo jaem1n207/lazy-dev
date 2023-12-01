@@ -166,7 +166,7 @@ const Search = ({ value, onChange: _onChange, loading, error, results }: SearchP
       <div className="relative flex flex-none items-center gap-2pxr rounded-lg bg-gray-200 px-8pxr py-4pxr dark:bg-gray-50/10">
         <input
           ref={inputRef}
-          className="z-20 flex w-full flex-shrink flex-grow basis-auto appearance-none bg-transparent text-sm -outline-offset-2 transition-colors placeholder-shown:line-clamp-1 focus-within:outline-none  tablet:text-base"
+          className="z-20 flex w-full flex-shrink flex-grow basis-auto appearance-none bg-transparent text-sm -outline-offset-2 transition-colors placeholder-shown:line-clamp-1 focus-within:outline-none focus-visible:outline-none tablet:text-base"
           value={value}
           onChange={onChange}
           placeholder="주제, 내용 검색"
