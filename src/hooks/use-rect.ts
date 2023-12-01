@@ -86,7 +86,7 @@ const isRefTarget = (
   typeof (eventOrRef as any)?.target === 'undefined';
 
 /**
- * 주어진 `ref` 또는 이벤트에 대한 위치와 크기를 반환합니다.
+ * 주어진 `ref` 또는 이벤트가 발생한 `DOM` 요소의 위치와 크기를 반환합니다.
  */
 export const useRect = (initialState?: ReactiveDomReact | (() => ReactiveDomReact)) => {
   const [rect, setRect] = useState<ReactiveDomReact>(initialState || defaultRect);
