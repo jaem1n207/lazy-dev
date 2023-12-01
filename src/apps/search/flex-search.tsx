@@ -8,15 +8,17 @@ import HighlightMatches from './highlight-matches';
 import Search from './search';
 import type { PageIndex, Result, SearchResult, SectionIndex } from './types';
 
-// 추후에 추가될 영문 지원을 위해 locale을 인자로 받아서 처리하도록
+// TODO: 추후에 추가될 영문 지원을 위해 locale을 인자로 받아서 처리하도록
 const locale = 'ko';
 
+// locale에 따른 검색 인덱스를 저장하는 객체
 const indexes: {
   [locale: string]: [PageIndex, SectionIndex];
 } = {};
 
-// index 로드하는 promise를 캐싱하기 위한 map
+// 검색 인덱스 로드를 위한 Promise를 캐싱하는 객체
 const loadIndexesPromises = new Map<string, Promise<void>>();
+
 const loadIndexes = (locale: string): Promise<void> => {
   const key = `@${locale}`;
   if (loadIndexesPromises.has(key)) {
@@ -29,7 +31,7 @@ const loadIndexes = (locale: string): Promise<void> => {
 };
 
 const loadIndexesImpl = async (locale: string) => {
-  // 서버측에서 직렬화한 데이터를 가져옵니다.
+  // 빌드 타임 때 생성한 검색 데이터를 가져옵니다.
   const searchData = await fetch(`/lazy-dev-data-${locale}.json`).then<SearchData>((res) =>
     res.json(),
   );
@@ -66,8 +68,8 @@ const loadIndexesImpl = async (locale: string) => {
     },
   });
 
+  // 각 페이지와 섹션에 대해 인덱스를 추가합니다.
   let pageId = 0;
-
   for (const [route, StructuredData] of Object.entries(searchData)) {
     let pageContent = '';
     ++pageId;
