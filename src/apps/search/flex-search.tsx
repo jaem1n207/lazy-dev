@@ -176,25 +176,28 @@ const Flexsearch = () => {
       }
     }
 
-    setResults(
-      results
-        .sort((a, b) => {
-          // title이 매칭되는 횟수가 많은 순서대로 정렬
-          if (a._page_rk === b._page_rk) {
-            return a._section_rk - b._section_rk;
-          }
-          if (pageTitleMatches[a._page_rk] !== pageTitleMatches[b._page_rk]) {
-            return pageTitleMatches[b._page_rk] - pageTitleMatches[a._page_rk];
-          }
-          return a._page_rk - b._page_rk;
-        })
-        .map((res) => ({
-          id: `${res._page_rk}_${res._section_rk}`,
-          route: res.route,
-          prefix: res.prefix,
-          children: res.children,
-        })),
-    );
+    const prioritizedResults = results.sort((a, b) => {
+      // 페이지 순위가 같으면 섹션 순위로 정렬
+      if (a._page_rk === b._page_rk) {
+        return a._section_rk - b._section_rk;
+      }
+      // 페이지 제목 일치 횟수에 따라 정렬
+      if (pageTitleMatches[a._page_rk] !== pageTitleMatches[b._page_rk]) {
+        return pageTitleMatches[b._page_rk] - pageTitleMatches[a._page_rk];
+      }
+      // 그 외의 경우 페이지 순위로 정렬
+      return a._page_rk - b._page_rk;
+    });
+
+    // 정렬된 결과를 사용자에게 보여줄 형태로 변환합니다.
+    const displayableResults = prioritizedResults.map((result) => ({
+      id: `${result._page_rk}_${result._section_rk}`,
+      route: result.route,
+      prefix: result.prefix,
+      children: result.children,
+    }));
+
+    setResults(displayableResults);
   };
 
   const onChange = async (value: string) => {
