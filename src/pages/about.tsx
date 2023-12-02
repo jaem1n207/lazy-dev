@@ -1,9 +1,10 @@
 import { HeadFC, HeadProps } from 'gatsby';
 
-import AboutCard from 'Apps/about/components/about-card';
-import Introduction from 'Apps/about/components/introduction';
-import ProjectCardList from 'Apps/about/components/project-card-list';
-import Seo from 'Apps/common/seo/seo';
+import Seo from '@/common/components/seo/seo';
+
+import AboutCard from '@/features/about/components/about-card';
+import Introduction from '@/features/about/components/introduction';
+import ProjectCardList from '@/features/about/components/project-card-list';
 
 const About = () => {
   return (

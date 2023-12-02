@@ -2,12 +2,12 @@ import { motion } from 'framer-motion';
 import { graphql, HeadFC, navigate, PageProps } from 'gatsby';
 import { StaticImage } from 'gatsby-plugin-image';
 
-import Anchor from 'Apps/common/a/anchor';
-import { LoginIcon } from 'Apps/common/icon/login-icon';
-import Seo from 'Apps/common/seo/seo';
-import { ROUTES } from 'Types/enum';
-import { getGithubIssueUrl } from 'Utils/git';
-import { animateVariant, textVariant } from 'Utils/motion';
+import Anchor from '@/common/components/a/anchor';
+import { LoginIcon } from '@/common/components/icon/login-icon';
+import Seo from '@/common/components/seo/seo';
+import { ROUTES } from '@/common/const';
+import { getGithubIssueUrl } from '@/common/utils/git';
+import { animateVariant, textVariant } from '@/common/utils/motion';
 
 const NotFoundPage = (props: PageProps<Queries.NotFoundQuery>) => {
   const goHome = () => {
@@ -22,7 +22,7 @@ const NotFoundPage = (props: PageProps<Queries.NotFoundQuery>) => {
         animate={animateVariant.show}
         variants={textVariant()}
       >
-        <StaticImage src="../images/not-found.png" alt="bunny" placeholder="blurred" width={480} />
+        <StaticImage src="../assets/not-found.webp" alt="bunny" placeholder="blurred" width={480} />
       </motion.div>
       <motion.h1
         className="mb-12pxr text-36pxr font-bold text-text-primary"

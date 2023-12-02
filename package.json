@@ -33,7 +33,7 @@
     "lint:fix": "eslint --fix --ext .js,.jsx,.ts,.tsx .",
     "prepare": "husky install",
     "commit": "git-cz",
-    "post": "node ./src/utils/post.js"
+    "post": "node ./src/common/utils/post.cjs"
   },
   "lint-staged": {
     "**/*.{js,jsx,ts,tsx}": [
@@ -65,6 +65,7 @@
     "gatsby-plugin-sharp": "^5.12.0",
     "gatsby-plugin-sitemap": "^6.12.0",
     "gatsby-remark-autolink-headers": "^6.12.0",
+    "gatsby-remark-copy-linked-files": "^6.12.0",
     "gatsby-remark-emoji": "^0.0.3",
     "gatsby-remark-images": "^7.12.0",
     "gatsby-remark-images-medium-zoom": "^1.7.0",

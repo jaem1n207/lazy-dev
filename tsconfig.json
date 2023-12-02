@@ -34,20 +34,11 @@
     "paths": {
       // fixes incorrect types for flexsearch https://github.com/nextapps-de/flexsearch/issues/392#issuecomment-1552286514
       "flexsearch": ["./node_modules/@types/flexsearch"],
-      "Components/*": ["src/components/*"],
-      "Hooks/*": ["src/hooks/*"],
-      "Images/*": ["src/images/*"],
-      "Pages/*": ["src/pages/*"],
-      "Styles/*": ["src/styles/*"],
-      "Layout/*": ["src/layout/*"],
-      "Templates/*": ["src/templates/*"],
-      "Types/*": ["src/types/*"],
-      "Apps/*": ["src/apps/*"],
-      "Utils/*": ["src/utils/*"]
+      "@/*": ["./src/*"]
     } /* Specify a set of entries that re-map imports to additional lookup locations. */,
     // "rootDirs": [],                                   /* Allow multiple folders to be treated as one when resolving modules. */
     "typeRoots": [
-      "./src/types",
+      "src/common/types",
       "./node_modules/@types"
     ] /* Specify multiple folders that act like `./node_modules/@types`. */,
     "types": [] /* Specify type package names to be included without being referenced in a source file. */,

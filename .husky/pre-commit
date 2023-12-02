@@ -1,8 +1,8 @@
 #!/usr/bin/env sh
 . "$(dirname -- "$0")/_/husky.sh"
 . "$(dirname -- "$0")/common.sh"
-. "$(dirname "$0")/../git-hooks/pre-console.sh"
+. "$(dirname "$0")/scripts/pre-console.sh"
 
 npx lint-staged
 
-. "$(dirname "$0")/../git-hooks/pre-image-optimize.sh"
+. "$(dirname "$0")/scripts/pre-image-optimize.sh"

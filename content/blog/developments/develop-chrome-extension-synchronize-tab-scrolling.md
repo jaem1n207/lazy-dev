@@ -148,7 +148,7 @@ const onScrollHandler = () => {
 
 위 함수를 스크롤 이벤트에 등록하고 실행을 해보면 아래 움짤처럼 굉장히 잦은 호출이 일어납니다.
 
-![잦은 호출 현상 예시](/images/chrome-extension-sync-tab/not-optimize.gif)
+![잦은 호출 현상 예시](./images/chrome-extension-sync-tab/not-optimize.gif)
 
 저 함수의 목적은 스크롤이 발생하면 scrollY의 백분율 값을 계산해서 메시지를 보내는 것입니다. 그냥
 자연스럽게 다른 탭도 함께 스크롤 될 수 있도록 하면 되기에 이 경우, `throttle` 을 활용해서 메시지를
@@ -176,7 +176,7 @@ const onScrollHandler = throttle(() => {
 }, 100);
 ```
 
-![최적화 후 예시](/images/chrome-extension-sync-tab/throttle.gif)
+![최적화 후 예시](./images/chrome-extension-sync-tab/throttle.gif)
 
 확실히 이제 호출이 자주 일어나지 않습니다. 하지만 움짤을 자세히 보면 또 다른 문제가 있는데요.
 
@@ -273,7 +273,7 @@ if (request.command === "syncScrollForTab") {
 
 움짤로 확인해보겠습니다.
 
-![모든 최적화 후 예시](/images/chrome-extension-sync-tab/flag.gif)
+![모든 최적화 후 예시](./images/chrome-extension-sync-tab/flag.gif)
 
 1 id를 가진 탭에서 메시지를 보내면 2 id를 가진 탭이 메시지를 받아 `window.scrollTo()` 함수를 이용해
 스크롤 위치를 동기화합니다. 반대로 2 id를 가진 탭이 메시지를 보내면 1 id를 가진 탭에서 메시지를 받아

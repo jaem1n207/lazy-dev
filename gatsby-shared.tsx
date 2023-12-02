@@ -1,14 +1,10 @@
+// eslint-disable-next-line unused-imports/no-unused-imports
+import React from 'react';
+
 import type { GatsbyBrowser, GatsbySSR } from 'gatsby';
 
-import Layout from './src/layout/layout';
-import Root from './src/root';
+import Layout from './src/apps/layout';
 
 export const wrapPageElement: GatsbyBrowser['wrapPageElement'] | GatsbySSR['wrapPageElement'] = ({
   element,
-}) => (
-  // @ts-ignore
-  <Root>
-    {/* @ts-ignore */}
-    <Layout>{element}</Layout>
-  </Root>
-);
+}) => <Layout>{element}</Layout>;

@@ -1,6 +1,6 @@
 import { Element, load } from 'cheerio';
 
-import type { StructuredData } from 'Types/types';
+import type { StructuredData } from '@/common/types/types';
 
 /**
  * 전달받은 마크다운 콘텐츠 구조를 검색에 유용한 구조화된 데이터로 추출합니다.
@@ -12,6 +12,7 @@ export function extractContentByHeading(html: string): StructuredData {
   $('img, pre, input').remove();
 
   let isReferenceSection = false; // '참고' 섹션 여부
+  // eslint-disable-next-line unused-imports/no-unused-vars
   let hasFirstHeadingFound = false; // 첫 heading 요소 발견 여부
 
   // 첫 heading 요소 이전의 콘텐츠를 처리합니다.

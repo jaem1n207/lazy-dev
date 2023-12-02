@@ -2,28 +2,11 @@ import { FC } from 'react';
 
 import { graphql, HeadFC, HeadProps, PageProps } from 'gatsby';
 
-import Seo from 'Apps/common/seo/seo';
-import PostList from 'Apps/post/components/post-list';
-import ShortList from 'Apps/post/components/short-list';
-import TagList from 'Apps/tag/components/tag-list';
+import Seo from '@/common/components/seo/seo';
 
-// const useUpdateQueryStringValueWithoutNavigation = (queryKey: string, queryValue: string) => {
-//   useEffect(() => {
-//     const currentSearchParams = new URLSearchParams(window.location.search);
-//     const oldQueryValue = currentSearchParams.get(queryKey) ?? '';
-//     if (queryValue === oldQueryValue) return;
-
-//     if (queryValue) {
-//       currentSearchParams.set(queryKey, queryValue);
-//     } else {
-//       currentSearchParams.delete(queryKey);
-//     }
-//     const newUrl = [window.location.pathname, currentSearchParams.toString()]
-//       .filter(Boolean)
-//       .join('?');
-//     window.history.replaceState(null, '', newUrl);
-//   }, [queryKey, queryValue]);
-// };
+import PostList from '@/features/post/components/post-list';
+import ShortList from '@/features/post/components/short-list';
+import TagList from '@/features/tag/components/tag-list';
 
 const IndexPage: FC<PageProps<Queries.HomeQuery>> = ({ data }) => {
   const tags = data.tags.group;
@@ -48,7 +31,7 @@ export const Head: HeadFC = ({ location }: HeadProps) => (
     openGraph={{
       type: 'website',
       url: location.pathname,
-      image: '/images/favicon.png',
+      image: '../assets/favicon.png',
     }}
   />
 );

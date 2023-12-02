@@ -1,10 +1,10 @@
 import { Link, SliceComponentProps } from 'gatsby';
 
-import ContentSpacer from 'Apps/common/layout/components/content-spacer';
-import Flexsearch from 'Apps/search/flex-search';
-import { ROUTES } from 'Types/enum';
+import ContentSpacer from '@/common/components/layout/content-spacer';
+import { ROUTES } from '@/common/const';
 
-import ThemeToggle from '../theme-toggle';
+import Flexsearch from '../../features/search/flex-search';
+import ThemeToggle from '../../features/theme/theme-toggle';
 
 const Nav = ({ sliceContext }: SliceComponentProps<{}, { title: string }>) => {
   return (

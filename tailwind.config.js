@@ -40,10 +40,9 @@ module.exports = {
   content: [
     './gatsby-ssr.tsx',
     './src/pages/**/*.{js,jsx,ts,tsx}',
-    './src/layout/**/*.{js,jsx,ts,tsx}',
-    './src/components/**/*.{js,jsx,ts,tsx}',
     './src/apps/**/*.{js,jsx,ts,tsx}',
-    './src/templates/**/*.{js,jsx,ts,tsx}',
+    './src/common/**/*.{js,jsx,ts,tsx}',
+    './src/features/**/*.{js,jsx,ts,tsx}',
   ],
   theme: {
     data: {

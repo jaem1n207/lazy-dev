@@ -1,7 +1,7 @@
 import { graphql, SliceComponentProps } from 'gatsby';
 import { GatsbyImage, getImage } from 'gatsby-plugin-image';
 
-import Anchor from 'Apps/common/a/anchor';
+import Anchor from '@/common/components/a/anchor';
 
 const Bio = ({ data }: SliceComponentProps<Queries.BioByAuthorIdQuery>) => {
   const { author, imageSharp } = data;

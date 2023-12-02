@@ -73,7 +73,7 @@ locize를 사용하면 번역할 문구를 언어별로 locize에 붙여넣으�
 
 ### TeamA
 
-![translate-teamA-web-example](/images/new-team-productivity/translate-teamA-web.gif)
+![translate-teamA-web-example](./images/new-team-productivity/translate-teamA-web.gif)
 
 - TeamA (`locize` 를 사용하는 팀)
   - 첫 진입 시, TeamA를 선택합니다.
@@ -84,7 +84,7 @@ locize를 사용하면 번역할 문구를 언어별로 locize에 붙여넣으�
 
 ### TeamB
 
-![translate-teamB-web-example](/images/new-team-productivity/translate-teamB-web.gif)
+![translate-teamB-web-example](./images/new-team-productivity/translate-teamB-web.gif)
 
 - TeamB (`json` 파일을 사용하는 팀)
   - 첫 진입 시, TeamB를 선택합니다.
@@ -283,7 +283,7 @@ translate();
 
 이렇게 구현한 스크립트를 실행해보겠습니다. 아래는 스크립트 실행 결과입니다.
 
-![translate-teamB-script.gif](/images/new-team-productivity/translate-teamB-script.gif)
+![translate-teamB-script.gif](./images/new-team-productivity/translate-teamB-script.gif)
 
 - `npm run translate` 명령어를 실행합니다.
 - key를 입력합니다. (camelCase 형식이어야 하며, 특수문자로만 이루어져선 안 됩니다.)

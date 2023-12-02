@@ -13,7 +13,7 @@ const siteMetadata = Object.freeze({
   social: {
     github: 'https://github.com/jaem1n207',
   },
-  favicon: '/images/favicon.png',
+  favicon: 'src/assets/favicon.png',
   postTitle: 'All',
 });
 
@@ -40,15 +40,7 @@ const corePlugins: GatsbyConfig['plugins'] = [
     resolve: 'gatsby-source-filesystem',
     options: {
       name: 'assets',
-      path: `${__dirname}/content/assets`,
-      fastHash: true,
-    },
-  },
-  {
-    resolve: 'gatsby-source-filesystem',
-    options: {
-      name: 'images',
-      path: `${__dirname}/src/images`,
+      path: `${__dirname}/src/assets`,
       fastHash: true,
     },
   },
@@ -60,14 +52,7 @@ const devPlugins: GatsbyConfig['plugins'] = [
     resolve: 'gatsby-plugin-alias-imports',
     options: {
       alias: {
-        Hooks: 'src/hooks',
-        Images: 'src/images',
-        Pages: 'src/pages',
-        Styles: 'src/styles',
-        Layout: 'src/layout',
-        Types: 'src/types',
-        Apps: 'src/apps',
-        Utils: 'src/utils',
+        '@': 'src',
       },
       extensions: ['ts', 'tsx', 'js'],
     },
@@ -121,6 +106,7 @@ const markdownPlugins: GatsbyConfig['plugins'] = [
         },
         `gatsby-remark-autolink-headers`,
         `gatsby-remark-prismjs`,
+        `gatsby-remark-copy-linked-files`,
         `gatsby-remark-emoji`,
       ],
     },
@@ -208,7 +194,7 @@ const pwaPlugins: GatsbyConfig['plugins'] = [
       // https://css-tricks.com/meta-theme-color-and-trickery/
       display: `standalone`,
       orientation: `portrait`,
-      icon: './static/images/favicon.png',
+      icon: 'src/assets/favicon.png',
       icon_options: {
         purpose: `any maskable`,
       },

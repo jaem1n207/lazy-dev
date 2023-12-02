@@ -147,7 +147,7 @@ Aggregated task breakdown
 
 다른 쓰레드를 클릭하거나 위쪽 및 아래쪽 화살표 방향키를 사용해서 다른 쓰레드를 선택할 수 있습니다.
 
-![스크린샷 2023-04-08 오전 3.47.37.png](./images/chrome-performance/any-function-call.png)
+![called function](./images/chrome-performance/any-function-call.png)
 
 위 사진은 flame chart에서 특정 Function Call을 선택했습니다. 하단의 Aggregated Time은 해당 Function
 Call의 CPU 분석을 보여줍니다. 또한 링크(Graient~~~ )를 클릭하면 개발 도구의 소스 패널에 있는 코드 줄

@@ -5,7 +5,7 @@ import esbuild from 'esbuild';
 import type { GatsbyNode } from 'gatsby';
 import { createFilePath } from 'gatsby-source-filesystem';
 
-import type { SearchData } from 'Types/types';
+import type { SearchData } from '@/common/types/types';
 
 import { extractContentByHeading } from './html-parser';
 
@@ -52,7 +52,7 @@ export const createPages: GatsbyNode['createPages'] = async ({ graphql, actions,
 
   createSlice({
     id: 'nav',
-    component: resolve('./src/apps/slice/nav.tsx'),
+    component: resolve('src/apps/slice/nav.tsx'),
     context: {
       title: headerResults.data?.site?.siteMetadata?.title,
     },
@@ -60,10 +60,10 @@ export const createPages: GatsbyNode['createPages'] = async ({ graphql, actions,
 
   createSlice({
     id: 'footer',
-    component: resolve('./src/apps/slice/footer.tsx'),
+    component: resolve('src/apps/slice/footer.tsx'),
   });
 
-  const authorBio = resolve('./src/apps/slice/bio.tsx');
+  const authorBio = resolve('src/apps/slice/bio.tsx');
 
   const authorResults = await graphql<Queries.Query>(`
     query allAuthors {
@@ -95,7 +95,7 @@ export const createPages: GatsbyNode['createPages'] = async ({ graphql, actions,
     });
   }
 
-  const tagTemplate = resolve('./src/apps/tag/templates/tag.tsx');
+  const tagTemplate = resolve('src/features/tag/templates/tag.tsx');
 
   const tagResults = await graphql<Queries.allTagsQuery>(`
     query allTags {
@@ -131,7 +131,7 @@ export const createPages: GatsbyNode['createPages'] = async ({ graphql, actions,
     });
   }
 
-  const blogPostTemplate = resolve('./src/apps/post/templates/blog-post.tsx');
+  const blogPostTemplate = resolve('src/features/post/templates/blog-post.tsx');
 
   const blogResult = await graphql<Queries.Query>(`
     query allMarkdownRemark {

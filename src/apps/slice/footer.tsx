@@ -1,5 +1,5 @@
-import Anchor from 'Apps/common/a/anchor';
-import ContentSpacer from 'Apps/common/layout/components/content-spacer';
+import Anchor from '@/common/components/a/anchor';
+import ContentSpacer from '@/common/components/layout/content-spacer';
 
 const Footer = () => {
   return (
