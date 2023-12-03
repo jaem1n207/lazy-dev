@@ -51,7 +51,7 @@ const Highlight = ({ rect, visible, ...props }: HighlightProps) => {
     <span
       ref={ref}
       className={classNames(
-        'absolute left-0pxr top-0pxr rounded-md bg-gray-100 text-primary duration-100 ease-linear will-change-transform dark:bg-gray-800',
+        'absolute left-0pxr top-0pxr rounded-md bg-gray-300 text-primary duration-100 ease-linear will-change-transform dark:bg-gray-800',
         {
           'opacity-0': !visible,
           'opacity-100': visible,

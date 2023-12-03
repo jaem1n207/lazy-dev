@@ -19,7 +19,7 @@ const ShortCard = ({ short }: ShortCardProps) => {
           className="flex flex-col gap-8pxr"
           whileHover={{ transform: 'translateY(-4px)' }}
         >
-          <div className="mb-16pxr h-180pxr w-full overflow-hidden desktop:h-160pxr foldable:h-180pxr">
+          <div className="h-180pxr w-full overflow-hidden desktop:h-160pxr foldable:h-180pxr">
             <GatsbyImage
               image={thumbnail?.childImageSharp?.gatsbyImageData!}
               alt={title!}

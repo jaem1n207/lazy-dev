@@ -7,7 +7,6 @@ import {
   useRef,
 } from 'react';
 
-import { Transition } from '@headlessui/react';
 import { window } from 'browser-monads-ts';
 import { Link } from 'gatsby';
 import { useHotkeys } from 'react-hotkeys-hook';
@@ -180,13 +179,7 @@ const Search = ({ value, onChange: _onChange, loading, error, results }: SearchP
         </ClientOnly>
       </div>
 
-      <Transition
-        show={renderResults}
-        as={Transition.Child}
-        leave="transform duration-200 transition ease-in-out"
-        leaveFrom="opacity-100 scale-100"
-        leaveTo="opacity-0 scale-95"
-      >
+      {renderResults && (
         <ul
           ref={ulRef}
           className="absolute right-0 top-full z-20 mt-8pxr max-h-400pxr w-screen max-w-lg overflow-auto overscroll-contain scroll-smooth rounded-xl border border-border-primary bg-bg-primary py-10pxr shadow-xl"
@@ -214,9 +207,9 @@ const Search = ({ value, onChange: _onChange, loading, error, results }: SearchP
             </div>
           ) : results.length === 0 ? (
             <div className="px-12pxr py-2pxr">
-              <strong>&apos;{value}&apos;</strong>에 대한 검색결과가 없어요
+              <strong className="text-primary">&apos;{value}&apos;</strong>에 대한 검색결과가 없어요
               <br />
-              <strong>&apos;{value}&apos;</strong>에 대한 내용이 궁금하다면{' '}
+              <strong className="text-primary">&apos;{value}&apos;</strong>에 대한 내용이 궁금하다면{' '}
               <Anchor
                 className="focus-primary rounded-md bg-primary px-4pxr py-2pxr text-14pxr text-text-secondary"
                 href={getGithubDiscussionUrl({
@@ -257,7 +250,7 @@ const Search = ({ value, onChange: _onChange, loading, error, results }: SearchP
             </>
           )}
         </ul>
-      </Transition>
+      )}
     </div>
   );
 };
