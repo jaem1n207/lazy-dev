@@ -43,6 +43,13 @@ const ProjectCard = ({ index, name, description, tags, projectUrl }: ProjectCard
                 projectUrl.live && projectUrl.github ? 'justify-between' : 'justify-end'
               }`}
             >
+              {projectUrl.live && (
+                <div className="flex items-center justify-center rounded-full">
+                  <Anchor href={projectUrl.live} external className="rounded-full">
+                    <ChromeIcon className="h-32pxr w-32pxr fill-black stroke-white dark:fill-white dark:stroke-black" />
+                  </Anchor>
+                </div>
+              )}
               {projectUrl.github && (
                 <div className="flex items-center justify-center rounded-full">
                   <Anchor
@@ -51,13 +58,6 @@ const ProjectCard = ({ index, name, description, tags, projectUrl }: ProjectCard
                     className="rounded-full text-text-primary"
                   >
                     <GithubIcon />
-                  </Anchor>
-                </div>
-              )}
-              {projectUrl.live && (
-                <div className="flex items-center justify-center rounded-full">
-                  <Anchor href={projectUrl.live} external className="rounded-full">
-                    <ChromeIcon className="h-32pxr w-32pxr fill-black stroke-white dark:fill-white dark:stroke-black" />
                   </Anchor>
                 </div>
               )}

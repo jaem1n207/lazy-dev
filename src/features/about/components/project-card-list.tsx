@@ -118,33 +118,6 @@ const projects: Omit<ComponentProps<typeof ProjectCard>, 'index'>[] = [
     ),
     projectUrl: {
       github: 'https://github.com/jaem1n207/lazy-dev/tree/main',
-      live: 'https://lazy-dev.netlify.app/',
-    },
-  },
-  {
-    name: 'Quick Weather View',
-    description:
-      '브라우저의 기본 페이지를 날씨 정보를 보여주는 페이지로 변경해주는 크롬 확장 프로그램',
-    tags: [
-      {
-        name: 'React',
-        colorClass: '!text-green-400',
-      },
-      {
-        name: 'TypeScript',
-        colorClass: '!text-blue-400',
-      },
-    ],
-    staticImageEl: (
-      <StaticImage
-        alt="project-thumbnail"
-        src={`${IMAGE_FOLDER_PATH}/react-profile.jpg`}
-        className="h-250pxr w-full"
-        placeholder="blurred"
-      />
-    ),
-    projectUrl: {
-      github: 'https://github.com/jaem1n207/quick-weather-view/tree/main',
     },
   },
   {
