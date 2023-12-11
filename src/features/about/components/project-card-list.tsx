@@ -24,7 +24,7 @@ const ProjectCardList = () => {
   }, []);
 
   return (
-    <div ref={gridRef} className="grid grid-cols-3 gap-24pxr foldable:grid-cols-1">
+    <div ref={gridRef} className="grid grid-cols-project-card-list gap-24pxr foldable:grid-cols-1">
       {projects.map((project, index) => (
         <ProjectCard key={project.name} index={index} {...project} />
       ))}

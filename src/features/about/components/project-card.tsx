@@ -27,59 +27,43 @@ interface ProjectCardProps {
 const ProjectCard = ({ index, name, description, tags, projectUrl }: ProjectCardProps) => {
   return (
     <motion.div
-      className="relative"
+      className="project-card relative row-span-4 row-end-auto grid grid-rows-project-card gap-2 rounded-2xl bg-gray-200 p-6 dark:bg-bg-secondary tablet:p-4 foldable:p-3"
       initial={animateVariant.hidden}
       animate={animateVariant.show}
       variants={fadeIn({ direction: 'down', type: 'spring', delay: index * 0.2 })}
     >
-      <div className="project-card h-full w-full rounded-2xl border-2pxr border-slate-700 bg-bg-secondary p-24pxr tablet:p-16pxr foldable:w-full foldable:p-12pxr">
-        <div className="relative h-auto w-full">
-          {/* <div className="relative h-250pxr w-full"> */}
-          {/* <div className="h-full w-full">{staticImageEl}</div> */}
-
-          {(projectUrl.live || projectUrl.github) && (
-            <div
-              className={`flex ${
-                projectUrl.live && projectUrl.github ? 'justify-between' : 'justify-end'
-              }`}
-            >
-              {projectUrl.live && (
-                <div className="flex items-center justify-center rounded-full">
-                  <Anchor href={projectUrl.live} external className="rounded-full">
-                    <ChromeIcon className="h-32pxr w-32pxr fill-black stroke-white dark:fill-white dark:stroke-black" />
-                  </Anchor>
-                </div>
-              )}
-              {projectUrl.github && (
-                <div className="flex items-center justify-center rounded-full">
-                  <Anchor
-                    href={projectUrl.github}
-                    external
-                    className="rounded-full text-text-primary"
-                  >
-                    <GithubIcon />
-                  </Anchor>
-                </div>
-              )}
-            </div>
-          )}
-        </div>
-        <div className="mt-8pxr">
-          <Typography as="h3" prose className="text-24pxr font-bold text-text-primary">
-            {name}
+      <div
+        className={`flex ${
+          projectUrl.live && projectUrl.github ? 'justify-between' : 'justify-end'
+        }`}
+      >
+        {projectUrl.live && (
+          <div className="flex items-center justify-center rounded-full">
+            <Anchor href={projectUrl.live} external className="rounded-full">
+              <ChromeIcon className="h-32pxr w-32pxr fill-black stroke-white dark:fill-white dark:stroke-black" />
+            </Anchor>
+          </div>
+        )}
+        {projectUrl.github && (
+          <div className="flex items-center justify-center rounded-full">
+            <Anchor href={projectUrl.github} external className="rounded-full text-text-primary">
+              <GithubIcon />
+            </Anchor>
+          </div>
+        )}
+      </div>
+      <Typography as="h3" prose className="text-24pxr font-bold text-text-primary">
+        {name}
+      </Typography>
+      <Typography as="p" prose className="mt-1 text-16pxr text-text-primary">
+        {description}
+      </Typography>
+      <div className="mt-1 flex flex-wrap gap-8pxr">
+        {tags.map((tag) => (
+          <Typography as="p" prose className={`text-14pxr ${tag.colorClass}`} key={tag.name}>
+            #{tag.name}
           </Typography>
-          <Typography as="p" prose className="mt-8pxr text-16pxr text-text-primary">
-            {description}
-          </Typography>
-        </div>
-
-        <div className="mt-20pxr flex flex-wrap gap-8pxr">
-          {tags.map((tag) => (
-            <Typography as="p" prose className={`text-14pxr ${tag.colorClass}`} key={tag.name}>
-              #{tag.name}
-            </Typography>
-          ))}
-        </div>
+        ))}
       </div>
     </motion.div>
   );
