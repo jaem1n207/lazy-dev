@@ -58,13 +58,13 @@ const Search = ({ value, onChange: _onChange, loading, error, results }: SearchP
 
   const hoverHandler = (e: MouseEvent<HTMLAnchorElement>) => {
     if (preventHover) return;
-    if (!isSearchItem(e.target as HTMLAnchorElement)) return;
+    if (!isSearchItem(e.currentTarget)) return;
 
-    (e.target as HTMLAnchorElement).focus();
+    e.currentTarget.focus();
   };
 
   const focusHandler = (e: FocusEvent<HTMLAnchorElement>) => {
-    if (!isSearchItem(e.target as HTMLAnchorElement)) return;
+    if (!isSearchItem(e.currentTarget)) return;
 
     setRect(e, () => ulRef.current);
     onShowHighlight();
