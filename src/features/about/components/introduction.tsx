@@ -10,9 +10,8 @@ import { useNonRepeatingRandomIndex } from '../hooks/use-non-repeating-random-in
 const keywords: string[] = [
   '최적화 이전에 좋은 코드를 생각하는',
   'DX 개선에 관심이 많은',
-  '사용자 경험을 중요시하는',
-  '서비스의 성장을 고민하는',
-  '다양한 실험을 하는',
+  '정보를 사용자에게 유연하게 전달하는',
+  '웹 표준을 지키려 노력하는',
 ];
 
 const Introduction = () => {
