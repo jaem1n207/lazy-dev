@@ -16,7 +16,7 @@ const TagList = ({ tags }: TagListProps) => {
             <li key={tag.fieldValue}>
               <Link
                 to={ROUTES.TAG.toUrl(tag.fieldValue!)}
-                className="text-18pxr font-bold foldable:text-16pxr"
+                className="focus-primary rounded-md text-18pxr font-bold foldable:text-16pxr"
               >
                 {tag.fieldValue} ({tag.totalCount})
               </Link>
