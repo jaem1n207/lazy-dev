@@ -1,53 +1,8 @@
 import { useEffect, useState } from 'react';
 
-import classNames from 'classnames';
-import { motion, AnimatePresence } from 'framer-motion';
+import { motion } from 'framer-motion';
 
-const variants = {
-  hidden: { opacity: 0, rotate: 180 },
-  show: { opacity: 1, rotate: 0 },
-};
-
-const whileHover = {
-  rotate: 15,
-};
-
-const SunIcon = ({ className }: { className?: string }) => (
-  <svg
-    xmlns="http://www.w3.org/2000/svg"
-    className={classNames('icon icon-tabler icon-tabler-sun', className)}
-    viewBox="0 0 24 24"
-    strokeWidth="1.5"
-    stroke="#1f2028"
-    fill="none"
-    strokeLinecap="round"
-    strokeLinejoin="round"
-  >
-    <path stroke="none" d="M0 0h24v24H0z" fill="none" />
-    <circle cx="12" cy="12" r="4" />
-    <path d="M3 12h1m8 -9v1m8 8h1m-9 8v1m-6.4 -15.4l.7 .7m12.1 -.7l-.7 .7m0 11.4l.7 .7m-12.1 -.7l-.7 .7" />
-  </svg>
-);
-
-const MoonIcon = ({ className }: { className?: string }) => (
-  <svg
-    xmlns="http://www.w3.org/2000/svg"
-    className={classNames('icon icon-tabler icon-tabler-moon-filled h-full w-full', className)}
-    viewBox="0 0 24 24"
-    strokeWidth="1.5"
-    stroke="#2e3039"
-    fill="none"
-    strokeLinecap="round"
-    strokeLinejoin="round"
-  >
-    <path stroke="none" d="M0 0h24v24H0z" fill="none" />
-    <path
-      d="M12 1.992a10 10 0 1 0 9.236 13.838c.341 -.82 -.476 -1.644 -1.298 -1.31a6.5 6.5 0 0 1 -6.864 -10.787l.077 -.08c.551 -.63 .113 -1.653 -.758 -1.653h-.266l-.068 -.006l-.06 -.002z"
-      strokeWidth="0"
-      fill="currentColor"
-    />
-  </svg>
-);
+import { MoonIcon, SunIcon } from './icons';
 
 const ThemeToggle = () => {
   const [theme, setTheme] = useState<Theme>(undefined);
@@ -94,33 +49,21 @@ const ThemeToggle = () => {
         aria-label={`Activate ${isDarkMode ? 'light' : 'dark'} mode`}
         title={`Activate ${isDarkMode ? 'light' : 'dark'} mode`}
       >
-        <AnimatePresence>
-          {isDarkMode ? (
-            <motion.div
-              key="moon"
-              initial="hidden"
-              animate="show"
-              exit="hidden"
-              whileHover={whileHover}
-              variants={variants}
-              className="absolute inset-0pxr"
-            >
-              <MoonIcon />
-            </motion.div>
-          ) : (
-            <motion.div
-              key="sun"
-              initial="hidden"
-              animate="show"
-              exit="hidden"
-              whileHover={whileHover}
-              variants={variants}
-              className="absolute inset-0pxr"
-            >
-              <SunIcon />
-            </motion.div>
-          )}
-        </AnimatePresence>
+        <motion.div
+          initial={false}
+          animate={{
+            rotate: isDarkMode ? 0 : 45,
+          }}
+          transition={{
+            type: 'spring',
+            stiffness: 260,
+            damping: 20,
+          }}
+          whileTap={{ scale: 0.95 }}
+          className="absolute inset-0 flex items-center justify-center"
+        >
+          {isDarkMode ? <SunIcon /> : <MoonIcon className="-rotate-45" />}
+        </motion.div>
       </button>
     </>
   );
