@@ -50,6 +50,7 @@ const ThemeToggle = () => {
         title={`Activate ${isDarkMode ? 'light' : 'dark'} mode`}
       >
         <motion.div
+          tabIndex={-1}
           initial={false}
           animate={{
             rotate: isDarkMode ? 0 : 45,
