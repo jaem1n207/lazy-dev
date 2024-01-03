@@ -78,10 +78,6 @@ module.exports = {
         'main-two': '66fr 34fr',
         'project-card-list': 'repeat(auto-fit, minmax(280px, 1fr))',
       },
-      gridTemplateRows: {
-        article: 'subgrid',
-        'project-card': 'subgrid',
-      },
       colors: {
         transparent: 'transparent',
         current: 'currentColor',

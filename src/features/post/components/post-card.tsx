@@ -15,7 +15,7 @@ const PostCard = ({ post }: PostCardProps) => {
   return (
     <Link
       to={ROUTES.BLOG_POST.toUrl(slug!)}
-      className="focus-primary row-span-5 row-end-auto grid grid-rows-article gap-2 rounded-lg p-1 transition-transform hover:-translate-y-1 focus:-translate-y-1"
+      className="focus-primary row-span-5 row-end-auto grid grid-rows-subgrid gap-2 rounded-lg p-1 transition-transform hover:-translate-y-1 focus:-translate-y-1"
     >
       <GatsbyImage
         image={thumbnail?.childImageSharp?.gatsbyImageData!}

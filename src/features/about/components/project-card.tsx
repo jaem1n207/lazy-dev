@@ -27,7 +27,7 @@ interface ProjectCardProps {
 const ProjectCard = ({ index, name, description, tags, projectUrl }: ProjectCardProps) => {
   return (
     <motion.div
-      className="project-card relative row-span-4 row-end-auto grid grid-rows-project-card gap-2 rounded-2xl bg-gray-200 p-6 dark:bg-bg-secondary tablet:p-4 foldable:p-3"
+      className="project-card relative row-span-4 row-end-auto grid grid-rows-subgrid gap-2 rounded-2xl bg-gray-200 p-6 tablet:p-4 foldable:p-3 dark:bg-bg-secondary"
       initial={animateVariant.hidden}
       animate={animateVariant.show}
       variants={fadeIn({ direction: 'down', type: 'spring', delay: index * 0.2 })}
