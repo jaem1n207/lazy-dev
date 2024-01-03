@@ -29,7 +29,7 @@ const PostCard = ({ post }: PostCardProps) => {
           </span>
         ))}
       </div>
-      <h3 className="text-24pxr font-extrabold leading-8 tablet:text-20pxr tablet:leading-7 foldable:text-18pxr foldable:leading-6">
+      <h3 className="text-pretty text-24pxr font-extrabold leading-8 tablet:text-20pxr tablet:leading-7 foldable:text-18pxr foldable:leading-6">
         {title}
       </h3>
       <p className="mt-2 line-clamp-3 text-text-primary foldable:text-14pxr">{summary}</p>

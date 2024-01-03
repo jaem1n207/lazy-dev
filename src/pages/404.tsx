@@ -53,7 +53,7 @@ const NotFoundPage = () => {
           onClick={goHome}
           className="focus-primary inline-flex items-center rounded-md bg-primary px-16pxr py-8pxr text-16pxr font-medium text-text-secondary"
         >
-          <LoginIcon className="mr-8pxr h-20pxr w-20pxr" />
+          <LoginIcon className="mr-8pxr size-20pxr" />
           블로그 홈으로 돌아갈게요.
         </button>
         <ClientOnly>

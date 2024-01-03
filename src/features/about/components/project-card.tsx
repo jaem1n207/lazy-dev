@@ -40,7 +40,7 @@ const ProjectCard = ({ index, name, description, tags, projectUrl }: ProjectCard
         {projectUrl.live && (
           <div className="flex items-center justify-center rounded-full">
             <Anchor href={projectUrl.live} external className="rounded-full">
-              <ChromeIcon className="h-32pxr w-32pxr fill-black stroke-white dark:fill-white dark:stroke-black" />
+              <ChromeIcon className="size-32pxr fill-black stroke-white dark:fill-white dark:stroke-black" />
             </Anchor>
           </div>
         )}
