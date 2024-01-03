@@ -10,7 +10,7 @@
 
 @layer components {
   .aside-scroll {
-    @apply sticky top-40pxr h-[calc(100vh-124px)] overflow-y-auto foldable:relative foldable:top-0pxr foldable:h-auto;
+    @apply sticky top-40pxr h-[calc(100dvh-124px)] overflow-y-auto foldable:relative foldable:top-0pxr foldable:h-auto;
   }
 }
 
