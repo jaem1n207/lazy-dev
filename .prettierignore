@@ -1,6 +1,13 @@
+__mocks__
+_legacy
 .cache
+.vscode
+public
+static
 package.json
 yarn.lock
-public
-_legacy
-static
+*.js
+*.jsx
+*.ts
+*.tsx
+*.json
