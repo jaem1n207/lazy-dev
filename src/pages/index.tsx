@@ -1,12 +1,10 @@
-import { FC } from 'react';
+import { HeadFC, HeadProps, PageProps, graphql } from "gatsby";
+import { FC } from "react";
 
-import { graphql, HeadFC, HeadProps, PageProps } from 'gatsby';
-
-import Seo from '@/common/components/seo/seo';
-
-import PostList from '@/features/post/components/post-list';
-import ShortList from '@/features/post/components/short-list';
-import TagList from '@/features/tag/components/tag-list';
+import Seo from "@/common/components/seo/seo";
+import PostList from "@/features/post/components/post-list";
+import ShortList from "@/features/post/components/short-list";
+import TagList from "@/features/tag/components/tag-list";
 
 const IndexPage: FC<PageProps<Queries.HomeQuery>> = ({ data }) => {
   const tags = data.tags.group;
@@ -15,7 +13,7 @@ const IndexPage: FC<PageProps<Queries.HomeQuery>> = ({ data }) => {
 
   return (
     <main>
-      <div className="relative mx-auto grid max-w-[1500px] grid-cols-main-three-large desktop:grid-cols-main-three-small tablet:grid-cols-main-two foldable:flex foldable:flex-col foldable:items-center">
+      <div className='relative mx-auto grid max-w-[1500px] grid-cols-main-three-large desktop:grid-cols-main-three-small tablet:grid-cols-main-two foldable:flex foldable:flex-col foldable:items-center'>
         <TagList tags={tags} />
         <PostList posts={posts} />
         <ShortList shorts={shorts} />
@@ -29,9 +27,9 @@ export default IndexPage;
 export const Head: HeadFC = ({ location }: HeadProps) => (
   <Seo
     openGraph={{
-      type: 'website',
+      type: "website",
       url: location.pathname,
-      image: '../assets/favicon.png',
+      image: "../assets/favicon.png",
     }}
   />
 );

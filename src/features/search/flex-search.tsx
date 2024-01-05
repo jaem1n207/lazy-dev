@@ -1,15 +1,14 @@
-import { useState } from 'react';
+import FlexSearch from "flexsearch";
+import { useState } from "react";
 
-import FlexSearch from 'flexsearch';
+import type { SearchData } from "@/common/types/types";
 
-import type { SearchData } from '@/common/types/types';
-
-import HighlightMatches from './highlight-matches';
-import Search from './search';
-import type { PageIndex, Result, SearchResult, SectionIndex } from './types';
+import HighlightMatches from "./highlight-matches";
+import Search from "./search";
+import type { PageIndex, Result, SearchResult, SectionIndex } from "./types";
 
 // TODO: 추후에 추가될 영문 지원을 위해 locale을 인자로 받아서 처리하도록
-const locale = 'ko';
+const locale = "ko";
 
 // locale에 따른 검색 인덱스를 저장하는 객체
 const indexes: {
@@ -39,11 +38,11 @@ const loadIndexesImpl = async (locale: string) => {
   const pageIndex: PageIndex = new FlexSearch.Document({
     // 문서에선 인코더 함수로 한글 문자열 지원을 하는 것으로 파악되지만, 잘 동작하지 않습니다 https://github.com/nextapps-de/flexsearch#cjk-word-break-chinese-japanese-korean
     cache: 100,
-    tokenize: 'full',
+    tokenize: "full",
     document: {
-      id: 'id',
-      index: 'content',
-      store: ['title'],
+      id: "id",
+      index: "content",
+      store: ["title"],
     },
     context: {
       resolution: 9,
@@ -54,12 +53,12 @@ const loadIndexesImpl = async (locale: string) => {
 
   const sectionIndex: SectionIndex = new FlexSearch.Document({
     cache: 100,
-    tokenize: 'full',
+    tokenize: "full",
     document: {
-      id: 'id',
-      index: 'content',
-      tag: 'pageId',
-      store: ['title', 'content', 'url'],
+      id: "id",
+      index: "content",
+      tag: "pageId",
+      store: ["title", "content", "url"],
     },
     context: {
       resolution: 9,
@@ -71,14 +70,14 @@ const loadIndexesImpl = async (locale: string) => {
   // 각 페이지와 섹션에 대해 인덱스를 추가합니다.
   let pageId = 0;
   for (const [route, StructuredData] of Object.entries(searchData)) {
-    let pageContent = '';
+    let pageContent = "";
     ++pageId;
 
     for (const [key, content] of Object.entries(StructuredData.data)) {
-      const [headingId, headingValue] = key.split('#');
-      const url = route + (headingId ? '#' + headingId : '');
+      const [headingId, headingValue] = key.split("#");
+      const url = route + (headingId ? `#${headingId}` : "");
       const title = headingValue || StructuredData.title;
-      const paragraphs = content.split('\n');
+      const paragraphs = content.split("\n");
 
       sectionIndex.add({
         id: url,
@@ -115,7 +114,7 @@ const loadIndexesImpl = async (locale: string) => {
 const Flexsearch = () => {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(false);
-  const [searchQuery, setSearchQuery] = useState('');
+  const [searchQuery, setSearchQuery] = useState("");
   const [results, setResults] = useState<SearchResult[]>([]);
 
   const doSearch = (search: string) => {
@@ -155,17 +154,17 @@ const Flexsearch = () => {
           _section_rk: j,
           route: url,
           prefix: isFirstItemOfPage && (
-            <div className="border-white/20 mx-10pxr mb-8pxr mt-24pxr select-none border-b px-4pxr pb-6pxr text-14pxr font-semibold uppercase first-of-type:mt-0">
+            <div className='border-white/20 mx-10pxr mb-8pxr mt-24pxr select-none border-b px-4pxr pb-6pxr text-14pxr font-semibold uppercase first-of-type:mt-0'>
               {result.doc.title}
             </div>
           ),
           children: (
             <>
-              <span className="text-base font-bold">
+              <span className='text-base font-bold'>
                 <HighlightMatches match={search} value={title} />
               </span>
               {content && (
-                <div className="mt-4pxr text-sm leading-snug text-gray-600 dark:text-gray-400">
+                <div className='mt-4pxr text-sm leading-snug text-gray-600 dark:text-gray-400'>
                   <HighlightMatches match={search} value={content} />
                 </div>
               )}

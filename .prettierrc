@@ -10,12 +10,13 @@
   "singleAttributePerLine": false,
   "htmlWhitespaceSensitivity": "css",
   "vueIndentScriptAndStyle": false,
-  "proseWrap": "always",
   "insertPragma": false,
   "printWidth": 100,
   "requirePragma": false,
   "tabWidth": 2,
   "useTabs": false,
+  "proseWrap": "never",
   "embeddedLanguageFormatting": "auto",
-  "plugins": ["prettier-plugin-tailwindcss"]
+  "importOrder": ["^(react|react-dom)$", "^([a-z]|@[a-z])", "", "@/[a-z]", "", ".*"],
+  "plugins": ["prettier-plugin-tailwindcss", "@ianvs/prettier-plugin-sort-imports"]
 }

@@ -1,8 +1,7 @@
-import * as React from 'react';
+import classNames from "classnames";
+import * as React from "react";
 
-import classNames from 'classnames';
-
-import { PolymorphicComponent, PolymorphicComponentProps, PolymorphicRef } from '../polymorphic';
+import { PolymorphicComponent, PolymorphicComponentProps, PolymorphicRef } from "../polymorphic";
 
 type _ContentSpacerProps = {
   compact?: boolean;
@@ -13,7 +12,7 @@ type ContentSpacerProps<T extends React.ElementType> = PolymorphicComponentProps
   _ContentSpacerProps
 >;
 
-type ContentSpacerComponent = PolymorphicComponent<'div', _ContentSpacerProps>;
+type ContentSpacerComponent = PolymorphicComponent<"div", _ContentSpacerProps>;
 
 const ContentSpacer: ContentSpacerComponent = React.forwardRef(
   <T extends React.ElementType = 'div'>(
@@ -35,6 +34,6 @@ const ContentSpacer: ContentSpacerComponent = React.forwardRef(
   },
 );
 
-ContentSpacer.displayName = 'ContentSpacer';
+ContentSpacer.displayName = "ContentSpacer";
 
 export default ContentSpacer;

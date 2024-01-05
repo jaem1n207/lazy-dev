@@ -1,16 +1,15 @@
-import { memo } from 'react';
+import { memo } from "react";
 
-import ClientOnly from '../wrapper/client-only';
-
-import { DiagonalSlideFromTopParticle, RandomNumberGenerator } from './particle-style-builder';
+import ClientOnly from "../wrapper/client-only";
+import { DiagonalSlideFromTopParticle, RandomNumberGenerator } from "./particle-style-builder";
 
 const particleAnimations = {
   diagonalSlideFromTopParticle: DiagonalSlideFromTopParticle,
 };
 
 export const SVG_CLASSES = {
-  GOOGLE_LOGO: 'google-logo',
-  MUISIC: 'music',
+  GOOGLE_LOGO: "google-logo",
+  MUISIC: "music",
 };
 
 interface ParticleProps {
@@ -38,7 +37,7 @@ const ParticleComponent = ({
 
   return (
     <ClientOnly>
-      <span className="particle-container">
+      <span className='particle-container'>
         {Array.from({ length: particleLength }).map((_, index) => {
           const rng = new RandomNumberGenerator();
           const ParticleAnimation = particleAnimations[animationName];

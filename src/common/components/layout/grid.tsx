@@ -1,8 +1,7 @@
-import { ElementType, forwardRef, HTMLAttributes } from 'react';
-import * as React from 'react';
-
-import classNames from 'classnames';
-import { motion, MotionProps } from 'framer-motion';
+import classNames from "classnames";
+import { MotionProps, motion } from "framer-motion";
+import { ElementType, HTMLAttributes, forwardRef } from "react";
+import * as React from "react";
 
 interface GridProps extends HTMLAttributes<HTMLElement> {
   as?: ElementType;
@@ -13,9 +12,9 @@ interface GridProps extends HTMLAttributes<HTMLElement> {
 }
 
 const Grid = forwardRef<HTMLElement, GridProps>(
-  ({ as: Component = 'div', className, rowGap, children, animated = false, ...rest }, ref) => {
+  ({ as: Component = "div", className, rowGap, children, animated = false, ...rest }, ref) => {
     const baseStyles = classNames(
-      `max-w-7xl mx-auto relative grid grid-cols-12 gap-x-24pxr tablet:gap-x-16pxr tablet:grid-cols-8 mobile:grid-cols-4`,
+      "max-w-7xl mx-auto relative grid grid-cols-12 gap-x-24pxr tablet:gap-x-16pxr tablet:grid-cols-8 mobile:grid-cols-4",
       {
         [`grid-row-gap-${rowGap}`]: rowGap,
       },
@@ -40,6 +39,6 @@ const Grid = forwardRef<HTMLElement, GridProps>(
   },
 );
 
-Grid.displayName = 'Grid';
+Grid.displayName = "Grid";
 
 export default Grid;

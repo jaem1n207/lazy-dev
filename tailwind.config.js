@@ -1,4 +1,4 @@
-const is = (type, val) => ![, null].includes(val) && val.constructor === type;
+const is = (type, val) => ![undefined, null].includes(val) && val.constructor === type;
 const initializeMappedArray = (n, mapFn = (_, i) => i) => Array(n).fill(null).map(mapFn);
 
 const pxToRem = (px) => {
@@ -9,13 +9,17 @@ const applyRange = (start, end, step = 1) => {
     throw new TypeError(
       `start, end, step 은 모두 숫자여야 해요. start: ${start}, end: ${end}, step: ${step}`,
     );
-  } else if (step <= 0) {
+  }
+  if (step <= 0) {
     throw new RangeError(`step은 0보다 커야 해요. step: ${step}`);
-  } else if (step > end - start) {
+  }
+  if (step > end - start) {
     throw new RangeError(`step은 end - start 보다 작아야 해요. step: ${step}`);
-  } else if (start > end) {
+  }
+  if (start > end) {
     throw new RangeError(`start는 end보다 작아야 해요. start: ${start}, end: ${end}`);
-  } else if ((end - start) % step !== 0) {
+  }
+  if ((end - start) % step !== 0) {
     throw new RangeError(
       `start, end, step은 서로 배수여야 해요. start: ${start}, end: ${end}, step: ${step}`,
     );
@@ -36,24 +40,24 @@ module.exports = {
     // https://github.com/tailwindlabs/tailwindcss/pull/8394
     hoverOnlyWhenSupported: true,
   },
-  darkMode: 'class',
+  darkMode: "class",
   content: [
-    './gatsby-ssr.tsx',
-    './src/pages/**/*.{js,jsx,ts,tsx}',
-    './src/apps/**/*.{js,jsx,ts,tsx}',
-    './src/common/**/*.{js,jsx,ts,tsx}',
-    './src/features/**/*.{js,jsx,ts,tsx}',
+    "./gatsby-ssr.tsx",
+    "./src/pages/**/*.{js,jsx,ts,tsx}",
+    "./src/apps/**/*.{js,jsx,ts,tsx}",
+    "./src/common/**/*.{js,jsx,ts,tsx}",
+    "./src/features/**/*.{js,jsx,ts,tsx}",
   ],
   theme: {
     data: {
       active: 'ui~="active"',
     },
     screens: {
-      display: { max: '1440px' },
-      desktop: { max: '1024px' },
-      tablet: { max: '768px' },
-      foldable: { max: '523px' },
-      mobile: { max: '360px' },
+      display: { max: "1440px" },
+      desktop: { max: "1024px" },
+      tablet: { max: "768px" },
+      foldable: { max: "523px" },
+      mobile: { max: "360px" },
     },
     extend: {
       fontSize: {
@@ -61,7 +65,7 @@ module.exports = {
       },
       spacing: {
         ...applyRange(0, 400, 1),
-        '10vw': '10vw',
+        "10vw": "10vw",
       },
       borderWidth: {
         ...applyRange(0, 10, 1),
@@ -73,94 +77,94 @@ module.exports = {
         ...applyRange(320, 880, 80),
       },
       gridTemplateColumns: {
-        'main-three-large': '15fr 60fr 25fr',
-        'main-three-small': '2fr 5fr 3fr',
-        'main-two': '66fr 34fr',
-        'project-card-list': 'repeat(auto-fit, minmax(280px, 1fr))',
+        "main-three-large": "15fr 60fr 25fr",
+        "main-three-small": "2fr 5fr 3fr",
+        "main-two": "66fr 34fr",
+        "project-card-list": "repeat(auto-fit, minmax(280px, 1fr))",
       },
       colors: {
-        transparent: 'transparent',
-        current: 'currentColor',
-        white: 'var(--color-white)',
-        black: 'var(--color-black)',
+        transparent: "transparent",
+        current: "currentColor",
+        white: "var(--color-white)",
+        black: "var(--color-black)",
 
         blue: {
-          300: 'var(--color-blue-300)',
-          500: 'var(--color-blue-500)',
+          300: "var(--color-blue-300)",
+          500: "var(--color-blue-500)",
         },
         gray: {
-          100: 'var(--color-gray-100)',
-          200: 'var(--color-gray-200)',
-          300: 'var(--color-gray-300)',
-          400: 'var(--color-gray-400)',
-          500: 'var(--color-gray-500)',
-          600: 'var(--color-gray-600)',
-          700: 'var(--color-gray-700)',
-          800: 'var(--color-gray-800)',
-          900: 'var(--color-gray-900)',
+          100: "var(--color-gray-100)",
+          200: "var(--color-gray-200)",
+          300: "var(--color-gray-300)",
+          400: "var(--color-gray-400)",
+          500: "var(--color-gray-500)",
+          600: "var(--color-gray-600)",
+          700: "var(--color-gray-700)",
+          800: "var(--color-gray-800)",
+          900: "var(--color-gray-900)",
         },
         zinc: {
-          900: 'var(--color-zinc-900)',
+          900: "var(--color-zinc-900)",
         },
         slate: {
-          200: 'var(--color-slate-200)',
-          500: 'var(--color-slate-500)',
-          700: 'var(--color-slate-700)',
+          200: "var(--color-slate-200)",
+          500: "var(--color-slate-500)",
+          700: "var(--color-slate-700)",
         },
         neutral: {
-          300: 'var(--color-neutral-300)',
+          300: "var(--color-neutral-300)",
         },
         red: {
-          500: 'var(--color-red-500)',
+          500: "var(--color-red-500)",
         },
         cyan: {
-          50: 'var(--color-cyan-50)',
+          50: "var(--color-cyan-50)",
         },
 
         /* contents */
-        primary: 'var(--color-primary)',
-        violet: 'var(--color-violet)',
-        'text-primary': 'var(--color-text-primary)',
-        'text-secondary': 'var(--color-text-secondary)',
-        'text-inner': 'var(--color-text-inner)',
-        'bg-primary': 'var(--color-bg-primary)',
-        'bg-secondary': 'var(--color-bg-secondary)',
-        'bg-inner': 'var(--color-bg-inner)',
-        'bg-divider': 'var(--color-bg-divider)',
-        'border-primary': 'var(--color-border-primary)',
-        'border-secondary': 'var(--color-border-secondary)',
-        'all-custom-gray': 'var(--color-all-custom-gray)',
-        'bg-tag': 'var(--color-bg-tag)',
+        primary: "var(--color-primary)",
+        violet: "var(--color-violet)",
+        "text-primary": "var(--color-text-primary)",
+        "text-secondary": "var(--color-text-secondary)",
+        "text-inner": "var(--color-text-inner)",
+        "bg-primary": "var(--color-bg-primary)",
+        "bg-secondary": "var(--color-bg-secondary)",
+        "bg-inner": "var(--color-bg-inner)",
+        "bg-divider": "var(--color-bg-divider)",
+        "border-primary": "var(--color-border-primary)",
+        "border-secondary": "var(--color-border-secondary)",
+        "all-custom-gray": "var(--color-all-custom-gray)",
+        "bg-tag": "var(--color-bg-tag)",
       },
       boxShadow: {
-        'text-underline': '0 1px 0 0 currentColor',
+        "text-underline": "0 1px 0 0 currentColor",
       },
       typography: (theme) => ({
         light: {
           css: [
             {
-              color: theme('colors.gray.500'),
+              color: theme("colors.gray.500"),
               a: {
-                color: theme('colors.team.current'),
+                color: theme("colors.team.current"),
               },
               strong: {
-                color: theme('colors.black'),
+                color: theme("colors.black"),
               },
               hr: {
-                borderColor: theme('colors.gray.200'),
+                borderColor: theme("colors.gray.200"),
               },
               code: {
-                color: theme('colors.gray.800'),
+                color: theme("colors.gray.800"),
               },
-              'h1, h2, h3, h4, h5, h6': {
-                color: theme('colors.black'),
+              "h1, h2, h3, h4, h5, h6": {
+                color: theme("colors.black"),
               },
               blockquote: {
-                color: theme('colors.gray.500'),
-                backgroundColor: theme('colors.gray.100'),
+                color: theme("colors.gray.500"),
+                backgroundColor: theme("colors.gray.100"),
               },
-              'thead, tbody tr': {
-                borderBottomColor: theme('colors.gray.200'),
+              "thead, tbody tr": {
+                borderBottomColor: theme("colors.gray.200"),
               },
             },
           ],
@@ -168,28 +172,28 @@ module.exports = {
         dark: {
           css: [
             {
-              color: theme('colors.slate.500'),
+              color: theme("colors.slate.500"),
               a: {
-                color: theme('colors.team.current'),
+                color: theme("colors.team.current"),
               },
               strong: {
-                color: theme('colors.white'),
+                color: theme("colors.white"),
               },
               hr: {
-                borderColor: theme('colors.gray.600'),
+                borderColor: theme("colors.gray.600"),
               },
               code: {
-                color: theme('colors.gray.100'),
+                color: theme("colors.gray.100"),
               },
-              'h1, h2, h3, h4, h5, h6': {
-                color: theme('colors.white'),
+              "h1, h2, h3, h4, h5, h6": {
+                color: theme("colors.white"),
               },
               blockquote: {
-                color: theme('colors.slate.500'),
-                backgroundColor: theme('colors.gray.800'),
+                color: theme("colors.slate.500"),
+                backgroundColor: theme("colors.gray.800"),
               },
-              'thead, tbody tr': {
-                borderBottomColor: theme('colors.gray.600'),
+              "thead, tbody tr": {
+                borderBottomColor: theme("colors.gray.600"),
               },
             },
           ],
@@ -198,10 +202,10 @@ module.exports = {
     },
   },
   plugins: [
-    require('./src/plugins/scrollbar-hide'),
-    require('./src/plugins/visually-hide'),
-    require('./src/plugins/drag-none'),
-    require('@tailwindcss/typography'),
-    'prettier-plugin-tailwindcss',
+    require("./src/plugins/scrollbar-hide"),
+    require("./src/plugins/visually-hide"),
+    require("./src/plugins/drag-none"),
+    require("@tailwindcss/typography"),
+    "prettier-plugin-tailwindcss",
   ],
 };

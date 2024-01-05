@@ -1,5 +1,5 @@
 declare global {
-  type Theme = 'dark' | 'light' | undefined;
+  type Theme = "dark" | "light" | undefined;
 
   interface DetectDevice {
     isMacOs: boolean;

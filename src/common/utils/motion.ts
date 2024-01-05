@@ -1,11 +1,11 @@
-import type { ValueAnimationOptions, EasingDefinition, Variant } from 'framer-motion';
+import type { EasingDefinition, ValueAnimationOptions, Variant } from "framer-motion";
 
 /**
  * 지정한 애니메이션을 실행하기 위한 variant
  */
 export const animateVariant = {
-  hidden: 'hidden',
-  show: 'show',
+  hidden: "hidden",
+  show: "show",
 } as const;
 
 interface DurationOptions {
@@ -16,9 +16,10 @@ interface Orchestration {
 }
 
 interface CustomAnimationOptions extends Orchestration, DurationOptions {
-  type?: ValueAnimationOptions<any>['type'];
+  // biome-ignore lint/suspicious/noExplicitAny: <explanation>
+  type?: ValueAnimationOptions<any>["type"];
   ease?: EasingDefinition;
-  direction?: 'left' | 'right' | 'up' | 'down';
+  direction?: "left" | "right" | "up" | "down";
 }
 interface TimingAnimationOptions extends Orchestration, DurationOptions {}
 
@@ -32,12 +33,12 @@ type SlideIn = (options?: CustomAnimationOptions) => ReturnVariants;
 type ZoomIn = (options?: TimingAnimationOptions) => ReturnVariants;
 
 export const fadeIn: FadeIn = (options = {}) => {
-  const { direction = 'left', type = 'spring', delay, duration, ease = 'easeOut' } = options;
+  const { direction = "left", type = "spring", delay, duration, ease = "easeOut" } = options;
 
   return {
     hidden: {
-      x: direction === 'left' ? 100 : direction === 'right' ? -100 : 0,
-      y: direction === 'up' ? 100 : direction === 'down' ? -100 : 0,
+      x: direction === "left" ? 100 : direction === "right" ? -100 : 0,
+      y: direction === "up" ? 100 : direction === "down" ? -100 : 0,
       opacity: 0,
     },
     show: {
@@ -66,7 +67,7 @@ export const textVariant: TextVariant = (options = {}) => {
       y: 0,
       opacity: 1,
       transition: {
-        type: 'spring',
+        type: "spring",
         delay: delay,
         duration: duration,
       },
@@ -75,12 +76,12 @@ export const textVariant: TextVariant = (options = {}) => {
 };
 
 export const slideIn: SlideIn = (options = {}) => {
-  const { direction = 'left', type = 'spring', delay, duration, ease = 'easeOut' } = options;
+  const { direction = "left", type = "spring", delay, duration, ease = "easeOut" } = options;
 
   return {
     hidden: {
-      x: direction === 'left' ? '-100%' : direction === 'right' ? '100%' : 0,
-      y: direction === 'up' ? '100%' : direction === 'down' ? '100%' : 0,
+      x: direction === "left" ? "-100%" : direction === "right" ? "100%" : 0,
+      y: direction === "up" ? "100%" : direction === "down" ? "100%" : 0,
     },
     show: {
       x: 0,
@@ -107,10 +108,10 @@ export const zoomIn: ZoomIn = (options = {}) => {
       scale: 1,
       opacity: 1,
       transition: {
-        type: 'tween',
+        type: "tween",
         delay: delay,
         duration: duration,
-        ease: 'easeOut',
+        ease: "easeOut",
       },
     },
   };
