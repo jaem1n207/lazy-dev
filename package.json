@@ -93,8 +93,10 @@
   "devDependencies": {
     "@babel/preset-react": "^7.23.3",
     "@babel/preset-typescript": "^7.23.3",
+    "@biomejs/biome": "^1.4.1",
     "@commitlint/cli": "^17.7.2",
     "@graphql-eslint/eslint-plugin": "^3.20.1",
+    "@ianvs/prettier-plugin-sort-imports": "^4.1.1",
     "@testing-library/jest-dom": "^6.1.4",
     "@testing-library/react": "^14.1.2",
     "@types/flexsearch": "^0.7.6",
