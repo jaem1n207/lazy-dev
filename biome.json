@@ -1,7 +1,17 @@
 {
   "$schema": "./node_modules/@biomejs/biome/configuration_schema.json",
   "files": {
-    "ignore": ["./public/*", "**/assets", "__legacy/**/*", "*.md", "*.css", "*.svg", "*.sh"]
+    "ignore": [
+      "./static/*",
+      "./_legacy/*",
+      "./public/*",
+      "**/assets",
+      "*.html",
+      "*.md",
+      "*.css",
+      "*.svg",
+      "*.sh"
+    ]
   },
   "formatter": {
     "lineWidth": 100,
