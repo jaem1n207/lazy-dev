@@ -1,30 +1,30 @@
-'use strict';
+"use strict";
 
-const path = require('path');
+const path = require("path");
 
-const dayjs = require('dayjs');
-const fs = require('fs-extra');
-const matter = require('gray-matter');
-const inquirer = require('inquirer');
-const recursive = require('recursive-readdir');
+const dayjs = require("dayjs");
+const fs = require("fs-extra");
+const matter = require("gray-matter");
+const inquirer = require("inquirer");
+const recursive = require("recursive-readdir");
 
-const { makeCustomSignale, makeInteractiveSignale } = require('./log.cjs');
+const { makeCustomSignale, makeInteractiveSignale } = require("./log.cjs");
 
 const log = makeCustomSignale();
 const interactiveLog = makeInteractiveSignale();
 
-const BLOG_DIR_PATH = path.join(process.cwd(), 'content', 'blog');
-const THUMBNAIL_TARGET_DIR = path.join(BLOG_DIR_PATH, 'thumbnails');
-const IGNORE_DIR = 'images';
-const AUTHOR_ID = 'jaemin';
-const CUSTOM_CATEGORY_OPTIONS = ['[ CREATE NEW CATEGORY ]', '[ CANCEL ]'];
+const BLOG_DIR_PATH = path.join(process.cwd(), "content", "blog");
+const THUMBNAIL_TARGET_DIR = path.join(BLOG_DIR_PATH, "thumbnails");
+const IGNORE_DIR = "images";
+const AUTHOR_ID = "jaemin";
+const CUSTOM_CATEGORY_OPTIONS = ["[ CREATE NEW CATEGORY ]", "[ CANCEL ]"];
 
 /**
  *
  * @param {string} title
  * @returns {string} replaced title
  */
-const getFileName = (title) => title.trim().toLowerCase().replace(/ /g, '-'); // replace space to dash
+const getFileName = (title) => title.trim().toLowerCase().replace(/ /g, "-"); // replace space to dash
 
 /**
  *
@@ -47,7 +47,7 @@ const getCategory = async (targetDir) => {
   return uniq(
     markdownFiles
       .map((file) => {
-        const content = fs.readFileSync(file, 'utf8');
+        const content = fs.readFileSync(file, "utf8");
         const { data } = matter(content);
 
         return data.category;
@@ -69,7 +69,7 @@ const isNil = (value) => {
 };
 
 const isEmptyString = (value) => {
-  return isNil(value) || value?.toString().trim() === '';
+  return isNil(value) || value?.toString().trim() === "";
 };
 
 /**
@@ -87,7 +87,7 @@ const validateSpecialSymbol = (input) => {
   const specialSymbolRegex = /[~!@#$%^&*()_+|<>?:{}]/;
   const hasSpecialSymbol = specialSymbolRegex.test(input);
   if (hasSpecialSymbol) {
-    return '태그에는 특수문자를 사용할 수 없어요';
+    return "태그에는 특수문자를 사용할 수 없어요";
   }
 
   return true;
@@ -97,9 +97,9 @@ const getContentsInquirer = async () => {
   const categories = await getCategory(BLOG_DIR_PATH);
   const categoryInquirer = [
     {
-      type: 'list',
-      name: 'selectedCategory',
-      message: '카테고리 선택: ',
+      type: "list",
+      name: "selectedCategory",
+      message: "카테고리 선택: ",
       choices: [...CUSTOM_CATEGORY_OPTIONS, new inquirer.Separator(), ...categories],
     },
   ];
@@ -107,12 +107,12 @@ const getContentsInquirer = async () => {
   const folderNameRegex = /^(\w+\.?)*\w+$/;
   const newCategoryInquirer = [
     {
-      type: 'input',
-      name: 'newCategory',
-      message: '새 카테고리 입력: ',
+      type: "input",
+      name: "newCategory",
+      message: "새 카테고리 입력: ",
       validate: (input) => {
         if (isEmptyString(input)) {
-          return '새 카테고리를 입력해주세요';
+          return "새 카테고리를 입력해주세요";
         }
 
         if (categories.includes(input.toLowerCase())) {
@@ -120,11 +120,11 @@ const getContentsInquirer = async () => {
         }
 
         if (input.length < 2) {
-          return '카테고리 이름이 너무 짧아요. 최소 2자 이상이어야 해요';
+          return "카테고리 이름이 너무 짧아요. 최소 2자 이상이어야 해요";
         }
 
         if (!folderNameRegex.test(input)) {
-          return '카테고리 이름으로 포함할 수 없는 문자가 있어요. 영문, 숫자, ., _ 만 사용할 수 있어요';
+          return "카테고리 이름으로 포함할 수 없는 문자가 있어요. 영문, 숫자, ., _ 만 사용할 수 있어요";
         }
 
         return true;
@@ -138,16 +138,16 @@ const getContentsInquirer = async () => {
   const titleInquirer = (category) => {
     return [
       {
-        type: 'input',
-        name: 'title',
-        message: '제목 입력: ',
+        type: "input",
+        name: "title",
+        message: "제목 입력: ",
         validate: (input) => {
           if (isEmptyString(input)) {
-            return '제목을 입력해주세요';
+            return "제목을 입력해주세요";
           }
 
           if (input.includes("'")) {
-            return '제목에는 작은 따옴표를 사용할 수 없어요';
+            return "제목에는 작은 따옴표를 사용할 수 없어요";
           }
 
           const fileName = getFileName(input);
@@ -164,9 +164,9 @@ const getContentsInquirer = async () => {
 
   const tagInquirer = [
     {
-      type: 'input',
-      name: 'tag',
-      message: '태그 입력 (태그 입력을 끝내려면 빈 문자열을 입력해주세요 - 최대 10개): ',
+      type: "input",
+      name: "tag",
+      message: "태그 입력 (태그 입력을 끝내려면 빈 문자열을 입력해주세요 - 최대 10개): ",
       validate: (input) => {
         if (isEmptyString(input)) {
           return true;
@@ -184,9 +184,9 @@ const getContentsInquirer = async () => {
 
   const keywordInquirer = [
     {
-      type: 'input',
-      name: 'keyword',
-      message: '키워드 입력 (키워드 입력을 끝내려면 빈 문자열을 입력해주세요 - 최대 10개): ',
+      type: "input",
+      name: "keyword",
+      message: "키워드 입력 (키워드 입력을 끝내려면 빈 문자열을 입력해주세요 - 최대 10개): ",
       validate: (input) => {
         if (isEmptyString(input)) {
           return true;
@@ -205,21 +205,21 @@ const getContentsInquirer = async () => {
   const thumbnails = getFilesOfDir(THUMBNAIL_TARGET_DIR);
   const thumbnailInquirer = [
     {
-      type: 'list',
-      name: 'selectedThumbnail',
-      message: '썸네일 선택: ',
+      type: "list",
+      name: "selectedThumbnail",
+      message: "썸네일 선택: ",
       choices: [...thumbnails],
     },
   ];
 
   const summaryInquirer = [
     {
-      type: 'input',
-      name: 'summary',
-      message: '요약 입력: ',
+      type: "input",
+      name: "summary",
+      message: "요약 입력: ",
       validate: (input) => {
         if (isEmptyString(input)) {
-          return '요약을 입력해주세요';
+          return "요약을 입력해주세요";
         }
 
         return true;
@@ -323,13 +323,13 @@ const promptContents = async () => {
  * @returns {string} refined contents
  */
 const refineContents = (rawContents) =>
-  matter.stringify('', rawContents).split("'").join('"').replace(/\\n/g, ' '); // replace single quote to double quote
+  matter.stringify("", rawContents).split("'").join('"').replace(/\\n/g, " "); // replace single quote to double quote
 
 module.exports = (async function () {
-  console.log(''); // empty line
+  console.log(""); // empty line
 
   const { category, title, tags, keywords, thumbnail, summary } = await promptContents();
-  const date = dayjs().format('YYYY-MM-DD HH:mm:ss');
+  const date = dayjs().format("YYYY-MM-DD HH:mm:ss");
   const fileName = getFileName(title);
 
   const destDir = path.join(BLOG_DIR_PATH, category);
@@ -352,10 +352,10 @@ module.exports = (async function () {
 
   fs.writeFile(path.join(destDir, `${fileName}.md`), contents, (err) => {
     if (err) {
-      log.error('예상치 못한 에러: 새 글 생성에 실패했습니다');
+      log.error("예상치 못한 에러: 새 글 생성에 실패했습니다");
     }
 
-    log.complete('\n');
+    log.complete("\n");
     log.rocket(`새 글이 생성되었습니다!`);
     log.path(`${path.join(destDir, `${fileName}.md`)}`);
     log.contents(`\n\n${contents}`);

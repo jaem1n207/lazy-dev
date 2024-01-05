@@ -1,13 +1,13 @@
 /* eslint-disable react/prop-types */
-import { HTMLProps, ReactNode, forwardRef, memo } from 'react';
+import { HTMLProps, ReactNode, forwardRef, memo } from "react";
 
-import classNames from 'classnames';
+import classNames from "classnames";
 
-type AnchorVariant = 'default' | 'underline';
+type AnchorVariant = "default" | "underline";
 
 const anchorVariantClassName: Record<AnchorVariant, string> = {
-  default: 'focus-primary text-primary',
-  underline: 'focus-primary text-primary shadow-text-underline transition-shadow hover:shadow-none',
+  default: "focus-primary text-primary",
+  underline: "focus-primary text-primary shadow-text-underline transition-shadow hover:shadow-none",
 };
 
 interface LinkLikeComponentProps extends HTMLProps<HTMLAnchorElement> {
@@ -24,7 +24,7 @@ const Anchor = memo(
     const { href, external, className: customClassName, variant, ...restProps } = props;
 
     const externalAttributes = {
-      ...(external && { target: '_blank', rel: 'noopener noreferrer' }),
+      ...(external && { target: "_blank", rel: "noopener noreferrer" }),
     };
 
     return (
@@ -33,7 +33,7 @@ const Anchor = memo(
         {...restProps}
         href={href}
         ref={ref}
-        className={classNames(anchorVariantClassName[variant ?? 'default'], customClassName)}
+        className={classNames(anchorVariantClassName[variant ?? "default"], customClassName)}
       >
         {children}
       </a>

@@ -1,6 +1,6 @@
-import type { ReactNode } from 'react';
+import type { ReactNode } from "react";
 
-import FlexSearch from 'flexsearch';
+import FlexSearch from "flexsearch";
 
 export type PageIndex = FlexSearch.Document<
   {
@@ -8,7 +8,7 @@ export type PageIndex = FlexSearch.Document<
     title: string;
     content: string;
   },
-  ['title']
+  ["title"]
 >;
 
 export type SectionIndex = FlexSearch.Document<
@@ -19,7 +19,7 @@ export type SectionIndex = FlexSearch.Document<
     url: string;
     pageId: string;
   },
-  ['title', 'content', 'url']
+  ["title", "content", "url"]
 >;
 
 export type Result = {

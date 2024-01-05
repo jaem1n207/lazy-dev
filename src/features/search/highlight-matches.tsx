@@ -1,6 +1,6 @@
-import type { ReactNode } from 'react';
+import type { ReactNode } from "react";
 
-import escapeStringRegexp from 'escape-string-regexp';
+import escapeStringRegexp from "escape-string-regexp";
 
 interface HighlightMatchesProps {
   /**
@@ -27,13 +27,13 @@ const processSearchTerm = (searchTerm: string): RegExp => {
 
   if (searchWords.length > 0) {
     // 단어들을 정규식에서 사용할 수 있도록 이스케이프 처리하고, OR 연산자(|)로 연결합니다.
-    const escapedSearch = searchWords.map(escapeStringRegexp).join('|');
+    const escapedSearch = searchWords.map(escapeStringRegexp).join("|");
 
-    return new RegExp(escapedSearch, 'ig');
+    return new RegExp(escapedSearch, "ig");
   }
 
   // 검색어가 비어있는 경우, 매치되지 않는 정규식을 반환합니다.
-  return new RegExp('$.^', 'ig');
+  return new RegExp("$.^", "ig");
 };
 
 /**
@@ -43,7 +43,7 @@ const processSearchTerm = (searchTerm: string): RegExp => {
  * @returns 하이라이트된 검색 결과와 남은 텍스트
  */
 const createSearchResult = (value: string, regexp: RegExp) => {
-  const splitValue = value.split('');
+  const splitValue = value.split("");
   let result;
   let index = 0; // 현재 검색 위치를 추적합니다.
   const content: (string | ReactNode)[] = [];
@@ -53,11 +53,11 @@ const createSearchResult = (value: string, regexp: RegExp) => {
       // 빈 문자열에 대한 검색을 방지하기 위해 lastIndex를 증가시킵니다.
       regexp.lastIndex++;
     } else {
-      const before = splitValue.splice(0, result.index - index).join('');
-      const matched = splitValue.splice(0, regexp.lastIndex - result.index).join('');
+      const before = splitValue.splice(0, result.index - index).join("");
+      const matched = splitValue.splice(0, regexp.lastIndex - result.index).join("");
       content.push(
         before,
-        <span key={result.index} className="text-primary">
+        <span key={result.index} className='text-primary'>
           {matched}
         </span>,
       );
@@ -66,7 +66,7 @@ const createSearchResult = (value: string, regexp: RegExp) => {
     }
   }
 
-  return { content, remaining: splitValue.join('') };
+  return { content, remaining: splitValue.join("") };
 };
 
 /**

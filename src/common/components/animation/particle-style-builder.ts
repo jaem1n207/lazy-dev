@@ -1,13 +1,13 @@
-import type { CSSProperties } from 'react';
+import type { CSSProperties } from "react";
 
-declare module 'react' {
+declare module "react" {
   interface CSSProperties {
-    '--x'?: number;
-    '--y'?: number;
-    '--duration'?: number;
-    '--delay'?: number;
-    '--size'?: number;
-    '--random-diagonal'?: string;
+    "--x"?: number;
+    "--y"?: number;
+    "--duration"?: number;
+    "--delay"?: number;
+    "--size"?: number;
+    "--random-diagonal"?: string;
   }
 }
 
@@ -39,32 +39,32 @@ class BaseParticleStyle implements IParticleStyle {
 
 class ParticleStyleBuilder extends BaseParticleStyle {
   setX(x: number): this {
-    this.styles['--x'] = x;
+    this.styles["--x"] = x;
     return this;
   }
 
   setY(y: number): this {
-    this.styles['--y'] = y;
+    this.styles["--y"] = y;
     return this;
   }
 
   setDuration(duration: number): this {
-    this.styles['--duration'] = duration;
+    this.styles["--duration"] = duration;
     return this;
   }
 
   setDelay(delay: number): this {
-    this.styles['--delay'] = delay;
+    this.styles["--delay"] = delay;
     return this;
   }
 
   setSize(size: number): this {
-    this.styles['--size'] = size;
+    this.styles["--size"] = size;
     return this;
   }
 
   setRandomDiagonal(randomDiagonal: string): this {
-    this.styles['--random-diagonal'] = randomDiagonal;
+    this.styles["--random-diagonal"] = randomDiagonal;
     return this;
   }
 
@@ -81,6 +81,6 @@ export class DiagonalSlideFromTopParticle extends ParticleStyleBuilder {
       .setDuration(rng.generate(2, 4))
       .setDelay(rng.generate(2, 20) / 10)
       .setSize(rng.generate(6, 9))
-      .setRandomDiagonal(`${halfChance() ? '-' : ''}${rng.generate(2, 6) * 100}%`);
+      .setRandomDiagonal(`${halfChance() ? "-" : ""}${rng.generate(2, 6) * 100}%`);
   }
 }

@@ -1,4 +1,4 @@
-import { graphql, useStaticQuery } from 'gatsby';
+import { graphql, useStaticQuery } from "gatsby";
 
 export const useBio = () => {
   const { author, profileImage } = useStaticQuery<Queries.bioQuery>(graphql`

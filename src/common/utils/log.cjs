@@ -1,46 +1,46 @@
-const { Signale } = require('signale');
+const { Signale } = require("signale");
 
 const types = {
   await: {
-    badge: '⏳',
-    color: 'yellow',
-    label: 'await',
+    badge: "⏳",
+    color: "yellow",
+    label: "await",
   },
   complete: {
-    badge: '✅',
-    color: 'green',
-    label: 'complete',
+    badge: "✅",
+    color: "green",
+    label: "complete",
   },
   error: {
-    badge: '❌',
-    label: 'error',
+    badge: "❌",
+    label: "error",
   },
   info: {
-    badge: 'ℹ️ ',
-    label: 'info',
+    badge: "ℹ️ ",
+    label: "info",
   },
   rocket: {
-    badge: '🚀',
-    color: 'green',
-    label: 'publish',
-    logLevel: 'info',
+    badge: "🚀",
+    color: "green",
+    label: "publish",
+    logLevel: "info",
   },
   path: {
-    badge: '📁',
-    color: 'magentaBright',
-    label: 'path',
-    logLevel: 'info',
+    badge: "📁",
+    color: "magentaBright",
+    label: "path",
+    logLevel: "info",
   },
   contents: {
-    badge: '📝',
-    label: 'contents',
-    color: 'cyanBright',
+    badge: "📝",
+    label: "contents",
+    color: "cyanBright",
   },
   santa: {
-    badge: '🎅',
-    color: 'green',
-    label: 'Happy Blogging! 🎅',
-    logLevel: 'info',
+    badge: "🎅",
+    color: "green",
+    label: "Happy Blogging! 🎅",
+    logLevel: "info",
   },
 };
 

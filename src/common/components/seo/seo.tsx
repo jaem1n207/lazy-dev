@@ -1,13 +1,13 @@
-import type { ReactNode } from 'react';
+import type { ReactNode } from "react";
 
-import { useStaticQuery, graphql } from 'gatsby';
+import { useStaticQuery, graphql } from "gatsby";
 
 interface SeoProps {
   title?: string | null;
   description?: string | null;
   children?: ReactNode;
   openGraph?: {
-    type?: 'website' | 'article';
+    type?: "website" | "article";
     url?: string;
     image?: string | null;
   } | null;
@@ -21,7 +21,7 @@ const Seo = ({ description, title, openGraph, children }: SeoProps) => {
     description: description || site?.description!,
     author: site?.author!.name || null,
     openGraph: {
-      type: openGraph?.type || 'website',
+      type: openGraph?.type || "website",
       url: `${site?.siteUrl}${openGraph?.url}` || null,
       image: `${site?.siteUrl}${openGraph?.image || site?.favicon}` || null,
     },
@@ -31,23 +31,23 @@ const Seo = ({ description, title, openGraph, children }: SeoProps) => {
     <>
       {/* HTML Meta Tags */}
       <title>{seo.title}</title>
-      <meta name="description" content={seo.description} />
-      <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+      <meta name='description' content={seo.description} />
+      <meta name='viewport' content='width=device-width, initial-scale=1.0' />
 
       {/* Facebook Meta Tags */}
-      {seo.openGraph.url && <meta property="og:url" content={seo.openGraph.url} />}
-      <meta property="og:type" content={seo.openGraph.type} />
-      <meta property="og:title" content={seo.title} />
-      <meta property="og:description" content={seo.description} />
-      <meta property="og:image" content={seo.openGraph.image || ''} />
-      <meta property="og:locale" content="ko_KR" />
+      {seo.openGraph.url && <meta property='og:url' content={seo.openGraph.url} />}
+      <meta property='og:type' content={seo.openGraph.type} />
+      <meta property='og:title' content={seo.title} />
+      <meta property='og:description' content={seo.description} />
+      <meta property='og:image' content={seo.openGraph.image || ""} />
+      <meta property='og:locale' content='ko_KR' />
 
       {/* Twitter Meta Tags */}
-      <meta name="twitter:card" content="summary_large_image" />
-      <meta name="twitter:title" content={seo.title} />
-      <meta name="twitter:description" content={seo.description} />
-      <meta name="twitter:image" content={seo.openGraph.image || ''} />
-      <meta name="twitter:creator" content={seo?.author || ''} />
+      <meta name='twitter:card' content='summary_large_image' />
+      <meta name='twitter:title' content={seo.title} />
+      <meta name='twitter:description' content={seo.description} />
+      <meta name='twitter:image' content={seo.openGraph.image || ""} />
+      <meta name='twitter:creator' content={seo?.author || ""} />
 
       {children}
     </>
@@ -78,7 +78,7 @@ const useSiteMetadata = () => {
   `);
 
   if (!site?.siteMetadata) {
-    console.error('site.siteMetadata is undefined');
+    console.error("site.siteMetadata is undefined");
 
     return undefined;
   }

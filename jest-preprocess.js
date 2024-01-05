@@ -1,14 +1,14 @@
 const babelOptions = {
   presets: [
-    'babel-preset-gatsby',
+    "babel-preset-gatsby",
     [
-      '@babel/preset-react',
+      "@babel/preset-react",
       {
-        runtime: 'automatic',
+        runtime: "automatic",
       },
     ],
-    '@babel/preset-typescript',
+    "@babel/preset-typescript",
   ],
 };
 
-module.exports = require('babel-jest').default.createTransformer(babelOptions);
+module.exports = require("babel-jest").default.createTransformer(babelOptions);

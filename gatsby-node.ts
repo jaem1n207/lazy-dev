@@ -1,27 +1,27 @@
-import { writeFileSync } from 'fs';
-import { resolve } from 'path';
+import { writeFileSync } from "fs";
+import { resolve } from "path";
 
-import esbuild from 'esbuild';
-import type { GatsbyNode } from 'gatsby';
-import { createFilePath } from 'gatsby-source-filesystem';
+import esbuild from "esbuild";
+import type { GatsbyNode } from "gatsby";
+import { createFilePath } from "gatsby-source-filesystem";
 
-import type { SearchData } from '@/common/types/types';
+import type { SearchData } from "@/common/types/types";
 
-import { extractContentByHeading } from './html-parser';
+import { extractContentByHeading } from "./html-parser";
 
-export const sourceNodes: GatsbyNode['sourceNodes'] = ({
+export const sourceNodes: GatsbyNode["sourceNodes"] = ({
   actions: { createNode },
   createContentDigest,
   createNodeId,
 }) => {
   const authors = [
     {
-      authorId: 'jaemin',
-      email: 'roy.jm.lee@gmail.com',
-      name: '이재민',
-      githubName: 'jaem1n207',
-      summary: '웹 프론트 개발자',
-      github: 'https://github.com/jaem1n207',
+      authorId: "jaemin",
+      email: "roy.jm.lee@gmail.com",
+      name: "이재민",
+      githubName: "jaem1n207",
+      summary: "웹 프론트 개발자",
+      github: "https://github.com/jaem1n207",
     },
   ];
 
@@ -37,7 +37,7 @@ export const sourceNodes: GatsbyNode['sourceNodes'] = ({
   );
 };
 
-export const createPages: GatsbyNode['createPages'] = async ({ graphql, actions, reporter }) => {
+export const createPages: GatsbyNode["createPages"] = async ({ graphql, actions, reporter }) => {
   const { createSlice, createPage } = actions;
 
   const headerResults = await graphql<Queries.Query>(`
@@ -51,19 +51,19 @@ export const createPages: GatsbyNode['createPages'] = async ({ graphql, actions,
   `);
 
   createSlice({
-    id: 'nav',
-    component: resolve('src/apps/slice/nav.tsx'),
+    id: "nav",
+    component: resolve("src/apps/slice/nav.tsx"),
     context: {
       title: headerResults.data?.site?.siteMetadata?.title,
     },
   });
 
   createSlice({
-    id: 'footer',
-    component: resolve('src/apps/slice/footer.tsx'),
+    id: "footer",
+    component: resolve("src/apps/slice/footer.tsx"),
   });
 
-  const authorBio = resolve('src/apps/slice/bio.tsx');
+  const authorBio = resolve("src/apps/slice/bio.tsx");
 
   const authorResults = await graphql<Queries.Query>(`
     query allAuthors {
@@ -78,7 +78,7 @@ export const createPages: GatsbyNode['createPages'] = async ({ graphql, actions,
   `);
 
   if (authorResults.errors) {
-    reporter.panicOnBuild('There was an error loading your author bio', authorResults.errors);
+    reporter.panicOnBuild("There was an error loading your author bio", authorResults.errors);
     return;
   }
   const authors = authorResults.data?.allAuthor.edges ?? [];
@@ -95,7 +95,7 @@ export const createPages: GatsbyNode['createPages'] = async ({ graphql, actions,
     });
   }
 
-  const tagTemplate = resolve('src/features/tag/templates/tag.tsx');
+  const tagTemplate = resolve("src/features/tag/templates/tag.tsx");
 
   const tagResults = await graphql<Queries.allTagsQuery>(`
     query allTags {
@@ -113,7 +113,7 @@ export const createPages: GatsbyNode['createPages'] = async ({ graphql, actions,
   `);
 
   if (tagResults.errors) {
-    reporter.panicOnBuild('There was an error loading your tags', tagResults.errors);
+    reporter.panicOnBuild("There was an error loading your tags", tagResults.errors);
   }
 
   const tags = tagResults.data?.allTags.group ?? [];
@@ -131,7 +131,7 @@ export const createPages: GatsbyNode['createPages'] = async ({ graphql, actions,
     });
   }
 
-  const blogPostTemplate = resolve('src/features/post/templates/blog-post.tsx');
+  const blogPostTemplate = resolve("src/features/post/templates/blog-post.tsx");
 
   const blogResult = await graphql<Queries.Query>(`
     query allMarkdownRemark {
@@ -159,18 +159,18 @@ export const createPages: GatsbyNode['createPages'] = async ({ graphql, actions,
   `);
 
   if (blogResult.errors) {
-    reporter.panicOnBuild('There was an error loading your blog posts', blogResult.errors);
+    reporter.panicOnBuild("There was an error loading your blog posts", blogResult.errors);
   }
 
   const posts = blogResult.data?.allMarkdownRemark.edges ?? [];
 
   if (!posts.length) {
-    reporter.warn('There are no posts!');
+    reporter.warn("There are no posts!");
     return;
   }
 
   posts.forEach((post) => {
-    const slug = post.node.fields?.slug ?? '';
+    const slug = post.node.fields?.slug ?? "";
 
     createPage({
       path: slug,
@@ -197,14 +197,14 @@ export const createPages: GatsbyNode['createPages'] = async ({ graphql, actions,
   });
 
   // 마크다운의 frontmatter.locale에 따라서 분기 처리 지원 예정
-  const localeKey = 'ko';
+  const localeKey = "ko";
   writeFileSync(`public/lazy-dev-data-${localeKey}.json`, JSON.stringify(indexes, null, 2));
 };
 
-export const onCreateNode: GatsbyNode['onCreateNode'] = ({ node, getNode, actions }) => {
+export const onCreateNode: GatsbyNode["onCreateNode"] = ({ node, getNode, actions }) => {
   const { createNodeField } = actions;
 
-  if (node.internal.type === 'MarkdownRemark') {
+  if (node.internal.type === "MarkdownRemark") {
     const relativeFilePath = createFilePath({ node, getNode });
 
     createNodeField({
@@ -219,10 +219,10 @@ export const onCreateNode: GatsbyNode['onCreateNode'] = ({ node, getNode, action
     const parent = getNode(node.parent);
 
     if (!parent?.relativeDirectory) return;
-    if (parent.relativeDirectory === 'author') {
+    if (parent.relativeDirectory === "author") {
       createNodeField({
         node,
-        name: 'authorId',
+        name: "authorId",
         value: parent.name,
       });
     }
@@ -299,19 +299,19 @@ const generatePreBodyScript = `
     isTouch,
   };
 `;
-export const onCreateWebpackConfig: GatsbyNode['onCreateWebpackConfig'] = ({
+export const onCreateWebpackConfig: GatsbyNode["onCreateWebpackConfig"] = ({
   actions,
   plugins,
 }) => {
   const preBodyScript = esbuild.transformSync(generatePreBodyScript, {
     minify: true,
-    format: 'iife',
+    format: "iife",
   }).code;
 
   actions.setWebpackConfig({
     plugins: [
       plugins.define({
-        'process.env.LAZY_DEV_PRE_BODY_SCRIPT': JSON.stringify(preBodyScript),
+        "process.env.LAZY_DEV_PRE_BODY_SCRIPT": JSON.stringify(preBodyScript),
       }),
     ],
   });

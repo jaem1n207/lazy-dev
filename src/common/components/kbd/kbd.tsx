@@ -1,11 +1,11 @@
-import { forwardRef, type ElementType, type ReactNode, useMemo } from 'react';
+import { forwardRef, type ElementType, type ReactNode, useMemo } from "react";
 
-import { window } from 'browser-monads-ts';
-import classNames from 'classnames';
+import { window } from "browser-monads-ts";
+import classNames from "classnames";
 
-import { PolymorphicComponent, PolymorphicComponentProps, PolymorphicRef } from '../polymorphic';
+import { PolymorphicComponent, PolymorphicComponentProps, PolymorphicRef } from "../polymorphic";
 
-import { kbdKeyMapMac, kbdKeyMapWinLinux, type KbdKey, kbdKeyTitleMap } from './types';
+import { kbdKeyMapMac, kbdKeyMapWinLinux, type KbdKey, kbdKeyTitleMap } from "./types";
 
 type _KbdProps = {
   keys?: KbdKey | KbdKey[];
@@ -19,7 +19,7 @@ type _KbdProps = {
 
 type KbdProps<T extends ElementType> = PolymorphicComponentProps<T, _KbdProps>;
 
-type KbdComponent = PolymorphicComponent<'kbd', _KbdProps>;
+type KbdComponent = PolymorphicComponent<"kbd", _KbdProps>;
 
 const Kbd: KbdComponent = forwardRef(
   <T extends ElementType = 'kbd'>(
@@ -60,6 +60,6 @@ const Kbd: KbdComponent = forwardRef(
   },
 );
 
-Kbd.displayName = 'Kbd';
+Kbd.displayName = "Kbd";
 
 export default Kbd;

@@ -1,23 +1,23 @@
-import { useEffect } from 'react';
+import { useEffect } from "react";
 
-import { motion } from 'framer-motion';
-import { graphql, HeadProps, Link, PageProps, Slice } from 'gatsby';
+import { motion } from "framer-motion";
+import { graphql, HeadProps, Link, PageProps, Slice } from "gatsby";
 
-import '../styles/markdown.css';
+import "../styles/markdown.css";
 
-import { SeedingIcon } from '@/common/components/icon/seeding-icon';
-import { TagIcon } from '@/common/components/icon/tag-icon';
-import ContentSpacer from '@/common/components/layout/content-spacer';
-import Grid from '@/common/components/layout/grid';
-import Spacer from '@/common/components/layout/spacer';
-import Seo from '@/common/components/seo/seo';
-import { H1, H2 } from '@/common/components/typography';
-import { ROUTES } from '@/common/const';
-import { animateVariant, textVariant } from '@/common/utils/motion';
-import * as ScrollManager from '@/common/utils/scroll';
+import { SeedingIcon } from "@/common/components/icon/seeding-icon";
+import { TagIcon } from "@/common/components/icon/tag-icon";
+import ContentSpacer from "@/common/components/layout/content-spacer";
+import Grid from "@/common/components/layout/grid";
+import Spacer from "@/common/components/layout/spacer";
+import Seo from "@/common/components/seo/seo";
+import { H1, H2 } from "@/common/components/typography";
+import { ROUTES } from "@/common/const";
+import { animateVariant, textVariant } from "@/common/utils/motion";
+import * as ScrollManager from "@/common/utils/scroll";
 
-import PostCard from '../components/post-card';
-import TableOfContents from '../components/table-of-contents';
+import PostCard from "../components/post-card";
+import TableOfContents from "../components/table-of-contents";
 
 const BlogPost = ({ data }: PageProps<Queries.BlogPostBySlugQuery>) => {
   const { frontmatter, html, timeToRead, tableOfContents } = data.post!;
@@ -33,29 +33,29 @@ const BlogPost = ({ data }: PageProps<Queries.BlogPostBySlugQuery>) => {
   }, []);
 
   return (
-    <ContentSpacer className="foldable:mx-16pxr">
+    <ContentSpacer className='foldable:mx-16pxr'>
       <Grid>
-        <div className="col-span-4 col-start-12 desktop:visually-hide">
+        <div className='col-span-4 col-start-12 desktop:visually-hide'>
           <TableOfContents toc={tableOfContents} />
         </div>
 
-        <div className="col-span-8 col-start-3 desktop:col-span-full desktop:col-start-1">
-          <header className="mb-64pxr tablet:mb-48pxr">
-            <H1 className="font-bold">{title}</H1>
-            <div className="mt-8pxr flex items-center gap-8pxr text-16pxr font-bold text-all-custom-gray">
+        <div className='col-span-8 col-start-3 desktop:col-span-full desktop:col-start-1'>
+          <header className='mb-64pxr tablet:mb-48pxr'>
+            <H1 className='font-bold'>{title}</H1>
+            <div className='mt-8pxr flex items-center gap-8pxr text-16pxr font-bold text-all-custom-gray'>
               <time dateTime={date!}>{date}</time>
-              <span className="h-16pxr w-1pxr bg-all-custom-gray" />
+              <span className='h-16pxr w-1pxr bg-all-custom-gray' />
               <span>{category}</span>
-              <span className="h-16pxr w-1pxr bg-all-custom-gray" />
+              <span className='h-16pxr w-1pxr bg-all-custom-gray' />
               <span>{timeToRead} min read</span>
             </div>
-            <div className="mt-8pxr flex items-center gap-8pxr text-all-custom-gray">
-              <TagIcon className="h-18pxr w-18pxr" />
+            <div className='mt-8pxr flex items-center gap-8pxr text-all-custom-gray'>
+              <TagIcon className='h-18pxr w-18pxr' />
               {frontmatter?.tags?.map((tag) => (
                 <Link
                   key={tag}
                   to={ROUTES.TAG.toUrl(tag!)}
-                  className="rounded-full border-2pxr border-all-custom-gray px-6pxr py-3pxr text-14pxr font-bold"
+                  className='rounded-full border-2pxr border-all-custom-gray px-6pxr py-3pxr text-14pxr font-bold'
                 >
                   {tag}
                 </Link>
@@ -67,24 +67,24 @@ const BlogPost = ({ data }: PageProps<Queries.BlogPostBySlugQuery>) => {
                 <SeedingIcon className="h-48pxr w-48pxr bg-bg-primary fill-primary transition" />
               </div>
             </div> */}
-            <div className="mt-48pxr inline-grid w-full grid-cols-[2fr_auto_2fr] items-center gap-12pxr">
-              <hr className="border-t-[0.03125rem] border-primary" />
-              <SeedingIcon className="h-48pxr w-48pxr fill-primary stroke-neutral-700 dark:stroke-white" />
-              <hr className="border-t-[0.03125rem] border-primary" />
+            <div className='mt-48pxr inline-grid w-full grid-cols-[2fr_auto_2fr] items-center gap-12pxr'>
+              <hr className='border-t-[0.03125rem] border-primary' />
+              <SeedingIcon className='h-48pxr w-48pxr fill-primary stroke-neutral-700 dark:stroke-white' />
+              <hr className='border-t-[0.03125rem] border-primary' />
             </div>
-            <p className="text-16pxr font-semibold tablet:text-14pxr">{summary}</p>
-            <hr className="my-24pxr border-t-[0.03125rem] border-primary tablet:my-16pxr" />
+            <p className='text-16pxr font-semibold tablet:text-14pxr'>{summary}</p>
+            <hr className='my-24pxr border-t-[0.03125rem] border-primary tablet:my-16pxr' />
           </header>
 
           <article
-            className="prose max-w-none dark:prose-invert"
+            className='prose max-w-none dark:prose-invert'
             dangerouslySetInnerHTML={{ __html: html! }}
           />
 
-          <Spacer size="xl" />
+          <Spacer size='xl' />
 
-          <div className="mb-64pxr flex flex-col tablet:mb-48pxr">
-            <H2 className="mb-32pxr font-bold tablet:mb-28pxr foldable:mb-24pxr">연관 콘텐츠</H2>
+          <div className='mb-64pxr flex flex-col tablet:mb-48pxr'>
+            <H2 className='mb-32pxr font-bold tablet:mb-28pxr foldable:mb-24pxr'>연관 콘텐츠</H2>
             <motion.div
               initial={animateVariant.hidden}
               whileInView={animateVariant.show}
@@ -92,13 +92,13 @@ const BlogPost = ({ data }: PageProps<Queries.BlogPostBySlugQuery>) => {
               viewport={{ once: true }}
             >
               {relatedPosts?.length === 0 ? (
-                <div className="flex h-200pxr w-full flex-col items-center justify-center rounded-lg bg-bg-secondary">
-                  <p className="text-20pxr font-bold text-text-primary foldable:text-18pxr">
+                <div className='flex h-200pxr w-full flex-col items-center justify-center rounded-lg bg-bg-secondary'>
+                  <p className='text-20pxr font-bold text-text-primary foldable:text-18pxr'>
                     연관된 콘텐츠가 없어요.
                   </p>
                 </div>
               ) : (
-                <div className="grid grid-cols-2 gap-24pxr tablet:grid-cols-1">
+                <div className='grid grid-cols-2 gap-24pxr tablet:grid-cols-1'>
                   {relatedPosts?.map((post) => (
                     <PostCard key={post.node.fields?.slug} post={post} />
                   ))}
@@ -107,9 +107,9 @@ const BlogPost = ({ data }: PageProps<Queries.BlogPostBySlugQuery>) => {
             </motion.div>
           </div>
 
-          <Spacer size="sm" />
+          <Spacer size='sm' />
 
-          <Slice alias="bio" />
+          <Slice alias='bio' />
         </div>
       </Grid>
     </ContentSpacer>
@@ -122,7 +122,7 @@ export const Head = ({ data: { post }, location }: HeadProps<Queries.BlogPostByS
       title={`${post?.frontmatter?.title} | Lazy Dev`}
       description={post?.frontmatter?.summary}
       openGraph={{
-        type: 'article',
+        type: "article",
         url: location.pathname,
         image: post?.frontmatter?.thumbnail?.childImageSharp?.fixed?.src,
       }}

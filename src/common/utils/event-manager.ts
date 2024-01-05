@@ -12,7 +12,7 @@ export const toFit = (
   cb: () => void,
   { dismissCondition = () => false, triggerCondition = () => true }: EventManagerProps,
 ) => {
-  if (!cb) throw Error('Callback is required');
+  if (!cb) throw Error("Callback is required");
 
   let tick = false;
 

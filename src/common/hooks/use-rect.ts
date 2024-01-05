@@ -1,6 +1,6 @@
-import { type MouseEvent, type FocusEvent, type MutableRefObject, useState } from 'react';
+import { type MouseEvent, type FocusEvent, type MutableRefObject, useState } from "react";
 
-import { getElementOffset } from '../utils/dom';
+import { getElementOffset } from "../utils/dom";
 
 export interface ReactiveDomReact {
   top: number;
@@ -83,7 +83,7 @@ const isRefTarget = (
     | FocusEvent<HTMLElement>
     | MutableRefObject<HTMLElement | null>,
 ): eventOrRef is MutableRefObject<HTMLElement | null> =>
-  typeof (eventOrRef as any)?.target === 'undefined';
+  typeof (eventOrRef as any)?.target === "undefined";
 
 /**
  * 주어진 `ref` 또는 이벤트가 발생한 `DOM` 요소의 위치와 크기를 반환합니다.

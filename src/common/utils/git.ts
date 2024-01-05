@@ -1,4 +1,4 @@
-const defaultRepository = 'https://github.com/jaem1n207/lazy-dev';
+const defaultRepository = "https://github.com/jaem1n207/lazy-dev";
 
 type ReturnGitUrlParse = {
   protocol: string;
@@ -8,10 +8,10 @@ type ReturnGitUrlParse = {
 };
 
 const githubUrlParse = (url: string): ReturnGitUrlParse => {
-  const protocol = url.split('://')[0];
-  const resource = url.split('/')[2];
-  const owner = url.split('/')[3];
-  const name = url.split('/')[4];
+  const protocol = url.split("://")[0];
+  const resource = url.split("/")[2];
+  const owner = url.split("/")[3];
+  const name = url.split("/")[4];
 
   return { protocol, owner, resource, name };
 };
@@ -30,7 +30,7 @@ export const getGithubIssueUrl = ({
   const { protocol, owner, resource, name } = githubUrlParse(repository);
   const url = `${protocol}://${resource}/${owner}/${name}/issues/new?title=${encodeURIComponent(
     title,
-  )}&labels=${labels || ''}&assignees=${owner}`;
+  )}&labels=${labels || ""}&assignees=${owner}`;
 
   return url;
 };
