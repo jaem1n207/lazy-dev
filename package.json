@@ -32,11 +32,12 @@
     "typecheck": "tsc --noEmit",
     "prettier:format": "prettier -c --write **/* --cache",
     "biome:format": "biome format --write .",
-    "lint-fix:script": "eslint . --ext .js,.jsx,.ts,.tsx --cache"
+    "lint-fix:script": "biome check --apply ."
   },
   "lint-staged": {
     "**/*.{ts,tsx,js,jsx}": [
-      "biome format --write"
+      "biome format --write",
+      "biome check --apply ."
     ],
     "**/*.{css,md,json}": [
       "prettier --ignore-unknown --write"
