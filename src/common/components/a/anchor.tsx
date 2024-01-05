@@ -1,7 +1,6 @@
+import classNames from "classnames";
 /* eslint-disable react/prop-types */
 import { HTMLProps, ReactNode, forwardRef, memo } from "react";
-
-import classNames from "classnames";
 
 type AnchorVariant = "default" | "underline";
 
@@ -17,7 +16,7 @@ interface LinkLikeComponentProps extends HTMLProps<HTMLAnchorElement> {
   variant?: AnchorVariant;
 }
 
-interface AnchorProps extends LinkLikeComponentProps {}
+type AnchorProps = LinkLikeComponentProps;
 
 const Anchor = memo(
   forwardRef<HTMLAnchorElement, AnchorProps>(function Anchor({ children, ...props }, ref) {

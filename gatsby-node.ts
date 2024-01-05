@@ -1,6 +1,5 @@
 import { writeFileSync } from "fs";
 import { resolve } from "path";
-
 import esbuild from "esbuild";
 import type { GatsbyNode } from "gatsby";
 import { createFilePath } from "gatsby-source-filesystem";
@@ -30,7 +29,7 @@ export const sourceNodes: GatsbyNode["sourceNodes"] = ({
       ...author,
       id: createNodeId(author.authorId),
       internal: {
-        type: `Author`,
+        type: "Author",
         contentDigest: createContentDigest(author),
       },
     }),
@@ -84,7 +83,7 @@ export const createPages: GatsbyNode["createPages"] = async ({ graphql, actions,
   const authors = authorResults.data?.allAuthor.edges ?? [];
 
   if (authors.length > 0) {
-    authors.forEach((author) => {
+    for (const author of authors) {
       createSlice({
         id: `bio--${author.node.authorId}`,
         component: authorBio,
@@ -92,7 +91,7 @@ export const createPages: GatsbyNode["createPages"] = async ({ graphql, actions,
           slug: author.node.authorId,
         },
       });
-    });
+    }
   }
 
   const tagTemplate = resolve("src/features/tag/templates/tag.tsx");
@@ -119,7 +118,7 @@ export const createPages: GatsbyNode["createPages"] = async ({ graphql, actions,
   const tags = tagResults.data?.allTags.group ?? [];
 
   if (tags.length > 0) {
-    tags.forEach((tag) => {
+    for (const tag of tags) {
       createPage({
         path: `/tags/${tag.fieldValue}`,
         component: tagTemplate,
@@ -128,7 +127,7 @@ export const createPages: GatsbyNode["createPages"] = async ({ graphql, actions,
           ids: tag.edges.map((edge) => edge.node.id),
         },
       });
-    });
+    }
   }
 
   const blogPostTemplate = resolve("src/features/post/templates/blog-post.tsx");
@@ -169,7 +168,7 @@ export const createPages: GatsbyNode["createPages"] = async ({ graphql, actions,
     return;
   }
 
-  posts.forEach((post) => {
+  for (const post of posts) {
     const slug = post.node.fields?.slug ?? "";
 
     createPage({
@@ -184,7 +183,7 @@ export const createPages: GatsbyNode["createPages"] = async ({ graphql, actions,
         bio: `bio--${post.node.frontmatter?.authorId}`,
       },
     });
-  });
+  }
 
   const indexes: SearchData = {};
   posts.map((edge) => {
@@ -209,12 +208,12 @@ export const onCreateNode: GatsbyNode["onCreateNode"] = ({ node, getNode, action
 
     createNodeField({
       node,
-      name: `slug`,
+      name: "slug",
       value: relativeFilePath,
     });
   }
 
-  if (node.internal.type === `ImageSharp`) {
+  if (node.internal.type === "ImageSharp") {
     if (!node.parent) return;
     const parent = getNode(node.parent);
 

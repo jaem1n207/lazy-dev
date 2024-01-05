@@ -1,6 +1,5 @@
-import { useState } from "react";
-
 import FlexSearch from "flexsearch";
+import { useState } from "react";
 
 import type { SearchData } from "@/common/types/types";
 
@@ -76,7 +75,7 @@ const loadIndexesImpl = async (locale: string) => {
 
     for (const [key, content] of Object.entries(StructuredData.data)) {
       const [headingId, headingValue] = key.split("#");
-      const url = route + (headingId ? "#" + headingId : "");
+      const url = route + (headingId ? `#${headingId}` : "");
       const title = headingValue || StructuredData.title;
       const paragraphs = content.split("\n");
 

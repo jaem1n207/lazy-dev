@@ -244,26 +244,26 @@ const promptContents = async () => {
   const contentsInquirer = await getContentsInquirer();
 
   let step = 1;
-  let totalSteps = Object.keys(contentsInquirer).length;
+  const totalSteps = Object.keys(contentsInquirer).length;
 
-  interactiveLog.await(`[%d/%d] - 카테고리를 선택하는 중이예요...`, step, totalSteps);
+  interactiveLog.await("[%d/%d] - 카테고리를 선택하는 중이예요...", step, totalSteps);
   let category = null;
   const { selectedCategory } = await inquirer.prompt(contentsInquirer.categoryInquirer.selected);
   if (selectedCategory === CUSTOM_CATEGORY_OPTIONS[0]) {
     const { newCategory } = await inquirer.prompt(contentsInquirer.categoryInquirer.new);
     category = newCategory.toLowerCase();
   } else if (selectedCategory === CUSTOM_CATEGORY_OPTIONS[1]) {
-    interactiveLog.error(`[%d/%d] - 카테고리 선택이 취소되었어요`, step, totalSteps);
+    interactiveLog.error("[%d/%d] - 카테고리 선택이 취소되었어요", step, totalSteps);
     process.exit(0);
   }
   const categoryValue = category || selectedCategory;
   step++;
 
-  interactiveLog.await(`[%d/%d] - 제목을 입력하는 중이예요...`, step, totalSteps);
+  interactiveLog.await("[%d/%d] - 제목을 입력하는 중이예요...", step, totalSteps);
   const { title } = await inquirer.prompt(contentsInquirer.titleInquirer(categoryValue));
   step++;
 
-  interactiveLog.await(`[%d/%d] - 태그를 입력하는 중이예요...`, step, totalSteps);
+  interactiveLog.await("[%d/%d] - 태그를 입력하는 중이예요...", step, totalSteps);
   const tags = [];
   const maxTagCount = 10;
   for (let i = 0; i < maxTagCount; i++) {
@@ -276,7 +276,7 @@ const promptContents = async () => {
   }
   step++;
 
-  interactiveLog.await(`[%d/%d] - 키워드를 입력하는 중이예요...`, step, totalSteps);
+  interactiveLog.await("[%d/%d] - 키워드를 입력하는 중이예요...", step, totalSteps);
   const keywords = [];
   const maxKeywordCount = 10;
   for (let i = 0; i < maxKeywordCount; i++) {
@@ -289,14 +289,14 @@ const promptContents = async () => {
   }
   step++;
 
-  interactiveLog.await(`[%d/%d] - 썸네일을 선택하는 중이예요...`, step, totalSteps);
+  interactiveLog.await("[%d/%d] - 썸네일을 선택하는 중이예요...", step, totalSteps);
   let thumbnail = null;
   const { selectedThumbnail } = await inquirer.prompt(contentsInquirer.thumbnailInquirer);
   thumbnail = path.relative(BLOG_DIR_PATH, path.join(THUMBNAIL_TARGET_DIR, selectedThumbnail));
   thumbnail = `../${thumbnail}`;
   step++;
 
-  interactiveLog.await(`[%d/%d] - 요약을 입력하는 중이예요...`, step, totalSteps);
+  interactiveLog.await("[%d/%d] - 요약을 입력하는 중이예요...", step, totalSteps);
   const { summary } = await inquirer.prompt(contentsInquirer.summaryInquirer);
   step++;
 
@@ -325,7 +325,7 @@ const promptContents = async () => {
 const refineContents = (rawContents) =>
   matter.stringify("", rawContents).split("'").join('"').replace(/\\n/g, " "); // replace single quote to double quote
 
-module.exports = (async function () {
+module.exports = (async () => {
   console.log(""); // empty line
 
   const { category, title, tags, keywords, thumbnail, summary } = await promptContents();
@@ -356,7 +356,7 @@ module.exports = (async function () {
     }
 
     log.complete("\n");
-    log.rocket(`새 글이 생성되었습니다!`);
+    log.rocket("새 글이 생성되었습니다!");
     log.path(`${path.join(destDir, `${fileName}.md`)}`);
     log.contents(`\n\n${contents}`);
     log.santa();

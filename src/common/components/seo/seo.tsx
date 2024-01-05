@@ -1,6 +1,5 @@
+import { graphql, useStaticQuery } from "gatsby";
 import type { ReactNode } from "react";
-
-import { useStaticQuery, graphql } from "gatsby";
 
 interface SeoProps {
   title?: string | null;
@@ -19,7 +18,7 @@ const Seo = ({ description, title, openGraph, children }: SeoProps) => {
   const seo = {
     title: title || site?.title!,
     description: description || site?.description!,
-    author: site?.author!.name || null,
+    author: site?.author?.name || null,
     openGraph: {
       type: openGraph?.type || "website",
       url: `${site?.siteUrl}${openGraph?.url}` || null,

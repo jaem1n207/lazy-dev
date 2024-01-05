@@ -1,6 +1,5 @@
-import { useEffect, useState } from "react";
-
 import { motion } from "framer-motion";
+import { useEffect, useState } from "react";
 
 import { MoonIcon, SunIcon } from "./icons";
 
@@ -43,6 +42,7 @@ const ThemeToggle = () => {
   return (
     <>
       <button
+        type='button'
         onClick={toggleTheme}
         className='focus-primary relative size-36pxr rounded-[50%] foldable:size-24pxr'
         aria-label={`Activate ${isDarkMode ? "light" : "dark"} mode`}

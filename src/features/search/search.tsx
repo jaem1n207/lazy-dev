@@ -1,3 +1,5 @@
+import { window } from "browser-monads-ts";
+import { Link } from "gatsby";
 import {
   type ChangeEvent,
   type FocusEvent,
@@ -6,9 +8,6 @@ import {
   useEffect,
   useRef,
 } from "react";
-
-import { window } from "browser-monads-ts";
-import { Link } from "gatsby";
 import { useHotkeys } from "react-hotkeys-hook";
 import { Key } from "ts-key-enum";
 
@@ -19,7 +18,7 @@ import { useBoolean } from "@/common/hooks/use-boolean";
 import useCurrentState from "@/common/hooks/use-current-state";
 import { useRect } from "@/common/hooks/use-rect";
 import { getElements } from "@/common/utils/dom";
-import { getGithubIssueUrl, getGithubDiscussionUrl, DiscussionIds } from "@/common/utils/git";
+import { DiscussionIds, getGithubDiscussionUrl, getGithubIssueUrl } from "@/common/utils/git";
 
 import Highlight from "./highlight";
 import type { SearchResult } from "./types";
@@ -119,6 +118,9 @@ const Search = ({ value, onChange: _onChange, loading, error, results }: SearchP
     onHideHighlight();
   };
 
+  // `preventHoverRef.current`는 `useRef` 훅에 의해 생성된 값입니다.
+  // 이 값은 컴포넌트의 렌더링 사이에서 변경되지 않으므로 의존성 배열에 포함시키지 않습니다.
+  // biome-ignore lint/correctness/useExhaustiveDependencies: <explanation>
   useEffect(() => {
     // 키보드로 요소에 포커스를 주면, 마우스로 요소에 hover가 되지 않도록 합니다.
     const eventHandler = () => {
@@ -129,7 +131,6 @@ const Search = ({ value, onChange: _onChange, loading, error, results }: SearchP
     return () => {
       document.removeEventListener("mousemove", eventHandler);
     };
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   useHotkeys(`${Key.Meta} + k`, () => inputRef.current?.focus(), {

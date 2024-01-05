@@ -6,7 +6,7 @@ import { ROUTES } from "@/common/const";
 import Flexsearch from "../../features/search/flex-search";
 import ThemeToggle from "../../features/theme/theme-toggle";
 
-const Nav = ({ sliceContext }: SliceComponentProps<{}, { title: string }>) => {
+const Nav = ({ sliceContext }: SliceComponentProps<never, { title: string }>) => {
   return (
     <>
       <ContentSpacer as='nav' className='py-32pxr foldable:py-24pxr'>

@@ -1,4 +1,4 @@
-import { type MouseEvent, type FocusEvent, type MutableRefObject, useState } from "react";
+import { type FocusEvent, type MouseEvent, type MutableRefObject, useState } from "react";
 
 import { getElementOffset } from "../utils/dom";
 
@@ -83,6 +83,7 @@ const isRefTarget = (
     | FocusEvent<HTMLElement>
     | MutableRefObject<HTMLElement | null>,
 ): eventOrRef is MutableRefObject<HTMLElement | null> =>
+  // biome-ignore lint/suspicious/noExplicitAny: <explanation>
   typeof (eventOrRef as any)?.target === "undefined";
 
 /**

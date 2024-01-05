@@ -1,5 +1,6 @@
 /* eslint-disable no-undef */
 import { render } from "@testing-library/react";
+
 import "@testing-library/jest-dom";
 
 import HighlightMatches from "../highlight-matches";

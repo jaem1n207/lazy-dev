@@ -1,6 +1,5 @@
-import { useRef, type ComponentProps, useEffect } from "react";
-
 import { StaticImage } from "gatsby-plugin-image";
+import { type ComponentProps, useEffect, useRef } from "react";
 
 import ProjectCard from "./project-card";
 
@@ -12,8 +11,8 @@ const ProjectCardList = () => {
     if (!gridEl) return;
 
     const updateCursor = ({ x, y }: { x: number; y: number }) => {
-      gridEl.style.setProperty("--x", x + "");
-      gridEl.style.setProperty("--y", y + "");
+      gridEl.style.setProperty("--x", `${x}`);
+      gridEl.style.setProperty("--y", `${y}`);
     };
 
     gridEl.addEventListener("pointermove", updateCursor);

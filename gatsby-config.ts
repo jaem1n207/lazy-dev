@@ -70,18 +70,18 @@ const devPlugins: GatsbyConfig["plugins"] = [
 
 const markdownPlugins: GatsbyConfig["plugins"] = [
   {
-    resolve: `gatsby-transformer-remark`,
+    resolve: "gatsby-transformer-remark",
     options: {
       plugins: [
         {
-          resolve: `gatsby-remark-images`,
+          resolve: "gatsby-remark-images",
           options: {
             maxWidth: 1000,
             linkImagesToOriginal: false,
           },
         },
         {
-          resolve: `gatsby-remark-images-medium-zoom`,
+          resolve: "gatsby-remark-images-medium-zoom",
           options: {
             background: "rgba(0,0,0,0.8)",
             margin: 12,
@@ -90,13 +90,13 @@ const markdownPlugins: GatsbyConfig["plugins"] = [
           },
         },
         {
-          resolve: `gatsby-remark-responsive-iframe`,
+          resolve: "gatsby-remark-responsive-iframe",
           options: {
-            wrapperStyle: `margin-bottom: 1.0725rem`,
+            wrapperStyle: "margin-bottom: 1.0725rem",
           },
         },
         {
-          resolve: `gatsby-remark-table-of-contents`,
+          resolve: "gatsby-remark-table-of-contents",
           options: {
             exclude: "목차",
             fromHeading: 1,
@@ -104,10 +104,10 @@ const markdownPlugins: GatsbyConfig["plugins"] = [
             className: "table-of-contents",
           },
         },
-        `gatsby-remark-autolink-headers`,
-        `gatsby-remark-prismjs`,
-        `gatsby-remark-copy-linked-files`,
-        `gatsby-remark-emoji`,
+        "gatsby-remark-autolink-headers",
+        "gatsby-remark-prismjs",
+        "gatsby-remark-copy-linked-files",
+        "gatsby-remark-emoji",
       ],
     },
   },
@@ -145,8 +145,10 @@ const searchPlugins: GatsbyConfig["plugins"] = [
           serialize: ({
             query: { site, allMarkdownRemark },
           }: {
+            // biome-ignore lint/suspicious/noExplicitAny: <explanation>
             query: { site: any; allMarkdownRemark: any };
           }) => {
+            // biome-ignore lint/suspicious/noExplicitAny: <explanation>
             return allMarkdownRemark.nodes.map((node: any) => {
               return Object.assign({}, node.frontmatter, {
                 description: node.excerpt,
@@ -192,11 +194,11 @@ const pwaPlugins: GatsbyConfig["plugins"] = [
       background_color: "#1C1C1E",
       // This will impact how browsers show your PWA/website
       // https://css-tricks.com/meta-theme-color-and-trickery/
-      display: `standalone`,
-      orientation: `portrait`,
+      display: "standalone",
+      orientation: "portrait",
       icon: "src/assets/favicon.png",
       icon_options: {
-        purpose: `any maskable`,
+        purpose: "any maskable",
       },
     },
   },

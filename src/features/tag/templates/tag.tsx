@@ -4,7 +4,6 @@ import { HeadProps, PageProps, graphql } from "gatsby";
 import Seo from "@/common/components/seo/seo";
 import { Typography } from "@/common/components/typography";
 import { animateVariant, textVariant } from "@/common/utils/motion";
-
 import PostCard from "@/features/post/components/post-card";
 
 const TagTemplate = ({

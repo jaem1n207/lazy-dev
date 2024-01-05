@@ -1,6 +1,5 @@
-import { useEffect } from "react";
-
 import { motion } from "framer-motion";
+import { useEffect } from "react";
 
 import { Typography } from "@/common/components/typography";
 import ClientOnly from "@/common/components/wrapper/client-only";

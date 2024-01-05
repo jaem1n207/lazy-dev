@@ -1,11 +1,10 @@
+import classNames from "classnames";
 /**
  * Original Code
  * @see https://github.com/kentcdodds/kentcdodds.com/blob/main/app/components/typography.tsx
  * modified by @jaem1n207
  */
 import * as React from "react";
-
-import classNames from "classnames";
 
 import { PolymorphicComponent, PolymorphicComponentProps, PolymorphicRef } from "../polymorphic";
 

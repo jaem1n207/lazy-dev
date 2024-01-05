@@ -22,7 +22,7 @@ export function extractContentByHeading(html: string): StructuredData {
     for (let i = 0; i < bodyChildren.length; i++) {
       const child = bodyChildren[i];
       if (!$(child).is("h1, h2, h3, h4, h5, h6")) {
-        content += $(child).text() + " ";
+        content += `${$(child).text()} `;
       } else {
         break;
       }
@@ -36,7 +36,7 @@ export function extractContentByHeading(html: string): StructuredData {
     let nextElem = $(element).next();
 
     while (nextElem.length && !nextElem.is("h1, h2, h3, h4, h5, h6")) {
-      content += nextElem.text() + " ";
+      content += `${nextElem.text()} `;
       nextElem = nextElem.next();
     }
 

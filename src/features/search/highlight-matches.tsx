@@ -1,6 +1,5 @@
-import type { ReactNode } from "react";
-
 import escapeStringRegexp from "escape-string-regexp";
+import type { ReactNode } from "react";
 
 interface HighlightMatchesProps {
   /**
@@ -44,11 +43,11 @@ const processSearchTerm = (searchTerm: string): RegExp => {
  */
 const createSearchResult = (value: string, regexp: RegExp) => {
   const splitValue = value.split("");
-  let result;
   let index = 0; // 현재 검색 위치를 추적합니다.
   const content: (string | ReactNode)[] = [];
 
-  while ((result = regexp.exec(value))) {
+  let result = regexp.exec(value);
+  while (result) {
     if (result.index === regexp.lastIndex) {
       // 빈 문자열에 대한 검색을 방지하기 위해 lastIndex를 증가시킵니다.
       regexp.lastIndex++;
@@ -64,6 +63,8 @@ const createSearchResult = (value: string, regexp: RegExp) => {
       // 다음 검색을 위해 현재 검색 위치를 갱신합니다.
       index = regexp.lastIndex;
     }
+
+    result = regexp.exec(value);
   }
 
   return { content, remaining: splitValue.join("") };

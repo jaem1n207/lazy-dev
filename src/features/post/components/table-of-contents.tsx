@@ -1,12 +1,9 @@
-import "twin.macro";
-
-import { useCallback, useEffect, useMemo } from "react";
-
 import { window } from "browser-monads-ts";
+import { useCallback, useEffect, useMemo } from "react";
 
 import { Typography } from "@/common/components/typography";
 import { useScrollEvent } from "@/common/hooks/use-scroll-event";
-import { getElements, getElement, addClass, removeClass } from "@/common/utils/dom";
+import { addClass, getElement, getElements, removeClass } from "@/common/utils/dom";
 import * as EventManager from "@/common/utils/event-manager";
 import * as ScrollManager from "@/common/utils/scroll";
 
@@ -39,6 +36,7 @@ const TableOfContents = ({ toc }: TableOfContentsProps) => {
   const onScroll = useCallback(() => {
     const headerElements = getHeaderElements();
 
+    // biome-ignore lint/complexity/noForEach: <explanation>
     headerElements.forEach((headerElement) => {
       if (!headerElement) return;
 
@@ -66,6 +64,7 @@ const TableOfContents = ({ toc }: TableOfContentsProps) => {
   useEffect(() => {
     const headerElements = getHeaderElements();
 
+    // biome-ignore lint/complexity/noForEach: <explanation>
     headerElements.forEach((headerElement) => {
       if (!headerElement) return;
 
@@ -95,6 +94,7 @@ const TableOfContents = ({ toc }: TableOfContentsProps) => {
       </Typography>
       <div
         className='toc-wrapper border-spacing-24pxr pl-12pxr text-13pxr font-bold tracking-normal text-all-custom-gray tablet:border-spacing-28pxr tablet:tracking-tighter'
+        // biome-ignore lint/security/noDangerouslySetInnerHtml: <explanation>
         dangerouslySetInnerHTML={{ __html: toc }}
       />
     </div>

@@ -1,7 +1,6 @@
-import { useEffect } from "react";
-
 import { motion } from "framer-motion";
-import { graphql, HeadProps, Link, PageProps, Slice } from "gatsby";
+import { HeadProps, Link, PageProps, Slice, graphql } from "gatsby";
+import { useEffect } from "react";
 
 import "../styles/markdown.css";
 
@@ -78,6 +77,7 @@ const BlogPost = ({ data }: PageProps<Queries.BlogPostBySlugQuery>) => {
 
           <article
             className='prose max-w-none dark:prose-invert'
+            // biome-ignore lint/security/noDangerouslySetInnerHtml: <explanation>
             dangerouslySetInnerHTML={{ __html: html! }}
           />
 

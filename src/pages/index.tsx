@@ -1,9 +1,7 @@
+import { HeadFC, HeadProps, PageProps, graphql } from "gatsby";
 import { FC } from "react";
 
-import { graphql, HeadFC, HeadProps, PageProps } from "gatsby";
-
 import Seo from "@/common/components/seo/seo";
-
 import PostList from "@/features/post/components/post-list";
 import ShortList from "@/features/post/components/short-list";
 import TagList from "@/features/tag/components/tag-list";

@@ -1,7 +1,6 @@
 import { HeadFC, HeadProps } from "gatsby";
 
 import Seo from "@/common/components/seo/seo";
-
 import AboutCard from "@/features/about/components/about-card";
 import Introduction from "@/features/about/components/introduction";
 import ProjectCardList from "@/features/about/components/project-card-list";

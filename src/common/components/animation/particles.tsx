@@ -1,7 +1,6 @@
 import { memo } from "react";
 
 import ClientOnly from "../wrapper/client-only";
-
 import { DiagonalSlideFromTopParticle, RandomNumberGenerator } from "./particle-style-builder";
 
 const particleAnimations = {

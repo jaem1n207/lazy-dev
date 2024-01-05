@@ -1,4 +1,4 @@
-import type { ValueAnimationOptions, EasingDefinition, Variant } from "framer-motion";
+import type { EasingDefinition, ValueAnimationOptions, Variant } from "framer-motion";
 
 /**
  * 지정한 애니메이션을 실행하기 위한 variant
@@ -16,6 +16,7 @@ interface Orchestration {
 }
 
 interface CustomAnimationOptions extends Orchestration, DurationOptions {
+  // biome-ignore lint/suspicious/noExplicitAny: <explanation>
   type?: ValueAnimationOptions<any>["type"];
   ease?: EasingDefinition;
   direction?: "left" | "right" | "up" | "down";

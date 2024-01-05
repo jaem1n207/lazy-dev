@@ -1,4 +1,4 @@
-const is = (type, val) => ![, null].includes(val) && val.constructor === type;
+const is = (type, val) => ![undefined, null].includes(val) && val.constructor === type;
 const initializeMappedArray = (n, mapFn = (_, i) => i) => Array(n).fill(null).map(mapFn);
 
 const pxToRem = (px) => {
@@ -9,13 +9,17 @@ const applyRange = (start, end, step = 1) => {
     throw new TypeError(
       `start, end, step 은 모두 숫자여야 해요. start: ${start}, end: ${end}, step: ${step}`,
     );
-  } else if (step <= 0) {
+  }
+  if (step <= 0) {
     throw new RangeError(`step은 0보다 커야 해요. step: ${step}`);
-  } else if (step > end - start) {
+  }
+  if (step > end - start) {
     throw new RangeError(`step은 end - start 보다 작아야 해요. step: ${step}`);
-  } else if (start > end) {
+  }
+  if (start > end) {
     throw new RangeError(`start는 end보다 작아야 해요. start: ${start}, end: ${end}`);
-  } else if ((end - start) % step !== 0) {
+  }
+  if ((end - start) % step !== 0) {
     throw new RangeError(
       `start, end, step은 서로 배수여야 해요. start: ${start}, end: ${end}, step: ${step}`,
     );

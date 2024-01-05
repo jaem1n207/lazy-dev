@@ -50,6 +50,7 @@ const NotFoundPage = () => {
         className='flex items-center gap-2 foldable:flex-col'
       >
         <button
+          type='button'
           onClick={goHome}
           className='focus-primary inline-flex items-center rounded-md bg-primary px-16pxr py-8pxr text-16pxr font-medium text-text-secondary'
         >

@@ -1,6 +1,5 @@
-import { type HTMLAttributes, useMemo, useRef } from "react";
-
 import classNames from "classnames";
+import { type HTMLAttributes, useMemo, useRef } from "react";
 
 import { usePrevious } from "@/common/hooks/use-previous";
 import { type ReactiveDomReact, isUnplacedRect } from "@/common/hooks/use-rect";
@@ -19,6 +18,7 @@ type HighlightPosition = {
   transition: string;
 };
 
+// biome-ignore lint/suspicious/noExplicitAny: <explanation>
 type NativeAttrs = Omit<HTMLAttributes<any>, keyof Props>;
 
 type HighlightProps = Props & NativeAttrs;
@@ -28,6 +28,8 @@ const Highlight = ({ rect, visible, ...props }: HighlightProps) => {
 
   const isFirstVisible = usePrevious(isUnplacedRect(rect));
 
+  // `isFirstVisible` 은 `rect` 가 변경될 때마다 변경됨
+  // biome-ignore lint/correctness/useExhaustiveDependencies: <explanation>
   const position = useMemo<HighlightPosition>(() => {
     const width = rect.width;
     const height = rect.height;
@@ -43,9 +45,7 @@ const Highlight = ({ rect, visible, ...props }: HighlightProps) => {
       // 따라서 첫 요소에는 바로 하이라이트가 적용될 수 있도록 애니메이션을 적용하지 않습니다.
       transition: isFirstVisible ? "opacity" : "opacity, transform",
     };
-    // `isFirstVisible` 을 의존성 배열에 넣지 않는 이유는, `isFirstVisible` 은 `rect` 가 변경될 때마다 변경되기 때문입니다.
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [rect]);
+  }, [rect.width, rect.height, rect.left, rect.elementTop]);
 
   return (
     <span

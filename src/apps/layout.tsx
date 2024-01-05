@@ -1,6 +1,5 @@
-import type { ReactNode } from "react";
-
 import { Slice } from "gatsby";
+import type { ReactNode } from "react";
 
 interface LayoutProps {
   children: ReactNode;
