@@ -1,3 +1,4 @@
+// biome-ignore lint/suspicious/noRedundantUseStrict: <explanation>
 'use strict';
 
 const OFF = 0;
@@ -45,40 +46,7 @@ module.exports = {
     'react-hooks/rules-of-hooks': ERROR,
     'react-hooks/exhaustive-deps': ERROR,
     'prettier/prettier': OFF,
-    'import/order': [
-      ERROR,
-      {
-        groups: ['builtin', 'external', 'internal', 'parent', 'sibling', 'index'],
-        pathGroups: [
-          {
-            pattern: 'react',
-            group: 'external',
-            position: 'before',
-          },
-          {
-            pattern: '@/assets/**',
-            group: 'internal',
-            position: 'after',
-          },
-          {
-            pattern: '@/common/**',
-            group: 'internal',
-            position: 'after',
-          },
-          {
-            pattern: '@/features/**',
-            group: 'internal',
-            position: 'after',
-          },
-        ],
-        pathGroupsExcludedImportTypes: ['react'],
-        alphabetize: {
-          order: 'asc',
-          caseInsensitive: true,
-        },
-        'newlines-between': 'always',
-      },
-    ],
+    'import/order': 0,
     'no-unused-vars': OFF,
     'unused-imports/no-unused-imports': ERROR,
     'unused-imports/no-unused-vars': [
