@@ -6,7 +6,3 @@ public
 static
 package.json
 yarn.lock
-*.js
-*.jsx
-*.ts
-*.tsx
