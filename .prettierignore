@@ -3,3 +3,4 @@ package.json
 yarn.lock
 public
 _legacy
+static
