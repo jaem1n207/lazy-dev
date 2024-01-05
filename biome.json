@@ -2,10 +2,12 @@
   "$schema": "./node_modules/@biomejs/biome/configuration_schema.json",
   "files": {
     "ignore": [
+      "./.cache/*",
       "./static/*",
       "./_legacy/*",
       "./public/*",
       "**/assets",
+      "*.json",
       "*.html",
       "*.md",
       "*.css",
@@ -30,6 +32,14 @@
   },
   "linter": {
     "enabled": true,
-    "rules": { "recommended": true }
+    "rules": {
+      "recommended": true,
+      "style": {
+        "noNonNullAssertion": "off"
+      },
+      "suspicious": {
+        "noArrayIndexKey": "off"
+      }
+    }
   }
 }
