@@ -36,8 +36,7 @@
   },
   "lint-staged": {
     "**/*.{ts,tsx,js,jsx}": [
-      "biome format --write",
-      "eslint --fix"
+      "biome format --write"
     ],
     "**/*.{css,md,json}": [
       "prettier --ignore-unknown --write"
