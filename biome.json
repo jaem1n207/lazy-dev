@@ -11,10 +11,12 @@
       "*.md",
       "*.css",
       "*.svg",
-      "*.sh"
+      "*.sh",
+      "*.json"
     ]
   },
   "formatter": {
+    "enabled": false,
     "lineWidth": 100,
     "indentStyle": "space"
   },

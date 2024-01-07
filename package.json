@@ -30,18 +30,17 @@
     "test": "jest",
     "test:coverage": "jest --coverage",
     "typecheck": "tsc --noEmit",
-    "prettier:format": "prettier -c --write **/* --cache",
-    "biome:format": "biome format --write .",
-    "lint-fix:script": "biome check --apply ."
+    "format:super-languages": "prettier --write --cache --ignore-unknown '**/*.(css|md|html)'",
+    "format:sort-imports": "prettier --write --plugin=@ianvs/prettier-plugin-sort-imports --cache '*.(js|ts|cjs|mjs|d.cts|d.mts|jsx|tsx)'",
+    "lint-fix:script": "biome lint --apply .",
+    "check:code": "yarn format:sort-imports && yarn format:super-languages && yarn lint-fix:script"
   },
   "lint-staged": {
-    "**/*.{ts,tsx,js,jsx}": [
-      "biome format --write",
-      "biome check --apply ."
+    "*.{js,ts,cjs,mjs,d.cts,d.mts,jsx,tsx}": [
+      "prettier --write --plugin=@ianvs/prettier-plugin-sort-imports",
+      "biome lint --apply"
     ],
-    "**/*.{css,md,json}": [
-      "prettier --ignore-unknown --write"
-    ]
+    "*.{css,md,html,json,jsonc}": "prettier --write --ignore-unknown"
   },
   "dependencies": {
     "@fontsource/fira-mono": "^5.0.8",
