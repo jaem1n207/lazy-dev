@@ -1,6 +1,6 @@
 ---
 title: 탭 스크롤 동기화 크롬 익스텐션 개발해보기 with React
-date: '2023-09-13 23:48:48'
+date: "2023-09-13 23:48:48"
 category: developments
 tags:
   - Developments
@@ -10,7 +10,7 @@ keywords:
   - 생산성
 authorId: jaemin
 thumbnail: ../thumbnails/react-profile.jpg
-summary: 'React를 사용해서 크롬 익스텐션을 개발한 과정들과 마주친 오류와 해결, 그리고 성능 최적화 경험을 공유합니다.'
+summary: "React를 사용해서 크롬 익스텐션을 개발한 과정들과 마주친 오류와 해결, 그리고 성능 최적화 경험을 공유합니다."
 ---
 
 ## 요구 사항
@@ -49,7 +49,7 @@ const useTabList = (queryInfo?: chrome.tabs.QueryInfo) => {
       const tabs = await chrome.tabs.query(queryInfo ?? {});
 
       // Returns "tabs", excluding items with URL 'chrome://newtab/'.
-      return tabs.filter((tab) => tab.url !== 'chrome://newtab/');
+      return tabs.filter((tab) => tab.url !== "chrome://newtab/");
     },
     suspense: true,
   });
@@ -102,7 +102,7 @@ const useTabList = (queryInfo?: chrome.tabs.QueryInfo) => {
 ```tsx
 const onScrollHandler = () => {
   try {
-    console.log('Scroll event triggered');
+    console.log("Scroll event triggered");
 
     const scrollPosition =
       window.scrollY || document.documentElement.scrollTop || document.body.scrollTop || 0;
@@ -110,12 +110,12 @@ const onScrollHandler = () => {
     const scrollYPercentage = scrollPosition / document.documentElement.scrollHeight;
 
     console.log(
-      'Scroll event triggered, sending syncScroll message with percentage:',
+      "Scroll event triggered, sending syncScroll message with percentage:",
       scrollYPercentage,
     );
 
     chrome.runtime.sendMessage({
-      command: 'syncScroll',
+      command: "syncScroll",
       data: { scrollYPercentage },
     });
   } catch (err) {
@@ -363,8 +363,8 @@ chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
 위 `messages.json` 파일의 메시지를 간편하게 사용하기 위한 함수를 작성합니다.
 
 ```tsx
-import type EnMessage from '../../public/_locales/en/messages.json';
-import type KoMessage from '../../public/_locales/ko/messages.json';
+import type EnMessage from "../../public/_locales/en/messages.json";
+import type KoMessage from "../../public/_locales/ko/messages.json";
 
 type MessageKey = keyof typeof EnMessage | keyof typeof KoMessage;
 

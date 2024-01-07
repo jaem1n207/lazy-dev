@@ -2,7 +2,6 @@ import type { GatsbyBrowser } from "gatsby";
 
 import "@fontsource/fira-mono";
 import "prismjs/themes/prism-tomorrow.css";
-
 import "./src/common/styles/global.css";
 
 export { wrapPageElement } from "./gatsby-shared";

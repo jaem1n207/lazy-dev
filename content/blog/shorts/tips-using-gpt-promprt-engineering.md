@@ -1,6 +1,6 @@
 ---
 title: 프롬프트 엔지니어링을 이용한 ChatGPT 200% 활용 팁
-date: '2023-09-08 11:22:15'
+date: "2023-09-08 11:22:15"
 category: shorts
 tags:
   - Tip

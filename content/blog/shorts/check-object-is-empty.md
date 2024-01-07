@@ -1,6 +1,6 @@
 ---
-title: '객체가 비어있는지 검사하는 2가지 방법: `Object.keys`와 `for...in`을 이용한 접근 방법'
-date: '2023-09-08 10:52:15'
+title: "객체가 비어있는지 검사하는 2가지 방법: `Object.keys`와 `for...in`을 이용한 접근 방법"
+date: "2023-09-08 10:52:15"
 category: shorts
 tags:
   - JavaScript
@@ -22,13 +22,13 @@ summary: 자바스크립트에서 객체가 비어있는지 검사하는 2가지
 
 ```tsx
 const prototypeObj = {
-  inheritedProp1: 'value1',
-  inheritedProp2: 'value2',
+  inheritedProp1: "value1",
+  inheritedProp2: "value2",
 };
 
 const obj = Object.create(prototypeObj);
-obj.ownProp1 = 'ownValue1';
-obj.ownProp2 = 'ownValue2';
+obj.ownProp1 = "ownValue1";
+obj.ownProp2 = "ownValue2";
 ```
 
 ### Object.keys 활용
@@ -87,7 +87,7 @@ console.log(isEmpty({ a: 1 })); // false
 
 ```tsx
 const prototypeObj = {
-  inheritedProp1: 'value1',
+  inheritedProp1: "value1",
 };
 const obj = Object.create(prototypeObj);
 
@@ -118,7 +118,7 @@ console.log(isEmptyUsingForIn(obj)); // false
 
 ```tsx
 const prototypeObj = {
-  inheritedProp1: 'value1',
+  inheritedProp1: "value1",
 };
 const obj = Object.create(prototypeObj);
 

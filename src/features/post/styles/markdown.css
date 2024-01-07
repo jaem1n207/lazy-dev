@@ -1,6 +1,6 @@
-code[class*='language-'],
-pre[class*='language-'] {
-  font-family: 'Fira Mono', Consolas, 'Liberation Mono', Menlo, monospace;
+code[class*="language-"],
+pre[class*="language-"] {
+  font-family: "Fira Mono", Consolas, "Liberation Mono", Menlo, monospace;
   font-size: 0.9rem;
 }
 
@@ -31,12 +31,12 @@ div.toc-wrapper a.active {
   transition-duration: 200ms;
 }
 
-article pre[class*='language-'] {
+article pre[class*="language-"] {
   overflow: auto;
   width: 100%;
 }
 
-article :not(pre) > code[class*='language-'] {
+article :not(pre) > code[class*="language-"] {
   display: inline-block;
   white-space: normal;
   word-break: break-all;

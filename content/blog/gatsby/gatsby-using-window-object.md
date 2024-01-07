@@ -1,6 +1,6 @@
 ---
-title: 'Gatsby에서 원활한 경험을 보장하기: window 객체 사용'
-date: '2023-04-20 16:39:38'
+title: "Gatsby에서 원활한 경험을 보장하기: window 객체 사용"
+date: "2023-04-20 16:39:38"
 category: gatsby
 tags:
   - Gatsby
@@ -90,7 +90,7 @@ useEffect(() => {
 
 export const Nothing = (() => {
   const fn = () => Nothing;
-  fn.toString = fn.toLocaleString = fn[Symbol.toPrimitive] = () => '';
+  fn.toString = fn.toLocaleString = fn[Symbol.toPrimitive] = () => "";
   fn.valueOf = () => false;
 
   return new Proxy(Object.freeze(fn), {

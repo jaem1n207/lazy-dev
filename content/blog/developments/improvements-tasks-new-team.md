@@ -1,6 +1,6 @@
 ---
 title: 새로운 팀에서 비효율적인 업무를 개선한 사례
-date: '2023-04-27 02:36:57'
+date: "2023-04-27 02:36:57"
 category: developments
 tags:
   - Productivity
@@ -108,9 +108,9 @@ summary: >-
 
 ```jsx
 // 정의한 언어 코드를 이용해 번역을 진행합니다.
-const LANGUAGE_CODE = ['ko', 'en', 'ja', 'vi'];
+const LANGUAGE_CODE = ["ko", "en", "ja", "vi"];
 // 언어별 json 파일이 존재하는 폴더 경로를 정의합니다.
-const LANGUAGES_DIR_PATH = path.join(process.cwd(), 'libs', 'locales', 'languages');
+const LANGUAGES_DIR_PATH = path.join(process.cwd(), "libs", "locales", "languages");
 ```
 
 ### 사용자로부터 `key`와 `value`를 입력받기
@@ -140,18 +140,18 @@ const isNil = (value) => {
 };
 
 const isEmptyString = (value) => {
-  return isNil(value) || value?.toString().trim() === '';
+  return isNil(value) || value?.toString().trim() === "";
 };
 
 // 사용자에게 key와 value 값을 입력하라는 메시지를 표시합니다.
 const promptTranslation = async () => {
-  let key = '';
+  let key = "";
   while (isEmptyString(key) || keyExistsInLangFiles(key)) {
     const { key: inputKey } = await inquirer.prompt([
       {
-        type: 'input',
-        name: 'key',
-        message: 'Enter the translation key in camelCase:',
+        type: "input",
+        name: "key",
+        message: "Enter the translation key in camelCase:",
         validate: validateCamelCase,
       },
     ]);
@@ -160,12 +160,12 @@ const promptTranslation = async () => {
 
   const { value } = await inquirer.prompt([
     {
-      type: 'input',
-      name: 'value',
-      message: 'Enter the translation value:',
+      type: "input",
+      name: "value",
+      message: "Enter the translation value:",
       validate: (input) => {
         if (isEmptyString(input)) {
-          return 'value cannot be empty. Please enter again:';
+          return "value cannot be empty. Please enter again:";
         }
         return true;
       },
@@ -184,7 +184,7 @@ const promptTranslation = async () => {
 // 입력 받은 값을 번역하고 번역된 값을 반환합니다.
 const translateText = async (text, targetLanguage) => {
   const response = await axios.post(
-    'https://translation.googleapis.com/language/translate/v2',
+    "https://translation.googleapis.com/language/translate/v2",
     {
       q: text,
       target: targetLanguage,
@@ -235,7 +235,7 @@ const translate = async () => {
   try {
     const { key, value } = await promptTranslation();
     const translations = await addTranslation(key, value);
-    console.log(chalk.green('번역 결과: ', JSON.stringify(translations, null, 2)));
+    console.log(chalk.green("번역 결과: ", JSON.stringify(translations, null, 2)));
     console.log(
       chalk.green(`Translation added to ${convertLanguageCode(LANGUAGE_CODE)}.lang.json`),
     );

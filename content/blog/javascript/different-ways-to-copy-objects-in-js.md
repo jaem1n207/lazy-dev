@@ -1,16 +1,16 @@
 ---
-title: '자바스크립트에서 객체를 복사하는 다양한 방법과 깊은 복사하는 로직 직접 구현해보기'
+title: "자바스크립트에서 객체를 복사하는 다양한 방법과 깊은 복사하는 로직 직접 구현해보기"
 date: 2022-12-10 00:20:30
-category: 'javascript'
+category: "javascript"
 tags:
   - JavaScript
   - Developments
 keywords:
   - 리액트
   - 자바스크립트
-authorId: 'jaemin'
-thumbnail: '../thumbnails/javascript.jpg'
-summary: '객체를 복사하는 다양한 방법의 장단점을 살펴보고, lodash를 사용하지 않고 객체를 깊게 복사하는 로직을 직접 구현합니다. 우리 프로젝트의 번들 크기는 중요하니까요.'
+authorId: "jaemin"
+thumbnail: "../thumbnails/javascript.jpg"
+summary: "객체를 복사하는 다양한 방법의 장단점을 살펴보고, lodash를 사용하지 않고 객체를 깊게 복사하는 로직을 직접 구현합니다. 우리 프로젝트의 번들 크기는 중요하니까요."
 ---
 
 ## 객체 복사하기
@@ -33,11 +33,11 @@ summary: '객체를 복사하는 다양한 방법의 장단점을 살펴보고, 
 
 ```tsx
 const person = {
-  name: 'ben',
+  name: "ben",
   age: 20,
   address: {
-    city: 'seoul',
-    country: 'korea',
+    city: "seoul",
+    country: "korea",
   },
   getAge: function () {
     return this.age;
@@ -64,13 +64,13 @@ const deepCopyPerson = deepCopyObj(person);
 console.log(person === deepCopyPerson);
 // => false
 
-deepCopyPerson.name = 'tony';
+deepCopyPerson.name = "tony";
 console.log(person.name);
 // => 'ben'
 console.log(deepCopyPerson.name);
 // => 'tony'
 
-deepCopyPerson.address.city = 'busan';
+deepCopyPerson.address.city = "busan";
 console.log(person.address.city);
 // => 'seoul'
 console.log(deepCopyPerson.address.city);
@@ -129,8 +129,8 @@ console.log(person === copyPerson);
 // 중첩된 객체 내의 속성을 변경할 때마다 원본 객체인 person의 동일한 속성도 변합니다
 const copiedPerson = Object.assign({}, person);
 
-copiedPerson.name = 'tony';
-copiedPerson.address.city = 'busan';
+copiedPerson.name = "tony";
+copiedPerson.address.city = "busan";
 
 console.log(person.name, copiedPerson.name);
 // => 'tony', 'ben'
@@ -150,7 +150,7 @@ regExp 와 Date 객체를 복사하는 건 Lodash의 코드를 참고하여 작�
 
 ```tsx
 const isObject = (value: any): boolean => {
-  return (typeof value === 'object' || typeof value === 'function') && value != null;
+  return (typeof value === "object" || typeof value === "function") && value != null;
 };
 
 const cloneRegExp = (regExp: any): RegExp => {
@@ -163,7 +163,7 @@ const cloneRegExp = (regExp: any): RegExp => {
 
 const getTag = <T = any,>(value: T): string => {
   if (value == null) {
-    return value === undefined ? '[object Undefined]' : '[object Null]';
+    return value === undefined ? "[object Undefined]" : "[object Null]";
   }
   return Object.prototype.toString.call(value);
 };
@@ -174,31 +174,31 @@ const getTag = <T = any,>(value: T): string => {
 const initCloneByTag = (obj: any, tag: string) => {
   const Ctor = obj.constructor;
   switch (tag) {
-    case '[object Boolean]':
-    case '[object Date]':
+    case "[object Boolean]":
+    case "[object Date]":
       return new Ctor(+obj);
 
-    case '[object Number]':
-    case '[object String]':
+    case "[object Number]":
+    case "[object String]":
       return new Ctor(obj);
 
-    case '[object Set]':
-    case '[object Map]':
+    case "[object Set]":
+    case "[object Map]":
       return new Ctor();
 
-    case '[object RegExp]':
+    case "[object RegExp]":
       return cloneRegExp(obj);
   }
 };
 
 const isPrototype = (value: object): boolean => {
   const Ctor = value && value.constructor;
-  const proto = (typeof Ctor === 'function' && Ctor.prototype) || Object.prototype;
+  const proto = (typeof Ctor === "function" && Ctor.prototype) || Object.prototype;
   return value === proto;
 };
 
 const initCloneObject = (obj: any) => {
-  return typeof obj.constructor === 'function' && !isPrototype(obj)
+  return typeof obj.constructor === "function" && !isPrototype(obj)
     ? Object.create(Object.getPrototypeOf(obj)) // 객체 생성
     : {};
 };
@@ -209,8 +209,8 @@ const initCloneArray = (array: any): any => {
 
   if (
     length &&
-    typeof array[0] === 'string' &&
-    Object.prototype.hasOwnProperty.call(array, 'index')
+    typeof array[0] === "string" &&
+    Object.prototype.hasOwnProperty.call(array, "index")
   ) {
     result.index = array.index;
     result.input = array.input;
@@ -226,12 +226,12 @@ const deepCopyObject = <T,>(obj: T): T => {
   }
 
   let result: any;
-  const isFunc = typeof obj === 'function' && obj instanceof Function;
+  const isFunc = typeof obj === "function" && obj instanceof Function;
   const tag = getTag(obj);
 
-  if (tag === '[object Object]' || (isFunc && !obj)) {
+  if (tag === "[object Object]" || (isFunc && !obj)) {
     result = isFunc ? {} : initCloneObject(obj);
-  } else if (tag === '[object Array]') {
+  } else if (tag === "[object Array]") {
     result = initCloneArray(obj);
   } else if (isFunc) {
     result = obj instanceof Function ? obj : () => {};
@@ -255,9 +255,9 @@ const copiedPerson = deepCopyObject(person);
 console.log(person === copiedPerson);
 // => false
 
-copiedPerson.name = 'tony';
-copiedPerson.address.city = 'busan';
-copiedPerson.address.zipCode = '12345';
+copiedPerson.name = "tony";
+copiedPerson.address.city = "busan";
+copiedPerson.address.zipCode = "12345";
 
 console.log(person.name);
 // => 'ben'
@@ -274,12 +274,12 @@ console.log(copiedPerson.address.zipCode);
 console.log(copiedPerson.regT);
 // => lastIndex: 0
 dotAll: false;
-flags: 'gm';
+flags: "gm";
 global: true;
 hasIndices: false;
 ignoreCase: false;
 multiline: true;
-source: '^[a-z0-9](\\.|\\+|\\-?[a-z0-9]){1,39}@test\\.com$';
+source: "^[a-z0-9](\\.|\\+|\\-?[a-z0-9]){1,39}@test\\.com$";
 sticky: false;
 unicode: false;
 ```
@@ -313,12 +313,12 @@ const deepCopyObject = <T,>(value: T, hash = new WeakMap<object, any>()): T => {
   // 순환 참조
   if (hash.has(value as object)) return hash.get(value as object);
 
-  const isFunc = typeof value === 'function';
+  const isFunc = typeof value === "function";
   const tag = getTag(value);
 
-  if (tag === '[object Object]' || (isFunc && !value)) {
+  if (tag === "[object Object]" || (isFunc && !value)) {
     result = isFunc ? {} : initCloneObject(value);
-  } else if (tag === '[object Array]') {
+  } else if (tag === "[object Array]") {
     result = initCloneArray(value);
   } else if (isFunc) {
     result = value;
@@ -329,14 +329,14 @@ const deepCopyObject = <T,>(value: T, hash = new WeakMap<object, any>()): T => {
   // hash에 복사할 객체를 저장합니다.
   hash.set(value as object, result);
 
-  if (tag === '[object Map]') {
+  if (tag === "[object Map]") {
     // @ts-ignore
     value.forEach((subValue, key) => {
       result.set(key, deepCopyObject(subValue, hash));
     });
   }
 
-  if (tag === '[object Set]') {
+  if (tag === "[object Set]") {
     // @ts-ignore
     value.forEach((subValue) => {
       result.add(deepCopyObject(subValue, hash));
@@ -382,7 +382,7 @@ console.log(순환참조가_있는_객체를_완전히_복사하는지_검사())
 ### Lodash의 cloneDeep()
 
 ```tsx
-import _ from 'lodash';
+import _ from "lodash";
 
 const copiedPerson = _.cloneDeep(person);
 

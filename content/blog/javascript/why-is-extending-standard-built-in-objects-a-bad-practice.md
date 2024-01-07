@@ -1,6 +1,6 @@
 ---
 title: JavaScript에서 내장 객체를 확장하는 것이 위험한 이유
-date: '2023-05-03 10:16:52'
+date: "2023-05-03 10:16:52"
 category: javascript
 tags:
   - JavaScript
@@ -30,7 +30,7 @@ JS로 작업할 때 `Array.prototype`과 같은 내장 객체에 직접 함수�
    - 이는 모든 Array 인스턴스가 `Array.prototype` 에서 상속되기 때문입니다.
 
    ```tsx
-   Array.prototype.myFunction = () => 'hello world';
+   Array.prototype.myFunction = () => "hello world";
 
    const arr = [1, 2, 3];
    arr.myFunction(); // Output: 'hello world'
@@ -43,7 +43,7 @@ JS로 작업할 때 `Array.prototype`과 같은 내장 객체에 직접 함수�
    - 이는 Array의 인스턴스가 아닌 **Array 생성자에서만** 액세스할 수 있음을 의미합니다.
 
    ```tsx
-   Array.myFunction = () => 'hello world';
+   Array.myFunction = () => "hello world";
 
    const arr = [1, 2, 3];
    arr.myFunction(); // Output: TypeError: arr.myFunction is not a function
@@ -211,15 +211,15 @@ export { replace, replaceAll };
 
 ```tsx
 // main.ts
-import { replace, replaceAll } from './utils/array';
+import { replace, replaceAll } from "./utils/array";
 
 const arr1 = [1, [2, 1]];
-const arr2 = [10, '2', '2', '1'];
+const arr2 = [10, "2", "2", "1"];
 
 console.log(replace(arr1, 2, 3)); // Output: [1, [2, 1]]
 console.log(replaceAll(arr1, 2, 3)); // Output: [1, [3, 1]]
-console.log(replace(arr2, '2', '3')); // Output: [10, '3', '2', '1']
-console.log(replaceAll(arr2, '2', '3')); // Output: [10, '3', '3', '1']
+console.log(replace(arr2, "2", "3")); // Output: [10, '3', '2', '1']
+console.log(replaceAll(arr2, "2", "3")); // Output: [10, '3', '3', '1']
 ```
 
 이렇게 하면 유틸리티 함수가 `Array.prototype` 을 수정하지 않으며 필요에 따라 가져와 사용할 수있습니 다.
@@ -234,7 +234,7 @@ console.log(replaceAll(arr2, '2', '3')); // Output: [10, '3', '3', '1']
 const arr1 = [1, 2, 3, 2];
 
 if (!Array.prototype.replace) {
-  Object.defineProperty<unknown[]>(Array.prototype, 'replace', {
+  Object.defineProperty<unknown[]>(Array.prototype, "replace", {
     value: function (oldValue: unknown, newValue: unknown) {
       let replaced = false;
       return this.map((item: unknown) => {
