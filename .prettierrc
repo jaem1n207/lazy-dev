@@ -18,5 +18,5 @@
   "proseWrap": "never",
   "embeddedLanguageFormatting": "auto",
   "importOrder": ["^(react|react-dom)$", "^([a-z]|@[a-z])", "", "@/[a-z]", "", ".*"],
-  "plugins": ["prettier-plugin-tailwindcss", "@ianvs/prettier-plugin-sort-imports"]
+  "plugins": ["@ianvs/prettier-plugin-sort-imports", "prettier-plugin-tailwindcss"]
 }
