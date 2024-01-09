@@ -43,6 +43,7 @@
     "*.{css,md,html,json,jsonc}": "prettier --write --ignore-unknown"
   },
   "dependencies": {
+    "@biomejs/biome": "^1.5.0",
     "@fontsource/fira-mono": "^5.0.8",
     "@headlessui/react": "^1.7.17",
     "@tailwindcss/typography": "^0.5.10",
@@ -93,7 +94,6 @@
   "devDependencies": {
     "@babel/preset-react": "^7.23.3",
     "@babel/preset-typescript": "^7.23.3",
-    "@biomejs/biome": "^1.4.1",
     "@commitlint/cli": "^17.7.2",
     "@ianvs/prettier-plugin-sort-imports": "^4.1.1",
     "@testing-library/jest-dom": "^6.1.4",
@@ -116,10 +116,10 @@
     "jest-environment-jsdom": "^29.7.0",
     "lint-staged": "^14.0.1",
     "postcss": "^8.4.31",
-    "prettier": "^3.0.3",
+    "prettier": "^3.1.1",
     "prettier-plugin-tailwindcss": "^0.5.10",
     "tailwindcss": "^3.4.0",
     "ts-jest": "^29.1.1",
-    "typescript": "^5.2.2"
+    "typescript": "^5.3.3"
   }
 }

@@ -22,6 +22,7 @@
   },
   "javascript": {
     "formatter": {
+      "enabled": false,
       "arrowParentheses": "always",
       "jsxQuoteStyle": "single",
       "semicolons": "always",
@@ -35,6 +36,9 @@
     "enabled": true,
     "rules": {
       "recommended": true,
+      "nursery": {
+        "recommended": true
+      },
       "style": {
         "noNonNullAssertion": "off"
       },
