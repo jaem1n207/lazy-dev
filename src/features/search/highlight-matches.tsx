@@ -32,7 +32,7 @@ const processSearchTerm = (searchTerm: string): RegExp => {
   }
 
   // 검색어가 비어있는 경우, 매치되지 않는 정규식을 반환합니다.
-  return new RegExp("$.^", "ig");
+  return /$.^/gi;
 };
 
 /**

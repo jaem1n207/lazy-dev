@@ -1,7 +1,11 @@
 import * as React from "react";
 import classNames from "classnames";
 
-import { PolymorphicComponent, PolymorphicComponentProps, PolymorphicRef } from "../polymorphic";
+import type {
+  PolymorphicComponent,
+  PolymorphicComponentProps,
+  PolymorphicRef,
+} from "../polymorphic";
 
 type _ContentSpacerProps = {
   compact?: boolean;

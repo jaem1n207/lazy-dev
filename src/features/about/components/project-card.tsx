@@ -1,5 +1,5 @@
 import { motion } from "framer-motion";
-import { StaticImage } from "gatsby-plugin-image";
+import type { StaticImage } from "gatsby-plugin-image";
 
 import Anchor from "@/common/components/a/anchor";
 import { ChromeIcon } from "@/common/components/icon/chrome-icon";

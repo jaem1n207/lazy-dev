@@ -1,5 +1,5 @@
-import { FC } from "react";
-import { graphql, HeadFC, HeadProps, PageProps } from "gatsby";
+import type { FC } from "react";
+import { graphql, type HeadFC, type HeadProps, type PageProps } from "gatsby";
 
 import Seo from "@/common/components/seo/seo";
 import PostList from "@/features/post/components/post-list";

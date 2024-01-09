@@ -1,4 +1,4 @@
-import { Element, load } from "cheerio";
+import { load, type Element } from "cheerio";
 
 import type { StructuredData } from "@/common/types/types";
 

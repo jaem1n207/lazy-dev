@@ -2,7 +2,11 @@ import { forwardRef, useMemo, type ElementType, type ReactNode } from "react";
 import { window } from "browser-monads-ts";
 import classNames from "classnames";
 
-import { PolymorphicComponent, PolymorphicComponentProps, PolymorphicRef } from "../polymorphic";
+import type {
+  PolymorphicComponent,
+  PolymorphicComponentProps,
+  PolymorphicRef,
+} from "../polymorphic";
 import { kbdKeyMapMac, kbdKeyMapWinLinux, kbdKeyTitleMap, type KbdKey } from "./types";
 
 type _KbdProps = {

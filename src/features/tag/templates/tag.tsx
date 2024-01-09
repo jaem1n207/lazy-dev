@@ -1,5 +1,5 @@
 import { motion } from "framer-motion";
-import { graphql, HeadProps, PageProps } from "gatsby";
+import { graphql, type HeadProps, type PageProps } from "gatsby";
 
 import Seo from "@/common/components/seo/seo";
 import { Typography } from "@/common/components/typography";

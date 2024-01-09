@@ -1,4 +1,4 @@
-import { graphql, SliceComponentProps } from "gatsby";
+import { graphql, type SliceComponentProps } from "gatsby";
 import { GatsbyImage, getImage } from "gatsby-plugin-image";
 
 import Anchor from "@/common/components/a/anchor";

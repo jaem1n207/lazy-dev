@@ -1,4 +1,4 @@
-import { Link, SliceComponentProps } from "gatsby";
+import { Link, type SliceComponentProps } from "gatsby";
 
 import ContentSpacer from "@/common/components/layout/content-spacer";
 import { ROUTES } from "@/common/const";

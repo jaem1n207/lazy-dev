@@ -1,6 +1,6 @@
 import { window } from "browser-monads-ts";
 import { motion } from "framer-motion";
-import { HeadFC, navigate } from "gatsby";
+import { navigate, type HeadFC } from "gatsby";
 import { StaticImage } from "gatsby-plugin-image";
 
 import Anchor from "@/common/components/a/anchor";

@@ -1,6 +1,6 @@
 import { useEffect } from "react";
 import { motion } from "framer-motion";
-import { graphql, HeadProps, Link, PageProps, Slice } from "gatsby";
+import { graphql, Link, Slice, type HeadProps, type PageProps } from "gatsby";
 
 import "../styles/markdown.css";
 

@@ -6,7 +6,11 @@
 import * as React from "react";
 import classNames from "classnames";
 
-import { PolymorphicComponent, PolymorphicComponentProps, PolymorphicRef } from "../polymorphic";
+import type {
+  PolymorphicComponent,
+  PolymorphicComponentProps,
+  PolymorphicRef,
+} from "../polymorphic";
 
 const fontSize = {
   h1: "leading-tight text-48pxr tablet:text-36pxr foldable:text-30pxr",
