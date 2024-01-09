@@ -18,5 +18,7 @@
   "proseWrap": "never",
   "embeddedLanguageFormatting": "auto",
   "importOrder": ["^(react|react-dom)$", "^([a-z]|@[a-z])", "", "@/[a-z]", "", ".*"],
-  "plugins": ["@ianvs/prettier-plugin-sort-imports", "prettier-plugin-tailwindcss"]
+  "plugins": ["@ianvs/prettier-plugin-sort-imports", "prettier-plugin-tailwindcss"],
+  "importOrderParserPlugins": ["typescript", "jsx", "decorators-legacy"],
+  "importOrderTypeScriptVersion": "5.2.2"
 }
