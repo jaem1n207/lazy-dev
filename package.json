@@ -31,13 +31,13 @@
     "test:coverage": "jest --coverage",
     "typecheck": "tsc --noEmit",
     "format:super-languages": "prettier --write --cache --ignore-unknown '**/*.(css|md|html)'",
-    "format:sort-imports": "prettier --write --plugin=@ianvs/prettier-plugin-sort-imports --cache '*.(js|ts|cjs|mjs|d.cts|d.mts|jsx|tsx)'",
+    "format:sort-imports": "prettier --write --cache '**/*.(js|ts|cjs|mjs|d.cts|d.mts|jsx|tsx)'",
     "lint-fix:script": "biome lint --apply .",
     "check:code": "yarn format:sort-imports && yarn format:super-languages && yarn lint-fix:script"
   },
   "lint-staged": {
     "*.{js,ts,cjs,mjs,d.cts,d.mts,jsx,tsx}": [
-      "prettier --write --plugin=@ianvs/prettier-plugin-sort-imports",
+      "prettier --write",
       "biome lint --apply"
     ],
     "*.{css,md,html,json,jsonc}": "prettier --write --ignore-unknown"
