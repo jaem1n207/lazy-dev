@@ -1,5 +1,5 @@
-import { Slice } from "gatsby";
 import type { ReactNode } from "react";
+import { Slice } from "gatsby";
 
 interface LayoutProps {
   children: ReactNode;
@@ -8,9 +8,9 @@ interface LayoutProps {
 const Layout = ({ children }: LayoutProps) => {
   return (
     <>
-      <Slice alias='nav' />
+      <Slice alias="nav" />
       {children}
-      <Slice alias='footer' />
+      <Slice alias="footer" />
     </>
   );
 };

@@ -17,17 +17,17 @@ const NotFoundPage = () => {
   };
 
   return (
-    <div className='flex select-none flex-col items-center justify-center'>
+    <div className="flex select-none flex-col items-center justify-center">
       <motion.div
-        className='mb-16pxr p-12pxr'
+        className="mb-16pxr p-12pxr"
         initial={animateVariant.hidden}
         animate={animateVariant.show}
         variants={textVariant()}
       >
-        <StaticImage src='../assets/not-found.webp' alt='bunny' placeholder='blurred' width={480} />
+        <StaticImage src="../assets/not-found.webp" alt="bunny" placeholder="blurred" width={480} />
       </motion.div>
       <motion.h1
-        className='mb-12pxr text-36pxr font-bold text-text-primary'
+        className="mb-12pxr text-36pxr font-bold text-text-primary"
         initial={animateVariant.hidden}
         animate={animateVariant.show}
         variants={textVariant({ delay: 0.2 })}
@@ -35,7 +35,7 @@ const NotFoundPage = () => {
         앗! 죄송해요.
       </motion.h1>
       <motion.p
-        className='mb-16pxr text-center text-18pxr text-text-primary'
+        className="mb-16pxr text-center text-18pxr text-text-primary"
         initial={animateVariant.hidden}
         animate={animateVariant.show}
         variants={textVariant({ delay: 0.4 })}
@@ -47,19 +47,19 @@ const NotFoundPage = () => {
         initial={animateVariant.hidden}
         animate={animateVariant.show}
         variants={textVariant({ delay: 0.6 })}
-        className='flex items-center gap-2 foldable:flex-col'
+        className="flex items-center gap-2 foldable:flex-col"
       >
         <button
-          type='button'
+          type="button"
           onClick={goHome}
-          className='focus-primary inline-flex items-center rounded-md bg-primary px-16pxr py-8pxr text-16pxr font-medium text-text-secondary'
+          className="focus-primary inline-flex items-center rounded-md bg-primary px-16pxr py-8pxr text-16pxr font-medium text-text-secondary"
         >
-          <LoginIcon className='mr-8pxr size-20pxr' />
+          <LoginIcon className="mr-8pxr size-20pxr" />
           블로그 홈으로 돌아갈게요.
         </button>
         <ClientOnly>
           <Anchor
-            className='focus-primary rounded-md bg-bg-inner px-16pxr py-8pxr text-16pxr font-medium text-text-secondary'
+            className="focus-primary rounded-md bg-bg-inner px-16pxr py-8pxr text-16pxr font-medium text-text-secondary"
             href={getGithubIssueUrl({
               title: `깨져있던 \`${window.location.pathname}\` 경로를 발견했어요. 확인해주세요!`,
               labels: "bug",
@@ -76,4 +76,4 @@ const NotFoundPage = () => {
 
 export default NotFoundPage;
 
-export const Head: HeadFC = () => <Seo title='404: Not Found' />;
+export const Head: HeadFC = () => <Seo title="404: Not Found" />;

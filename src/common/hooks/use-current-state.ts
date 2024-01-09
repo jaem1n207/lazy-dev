@@ -1,4 +1,4 @@
-import { type SetStateAction, useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState, type SetStateAction } from "react";
 
 const useCurrentState = <T>(initialState: T | (() => T)) => {
   const [state, setState] = useState<T>(() => {

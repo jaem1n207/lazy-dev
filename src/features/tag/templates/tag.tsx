@@ -1,5 +1,5 @@
 import { motion } from "framer-motion";
-import { HeadProps, PageProps, graphql } from "gatsby";
+import { graphql, HeadProps, PageProps } from "gatsby";
 
 import Seo from "@/common/components/seo/seo";
 import { Typography } from "@/common/components/typography";
@@ -17,23 +17,21 @@ const TagTemplate = ({
   }
 >) => {
   return (
-    <div className='mx-auto max-w-7xl'>
+    <div className="mx-auto max-w-7xl">
       <motion.h2
-        className='mb-16pxr mt-24pxr text-center text-48pxr font-bold tablet:mt-20pxr foldable:text-36pxr'
+        className="mb-16pxr mt-24pxr text-center text-48pxr font-bold tablet:mt-20pxr foldable:text-36pxr"
         initial={animateVariant.hidden}
         animate={animateVariant.show}
         variants={textVariant()}
       >
         {pageContext.tag}
       </motion.h2>
-      <div className='mx-auto max-w-[800px] px-32pxr pt-100pxr foldable:px-20pxr foldable:pt-80pxr'>
-        <Typography prose={false} className='mb-16pxr text-24pxr font-bold foldable:text-20pxr'>
+      <div className="mx-auto max-w-[800px] px-32pxr pt-100pxr foldable:px-20pxr foldable:pt-80pxr">
+        <Typography prose={false} className="mb-16pxr text-24pxr font-bold foldable:text-20pxr">
           {data.posts.edges.length} posts
         </Typography>
-        <section className='grid grid-cols-2 gap-24pxr foldable:grid-cols-1 foldable:gap-20pxr'>
-          {data.posts?.edges?.map((post) => (
-            <PostCard key={post.node.fields?.slug} post={post} />
-          ))}
+        <section className="grid grid-cols-2 gap-24pxr foldable:grid-cols-1 foldable:gap-20pxr">
+          {data.posts?.edges?.map((post) => <PostCard key={post.node.fields?.slug} post={post} />)}
         </section>
       </div>
     </div>

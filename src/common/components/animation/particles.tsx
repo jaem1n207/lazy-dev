@@ -37,7 +37,7 @@ const ParticleComponent = ({
 
   return (
     <ClientOnly>
-      <span className='particle-container'>
+      <span className="particle-container">
         {Array.from({ length: particleLength }).map((_, index) => {
           const rng = new RandomNumberGenerator();
           const ParticleAnimation = particleAnimations[animationName];

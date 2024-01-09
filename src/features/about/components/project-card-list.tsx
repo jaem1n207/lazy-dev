@@ -1,5 +1,5 @@
+import { useEffect, useRef, type ComponentProps } from "react";
 import { StaticImage } from "gatsby-plugin-image";
-import { type ComponentProps, useEffect, useRef } from "react";
 
 import ProjectCard from "./project-card";
 
@@ -23,7 +23,7 @@ const ProjectCardList = () => {
   }, []);
 
   return (
-    <div ref={gridRef} className='grid grid-cols-project-card-list gap-24pxr foldable:grid-cols-1'>
+    <div ref={gridRef} className="grid grid-cols-project-card-list gap-24pxr foldable:grid-cols-1">
       {projects.map((project, index) => (
         <ProjectCard key={project.name} index={index} {...project} />
       ))}
@@ -49,10 +49,10 @@ const projects: Omit<ComponentProps<typeof ProjectCard>, "index">[] = [
     ],
     staticImageEl: (
       <StaticImage
-        alt='project-thumbnail'
+        alt="project-thumbnail"
         src={`${IMAGE_FOLDER_PATH}/react-profile.jpg`}
-        className='h-250pxr w-full'
-        placeholder='blurred'
+        className="h-250pxr w-full"
+        placeholder="blurred"
       />
     ),
     projectUrl: {
@@ -84,10 +84,10 @@ const projects: Omit<ComponentProps<typeof ProjectCard>, "index">[] = [
     ],
     staticImageEl: (
       <StaticImage
-        alt='project-thumbnail'
+        alt="project-thumbnail"
         src={`${IMAGE_FOLDER_PATH}/react-profile.jpg`}
-        className='h-250pxr w-full'
-        placeholder='blurred'
+        className="h-250pxr w-full"
+        placeholder="blurred"
       />
     ),
     projectUrl: {
@@ -109,10 +109,10 @@ const projects: Omit<ComponentProps<typeof ProjectCard>, "index">[] = [
     ],
     staticImageEl: (
       <StaticImage
-        alt='project-thumbnail'
+        alt="project-thumbnail"
         src={`${IMAGE_FOLDER_PATH}/react-profile.jpg`}
-        className='h-250pxr w-full'
-        placeholder='blurred'
+        className="h-250pxr w-full"
+        placeholder="blurred"
       />
     ),
     projectUrl: {
@@ -134,10 +134,10 @@ const projects: Omit<ComponentProps<typeof ProjectCard>, "index">[] = [
     ],
     staticImageEl: (
       <StaticImage
-        alt='project-thumbnail'
+        alt="project-thumbnail"
         src={`${IMAGE_FOLDER_PATH}/react-profile.jpg`}
-        className='h-250pxr w-full'
-        placeholder='blurred'
+        className="h-250pxr w-full"
+        placeholder="blurred"
       />
     ),
     projectUrl: {

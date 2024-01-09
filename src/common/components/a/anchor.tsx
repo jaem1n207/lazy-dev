@@ -1,6 +1,6 @@
-import classNames from "classnames";
 /* eslint-disable react/prop-types */
-import { HTMLProps, ReactNode, forwardRef, memo } from "react";
+import { forwardRef, HTMLProps, memo, ReactNode } from "react";
+import classNames from "classnames";
 
 type AnchorVariant = "default" | "underline";
 

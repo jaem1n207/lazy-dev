@@ -1,10 +1,10 @@
-import classNames from "classnames";
 /**
  * Original Code
  * @see https://github.com/kentcdodds/kentcdodds.com/blob/main/app/components/typography.tsx
  * modified by @jaem1n207
  */
 import * as React from "react";
+import classNames from "classnames";
 
 import { PolymorphicComponent, PolymorphicComponentProps, PolymorphicRef } from "../polymorphic";
 
@@ -43,12 +43,12 @@ const Title = <T extends React.ElementType = "h1">({
   );
 };
 
-const H1 = (props: PolymorphicComponentProps<"h1", TitleProps>) => <Title size='h1' {...props} />;
-const H2 = (props: PolymorphicComponentProps<"h2", TitleProps>) => <Title size='h2' {...props} />;
-const H3 = (props: PolymorphicComponentProps<"h3", TitleProps>) => <Title size='h3' {...props} />;
-const H4 = (props: PolymorphicComponentProps<"h4", TitleProps>) => <Title size='h4' {...props} />;
-const H5 = (props: PolymorphicComponentProps<"h5", TitleProps>) => <Title size='h5' {...props} />;
-const H6 = (props: PolymorphicComponentProps<"h6", TitleProps>) => <Title size='h6' {...props} />;
+const H1 = (props: PolymorphicComponentProps<"h1", TitleProps>) => <Title size="h1" {...props} />;
+const H2 = (props: PolymorphicComponentProps<"h2", TitleProps>) => <Title size="h2" {...props} />;
+const H3 = (props: PolymorphicComponentProps<"h3", TitleProps>) => <Title size="h3" {...props} />;
+const H4 = (props: PolymorphicComponentProps<"h4", TitleProps>) => <Title size="h4" {...props} />;
+const H5 = (props: PolymorphicComponentProps<"h5", TitleProps>) => <Title size="h5" {...props} />;
+const H6 = (props: PolymorphicComponentProps<"h6", TitleProps>) => <Title size="h6" {...props} />;
 
 type _TypographyProps = {
   prose?: boolean;
@@ -59,19 +59,19 @@ type TypographyProps<T extends React.ElementType> = PolymorphicComponentProps<T,
 type TypographyComponent = PolymorphicComponent<"span", _TypographyProps>;
 
 const Typography: TypographyComponent = React.forwardRef(
-  <T extends React.ElementType = 'span'>(
+  <T extends React.ElementType = "span">(
     { as, prose = false, className, ...props }: TypographyProps<T>,
-    ref: PolymorphicRef<T>['ref'],
+    ref: PolymorphicRef<T>["ref"],
   ) => {
-    const Component = as ?? 'span';
+    const Component = as ?? "span";
 
     return (
       <Component
         ref={ref}
         className={classNames(
-          prose ? 'prose' : 'text-base text-text-primary',
+          prose ? "prose" : "text-base text-text-primary",
           className,
-          'transition-colors duration-500',
+          "transition-colors duration-500",
         )}
         {...props}
       />

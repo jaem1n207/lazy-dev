@@ -1,5 +1,5 @@
-import escapeStringRegexp from "escape-string-regexp";
 import type { ReactNode } from "react";
+import escapeStringRegexp from "escape-string-regexp";
 
 interface HighlightMatchesProps {
   /**
@@ -56,7 +56,7 @@ const createSearchResult = (value: string, regexp: RegExp) => {
       const matched = splitValue.splice(0, regexp.lastIndex - result.index).join("");
       content.push(
         before,
-        <span key={result.index} className='text-primary'>
+        <span key={result.index} className="text-primary">
           {matched}
         </span>,
       );

@@ -1,5 +1,5 @@
-import { graphql, useStaticQuery } from "gatsby";
 import type { ReactNode } from "react";
+import { graphql, useStaticQuery } from "gatsby";
 
 interface SeoProps {
   title?: string | null;
@@ -30,23 +30,23 @@ const Seo = ({ description, title, openGraph, children }: SeoProps) => {
     <>
       {/* HTML Meta Tags */}
       <title>{seo.title}</title>
-      <meta name='description' content={seo.description} />
-      <meta name='viewport' content='width=device-width, initial-scale=1.0' />
+      <meta name="description" content={seo.description} />
+      <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
       {/* Facebook Meta Tags */}
-      {seo.openGraph.url && <meta property='og:url' content={seo.openGraph.url} />}
-      <meta property='og:type' content={seo.openGraph.type} />
-      <meta property='og:title' content={seo.title} />
-      <meta property='og:description' content={seo.description} />
-      <meta property='og:image' content={seo.openGraph.image || ""} />
-      <meta property='og:locale' content='ko_KR' />
+      {seo.openGraph.url && <meta property="og:url" content={seo.openGraph.url} />}
+      <meta property="og:type" content={seo.openGraph.type} />
+      <meta property="og:title" content={seo.title} />
+      <meta property="og:description" content={seo.description} />
+      <meta property="og:image" content={seo.openGraph.image || ""} />
+      <meta property="og:locale" content="ko_KR" />
 
       {/* Twitter Meta Tags */}
-      <meta name='twitter:card' content='summary_large_image' />
-      <meta name='twitter:title' content={seo.title} />
-      <meta name='twitter:description' content={seo.description} />
-      <meta name='twitter:image' content={seo.openGraph.image || ""} />
-      <meta name='twitter:creator' content={seo?.author || ""} />
+      <meta name="twitter:card" content="summary_large_image" />
+      <meta name="twitter:title" content={seo.title} />
+      <meta name="twitter:description" content={seo.description} />
+      <meta name="twitter:image" content={seo.openGraph.image || ""} />
+      <meta name="twitter:creator" content={seo?.author || ""} />
 
       {children}
     </>

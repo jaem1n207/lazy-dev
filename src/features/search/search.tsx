@@ -1,13 +1,13 @@
-import { window } from "browser-monads-ts";
-import { Link } from "gatsby";
 import {
-  type ChangeEvent,
-  type FocusEvent,
   Fragment,
-  type MouseEvent,
   useEffect,
   useRef,
+  type ChangeEvent,
+  type FocusEvent,
+  type MouseEvent,
 } from "react";
+import { window } from "browser-monads-ts";
+import { Link } from "gatsby";
 import { useHotkeys } from "react-hotkeys-hook";
 import { Key } from "ts-key-enum";
 
@@ -152,29 +152,29 @@ const Search = ({ value, onChange: _onChange, loading, error, results }: SearchP
   });
 
   return (
-    <div className='relative w-256pxr tablet:hidden foldable:w-auto'>
+    <div className="relative w-256pxr tablet:hidden foldable:w-auto">
       {renderResults && (
         <div
-          className='fixed inset-0 z-10 cursor-zoom-out'
+          className="fixed inset-0 z-10 cursor-zoom-out"
           onClick={finishSearch}
           onKeyDown={finishSearch}
-          role='button'
+          role="button"
           tabIndex={-1}
         />
       )}
 
-      <div className='relative flex flex-none items-center gap-2pxr rounded-lg bg-gray-200 px-8pxr py-4pxr dark:bg-gray-50/10'>
+      <div className="relative flex flex-none items-center gap-2pxr rounded-lg bg-gray-200 px-8pxr py-4pxr dark:bg-gray-50/10">
         <input
           ref={inputRef}
-          className='z-20 flex w-full flex-shrink flex-grow basis-auto appearance-none bg-transparent text-sm -outline-offset-2 transition-colors placeholder-shown:line-clamp-1 focus-within:outline-none focus-visible:outline-none tablet:text-base'
+          className="z-20 flex w-full flex-shrink flex-grow basis-auto appearance-none bg-transparent text-sm -outline-offset-2 transition-colors placeholder-shown:line-clamp-1 focus-within:outline-none focus-visible:outline-none tablet:text-base"
           value={value}
           onChange={onChange}
-          placeholder='주제, 내용 검색'
+          placeholder="주제, 내용 검색"
         />
         <ClientOnly>
           {displayKbd && (
-            <div className='select-none'>
-              {value ? <Kbd>ESC</Kbd> : <Kbd keys='command'>K</Kbd>}
+            <div className="select-none">
+              {value ? <Kbd>ESC</Kbd> : <Kbd keys="command">K</Kbd>}
             </div>
           )}
         </ClientOnly>
@@ -183,15 +183,15 @@ const Search = ({ value, onChange: _onChange, loading, error, results }: SearchP
       {renderResults && (
         <ul
           ref={ulRef}
-          className='absolute right-0 top-full z-20 mt-8pxr max-h-400pxr w-screen max-w-lg overflow-auto overscroll-contain scroll-smooth rounded-xl border border-border-primary bg-bg-primary py-10pxr shadow-xl'
+          className="absolute right-0 top-full z-20 mt-8pxr max-h-400pxr w-screen max-w-lg overflow-auto overscroll-contain scroll-smooth rounded-xl border border-border-primary bg-bg-primary py-10pxr shadow-xl"
         >
           {error ? (
-            <div className='px-12pxr py-2pxr'>
+            <div className="px-12pxr py-2pxr">
               검색할 데이터를 가져오지 못했어요
               <br />
               문제가 계속 발생하면{" "}
               <Anchor
-                className='focus-primary rounded-md bg-primary px-4pxr py-2pxr text-14pxr text-text-secondary'
+                className="focus-primary rounded-md bg-primary px-4pxr py-2pxr text-14pxr text-text-secondary"
                 href={getGithubIssueUrl({
                   title: `검색 기능이 제대로 작동하지 않아요. 확인해주세요! (검색어: \`${value}\`)`,
                   labels: "bug",
@@ -203,16 +203,16 @@ const Search = ({ value, onChange: _onChange, loading, error, results }: SearchP
               에 남겨주세요!
             </div>
           ) : loading ? (
-            <div className='animate-pulse px-12pxr py-2pxr'>
+            <div className="animate-pulse px-12pxr py-2pxr">
               검색할 데이터를 불러오는 중이에요...
             </div>
           ) : results.length === 0 ? (
-            <div className='px-12pxr py-2pxr'>
-              <strong className='text-primary'>&apos;{value}&apos;</strong>에 대한 검색결과가 없어요
+            <div className="px-12pxr py-2pxr">
+              <strong className="text-primary">&apos;{value}&apos;</strong>에 대한 검색결과가 없어요
               <br />
-              <strong className='text-primary'>&apos;{value}&apos;</strong>에 대한 내용이 궁금하다면{" "}
+              <strong className="text-primary">&apos;{value}&apos;</strong>에 대한 내용이 궁금하다면{" "}
               <Anchor
-                className='focus-primary rounded-md bg-primary px-4pxr py-2pxr text-14pxr text-text-secondary'
+                className="focus-primary rounded-md bg-primary px-4pxr py-2pxr text-14pxr text-text-secondary"
                 href={getGithubDiscussionUrl({
                   discussionId: DiscussionIds.TopicIdea,
                 })}
@@ -231,11 +231,11 @@ const Search = ({ value, onChange: _onChange, loading, error, results }: SearchP
                     {prefix}
                     <li
                       ref={listRef}
-                      className='mx-8pxr list-none break-words rounded-md text-gray-800 dark:text-slate-100'
+                      className="mx-8pxr list-none break-words rounded-md text-gray-800 dark:text-slate-100"
                     >
                       <Link
                         to={route}
-                        className='relative block scroll-m-1 px-10pxr py-8pxr transition-colors focus-visible:text-primary focus-visible:outline-none'
+                        className="relative block scroll-m-1 px-10pxr py-8pxr transition-colors focus-visible:text-primary focus-visible:outline-none"
                         onClick={finishSearch}
                         onMouseOver={hoverHandler}
                         onFocus={focusHandler}

@@ -1,5 +1,5 @@
-import { window } from "browser-monads-ts";
 import { useCallback, useEffect, useMemo } from "react";
+import { window } from "browser-monads-ts";
 
 import { Typography } from "@/common/components/typography";
 import { useScrollEvent } from "@/common/hooks/use-scroll-event";
@@ -88,12 +88,12 @@ const TableOfContents = ({ toc }: TableOfContentsProps) => {
   if (!toc) return null;
 
   return (
-    <div className='fixed max-h-[70vh] max-w-[20vw] overflow-auto bg-transparent px-12pxr py-4pxr'>
-      <Typography as='h3' className='mb-12pxr text-18pxr font-bold text-all-custom-gray'>
+    <div className="fixed max-h-[70vh] max-w-[20vw] overflow-auto bg-transparent px-12pxr py-4pxr">
+      <Typography as="h3" className="mb-12pxr text-18pxr font-bold text-all-custom-gray">
         ON THIS PAGE
       </Typography>
       <div
-        className='toc-wrapper border-spacing-24pxr pl-12pxr text-13pxr font-bold tracking-normal text-all-custom-gray tablet:border-spacing-28pxr tablet:tracking-tighter'
+        className="toc-wrapper border-spacing-24pxr pl-12pxr text-13pxr font-bold tracking-normal text-all-custom-gray tablet:border-spacing-28pxr tablet:tracking-tighter"
         // biome-ignore lint/security/noDangerouslySetInnerHtml: <explanation>
         dangerouslySetInnerHTML={{ __html: toc }}
       />

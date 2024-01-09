@@ -1,7 +1,7 @@
-import classNames from "classnames";
-import { MotionProps, motion } from "framer-motion";
-import { ElementType, HTMLAttributes, forwardRef } from "react";
+import { ElementType, forwardRef, HTMLAttributes } from "react";
 import * as React from "react";
+import classNames from "classnames";
+import { motion, MotionProps } from "framer-motion";
 
 interface GridProps extends HTMLAttributes<HTMLElement> {
   as?: ElementType;

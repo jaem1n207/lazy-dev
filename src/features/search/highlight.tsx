@@ -1,8 +1,8 @@
+import { useMemo, useRef, type HTMLAttributes } from "react";
 import classNames from "classnames";
-import { type HTMLAttributes, useMemo, useRef } from "react";
 
 import { usePrevious } from "@/common/hooks/use-previous";
-import { type ReactiveDomReact, isUnplacedRect } from "@/common/hooks/use-rect";
+import { isUnplacedRect, type ReactiveDomReact } from "@/common/hooks/use-rect";
 
 type Props = {
   rect: ReactiveDomReact;

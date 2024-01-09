@@ -1,4 +1,4 @@
-import { type FocusEvent, type MouseEvent, type MutableRefObject, useState } from "react";
+import { useState, type FocusEvent, type MouseEvent, type MutableRefObject } from "react";
 
 import { getElementOffset } from "../utils/dom";
 

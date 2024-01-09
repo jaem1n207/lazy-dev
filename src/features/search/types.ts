@@ -1,5 +1,5 @@
-import FlexSearch from "flexsearch";
 import type { ReactNode } from "react";
+import FlexSearch from "flexsearch";
 
 export type PageIndex = FlexSearch.Document<
   {

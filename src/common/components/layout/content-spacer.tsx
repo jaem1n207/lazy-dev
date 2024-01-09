@@ -1,5 +1,5 @@
-import classNames from "classnames";
 import * as React from "react";
+import classNames from "classnames";
 
 import { PolymorphicComponent, PolymorphicComponentProps, PolymorphicRef } from "../polymorphic";
 
@@ -15,17 +15,17 @@ type ContentSpacerProps<T extends React.ElementType> = PolymorphicComponentProps
 type ContentSpacerComponent = PolymorphicComponent<"div", _ContentSpacerProps>;
 
 const ContentSpacer: ContentSpacerComponent = React.forwardRef(
-  <T extends React.ElementType = 'div'>(
+  <T extends React.ElementType = "div">(
     { as, compact = false, className, ...props }: ContentSpacerProps<T>,
-    ref: PolymorphicRef<T>['ref'],
+    ref: PolymorphicRef<T>["ref"],
   ) => {
-    const Component = as ?? 'div';
+    const Component = as ?? "div";
 
     const classes = classNames(
-      'relative',
+      "relative",
       {
-        'mx-10vw': !compact,
-        'mx-auto': compact,
+        "mx-10vw": !compact,
+        "mx-auto": compact,
       },
       className,
     );
