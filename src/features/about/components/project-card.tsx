@@ -4,6 +4,7 @@ import type { StaticImage } from "gatsby-plugin-image";
 import Anchor from "@/common/components/a/anchor";
 import { ChromeIcon } from "@/common/components/icon/chrome-icon";
 import { GithubIcon } from "@/common/components/icon/github-icon";
+import { NpmIcon } from "@/common/components/icon/npm-icon";
 import { Typography } from "@/common/components/typography";
 import { animateVariant, fadeIn } from "@/common/utils/motion";
 
@@ -21,6 +22,7 @@ interface ProjectCardProps {
   projectUrl: {
     github?: string;
     live?: string;
+    npm?: string;
   };
 }
 
@@ -32,11 +34,14 @@ const ProjectCard = ({ index, name, description, tags, projectUrl }: ProjectCard
       animate={animateVariant.show}
       variants={fadeIn({ direction: "down", type: "spring", delay: index * 0.2 })}
     >
-      <div
-        className={`flex ${
-          projectUrl.live && projectUrl.github ? "justify-between" : "justify-end"
-        }`}
-      >
+      <div className="flex justify-end gap-2">
+        {projectUrl.npm && (
+          <div className="flex items-center justify-center rounded-full">
+            <Anchor href={projectUrl.npm} external className="rounded-full">
+              <NpmIcon className="stroke-dark size-32pxr fill-none dark:stroke-white" />
+            </Anchor>
+          </div>
+        )}
         {projectUrl.live && (
           <div className="flex items-center justify-center rounded-full">
             <Anchor href={projectUrl.live} external className="rounded-full">
