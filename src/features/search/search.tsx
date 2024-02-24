@@ -55,6 +55,14 @@ const Search = ({ value, onChange: _onChange, loading, error, results }: SearchP
 
   const [preventHover, setPreventHover, preventHoverRef] = useCurrentState(false);
 
+  const inputFocusHandler = () => {
+    setPreventHover(true);
+  };
+
+  const inputBlurHandler = () => {
+    setPreventHover(false);
+  };
+
   const hoverHandler = (e: MouseEvent<HTMLAnchorElement>) => {
     if (preventHover) return;
     if (!isSearchItem(e.currentTarget)) return;
@@ -169,6 +177,8 @@ const Search = ({ value, onChange: _onChange, loading, error, results }: SearchP
           className="z-20 flex w-full flex-shrink flex-grow basis-auto appearance-none bg-transparent text-sm -outline-offset-2 transition-colors placeholder-shown:line-clamp-1 focus-within:outline-none focus-visible:outline-none tablet:text-base"
           value={value}
           onChange={onChange}
+          onFocus={inputFocusHandler}
+          onBlur={inputBlurHandler}
           placeholder="주제, 내용 검색"
         />
         <ClientOnly>
