@@ -252,9 +252,6 @@ const preBodyScript = () => {
     const hasMediaQueryPreference = typeof mql.matches === "boolean";
 
     if (hasMediaQueryPreference) {
-      mql.addEventListener("change", (e) => {
-        window.__LAZY_DEV_DATA__.theme.setPreferredTheme(e.matches ? "dark" : "light");
-      });
       return mql.matches ? "dark" : "light";
     }
 
