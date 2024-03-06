@@ -1,3 +1,33 @@
+html.brand-chrome article *:not(h1):not(h2):not(h3):not(h4):not(h5):not(h6) a::before,
+html.brand-firefox article *:not(h1):not(h2):not(h3):not(h4):not(h5):not(h6) a::before,
+html.brand-safari article *:not(h1):not(h2):not(h3):not(h4):not(h5):not(h6) a::before,
+html.brand-edge article *:not(h1):not(h2):not(h3):not(h4):not(h5):not(h6) a::before,
+html.brand-opera article *:not(h1):not(h2):not(h3):not(h4):not(h5):not(h6) a::before {
+  content: "";
+  display: inline-block;
+  width: 14px;
+  height: 14px;
+  margin-right: 2px;
+  vertical-align: middle;
+  background-size: contain;
+  background-repeat: no-repeat;
+}
+html.brand-chrome article *:not(h1):not(h2):not(h3):not(h4):not(h5):not(h6) a::before {
+  background-image: url("../../../assets/icons/chrome-logo.svg");
+}
+html.brand-firefox article *:not(h1):not(h2):not(h3):not(h4):not(h5):not(h6) a::before {
+  background-image: url("../../../assets/icons/firefox-logo.svg");
+}
+html.brand-safari article *:not(h1):not(h2):not(h3):not(h4):not(h5):not(h6) a::before {
+  background-image: url("../../../assets/icons/safari-logo.svg");
+}
+html.brand-edge article *:not(h1):not(h2):not(h3):not(h4):not(h5):not(h6) a::before {
+  background-image: url("../../../assets/icons/edge-logo.svg");
+}
+html.brand-opera article *:not(h1):not(h2):not(h3):not(h4):not(h5):not(h6) a::before {
+  background-image: url("../../../assets/icons/opera-logo.svg");
+}
+
 code[class*="language-"],
 pre[class*="language-"] {
   font-family: "Fira Mono", Consolas, "Liberation Mono", Menlo, monospace;

@@ -14,7 +14,6 @@ export const onRenderBody: GatsbySSR["onRenderBody"] = ({
     lang: "ko",
   });
   setPreBodyComponents([
-    // @ts-ignore
     <script
       key="gatsby-ssr-inline-script"
       id="gatsby-ssr-inline-script"

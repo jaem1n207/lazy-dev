@@ -367,11 +367,9 @@
   }
 }
 
-/* 특정 플랫폼에 따라 콘텐츠를 숨깁니다. */
 html.platform-mac [data-platform="win"] {
   display: none;
 }
-
 html.platform-win [data-platform="mac"] {
   display: none;
 }

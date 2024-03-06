@@ -228,89 +228,136 @@ export const onCreateNode: GatsbyNode["onCreateNode"] = ({ node, getNode, action
   }
 };
 
-const generatePreBodyScript = `
+const preBodyScript = () => {
   window.__LAZY_DEV_DATA__ = {
     theme: {
-      mode: undefined,
-      setPreferredTheme: undefined,
+      mode: "light",
+      setPreferredTheme: (theme) => {
+        console.error("theme preference not yet implemented");
+      },
     },
-    detectDevice: {},
+    brand: "chrome",
+    platform: "mac",
   };
 
-  function setTheme(newTheme) {
-    window.__LAZY_DEV_DATA__.theme.mode = newTheme;
-    if (newTheme === 'dark') {
-      document.documentElement.classList.add('dark');
-    } else if (newTheme === 'light') {
-      document.documentElement.classList.remove('dark');
+  const getInitialColorMode = () => {
+    const persistedColorPreference = window.localStorage.getItem("theme") as Theme;
+    const hasPersistedPreference = typeof persistedColorPreference === "string";
+
+    if (hasPersistedPreference) {
+      return persistedColorPreference;
     }
-  }
 
-  let preferredTheme;
-  try {
-    preferredTheme = localStorage.getItem('theme');
-  } catch (e) {}
+    const mql = window.matchMedia("(prefers-color-scheme: dark)");
+    const hasMediaQueryPreference = typeof mql.matches === "boolean";
 
+    if (hasMediaQueryPreference) {
+      mql.addEventListener("change", (e) => {
+        window.__LAZY_DEV_DATA__.theme.setPreferredTheme(e.matches ? "dark" : "light");
+      });
+      return mql.matches ? "dark" : "light";
+    }
+
+    return "light";
+  };
+
+  const theme = getInitialColorMode();
+  document.documentElement.classList.add(theme);
+
+  window.__LAZY_DEV_DATA__.theme.mode = theme;
   window.__LAZY_DEV_DATA__.theme.setPreferredTheme = (newTheme) => {
-    preferredTheme = newTheme;
-    setTheme(newTheme);
-    try {
-      localStorage.setItem('theme', newTheme);
-      setTheme(newTheme);
-    } catch (e) {}
+    document.documentElement.classList.remove("light", "dark");
+    document.documentElement.classList.add(newTheme);
+    window.__LAZY_DEV_DATA__.theme.mode = newTheme;
+    window.localStorage.setItem("theme", newTheme);
   };
 
-  let initialTheme = preferredTheme || 'system';
-  let darkQuery = window.matchMedia('(prefers-color-scheme: dark)');
+  const isNavigatorDefined = typeof navigator !== "undefined";
+  const userAgent = isNavigatorDefined
+    ? navigator.userAgentData && Array.isArray(navigator.userAgentData.brands)
+      ? navigator.userAgentData.brands
+          .map((brand) => `${brand.brand.toLowerCase()} ${brand.version}`)
+          .join(" ")
+      : navigator.userAgent.toLowerCase()
+    : "some useragent";
 
-  if (initialTheme === 'system') {
-    initialTheme = darkQuery.matches ? 'dark' : 'light';
-  }
-  setTheme(initialTheme);
+  const platform = isNavigatorDefined
+    ? navigator.userAgentData && typeof navigator.userAgentData.platform === "string"
+      ? navigator.userAgentData.platform.toLowerCase()
+      : navigator.platform.toLowerCase()
+    : "some platform";
 
-  // 플랫폼별로 콘텐츠를 표시하기 위해 브라우저가 Mac인지 여부를 감지합니다.
-  // 예로 검색창에 표시되는 키보드 단축키를 들 수 있습니다.
-  const isMacOs = window.navigator.platform.includes('Mac');
-  document.documentElement.classList.add(isMacOs ? 'platform-mac' : 'platform-win');
+  const isMacOs = platform.startsWith("mac");
+  const isWindows = platform.startsWith("win");
+  const isMobile =
+    isNavigatorDefined && navigator.userAgentData
+      ? navigator.userAgentData.mobile
+      : userAgent.includes("mobile");
 
-  const userAgent = window.navigator.userAgent;
+  const isChromium = userAgent.includes("chrome") || userAgent.includes("chromium");
+  const isFirefox =
+    userAgent.includes("firefox") ||
+    userAgent.includes("thunderbird") ||
+    userAgent.includes("librewolf");
+  const isOpera = isChromium && (userAgent.includes("opr") || userAgent.includes("opera"));
+  const isEdge = isChromium && userAgent.includes("edg");
+  const isChrome = isChromium && !isOpera && !isEdge;
+  const isSafari = !isChromium && userAgent.includes("safari");
 
-  const isMobile = /Mobi|Android/i.test(userAgent);
-  const isTablet = /Tablet|iPad/i.test(userAgent);
-  const isDesktop = !isMobile && !isTablet;
-  const isSmartTV =
-    /SmartTV|SMART-TV|Internet.TV|NetCast|NETTV|AppleTV|boxee|Kylo|Roku|DLNADOC|CE-HTML/i.test(
-      userAgent,
-    );
-  const isWearable = /Wearable|Watch/i.test(userAgent);
-  const isEmbedded = /Raspbian|Ubuntu|ARM/i.test(userAgent);
-  const isTouch =
-    'ontouchstart' in window || navigator.maxTouchPoints > 0 || navigator.msMaxTouchPoints > 0;
-
-  window.__LAZY_DEV_DATA__.detectDevice = {
-    isMacOs,
-    isMobile,
-    isTablet,
-    isDesktop,
-    isSmartTV,
-    isWearable,
-    isEmbedded,
-    isTouch,
+  // 사용자의 browser, os 정보를 가져옵니다. 주로 검색창에 표시되는
+  // 키보드 단축키 또는 마크다운 내 a 요소의 스타일을 변경하기 위해 사용합니다
+  const platformMap: Record<Platform, boolean> = {
+    mac: isMacOs,
+    win: isWindows,
+    mobile: isMobile,
   };
-`;
+  const brandMap: Record<Brand, boolean> = {
+    chrome: isChrome,
+    firefox: isFirefox,
+    safari: isSafari,
+    edge: isEdge,
+    opera: isOpera,
+  };
+  const brand: Brand = Object.keys(brandMap).find((key) => brandMap[key as Brand]) as Brand;
+  document.documentElement.classList.add(
+    `platform-${isMacOs ? "mac" : isWindows ? "win" : "mobile"}`,
+  );
+  document.documentElement.classList.add(`brand-${brand || "chromium"}`);
+
+  window.__LAZY_DEV_DATA__.brand = brand;
+  window.__LAZY_DEV_DATA__.platform = Object.keys(platformMap).find(
+    (key) => platformMap[key as Platform],
+  ) as Platform;
+};
+
+// 정적 검사, prettier, 오타 검사를 위해 문자열이 아닌 함수를 사용합니다.
+// 함수를 작성한 다음 문자열화를 진행합니다.
+let calledFunction = `(${preBodyScript})()`;
+calledFunction = esbuild.transformSync(calledFunction, {
+  minify: true,
+  platform: "browser",
+}).code;
+
+/**
+ * gatsby-node.ts에서 `gatsby-ssr.tsx`의 `setPreBodyComponents`에
+ * 전달하기 위해 함수 결과를 `definePlugin`으로 문자열 형태로 주입합니다.
+ *
+ * 이렇게 하는 이유는 `gatsby-ssr.tsx`에서 직접 esbuild를 사용하여 번들링 시도 시,
+ * 코드는 런타임이 아닌 Gatsby의 SSR 과정에서 실행됩니다. 이 과정에서 코드를 변환하려고 하면
+ * 변환된 코드가 webpack을 통해 다시 번들링되는 과정에서 Node.js의 core 모듈들에 대한 참조가 발생합니다.
+ * webpack5부터는 Node.js의 core 모듈에 대한 자동 폴리필을 제공하지 않기에,
+ * 이 로직을 `gatsby-ssr.tsx`에서 실행하면 빌드 시 에러가 발생합니다.
+ *
+ * @see https://github.com/jaem1n207/lazy-dev/issues/73
+ */
 export const onCreateWebpackConfig: GatsbyNode["onCreateWebpackConfig"] = ({
   actions,
   plugins,
 }) => {
-  const preBodyScript = esbuild.transformSync(generatePreBodyScript, {
-    minify: true,
-    format: "iife",
-  }).code;
-
   actions.setWebpackConfig({
     plugins: [
       plugins.define({
-        "process.env.LAZY_DEV_PRE_BODY_SCRIPT": JSON.stringify(preBodyScript),
+        "process.env.LAZY_DEV_PRE_BODY_SCRIPT": JSON.stringify(calledFunction),
       }),
     ],
   });

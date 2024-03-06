@@ -1,24 +1,30 @@
 declare global {
-  type Theme = "dark" | "light" | undefined;
+  type Theme = "dark" | "light";
 
-  interface DetectDevice {
-    isMacOs: boolean;
-    isMobile: boolean;
-    isTablet: boolean;
-    isDesktop: boolean;
-    isSmartTV: boolean;
-    isWearable: boolean;
-    isEmbedded: boolean;
-    isTouch: boolean;
+  interface UserAgentData {
+    brands: Array<{
+      brand: string;
+      version: string;
+    }>;
+    mobile: boolean;
+    platform: string;
   }
+
+  interface NavigatorID {
+    userAgentData: UserAgentData;
+  }
+
+  type Brand = "chrome" | "firefox" | "safari" | "edge" | "opera";
+  type Platform = "mac" | "win" | "mobile";
 
   interface Window {
     __LAZY_DEV_DATA__: {
       theme: {
         mode: Theme;
-        setPreferredTheme: (theme: Theme) => void;
+        setPreferredTheme: (newTheme: Theme) => void;
       };
-      detectDevice: DetectDevice;
+      brand: Brand;
+      platform: Platform;
     };
   }
 }
