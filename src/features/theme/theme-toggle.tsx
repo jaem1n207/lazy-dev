@@ -5,6 +5,7 @@ import { MoonIcon, SunIcon } from "./icons";
 
 const ThemeToggle = () => {
   const [theme, setTheme] = useState<Theme | undefined>();
+  const isDarkTheme = theme === "dark";
 
   const toggleTheme = () => {
     const newTheme = theme === "dark" ? "light" : "dark";
