@@ -1,5 +1,4 @@
 import { forwardRef, useMemo, type ElementType, type ReactNode } from "react";
-import { window } from "browser-monads-ts";
 import classNames from "classnames";
 
 import type {
@@ -30,9 +29,8 @@ const Kbd: KbdComponent = forwardRef(
   ) => {
     const Component = as ?? "kbd";
 
-    const keyMap = window.__LAZY_DEV_DATA__.detectDevice.isMacOs ? kbdKeyMapMac : kbdKeyMapWinLinux;
-
     const keyContents = useMemo(() => {
+      const keyMap = window.__LAZY_DEV_DATA__.platform === "mac" ? kbdKeyMapMac : kbdKeyMapWinLinux;
       const keysToRender = typeof keys === "string" ? [keys] : Array.isArray(keys) ? keys : [];
 
       return keysToRender.map((key) => (
@@ -44,13 +42,13 @@ const Kbd: KbdComponent = forwardRef(
           {keyMap[key]}
         </abbr>
       ));
-    }, [className?.abbr, keyMap, keys]);
+    }, [keys, className?.abbr]);
 
     return (
       <Component
         ref={ref}
         className={classNames(
-          "inline-flex items-center justify-center space-x-0.5 rounded-md bg-bg-secondary px-1.5 py-0.5 text-center font-sans text-sm font-normal text-neutral-600 shadow-sm dark:text-zinc-200",
+          "inline-flex items-center justify-center space-x-0.5 rounded-md bg-bg-secondary px-1.5 py-0.5 text-center font-sans text-sm font-normal text-neutral-600 shadow-sm pointer-coarse:hidden dark:text-zinc-200",
           className?.wrapper,
         )}
         {...props}

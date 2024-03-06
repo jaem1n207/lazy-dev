@@ -37,12 +37,6 @@ const isSearchItem = (el?: HTMLElement) => {
 };
 
 const Search = ({ value, onChange: _onChange, loading, error, results }: SearchProps) => {
-  // 현재로선 search 컴포넌트는 tablet 사이즈 이하인 기기에선 보이지 않습니다.
-  // 그러나 추후 tablet 사이즈 이하인 기기도 검색을 사용할 수 있도록 지원할 예정이기에 아래 조건을 추가합니다.
-  const displayKbd =
-    !window.__LAZY_DEV_DATA__.detectDevice.isTouch &&
-    window.__LAZY_DEV_DATA__.detectDevice.isDesktop;
-
   const inputRef = useRef<HTMLInputElement>(null);
   const listRef = useRef<HTMLLIElement>(null);
 
@@ -182,11 +176,7 @@ const Search = ({ value, onChange: _onChange, loading, error, results }: SearchP
           placeholder="주제, 내용 검색"
         />
         <ClientOnly>
-          {displayKbd && (
-            <div className="select-none">
-              {value ? <Kbd>ESC</Kbd> : <Kbd keys="command">K</Kbd>}
-            </div>
-          )}
+          <div className="select-none">{value ? <Kbd>ESC</Kbd> : <Kbd keys="command">K</Kbd>}</div>
         </ClientOnly>
       </div>
 
