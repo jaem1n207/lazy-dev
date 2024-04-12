@@ -70,4 +70,14 @@ article :not(pre) > code[class*="language-"] {
   display: inline-block;
   white-space: normal;
   word-break: break-all;
+  padding: 0.11rem 0.3rem;
+}
+article :not(pre) > code[class*="language-"]::before,
+article :not(pre) > code[class*="language-"]::after {
+  content: none;
+}
+
+article > aside {
+  border-left: 0.25rem solid var(--color-primary);
+  padding-left: 1rem;
 }
