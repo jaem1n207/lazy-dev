@@ -20,14 +20,13 @@ export const getElements = <T extends HTMLElement = HTMLElement>(
 /**
  * 주어진 셀렉터에 일치하는 첫 번째 요소를 반환합니다.
  */
-export const getElement = <T extends HTMLElement = HTMLElement>(
-  selector: string,
-  target?: HTMLElement,
-): T => {
-  const element = (target || document).querySelector<T>(selector);
-  if (!element) throw new Error(`제공한 선택자와 일치하는 요소가 없습니다: ${selector}`);
+export const getElement = <T extends string>(
+  selectors: T,
+): NonNullable<MatchEachElement<GetElementNames<T>>> => {
+  const element = document.querySelector(selectors);
+  if (!element) throw new Error(`제공한 선택자와 일치하는 요소가 없습니다: ${selectors}`);
 
-  return element;
+  return element as NonNullable<MatchEachElement<GetElementNames<T>>>;
 };
 
 /**
