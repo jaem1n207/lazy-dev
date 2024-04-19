@@ -38,7 +38,7 @@ summary: "디자인 토큰은 디자인 시스템의 최소 단위로, 일관성
 - **Namespace**: System(Adobe), Theme(stone)을 결합한 레벨입니다.
 - **Object**: Element(button)를 참조하는 레벨입니다.
 - **Base**: Category(color), Concept(feedback), Property(background)를 결합한 수준으로 **기본 레벨**입니다.
-- Modifier: Variant(success), State(hover), Scale(95) 중 하나 이상을 나타내는 레벨입니다.
+- **Modifier**: Variant(success), State(hover), Scale(95) 중 하나 이상을 나타내는 레벨입니다.
 
 이렇게 분류된 NameSpace, Object, Modifier 레벨을 기반으로 토큰 이름을 지정해보겠습니다.
 
@@ -65,7 +65,7 @@ Base 레벨만으론 의도를 표현하기 부족합니다. 이때 Modifier 개
 
 <aside>
 💡 반드시 **동음이의어**는 피해야 합니다!
-Category 내 `typography`는 `type` 또는 `text` 로도 정의할 수 있습니다. 하지만 이 경우 다양한 의미로 해석될 수 있기에 변수 이름에 사용하기 적합하지 않습니다. 때문에 조금 길더라도 `typography` 로 지정했습니다.
+Category 내 `typography`는 `typo` 또는 `text` 로도 정의할 수 있습니다. 하지만 이 경우 다양한 의미로 해석될 수 있기에 변수 이름에 사용하기 적합하지 않습니다. 때문에 조금 길더라도 `typography` 로 지정했습니다.
 
 </aside>
 
@@ -86,7 +86,7 @@ $color-action-primary
 $color-action-secondary
 ```
 
-이렇게 Midifer 레벨의 개념을 Base 레벨의 개념과 적절히 결합하면 다양한 토큰을 생성할 수 있습니다.
+이렇게 Modifier 레벨의 개념을 Base 레벨의 개념과 적절히 결합하면 다양한 토큰을 생성할 수 있습니다.
 
 마찬가지로 Scale 개념을 사용하면 Title, SubTitle 개념으로도 그룹화할 수 있습니다:
 
@@ -145,7 +145,7 @@ button {
 
 경험상, `form` 컴포넌트는 여러 컴포넌트와 관련이 있습니다. 예로 `selected`, `checkbox`, `radio` 버튼은 테두리에 `$color-gray-500` 을 사용할 수 있습니다. 이 경우가 여러 요소에서 사용되는 게 확실시되므로 글로벌 토큰으로 옮겨야 할 때입니다.
 
-1. 글로벌 토큰에 `forms-color-border-feedback-error` 를 추가합ㄴ디ㅏ.
+1. 글로벌 토큰에 `forms-color-border-feedback-error` 를 추가합니다.
 2. `input-color-border-feedback-error` 를 `forms-color-border-feedback-error` 로 대체합니다.
 3. input 관련 스타일 파일에서 `input-color-border-feedback-error` 토큰을 제거합니다.
 4. 그 외 필요한 다른 요소에 `forms-color-border-feedback-error` 를 적용합니다.
