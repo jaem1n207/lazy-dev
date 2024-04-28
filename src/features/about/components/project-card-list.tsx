@@ -40,11 +40,11 @@ const stacks = {
   },
   javascript: {
     name: "JavaScript",
-    colorClass: "!text-yellow-400",
+    colorClass: "dark:!text-yellow-400 !text-yellow-600",
   },
   typescript: {
     name: "TypeScript",
-    colorClass: "!text-blue-400",
+    colorClass: "dark:!text-blue-400 !text-blue-600",
   },
   nextjs: {
     name: "Next.js",
@@ -52,11 +52,11 @@ const stacks = {
   },
   prisma: {
     name: "Prisma",
-    colorClass: "!text-purple-400",
+    colorClass: "dark:!text-purple-400 !text-purple-600",
   },
   socketio: {
     name: "Socket.io",
-    colorClass: "!text-yellow-400",
+    colorClass: "dark:!text-yellow-400 !text-yellow-700",
   },
   gatsby: {
     name: "Gatsby",
@@ -64,15 +64,36 @@ const stacks = {
   },
   react: {
     name: "React",
-    colorClass: "!text-green-400",
+    colorClass: "dark:!text-green-400 !text-green-600",
+  },
+  vite: {
+    name: "Vite",
+    colorClass: "!text-violet",
   },
 };
 
 const projects: Omit<ComponentProps<typeof ProjectCard>, "index">[] = [
   {
+    name: "Dynamic Scrollbar",
+    description:
+      "스크롤바를 백그라운드 활동을 모니터링할 수 있는 대화형 스크롤바로 바꿔주는 브라우저 확장 프로그램입니다. 현재 개발 중입니다.",
+    tags: [stacks.react, stacks.typescript, stacks.vite],
+    staticImageEl: (
+      <StaticImage
+        alt="project-thumbnail"
+        src={`${IMAGE_FOLDER_PATH}/react-profile.jpg`}
+        className="h-250pxr w-full"
+        placeholder="blurred"
+      />
+    ),
+    projectUrl: {
+      github: "https://github.com/jaem1n207/dynamic-scrollbar",
+    },
+  },
+  {
     name: "Synchronize Tab Scrolling",
     description:
-      "여러 탭의 스크롤 위치를 동기화하는 확장 프로그램입니다. Chrome, Edge, Firefox, Opera, Brave 브라우저를 지원합니다.",
+      "여러 탭의 스크롤 위치를 동기화하는 브라우저 확장 프로그램입니다. Chrome, Edge, Firefox, Brave 브라우저를 지원합니다.",
     tags: [stacks.svelte, stacks.typescript],
     staticImageEl: (
       <StaticImage
@@ -102,23 +123,6 @@ const projects: Omit<ComponentProps<typeof ProjectCard>, "index">[] = [
     projectUrl: {
       github: "https://github.com/jaem1n207/eslint-plugin-ben",
       npm: "https://www.npmjs.com/package/eslint-plugin-ben",
-    },
-  },
-  {
-    name: "Party Cinema",
-    description:
-      "온라인에서 친구들과 함께 동영상을 시청하고, 채팅하고 즐겁게 놀 수 있는 공간입니다.",
-    tags: [stacks.nextjs, stacks.typescript, stacks.prisma, stacks.socketio],
-    staticImageEl: (
-      <StaticImage
-        alt="project-thumbnail"
-        src={`${IMAGE_FOLDER_PATH}/react-profile.jpg`}
-        className="h-250pxr w-full"
-        placeholder="blurred"
-      />
-    ),
-    projectUrl: {
-      github: "https://github.com/jaem1n207/party-cinema/tree/main",
     },
   },
   {
