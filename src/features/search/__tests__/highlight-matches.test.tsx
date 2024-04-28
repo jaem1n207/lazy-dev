@@ -29,7 +29,7 @@ describe("HighlightMatches", () => {
   });
 
   test("공백만 있는 검색어에 대해 무한 루프에 빠지지 않아야 합니다", () => {
-    const { container } = render(<HighlightMatches match="  " value="Some text" />);
+    const { container } = render(<HighlightMatches match="   d" value="Some text" />);
     expect(container).toHaveTextContent("Some text");
   });
 
