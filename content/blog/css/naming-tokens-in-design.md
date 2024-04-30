@@ -33,7 +33,7 @@ summary: "디자인 토큰은 디자인 시스템의 최소 단위로, 일관성
 
 물론 더 많은 상황이 있을 것입니다. '사용자에게 성공했다는 피드백의 배경 색상은 rgb(74 222 128)로 표현해주세요.’ 의미를 토큰으로 어떻게 담을 수 있을까요? 여러 상황에 충분한 의미를 담기 위해서는 많은 레벨이 필요합니다.
 
-![first.svg](./images/naming-tokens/first.svg)
+![level](./images/naming-tokens/first.webp)
 
 - **Namespace**: System(Adobe), Theme(stone)을 결합한 레벨입니다.
 - **Object**: Element(button)를 참조하는 레벨입니다.
@@ -46,7 +46,7 @@ summary: "디자인 토큰은 디자인 시스템의 최소 단위로, 일관성
 
 Base 레벨의 Category와 Concept은 대부분의 토큰 이름을 나타내는 기본적인 구성이라고 볼 수 있습니다.
 
-![base.svg](./images/naming-tokens/base.svg)
+![base](./images/naming-tokens/base.webp)
 
 대부분의 토큰은 `color`, `spacing`, `typography` 와 같은 전형적인 Category 내에 속합니다.
 
@@ -73,7 +73,7 @@ Category 내 `typography`는 `typo` 또는 `text` 로도 정의할 수 있습니
 
 Modifier는 **목적을 부여**할 수 있도록 합니다. Base 레벨의 개념과 결합하여 광범위한 문체 유형을 형성합니다.
 
-![modifier.svg](./images/naming-tokens/modifier.svg)
+![modifier](./images/naming-tokens/modifier.webp)
 
 예로 색상은 하나 이상의 Modifier를 추가함으로써 아래 개념으로 그룹화할 수 있습니다:
 
@@ -127,7 +127,7 @@ button {
 
 언급했듯이, Object 레벨은 하나의 컴포넌트, 요소에서만 재사용 가능하도록 지정할 때 유용합니다.
 
-![object.svg](./images/naming-tokens/object.svg)
+![object](./images/naming-tokens/object.webp)
 
 위의 예시에서 button에만 한정되도록 하고 싶다면 `$button-size-height-coarse` 처럼 지정할 수 있습니다. 이건 크게 와닿지 않는 예시라 의미가 있나 싶을 수도 있습니다.
 
@@ -156,7 +156,7 @@ button {
 
 NameSpace 레벨은 여러 플랫폼 충돌을 방지하기 위해 범위를 지정하는 역할을 합니다.
 
-![namespace.svg](./images/naming-tokens/namespace.svg)
+![namespace](./images/naming-tokens/namespace.webp)
 
 System 개념은 팀 이름으로 보면 됩니다. 다른 도메인의 변수와의 충돌을 피하기 위해선 꼭 설정해야 한다고 볼 수 있습니다. 예로 제 블로그 이름은 lazy-dev이므로 lazy-dev-system의 약자로 `$lds-color- typography-success`처럼 `lds` 를 토큰의 앞에 추가할 수 있습니다. 시스템 이름은 5자 이하로 하는 게 좋습니다.
 
