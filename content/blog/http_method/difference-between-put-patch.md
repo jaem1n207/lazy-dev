@@ -21,7 +21,7 @@ summary: "PUT과 PATCH의 실제 사용 사례, 멱등성에 대해 알아보며
 
 ### PUT
 
-[RFC](https://www.w3.org/Protocols/rfc2616/rfc2616-sec9.html#sec9.6) 문서에 따르면 PUT 메서드는 **새 리소스를 만들거나 리소스를 교체**하는 데 사용됩니다.
+[RFC](https://www.rfc-editor.org/rfc/rfc9110.html#section-9.3.4) 문서에 따르면 PUT 메서드는 **새 리소스를 만들거나 리소스를 교체**하는 데 사용됩니다.
 
 - 요청한 URI가 이미 존재하는 리소스를 가리키는 경우
   - 요청 받은 payload에 담긴 정보를 이용해서 새로운 리소스를 만들어 기존에 존재하던 리소스를 완전히 교체합니다. 그러면 서버는 200을 반환(권한이 정상이라고 가정)합니다.
