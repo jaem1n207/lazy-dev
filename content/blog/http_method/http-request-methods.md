@@ -102,7 +102,7 @@ GET과 유사하지만 실제 `body` 컨텐츠를 가져오지 않고 리소스�
 
 ❌ Cacheable
 
-![Pratham tweet GNN.png](https://prod-files-secure.s3.us-west-2.amazonaws.com/fc182af6-2b57-49aa-a013-44ebaad85ba9/346d2653-9475-4b9c-ba27-109b52b582e0/Pratham_tweet_GNN.png)
+![A visual guide example of HTTP Request Methods - Options](./images/http-request-methods/options-method.webp)
 
 ## 8. CONNECT
 
