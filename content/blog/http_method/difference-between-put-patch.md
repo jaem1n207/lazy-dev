@@ -125,7 +125,7 @@ PUT 요청은 전체 속성이 포함되므로 동일한 요청을 반복해도 
 서버가 /users를 허용한다고 가정하고 PATCH 요청을 해보겠습니다:
 
 ```json
-PUT /users
+PATCH /users
 {
   "userName": "2",
   "email": "two@example.com"
