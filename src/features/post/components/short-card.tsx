@@ -12,13 +12,13 @@ const ShortCard = ({ short }: ShortCardProps) => {
   const { thumbnail, title } = short.node.frontmatter!;
 
   return (
-    <li className="focus-primary rounded-lg">
+    <li className="focus-primary w-full rounded-lg">
       <Link to={ROUTES.BLOG_POST.toUrl(slug!)}>
-        <div className="mb-2 h-180pxr w-full overflow-hidden desktop:h-160pxr foldable:h-180pxr">
+        <div className="mb-2 aspect-video w-full overflow-hidden desktop:h-160pxr foldable:h-180pxr">
           <GatsbyImage
             image={thumbnail?.childImageSharp?.gatsbyImageData!}
             alt=""
-            className="h-full w-full rounded-lg"
+            className="h-full w-full rounded-lg object-cover"
           />
         </div>
         <div className="flex flex-col gap-8pxr p-8pxr">
